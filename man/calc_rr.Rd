@@ -4,7 +4,7 @@
 \alias{calc_rr}
 \title{Calculate performance criteria and MCSE.}
 \usage{
-calc_rr(p_vals, alpha, K)
+calc_rr(p_vals, alpha = 0.05, K)
 }
 \arguments{
 \item{p_vals}{A numeric vector including the estimates.}

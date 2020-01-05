@@ -1,0 +1,115 @@
+---
+title: "MCSE"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{MCSE}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction to Simulation Studies and Monte Carlo Standard Errors
+
+Simulations are experiments to study performance of statistical methods under known data-generating conditions (Morris, White and Crowther, 2018). Methodologists examine questions like: (1) how does ordinary least squares (OLS) regression perform if errors are heteroskedastic? (2) how does the presence of missing data affect treatment effect estimates from a propensity score analysis? To answer such questions, we conduct experiments by simulating thousands of datasets from pseudo-random sampling (Morris et al., 2018). We generate datasets under conditions where the errors are heteroskedastic or there is missing data present following Missing at Random (MAR) mechanism. Then, we apply statistical methods, like OLS, to each of the datasets and extract measures like effect estimate, p values, confidence intervals. We then analyze the methods using performance criteria like bias, type 1 error rate etc. described below. 
+
+When examining performance measures, we need to also consider the error in the estimate of the performance measures due to the fact that we generate a finite number of samples. The error is quantified in the form of Monte Carlo standard error (MCSE). This package provides a function that calculates various performance measures and associated MCSE. Below, I describe the performance criteria covered in this package and the formula for calculating the performance measures and the MCSE (Morris et al., 2018).
+
+The formula notations and explanations of the performance measures follow notes from Dr. James Pustejovsky's [Data Analysis, Simulation and Programming in R course (Spring, 2019)](https://www.jepusto.com/teaching/daspir/).
+
+
+# Performance Criteria and MCSE
+
+## Absolute Criteria
+
+Bias characterizes whether the estimate on average lies above or below the true parameter. 
+Variance characterizes the precision of the estimates - how much does each estimate deviates from the average of the estimates? Note that variance is inverse of precision - the higher the variance, the lower the precision. Mean square error and root mean square error characterizes the accuracy of the estimates. It measures how far off on average are the estimates from the true parameter. Absolute criteria will be in the scale of the estimates.
+
+The table below shows the performance criteria, what they measure, definition, estimation, and MCSE formula. The equation for the MCSE of RMSE is derived using [the delta method](https://www.jepusto.com/multivariate-delta-method/), which states that:
+
+$$
+\text{Var}\left(f(X)\right) = \left(\frac{\partial f}{\partial \theta}\right)^2 \text{Var}(X)
+$$
+
+Here let $X$ be $MSE$ and $f(X) = RMSE$ or $\sqrt{MSE}$
+
+$$
+\text{Var}\left(RMSE\right) = \left(\frac{1}{2\sqrt{MSE}}\right)^2 \text{Var}(MSE)
+$$
+$$
+\text{Var}\left(RMSE\right) = \left(\frac{\text{Var}(MSE)}{4 \times MSE}\right) 
+$$
+
+Let $T$ denote an estimator for a parameter $\theta$. From running a simulation study, we obtain $K$ iterations of the estimates $T_1,...,T_K$ for each data generating condition. We can calculate the following sample statitsics for the estimates: 
+
+- Sample mean: $\bar{T} = \frac{1}{K}\sum_{k=1}^K T_k$ 
+- Sample variance: $S_T^2 = \frac{1}{K - 1}\sum_{k=1}^K \left(T_k - \bar{T}\right)^2$
+- Sample skewness (standardized): $g_T = \frac{1}{K S_T^3}\sum_{k=1}^K \left(T_k - \bar{T}\right)^3$
+- Sample kurtosis (standardized): $k_T = \frac{1}{K S_T^4} \sum_{k=1}^K \left(T_k - \bar{T}\right)^4$
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(tidyverse)
+library(kableExtra)
+
+abs_dat <- tibble(Criterion = c("Bias","Variance","MSE", "RMSE"),
+              Measure = c("Difference from true parameter", "Precision", "Accuracy", "Accuracy"),
+              Definition = c("$E(T) - \\theta$", "$E(T - E(T))^2$",  "$E(T - \\theta)^2$", "$\\sqrt{E(T - \\theta)^2}$"),
+              Estimate = c("$\\bar{T} - \\theta$", "$S_T^2$", "$(\\bar{T} - \\theta)^2 + S_T^2$", "$\\sqrt{(\\bar{T} - \\theta)^2 + S_T^2}$"),
+              MCSE = c("$\\sqrt{S_T^2/ K}$", "$S_T^2 \\sqrt{\\frac{k_T - 1}{K}}$",  
+                       "$\\sqrt{\\frac{1}{K}[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_T^2 (\\bar{T} - \\theta)^2}$ ", "$\\sqrt{\\frac{S_{MSE}^2}{4 MSE}}$"))
+
+knitr::kable(abs_dat, escape = FALSE, caption = "Table 1. Absolute Performance Criteria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+  
+```
+
+
+## Relative Criteria
+
+Relative criteria can be useful to look at if multiple true parameter values are used to generate the data to run the simulation and if performance measure changes according to the true value. It can be only used when $|\theta| > 0$ as we cannot divide by $0$ (Morris et al., 2018). 
+
+Table 2 below lists the criteria, definition, estimation and MCSE formula. 
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+rel_dat <- tibble(Criterion = c("Relative Bias","Relative MSE"),
+              Definition = c("$E(L) / \\lambda$", "$E(L - \\lambda)^2/ \\lambda^2$"),
+              Estimate = c("$\\bar{L} / \\lambda$", "$\\frac{(\\bar{L} - \\lambda)^2 + S_L^2}{\\lambda^2}$"),
+              MCSE = c("$\\sqrt{S_L^2 / (K\\lambda^2)}$", 
+                       "$\\sqrt{\\frac{1}{K\\lambda^2}[S_L^4 (k_L - 1) + 4 S_L^3 g_L(\\bar{L} - \\lambda) + 4 S_L^2 (\\bar{L} - \\lambda)^2}$"))
+
+knitr::kable(rel_dat, escape = FALSE, caption = "Table 2. Relative Performance Criteria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+  
+```
+
+
+## Hypothesis Testing and Confidence Intervals
+
+When doing hypothesis tests, we are often interested in whether Type 1 error rate is controlled and whether the test has enough power to detect the effect of interest. Rejection rate captures the proportion of times the p value is below a specified $\alpha$ level, the proportion of times we can reject the null hypothesis. When the specified effect is 0, we can examine Type 1 error rates and when the magnitude of the effect is greater than 0, we can examine power. We are also interested in confidence intervals, proportion of intervals that contain the true parameter, and interval width, which is an indicator for the precision of the estimate.
+
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+hyp_dat <- tibble(Criterion = c("Rejection Rate","Coverage","Width"),
+              Measure = c("Type 1 Error or Power", "Proportion of intervals containing true parameter", "Precision"),
+              Definition = c("$\\rho_\\alpha = Pr(P_k) < \\alpha$", "$\\omega_\\beta = Pr(A \\leq \\theta \\leq B)$", "$E(W) = E(B - A)$"),
+              Estimate = c("$r_\\alpha  = \\frac{1}{K} \\sum_{k=1}^K I(P_k < \\alpha)$", "$\\frac{1}{K}\\sum_{k=1}^K I(A_k \\leq \\theta \\leq B_k)$", "$\\bar{W} = \\bar{B} - \\bar{A}$"),
+              MCSE = c("$\\sqrt{\\rho_\\alpha(1 - \\rho_\\alpha) / K}$",  
+                       "$\\sqrt{\\omega_\\beta (1 - \\omega_\\beta) / K}$", "$\\sqrt{S_W^2 / K}$"))
+
+knitr::kable(hyp_dat, escape = FALSE, caption = "Table 3. Hypothesis Testing and Confidence Intervals Performance Criteria") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+# How to evaluate MCSE
+
+There is no hard cut-offs (at least that I know of). However, the associated MCSE should be small compared to the performance measure. 
+
+```{r setup}
+library(SimHelpers)
+```

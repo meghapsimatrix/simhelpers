@@ -14,11 +14,11 @@ calc_abs(
 \arguments{
 \item{estimates}{A numeric vector including the estimates.}
 
+\item{true_param}{A number indicating the true parameter.}
+
 \item{K}{A number indicating number of simulation iterations.}
 
 \item{perfm_criteria}{A character or a character vector indicating the performance criteria to be calculated.}
-
-\item{true_parameter}{A number indicating the true parameter.}
 }
 \value{
 The performance criteria estimate and the associated MCSE.

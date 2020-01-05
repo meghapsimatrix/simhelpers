@@ -1,7 +1,7 @@
 #' Calculate performance criteria and MCSE.
 #'
 #' @param estimates A numeric vector including the estimates.
-#' @param true_parameter A number indicating the true parameter.
+#' @param true_param A number indicating the true parameter.
 #' @param K A number indicating number of simulation iterations.
 #' @param perfm_criteria A character or a character vector indicating the performance criteria to be calculated.
 #'
