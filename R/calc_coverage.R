@@ -11,7 +11,7 @@
 
 
 #' @export
-calc_ci <- function(lower_bound = NULL, upper_bound = NULL, true_param, alpha = .05, K, perfm_criteria = c("coverage", "width")){
+calc_coverage <- function(lower_bound = NULL, upper_bound = NULL, true_param, alpha = .05, K, perfm_criteria = c("coverage", "width")){
 
   # initialize data frame
   dat <- data.frame(matrix(ncol = 0, nrow = 1))
