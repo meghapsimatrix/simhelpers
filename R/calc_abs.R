@@ -1,0 +1,53 @@
+#' Calculate performance criteria and MCSE.
+#'
+#' @param estimates A numeric vector including the estimates.
+#' @param true_parameter A number indicating the true parameter.
+#' @param K A number indicating number of simulation iterations.
+#' @param perfm_criteria A character or a character vector indicating the performance criteria to be calculated.
+#'
+#' @return The performance criteria estimate and the associated MCSE.
+
+
+#' @export
+calc_abs <- function(estimates, true_param, K, perfm_criteria = c("bias", "variance", "mse", "rmse")){
+
+  t_bar <- mean(estimates)
+  bias <- t_bar - true_param
+  var_t <- var(estimates)
+  bias_mcse <- sqrt(var_t / K)
+  s_t <- sd(estimates)
+
+  mse <- bias^2 + var_t
+  k_t <- (1/(K * s_t^4)) * sum((estimates - t_bar)^4)
+  g_t <- (1/(K * s_t^3)) * sum((estimates - t_bar)^3)
+  mse_mcse <- sqrt((1/K) * (s_t^4 * (k_t -1) + 4 * s_t^3 * g_t * bias + 4 * var_t * bias^2))
+
+
+  dat <- data.frame(matrix(ncol = 0, nrow = 1))
+
+  if("bias" %in% perfm_criteria){
+    dat$bias <- bias
+    dat$bias_mcse <- bias_mcse
+  }
+
+  if("variance" %in% perfm_criteria){
+    dat$var <- var_t
+    dat$var_mcse <- var_t * sqrt(((k_t - 1) / K))
+  }
+
+
+  if("mse" %in% perfm_criteria){
+    dat$mse <- mse
+    dat$mse_mcse <- mse_mcse
+  }
+
+  if("rmse" %in% perfm_criteria){
+    dat$rmse <- sqrt(mse)
+    dat$rmse_mcse <- sqrt((mse_mcse^2) / (4 * mse))
+  }
+
+
+
+  return(dat)
+
+}
