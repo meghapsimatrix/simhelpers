@@ -1,6 +1,6 @@
 Package: SimHelpers
 Type: Package
-Title: Performance criteria and monte carlo simulation error
+Title: Helper functions for simulation studies
 Version: 0.1.0
 Authors@R: person("Megha", "Joshi", email = "megha.j456@gmail.com",
                   role = c("aut", "cre"))
