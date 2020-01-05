@@ -11,23 +11,23 @@
 #' @export
 calc_abs <- function(estimates, true_param, K, perfm_criteria = c("bias", "variance", "mse", "rmse")){
 
+  # calculate sample stats
   t_bar <- mean(estimates)
   bias <- t_bar - true_param
   var_t <- var(estimates)
-  bias_mcse <- sqrt(var_t / K)
   s_t <- sd(estimates)
-
-  mse <- bias^2 + var_t
   k_t <- (1/(K * s_t^4)) * sum((estimates - t_bar)^4)
   g_t <- (1/(K * s_t^3)) * sum((estimates - t_bar)^3)
+
+  mse <- bias^2 + var_t
   mse_mcse <- sqrt((1/K) * (s_t^4 * (k_t -1) + 4 * s_t^3 * g_t * bias + 4 * var_t * bias^2))
 
-
+  # initialize data frame
   dat <- data.frame(matrix(ncol = 0, nrow = 1))
 
   if("bias" %in% perfm_criteria){
     dat$bias <- bias
-    dat$bias_mcse <- bias_mcse
+    dat$bias_mcse <- sqrt(var_t / K)
   }
 
   if("variance" %in% perfm_criteria){
@@ -45,8 +45,6 @@ calc_abs <- function(estimates, true_param, K, perfm_criteria = c("bias", "varia
     dat$rmse <- sqrt(mse)
     dat$rmse_mcse <- sqrt((mse_mcse^2) / (4 * mse))
   }
-
-
 
   return(dat)
 
