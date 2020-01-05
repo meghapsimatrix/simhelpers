@@ -2,7 +2,10 @@ Package: SimHelpers
 Type: Package
 Title: Helper functions for simulation studies
 Version: 0.1.0
-Authors: "Megha Joshi", "James E. Pustejovsky" 
+Authors@R: as.person(c(
+    "Megha Joshi <megha.j456@gmail.com> [aut, cre]", 
+    "James E. Pustejovsky <jepusto@gmail.com> [aut]"
+  ))
 Maintainer: Megha Joshi <megha.j456@gmail.com>
 Description: Calculates performance criteria measures and associated Monte Carlo simulation errors for simulation results. Please see the vignette for more information on the calculations. 
 License: What license is it under?
