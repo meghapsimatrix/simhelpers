@@ -2,6 +2,9 @@
 library(tidyverse)
 library(broom)
 
+
+# Data generation ---------------------------------------------------------
+
 # function to create normally distributed data for each group to run t test
 
 generate_dat <- function(n = 50, effect_x){
@@ -14,6 +17,9 @@ generate_dat <- function(n = 50, effect_x){
 }
 
 
+
+# Estimation Procedures ---------------------------------------------------
+
 # function to calculate t-test, pulls out estimate of the mean difference, p val and ci
 
 estimate_t <- function(sim_dat, var_equal = FALSE){
@@ -25,6 +31,10 @@ estimate_t <- function(sim_dat, var_equal = FALSE){
   return(res)
 
 }
+
+
+
+# Simulation Driver -------------------------------------------------------
 
 run_sim <- function(iterations,effect_x, var_equal, seed = NULL) {
 
@@ -42,9 +52,9 @@ run_sim <- function(iterations,effect_x, var_equal, seed = NULL) {
 
 
 
+# Experimental Design -----------------------------------------------------
+
 # generating 1000 iterations
-
-
 
 set.seed(20200110)
 
@@ -63,6 +73,9 @@ params <-
   )
 
 
+
+# Running Sim -------------------------------------------------------------
+
 system.time(
   results <-
     params %>%
@@ -72,5 +85,6 @@ system.time(
     unnest(cols = c(res))
 )
 
+welch_res <- results
 
-usethis::use_data(results, overwrite = TRUE)
+usethis::use_data(welch_res, overwrite = TRUE)
