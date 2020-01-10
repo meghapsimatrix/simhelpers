@@ -7,10 +7,10 @@ library(broom)
 
 # function to create normally distributed data for each group to run t test
 
-generate_dat <- function(n = 50, effect_x){
+generate_dat <- function(n = 50, mean_diff){
 
   dat <- tibble(group_1 = rnorm(n, 0, 1),
-                group_2 = rnorm(n, effect_x, 2))
+                group_2 = rnorm(n, mean_diff, 2))
 
   return(dat)
 
@@ -26,7 +26,7 @@ estimate_t <- function(sim_dat, var_equal = FALSE){
 
   res <- tidy(t.test(sim_dat$group_2, sim_dat$group_1, var.equal = var_equal)) %>%
     mutate(est = estimate1 - estimate2) %>%
-    dplyr::select(method, est, p_val = p.value, ci_low = conf.low, ci_high = conf.high)
+    dplyr::select(method, est, p_val = p.value, lower_bound = conf.low, upper_bound = conf.high)
 
   return(res)
 
@@ -36,13 +36,13 @@ estimate_t <- function(sim_dat, var_equal = FALSE){
 
 # Simulation Driver -------------------------------------------------------
 
-run_sim <- function(iterations,effect_x, var_equal, seed = NULL) {
+run_sim <- function(iterations, mean_diff, var_equal, seed = NULL) {
 
   if (!is.null(seed)) set.seed(seed)
 
   results <-
     rerun(iterations, {
-      dat <- generate_dat(effect_x = effect_x)
+      dat <- generate_dat(mean_diff = mean_diff)
       estimate_t(sim_dat = dat, var_equal = var_equal)
     }) %>%
     bind_rows()
@@ -61,7 +61,7 @@ set.seed(20200110)
 # now express the simulation parameters as vectors/lists
 
 design_factors <- list(
-  effect_x = c(0, .5, 1, 2),
+  mean_diff = c(0, .5, 1, 2),
   var_equal = c(TRUE, FALSE)
 )
 

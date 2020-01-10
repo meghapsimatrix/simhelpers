@@ -30,9 +30,49 @@ devtools::install_github("meghapsimatrix/SimHelpers")
 ```
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows you how to solve a common problem. WE use the `welch_res` dataset included in the package. Here we are caclulating the absolute performance criteria for the estimate of the mean difference. 
 
-```{r example}
+
+```{r example, message = FALSE, warning = FALSE}
 library(SimHelpers)
-## basic example code
+library(tidyverse)
+library(knitr)
+
+
+welch_res %>%
+  group_by(method, mean_diff) %>%
+  do(calc_abs(., true_param = .$mean_diff[1], K = .$iterations[1])) %>%
+  kable()
 ```
+
+Below, we calculate the relative crtieria for the effect size estimates. Note that when effect size is 0, the relative measures cannot be calculated. 
+
+```{r}
+welch_res %>%
+  group_by(method, mean_diff) %>%
+  do(calc_relative(., true_param = .$mean_diff[1], K = .$iterations[1])) %>%
+  kable()
+
+```
+
+
+Below we calculate the rejection rate performance criteria for the hypothesis tests done using t-test.  
+
+```{r}
+welch_res %>%
+  group_by(method, mean_diff) %>%
+  do(calc_rr(., K = .$iterations[1])) %>%
+  kable()
+```
+
+
+Below we calculate the coverage and width performance criteria for the confidence intervals for the estimate of the mean difference.
+
+```{r}
+welch_res %>%
+  group_by(method, mean_diff) %>%
+  do(calc_coverage(., true_param = .$mean_diff[1], K = .$iterations[1])) %>%
+  kable()
+```
+
+

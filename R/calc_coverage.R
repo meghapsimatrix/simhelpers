@@ -1,7 +1,6 @@
 #' Calculate performance criteria and MCSE.
 #'
-#' @param lower_bound A numeric vector indicating the lower bound for confidence interval coverage and width calculations.
-#' @param upper_bound A numeric vector indicating the upper bound for confidence interval coverage and width calculations.
+#' @param cov_dat A dataframe or tibble containing two columns called lower_bound and upper_bound containing the confindence interval lower and upper bounds.
 #' @param true_param A number indicating the true parameter.
 #' @param alpha A number indicating the nominal alpha level.
 #' @param K A number indicating number of simulation iterations.
@@ -11,7 +10,10 @@
 
 
 #' @export
-calc_coverage <- function(lower_bound = NULL, upper_bound = NULL, true_param, alpha = .05, K, perfm_criteria = c("coverage", "width")){
+calc_coverage <- function(cov_dat, true_param, alpha = .05, K, perfm_criteria = c("coverage", "width")){
+
+  lower_bound <- cov_dat$lower_bound
+  upper_bound <- cov_dat$upper_bound
 
   # initialize data frame
   dat <- data.frame(matrix(ncol = 0, nrow = 1))

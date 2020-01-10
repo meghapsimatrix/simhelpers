@@ -4,10 +4,10 @@
 \alias{calc_rr}
 \title{Calculate performance criteria and MCSE.}
 \usage{
-calc_rr(p_vals, alpha = 0.05, K)
+calc_rr(rr_dat, alpha = 0.05, K)
 }
 \arguments{
-\item{p_vals}{A numeric vector including the estimates.}
+\item{rr_dat}{A dataframe or tibble containing a column called p_vals containing p values}
 
 \item{alpha}{A number indicating the nominal alpha level.}
 

@@ -5,14 +5,14 @@
 \title{Calculate performance criteria and MCSE.}
 \usage{
 calc_relative(
-  estimates,
+  dat,
   true_param,
   K,
   perfm_criteria = c("relative bias", "relative mse")
 )
 }
 \arguments{
-\item{estimates}{A numeric vector including the estimates.}
+\item{dat}{A dataframe or tibble containing a column called est - estimates}
 
 \item{true_param}{A number indicating the true parameter.}
 
