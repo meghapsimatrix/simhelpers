@@ -33,11 +33,15 @@ calc_relative <- function(dat, true_param, K, perfm_criteria = c("relative bias"
   if("relative bias" %in% perfm_criteria){
     dat$rel_bias <- t_bar / true_param
     dat$rel_bias_mcse <- sqrt(var_t / (K * true_param^2))
+    dat$rel_bias <- ifelse(true_param == 0, NA, dat$rel_bias)
+    dat$rel_bias_mcse <- ifelse(true_param == 0, NA, dat$rel_bias_mcse)
   }
 
   if("relative mse" %in% perfm_criteria){
     dat$rel_mse <- mse / (true_param^2)
     dat$rel_mse_mcse <- sqrt((1 / K * true_param^2) * (s_t^4 * (k_t -1) + 4 * s_t^3 * g_t * bias + 4 * var_t * bias^2))
+    dat$rel_mse <- ifelse(true_param == 0, NA, dat$rel_mse)
+    dat$rel_mse_mcse <- ifelse(true_param == 0, NA, dat$rel_mse_mcse)
   }
 
   return(dat)

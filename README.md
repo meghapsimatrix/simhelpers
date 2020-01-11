@@ -26,7 +26,8 @@ devtools::install_github("meghapsimatrix/SimHelpers")
 This is a basic example which shows you how to solve a common problem.
 We use the `welch_res` dataset included in the package. Here we are
 calculating the absolute performance criteria for the estimate of the
-mean difference.
+mean difference. We present the results by method and mean difference
+(conditions which were varied to generate the `welch_res` data).
 
 ``` r
 library(SimHelpers)
@@ -53,7 +54,8 @@ welch_res %>%
 
 Below, we calculate the relative criteria for the mean difference
 estimates. Note that when mean difference is 0, the relative measures
-cannot be calculated.
+cannot be calculated. The function returns `NA` values for conditions
+where the mean difference is 0.
 
 ``` r
 welch_res %>%
@@ -64,11 +66,11 @@ welch_res %>%
 
 | method                  | mean\_diff | rel\_bias | rel\_bias\_mcse |  rel\_mse | rel\_mse\_mcse |
 | :---------------------- | ---------: | --------: | --------------: | --------: | -------------: |
-| Two Sample t-test       |        0.0 |       Inf |             Inf |       Inf |      0.0000000 |
+| Two Sample t-test       |        0.0 |        NA |              NA |        NA |             NA |
 | Two Sample t-test       |        0.5 | 0.9994687 |       0.0198102 | 0.3924424 |      0.0021984 |
 | Two Sample t-test       |        1.0 | 1.0055522 |       0.0103429 | 0.1070071 |      0.0047342 |
 | Two Sample t-test       |        2.0 | 0.9977554 |       0.0051263 | 0.0262844 |      0.0093637 |
-| Welch Two Sample t-test |        0.0 |       Inf |             Inf |       Inf |      0.0000000 |
+| Welch Two Sample t-test |        0.0 |        NA |              NA |        NA |             NA |
 | Welch Two Sample t-test |        0.5 | 1.0261914 |       0.0199726 | 0.3995894 |      0.0020734 |
 | Welch Two Sample t-test |        1.0 | 0.9927496 |       0.0098140 | 0.0963669 |      0.0043896 |
 | Welch Two Sample t-test |        2.0 | 0.9973605 |       0.0049541 | 0.0245503 |      0.0088929 |

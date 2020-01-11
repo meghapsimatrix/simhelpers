@@ -30,7 +30,7 @@ devtools::install_github("meghapsimatrix/SimHelpers")
 ```
 ## Example
 
-This is a basic example which shows you how to solve a common problem. We use the `welch_res` dataset included in the package. Here we are calculating the absolute performance criteria for the estimate of the mean difference. 
+This is a basic example which shows you how to solve a common problem. We use the `welch_res` dataset included in the package. Here we are calculating the absolute performance criteria for the estimate of the mean difference. We present the results by method and mean difference (conditions which were varied to generate the `welch_res` data).
 
 
 ```{r example, message = FALSE, warning = FALSE}
@@ -45,7 +45,7 @@ welch_res %>%
   kable()
 ```
 
-Below, we calculate the relative criteria for the mean difference estimates. Note that when mean difference is 0, the relative measures cannot be calculated. 
+Below, we calculate the relative criteria for the mean difference estimates. Note that when mean difference is 0, the relative measures cannot be calculated. The function returns `NA` values for conditions where the mean difference is 0. 
 
 ```{r}
 welch_res %>%
