@@ -7,7 +7,9 @@
 
 <!-- badges: end -->
 
-The goal of SimHelpers is to …
+The goal of SimHelpers is to help with running simulation studies. It
+calculates performance criteria measures, Monte Carlo Standard
+Errors…(under development).
 
 ## Installation
 
@@ -23,7 +25,7 @@ devtools::install_github("meghapsimatrix/SimHelpers")
 
 This is a basic example which shows you how to solve a common problem.
 WE use the `welch_res` dataset included in the package. Here we are
-caclulating the absolute performance criteria for the estimate of the
+calculating the absolute performance criteria for the estimate of the
 mean difference.
 
 ``` r
@@ -49,9 +51,9 @@ welch_res %>%
 | Welch Two Sample t-test |        1.0 | \-0.0072504 |  0.0098140 | 0.0963144 | 0.0043984 | 0.0963669 | 0.0043896 | 0.3104303 |  0.0070702 |
 | Welch Two Sample t-test |        2.0 | \-0.0052789 |  0.0099083 | 0.0981735 | 0.0044486 | 0.0982013 | 0.0044465 | 0.3133709 |  0.0070946 |
 
-Below, we calculate the relative crtieria for the effect size estimates.
-Note that when effect size is 0, the relative measures cannot be
-calculated.
+Below, we calculate the relative criteria for the mean difference
+estimates. Note that when mean difference is 0, the relative measures
+cannot be calculated.
 
 ``` r
 welch_res %>%

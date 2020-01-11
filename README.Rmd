@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of SimHelpers is to ...
+The goal of SimHelpers is to help with running simulation studies. It calculates performance criteria measures, Monte Carlo Standard Errors...(under development).
 
 ## Installation
 
@@ -30,7 +30,7 @@ devtools::install_github("meghapsimatrix/SimHelpers")
 ```
 ## Example
 
-This is a basic example which shows you how to solve a common problem. WE use the `welch_res` dataset included in the package. Here we are caclulating the absolute performance criteria for the estimate of the mean difference. 
+This is a basic example which shows you how to solve a common problem. WE use the `welch_res` dataset included in the package. Here we are calculating the absolute performance criteria for the estimate of the mean difference. 
 
 
 ```{r example, message = FALSE, warning = FALSE}
@@ -45,7 +45,7 @@ welch_res %>%
   kable()
 ```
 
-Below, we calculate the relative crtieria for the effect size estimates. Note that when effect size is 0, the relative measures cannot be calculated. 
+Below, we calculate the relative criteria for the mean difference estimates. Note that when mean difference is 0, the relative measures cannot be calculated. 
 
 ```{r}
 welch_res %>%
