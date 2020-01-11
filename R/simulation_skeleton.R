@@ -37,7 +37,7 @@ Rnw_APA6 <- function(filename, ...) {
 #'
 #' @examples
 #' \dontrun{
-#' create_skeleton("Behrens-Fisher problem")
+#' create_skeleton("Behrens_Fisher_problem")
 #' }
 
 create_skeleton <- function(filename, ...) {

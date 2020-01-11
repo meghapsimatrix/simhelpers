@@ -16,6 +16,6 @@ Creates and opens an .R file containing a skeleton for writing a Monte Carlo sim
 }
 \examples{
 \dontrun{
-create_skeleton("Behrens-Fisher problem")
+create_skeleton("Behrens_Fisher_problem")
 }
 }
