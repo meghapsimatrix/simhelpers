@@ -1,0 +1,66 @@
+\documentclass[man, noextraspace, floatsintext]{apa6}
+% add a bibfile
+%\newcommand{\bibfile}{YourBibliographyFileHere}
+
+\usepackage[natbibapa]{apacite}
+
+\raggedbottom
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{lemma}{Lemma}
+
+\usepackage{graphicx}
+
+\usepackage{subcaption}
+\usepackage{float}
+
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{rotating}
+\setlength{\rotFPtop}{0pt plus 1fil}
+\usepackage[draft]{changes}
+
+\geometry{twoside=false, top=1in, bottom=1in, left=1in, right=1.2in}
+\usepackage[textwidth=1in, textsize=tiny]{todonotes}
+
+\newcommand{\Prob}{\text{Pr}}
+\newcommand{\E}{\text{E}}
+\newcommand{\Cov}{\text{Cov}}
+\newcommand{\corr}{\text{corr}}
+\newcommand{\Var}{\text{Var}}
+\newcommand{\iid}{\stackrel{\text{iid}}{\sim}}
+
+
+\title{}
+\shorttitle{}
+\author{}
+\affiliation{}
+\leftheader{}
+
+\abstract{}
+
+\keywords{}
+
+\authornote{}
+
+
+\begin{document}
+<<setup, include=FALSE, warning=FALSE, cache=FALSE>>=
+library(knitr)
+library(xtable)
+
+# set global chunk options
+opts_chunk$set(echo = FALSE, cache = FALSE, fig.path='fig/', fig.align='center', fig.show='hold')
+@
+
+\maketitle
+
+
+\bibliographystyle{apacite}
+\bibliography{\bibfile}
+
+\appendix
+
+\end{document}

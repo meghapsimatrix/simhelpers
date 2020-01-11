@@ -17,8 +17,8 @@
 
 Rnw_APA6 <- function(filename, ...) {
 
-  from <- system.file("templates","APA6.Rnw",package="Pusto")
-  to <- paste0(gsub(" ","-",filename),".Rnw")
+  from <- system.file("templates", "APA6.Rnw", package = "SimHelpers")
+  to <- paste0(gsub(" ","-", filename), ".Rnw")
   copy <- file.copy(from, to, ...)
 
   return(utils::file.edit(to))
@@ -37,12 +37,12 @@ Rnw_APA6 <- function(filename, ...) {
 #'
 #' @examples
 #' \dontrun{
-#' simulation_skeleton("Behrens-Fisher problem")
+#' create_skeleton("Behrens-Fisher problem")
 #' }
 
-simulation_skeleton <- function(filename, ...) {
+create_skeleton <- function(filename, ...) {
 
-  from <- system.file("templates","Simulation-Skeleton.R",package="Pusto")
+  from <- system.file("templates","simulation_skeleton.R", package = "SimHelpers")
   to <- paste0(filename,".R")
   copy <- file.copy(from, to, ...)
 
