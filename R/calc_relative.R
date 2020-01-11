@@ -6,9 +6,14 @@
 #' @param perfm_criteria A character or a character vector indicating the performance criteria to be calculated.
 #'
 #' @return The performance criteria estimate and the associated MCSE.
-
-
+#'
 #' @export
+#'
+#' @examples
+#' calc_relative(dat = t_res, true_param = .5, K = nrow(t_res))
+#'
+#'
+
 calc_relative <- function(dat, true_param, K, perfm_criteria = c("relative bias", "relative mse")){
 
   estimates <- dat$est

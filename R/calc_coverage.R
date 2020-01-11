@@ -7,9 +7,14 @@
 #'  @param perfm_criteria A character or a character vector indicating the performance criteria to be calculated.
 #'
 #' @return The performance criteria estimate and the associated MCSE.
-
-
+#'
 #' @export
+#'
+#' @examples
+#' calc_coverage(cov_dat = t_res, true_param = .5, K = nrow(t_res))
+#'
+#'
+
 calc_coverage <- function(cov_dat, true_param, alpha = .05, K, perfm_criteria = c("coverage", "width")){
 
   lower_bound <- cov_dat$lower_bound

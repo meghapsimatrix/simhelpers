@@ -6,9 +6,15 @@
 #' @param perfm_criteria A character or a character vector indicating the performance criteria to be calculated.
 #'
 #' @return The performance criteria estimate and the associated MCSE.
-
-
+#'
+#'
 #' @export
+#'
+#' @examples
+#' calc_abs(dat = t_res, true_param = .5, K = nrow(t_res))
+#'
+#'
+
 calc_abs <- function(dat, true_param, K, perfm_criteria = c("bias", "variance", "mse", "rmse")){
 
   estimates <- dat$est

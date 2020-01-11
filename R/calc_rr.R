@@ -5,9 +5,15 @@
 #' @param K A number indicating number of simulation iterations.
 #'
 #' @return The performance criteria estimate and the associated MCSE.
-
-
+#'
 #' @export
+#'
+#' @examples
+#' calc_rr(rr_dat = t_res, K = nrow(t_res))
+#'
+#'
+
+
 calc_rr <- function(rr_dat, alpha = .05, K){
 
   p_vals <- rr_dat$p_val

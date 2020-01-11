@@ -26,3 +26,8 @@ The performance criteria estimate and the associated MCSE.
 \description{
 Calculate performance criteria and MCSE.
 }
+\examples{
+calc_abs(dat = t_res, true_param = .5, K = nrow(t_res))
+
+
+}
