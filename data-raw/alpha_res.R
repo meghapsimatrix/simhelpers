@@ -22,7 +22,7 @@ estimate_alpha <- function(dat) {
     n <- nrow(dat)
     A <- p / (p - 1) * (1 - sum(diag(V)) / sum(V))
     Var_A <- 2 * p * (1 - A)^2 / ((p - 1) * n)
-    data.frame(A = A, Var = Var_A)
+    data.frame(est = A, var_est = Var_A)
 }
 
 

@@ -76,3 +76,12 @@ welch_res %>%
 ```
 
 
+# Jacknife MCSE for variance estimates
+
+UNDER DEVELOPMENT :) 
+
+```{r}
+calc_jacknife(var_dat = alpha_res, true_param = .8, K = nrow(alpha_res)) %>%
+  kable()
+```
+

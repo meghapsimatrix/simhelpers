@@ -114,3 +114,17 @@ welch_res %>%
 | Welch Two Sample t-test |        0.5 |    0.953 |      0.0066926 | 1.254026 |   0.0033805 |
 | Welch Two Sample t-test |        1.0 |    0.959 |      0.0062705 | 1.258586 |   0.0033484 |
 | Welch Two Sample t-test |        2.0 |    0.951 |      0.0068263 | 1.254581 |   0.0033210 |
+
+# Jacknife MCSE for variance estimates
+
+UNDER DEVELOPMENT
+:)
+
+``` r
+calc_jacknife(var_dat = alpha_res, true_param = .8, K = nrow(alpha_res)) %>%
+  kable()
+```
+
+|      rbv | rbv\_mcse | rbv\_jack\_mcse |     rmsev | rmsev\_jack\_mcse |
+| -------: | --------: | --------------: | --------: | ----------------: |
+| 508.2294 |  8.05e-05 |        1.854551 | 0.7967115 |           2.5e-06 |

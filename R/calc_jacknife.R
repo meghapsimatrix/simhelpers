@@ -10,14 +10,12 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' calc_jacknife(var_dat = var_res, true_param = .5, K = nrow(var_res))
-#'}
+#' calc_jacknife(var_dat = alpha_res, true_param = .8, K = nrow(alpha_res))
 #'
 
 calc_jacknife <- function(var_dat, true_param, K){
 
-  var_est <- dat$var_est
+  var_est <- var_dat$var_est
 
   # calculate sample stats
   v_bar <- mean(var_est)
