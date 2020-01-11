@@ -24,7 +24,7 @@ devtools::install_github("meghapsimatrix/SimHelpers")
 ## Example
 
 This is a basic example which shows you how to solve a common problem.
-WE use the `welch_res` dataset included in the package. Here we are
+We use the `welch_res` dataset included in the package. Here we are
 calculating the absolute performance criteria for the estimate of the
 mean difference.
 
