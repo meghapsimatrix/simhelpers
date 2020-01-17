@@ -45,7 +45,7 @@ $$
 \text{Var}\left(RMSE\right) = \left(\frac{\text{Var}(MSE)}{4 \times MSE}\right) 
 $$
 
-Let $T$ denote an estimator for a parameter $\theta$. From running a simulation study, we obtain $K$ iterations of the estimates $T_1,...,T_K$ for each data generating condition. We can calculate the following sample statitsics for the estimates: 
+Let $T$ denote an estimator for a parameter $\theta$. From running a simulation study, we obtain $K$ iterations of the estimates $T_1,...,T_K$ for each data generating condition. We can calculate the following sample statistics for the estimates: 
 
 - Sample mean: $\bar{T} = \frac{1}{K}\sum_{k=1}^K T_k$ 
 - Sample variance: $S_T^2 = \frac{1}{K - 1}\sum_{k=1}^K \left(T_k - \bar{T}\right)^2$
@@ -68,6 +68,38 @@ knitr::kable(abs_dat, escape = FALSE, caption = "Table 1. Absolute Performance C
   
 ```
 
+### Example
+
+We use the `welch_res` dataset included in the package. It contains the results from an example simulation study comparing Welch t-test to normal t-test. The code used to generate the data and results can be found [here](https://github.com/meghapsimatrix/SimHelpers/blob/master/data-raw/welch_res_dat.R). Below, we calculate the absolute performance criteria for the estimate of the mean difference. We present the results by method and mean difference (conditions which were varied to generate the `welch_res` data). The `calc_abs` function is designed to work with the `dplyr` `tidyeval` workflow. The first argument, `res_dat`, is a dataset containing the results from a simulation study. The second argument, `estimates`, is the name of the column containing the estimates like mean difference or regression coefficients. The third argument, `true_param`, is the name of the column containing the true parameters. The fourth argument `perfm_criteria` lets the user specify which criteria to evaluate. In the example below, we ask for all the available criteria. 
+
+We use `dplyr` syntax to group by two conditions that were varied to generate the simulation data: method and mean differences. We provide examples using `do()` and `group_modify()` to run `calc_abs()` on results for each combination of the conditions. We use `mutate_if` to round the results to three decimal places. 
+
+```{r example, message = FALSE, warning = FALSE}
+library(SimHelpers)
+library(tidyverse)
+library(knitr)
+
+# using do()
+welch_res %>%
+  group_by(method, mean_diff) %>%
+  do(calc_abs(.,  estimates = est, true_param = mean_diff)) %>%
+  mutate_if(is.numeric, round, 3) %>%
+  kable()
+```
+
+
+```{r}
+# using group_modify()
+welch_res %>%
+  mutate(params = mean_diff) %>%
+  group_by(method, mean_diff) %>%
+  group_modify(~ calc_abs(.x,  estimates = est, true_param = params)) %>%
+  mutate_if(is.numeric, round, 3) %>%
+  kable()
+```
+
+
+
 
 ## Relative Criteria
 
@@ -88,6 +120,32 @@ knitr::kable(rel_dat, escape = FALSE, caption = "Table 2. Relative Performance C
 ```
 
 
+### Example 
+
+Below, we calculate the relative criteria for the mean difference estimates. Note that when mean difference is 0, the relative measures cannot be calculated. The function returns `NA` values for conditions where the mean difference is 0. The syntax is similar to the one that we used earlier for `calc_abs`.
+
+
+```{r}
+# using do()
+welch_res %>%
+  group_by(method, mean_diff) %>%
+  do(calc_relative(., estimates = est, true_param = mean_diff)) %>%
+  mutate_if(is.numeric, round, 3) %>%
+  kable()
+```
+
+```{r}
+# using group_modify()
+welch_res %>%
+  mutate(params = mean_diff) %>%
+  group_by(method, mean_diff) %>%
+  group_modify(~ calc_relative(.x,  estimates = est, true_param = params)) %>%
+  mutate_if(is.numeric, round, 3) %>%
+  kable()
+```
+
+
+
 ## Hypothesis Testing and Confidence Intervals
 
 When doing hypothesis tests, we are often interested in whether Type 1 error rate is controlled and whether the test has enough power to detect the effect of interest. Rejection rate captures the proportion of times the p value is below a specified $\alpha$ level, the proportion of times we can reject the null hypothesis. When the specified effect is 0, we can examine Type 1 error rates and when the magnitude of the effect is greater than 0, we can examine power. We are also interested in confidence intervals, proportion of intervals that contain the true parameter, and interval width, which is an indicator for the precision of the estimate.
@@ -106,10 +164,50 @@ knitr::kable(hyp_dat, escape = FALSE, caption = "Table 3. Hypothesis Testing and
 ```
 
 
+### Example
+
+Below we calculate the rejection rate performance criteria for the hypothesis tests done using t-test. The `calc_rr` function takes in a dataset as the first argument. The second argument, `p_values` requires a column containing p values.  
+
+```{r}
+# using do()
+welch_res %>%
+  group_by(method, mean_diff) %>%
+  do(calc_rr(., p_values = p_val)) %>%
+  kable()
+```
+
+```{r}
+# using group_modify()
+welch_res %>%
+  group_by(method, mean_diff) %>%
+  group_modify(~ calc_rr(.x, p_values = p_val)) %>%
+  kable()
+```
+
+
+
+Below we calculate the coverage and width performance criteria for the confidence intervals for the estimate of the mean difference. The `calc_coverage` function takes in a result data as the first argument. The second and third arguments, `lower_bound` and `upper_bound` take in columns that contain the lower and upper bound estimates of the confidence interval. The `true_param` argument takes in a column containing the true parameters. Like `calc_abs` and `calc_relative`, `calc_coverage` also has an argument `perfm_criteria` where the user can specify which criteria to evaluate. 
+
+```{r}
+# using do()
+welch_res %>%
+  group_by(method, mean_diff) %>%
+  do(calc_coverage(., lower_bound = lower_bound, upper_bound = upper_bound, true_param = mean_diff)) %>%
+  kable()
+```
+
+```{r}
+# using group_modify()
+welch_res %>%
+  mutate(params = mean_diff) %>%
+  group_by(method, mean_diff) %>%
+  group_modify(~ calc_coverage(.x, lower_bound = lower_bound, upper_bound = upper_bound, true_param = params)) %>%
+  kable()
+```
+
+
+
 # How to evaluate MCSE
 
 There is no hard cut-offs (at least that I know of). However, the associated MCSE should be small compared to the performance measure. 
 
-```{r setup}
-library(SimHelpers)
-```
