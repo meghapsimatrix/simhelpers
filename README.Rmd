@@ -43,6 +43,12 @@ welch_res %>%
   group_by(method, mean_diff) %>%
   do(calc_abs(.,  estimates = est, true_param = mean_diff)) %>%
   kable()
+
+welch_res %>%
+  mutate(params = mean_diff) %>%
+  group_by(method, mean_diff) %>%
+  group_modify(~ calc_abs(.x,  estimates = est, true_param = params)) %>%
+  kable()
 ```
 
 Below, we calculate the relative criteria for the mean difference estimates. Note that when mean difference is 0, the relative measures cannot be calculated. The function returns `NA` values for conditions where the mean difference is 0. 
@@ -53,6 +59,11 @@ welch_res %>%
   do(calc_relative(., estimates = est, true_param = mean_diff)) %>%
   kable()
 
+welch_res %>%
+  mutate(params = mean_diff) %>%
+  group_by(method, mean_diff) %>%
+  group_modify(~ calc_relative(.x,  estimates = est, true_param = params)) %>%
+  kable()
 ```
 
 
@@ -72,6 +83,12 @@ Below we calculate the coverage and width performance criteria for the confidenc
 welch_res %>%
   group_by(method, mean_diff) %>%
   do(calc_coverage(., lower_bound = lower_bound, upper_bound = upper_bound, true_param = mean_diff)) %>%
+  kable()
+
+welch_res %>%
+  mutate(params = mean_diff) %>%
+  group_by(method, mean_diff) %>%
+  group_modify(~ calc_coverage(.x, lower_bound = lower_bound, upper_bound = upper_bound, true_param = params)) %>%
   kable()
 ```
 
