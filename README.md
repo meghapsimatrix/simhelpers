@@ -35,7 +35,7 @@ conditions where the errors are heteroskedastic or there is missing data
 present following Missing at Random (MAR) mechanism. Then, we apply
 statistical methods, like OLS, to each of the datasets and extract
 measures like effect estimate, p values, confidence intervals. We then
-analyze the methods using performance criteria like bias, type 1 error
+analyze the methods using performance criteria like bias, Type 1 error
 rate etc. described below.
 
 When examining performance measures, we need to also consider the error
