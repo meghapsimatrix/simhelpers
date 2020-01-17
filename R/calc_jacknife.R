@@ -1,6 +1,7 @@
 #' Calculate jacknife Monte Carlo SE for variance estimators.
 #'
-#' @param dat A dataframe or tibble containing a column called var_est - variance estimates.
+#' @param res_dat A dataframe or tibble containing variance estimates.
+#' @param estimates The column containing the variance estimates.
 #' @param true_param A number indicating the true parameter.
 #' @param K A number indicating number of simulation iterations.
 #'
@@ -10,12 +11,15 @@
 #' @export
 #'
 #' @examples
-#' calc_jacknife(var_dat = alpha_res, true_param = .8, K = nrow(alpha_res))
+#' calc_jacknife(res_dat = alpha_res, estimates = var_est, true_param = .8, K = nrow(alpha_res))
 #'
 
-calc_jacknife <- function(var_dat, true_param, K){
+calc_jacknife <- function(res_dat, estimates, true_param, K){
 
-  var_est <- var_dat$var_est
+  res_dat <- res_dat %>%
+    dplyr::select(est = {{estimates}})
+
+  var_est <- res_dat$est
 
   # calculate sample stats
   v_bar <- mean(var_est)

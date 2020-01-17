@@ -5,7 +5,9 @@
 \title{Calculate performance criteria and MCSE.}
 \usage{
 calc_coverage(
-  cov_dat,
+  res_dat,
+  lower_bound,
+  upper_bound,
   true_param,
   alpha = 0.05,
   K,
@@ -13,7 +15,11 @@ calc_coverage(
 )
 }
 \arguments{
-\item{cov_dat}{A dataframe or tibble containing two columns called lower_bound and upper_bound containing the confindence interval lower and upper bounds.}
+\item{res_dat}{A dataframe or tibble containing confidence interval results.}
+
+\item{lower_bound}{The column containing the lower bound estimates of the confidence intervals.}
+
+\item{upper_bound}{The column containing the upper bound estimates of the confidence intervals.}
 
 \item{true_param}{A number indicating the true parameter.}
 
@@ -29,7 +35,7 @@ The performance criteria estimate and the associated MCSE.
 Calculate performance criteria and MCSE.
 }
 \examples{
-calc_coverage(cov_dat = t_res, true_param = .5, K = nrow(t_res))
+calc_coverage(res_dat = t_res, lower_bound = lower_bound, upper_bound = upper_bound, true_param = .5, K = nrow(t_res))
 
 
 }

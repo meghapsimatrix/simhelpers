@@ -1,6 +1,7 @@
 #' Calculate performance criteria and MCSE.
 #'
-#' @param rr_dat A dataframe or tibble containing a column called p_vals containing p values
+#' @param res_dat A dataframe or tibble containing simulation results.
+#' @param p_values The name of the column containing p values.
 #' @param alpha A number indicating the nominal alpha level.
 #' @param K A number indicating number of simulation iterations.
 #'
@@ -9,14 +10,17 @@
 #' @export
 #'
 #' @examples
-#' calc_rr(rr_dat = t_res, K = nrow(t_res))
+#' calc_rr(res_dat = t_res, p_values = p_val, K = nrow(t_res))
 #'
 #'
 
 
-calc_rr <- function(rr_dat, alpha = .05, K){
+calc_rr <- function(res_dat, p_values, alpha = .05, K){
 
-  p_vals <- rr_dat$p_val
+  res_dat <- res_dat %>%
+    dplyr::select(p_val = {{p_values}})
+
+  p_vals <- res_dat$p_val
 
   dat <- data.frame(rej_rate = mean(p_vals < alpha))
   dat$rej_rate_mcse <- sqrt((dat$rej_rate * (1 - dat$rej_rate)) / K)

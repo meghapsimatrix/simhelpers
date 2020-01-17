@@ -37,7 +37,7 @@ library(knitr)
 
 welch_res %>%
   group_by(method, mean_diff) %>%
-  do(calc_abs(., true_param = .$mean_diff[1], K = .$iterations[1])) %>%
+  do(calc_abs(.,  estimates = est, true_param = .$mean_diff[1], K = .$iterations[1])) %>%
   kable()
 ```
 
@@ -60,7 +60,7 @@ where the mean difference is 0.
 ``` r
 welch_res %>%
   group_by(method, mean_diff) %>%
-  do(calc_relative(., true_param = .$mean_diff[1], K = .$iterations[1])) %>%
+  do(calc_relative(., estimates = est, true_param = .$mean_diff[1], K = .$iterations[1])) %>%
   kable()
 ```
 
@@ -81,7 +81,7 @@ hypothesis tests done using t-test.
 ``` r
 welch_res %>%
   group_by(method, mean_diff) %>%
-  do(calc_rr(., K = .$iterations[1])) %>%
+  do(calc_rr(., p_values = p_val, K = .$iterations[1])) %>%
   kable()
 ```
 
@@ -102,7 +102,7 @@ confidence intervals for the estimate of the mean difference.
 ``` r
 welch_res %>%
   group_by(method, mean_diff) %>%
-  do(calc_coverage(., true_param = .$mean_diff[1], K = .$iterations[1])) %>%
+  do(calc_coverage(., lower_bound = lower_bound, upper_bound = upper_bound, true_param = .$mean_diff[1], K = .$iterations[1])) %>%
   kable()
 ```
 
@@ -123,7 +123,7 @@ UNDER DEVELOPMENT
 :)
 
 ``` r
-calc_jacknife(var_dat = alpha_res, true_param = .8, K = nrow(alpha_res)) %>%
+calc_jacknife(res_dat = alpha_res, estimates = var_est, true_param = .8, K = nrow(alpha_res)) %>%
   kable()
 ```
 

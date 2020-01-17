@@ -1,6 +1,8 @@
 #' Calculate performance criteria and MCSE.
 #'
-#' @param cov_dat A dataframe or tibble containing two columns called lower_bound and upper_bound containing the confindence interval lower and upper bounds.
+#' @param res_dat A dataframe or tibble containing confidence interval results.
+#' @param lower_bound The column containing the lower bound estimates of the confidence intervals.
+#' @param upper_bound The column containing the upper bound estimates of the confidence intervals.
 #' @param true_param A number indicating the true parameter.
 #' @param alpha A number indicating the nominal alpha level.
 #' @param K A number indicating number of simulation iterations.
@@ -11,14 +13,18 @@
 #' @export
 #'
 #' @examples
-#' calc_coverage(cov_dat = t_res, true_param = .5, K = nrow(t_res))
+#' calc_coverage(res_dat = t_res, lower_bound = lower_bound, upper_bound = upper_bound, true_param = .5, K = nrow(t_res))
 #'
 #'
 
-calc_coverage <- function(cov_dat, true_param, alpha = .05, K, perfm_criteria = c("coverage", "width")){
+calc_coverage <- function(res_dat, lower_bound, upper_bound, true_param, alpha = .05, K, perfm_criteria = c("coverage", "width")){
 
-  lower_bound <- cov_dat$lower_bound
-  upper_bound <- cov_dat$upper_bound
+  res_dat <- res_dat %>%
+    dplyr::select(lb = {{lower_bound}},
+                  ub = {{upper_bound}})
+
+  lower_bound <- res_dat$lb
+  upper_bound <- res_dat$ub
 
   # initialize data frame
   dat <- data.frame(matrix(ncol = 0, nrow = 1))

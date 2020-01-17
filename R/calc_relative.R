@@ -1,6 +1,7 @@
 #' Calculate performance criteria and MCSE.
 #'
-#' @param dat A dataframe or tibble containing a column called est - estimates
+#' @param res_dat A dataframe or tibble containing a column called est - estimates
+#' @param estimates The name of the column containing estimates
 #' @param true_param A number indicating the true parameter.
 #' @param K A number indicating number of simulation iterations.
 #' @param perfm_criteria A character or a character vector indicating the performance criteria to be calculated.
@@ -10,13 +11,16 @@
 #' @export
 #'
 #' @examples
-#' calc_relative(dat = t_res, true_param = .5, K = nrow(t_res))
+#' calc_relative(res_dat = t_res, estimates = est, true_param = .5, K = nrow(t_res))
 #'
 #'
 
-calc_relative <- function(dat, true_param, K, perfm_criteria = c("relative bias", "relative mse")){
+calc_relative <- function(res_dat, estimates, true_param, K, perfm_criteria = c("relative bias", "relative mse")){
 
-  estimates <- dat$est
+  res_dat <- res_dat %>%
+    dplyr::select(est = {{estimates}})
+
+  estimates <- res_dat$est
 
   #calculate sample stats
   t_bar <- mean(estimates)
