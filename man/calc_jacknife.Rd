@@ -11,7 +11,7 @@ calc_jacknife(res_dat, estimates, true_param)
 
 \item{estimates}{The column containing the variance estimates.}
 
-\item{true_param}{A number indicating the true parameter.}
+\item{true_param}{The name of the column containing true parameters.}
 }
 \value{
 The performance criteria estimate and the associated MCSE.
@@ -20,6 +20,6 @@ The performance criteria estimate and the associated MCSE.
 Calculate jacknife Monte Carlo SE for variance estimators.
 }
 \examples{
-calc_jacknife(res_dat = alpha_res, estimates = var_est, true_param = .8)
+calc_jacknife(res_dat = alpha_res, estimates = var_est, true_param = true_param)
 
 }

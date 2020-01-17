@@ -16,7 +16,9 @@
 
 calc_rr <- function(res_dat, p_values, alpha = .05){
 
-  p_vals <- res_dat %>% dplyr::pull({{p_values}})
+  require(dplyr)
+
+  p_vals <- res_dat %>% pull({{p_values}})
   K <- nrow(res_dat)
 
   dat <- data.frame(rej_rate = mean(p_vals < alpha))

@@ -37,7 +37,7 @@ library(knitr)
 
 welch_res %>%
   group_by(method, mean_diff) %>%
-  do(calc_abs(.,  estimates = est, true_param = .$mean_diff[1])) %>%
+  do(calc_abs(.,  estimates = est, true_param = mean_diff)) %>%
   kable()
 ```
 
@@ -60,7 +60,7 @@ where the mean difference is 0.
 ``` r
 welch_res %>%
   group_by(method, mean_diff) %>%
-  do(calc_relative(., estimates = est, true_param = .$mean_diff[1])) %>%
+  do(calc_relative(., estimates = est, true_param = mean_diff)) %>%
   kable()
 ```
 
@@ -102,7 +102,7 @@ confidence intervals for the estimate of the mean difference.
 ``` r
 welch_res %>%
   group_by(method, mean_diff) %>%
-  do(calc_coverage(., lower_bound = lower_bound, upper_bound = upper_bound, true_param = .$mean_diff[1])) %>%
+  do(calc_coverage(., lower_bound = lower_bound, upper_bound = upper_bound, true_param = mean_diff)) %>%
   kable()
 ```
 
@@ -123,10 +123,10 @@ UNDER DEVELOPMENT
 :)
 
 ``` r
-calc_jacknife(res_dat = alpha_res, estimates = var_est, true_param = .8) %>%
+calc_jacknife(res_dat = alpha_res, estimates = Var_A, true_param = true_param) %>%
   kable()
 ```
 
 |      rbv | rbv\_mcse | rbv\_jack\_mcse |     rmsev | rmsev\_jack\_mcse |
 | -------: | --------: | --------------: | --------: | ----------------: |
-| 508.2294 |  8.05e-05 |        1.854551 | 0.7967115 |           2.5e-06 |
+| 138.5863 | 0.0001563 |        11.63622 | 0.7966284 |           4.6e-06 |

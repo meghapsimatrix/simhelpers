@@ -20,7 +20,7 @@ calc_coverage(
 
 \item{upper_bound}{The column containing the upper bound estimates of the confidence intervals.}
 
-\item{true_param}{A number indicating the true parameter.}
+\item{true_param}{The name of the column containing true parameters.}
 
 \item{alpha}{A number indicating the nominal alpha level.}
 
@@ -33,7 +33,7 @@ The performance criteria estimate and the associated MCSE.
 Calculate performance criteria and MCSE.
 }
 \examples{
-calc_coverage(res_dat = t_res, lower_bound = lower_bound, upper_bound = upper_bound, true_param = .5)
+calc_coverage(res_dat = t_res, lower_bound = lower_bound, upper_bound = upper_bound, true_param = true_param)
 
 
 }

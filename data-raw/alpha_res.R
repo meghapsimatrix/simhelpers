@@ -16,13 +16,13 @@ r_mvt_items <- function(n, p, icc, df) {
 
 # Estimate Alpha ----------------------------------------------------------
 
-estimate_alpha <- function(dat) {
+estimate_alpha <- function(dat, alpha) {
     V <- cov(dat)
     p <- ncol(dat)
     n <- nrow(dat)
     A <- p / (p - 1) * (1 - sum(diag(V)) / sum(V))
     Var_A <- 2 * p * (1 - A)^2 / ((p - 1) * n)
-    data.frame(est = A, var_est = Var_A)
+    data.frame(A, Var_A, true_param = alpha)
 }
 
 
@@ -32,7 +32,7 @@ simulate_alpha <- function(reps, n, p, alpha, df) {
   icc <- alpha / (p - alpha * (p - 1))
   replicate(reps, {
     dat <- r_mvt_items(n = n, p = p, icc = icc, df = df)
-    estimate_alpha(dat)
+    estimate_alpha(dat, alpha)
   }, simplify = FALSE) %>%
     bind_rows()
 }

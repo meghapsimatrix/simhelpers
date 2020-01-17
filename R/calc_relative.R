@@ -2,7 +2,7 @@
 #'
 #' @param res_dat A dataframe or tibble containing a column called est - estimates
 #' @param estimates The name of the column containing estimates
-#' @param true_param A number indicating the true parameter.
+#' @param true_param The name of the column containing true parameters.
 #' @param perfm_criteria A character or a character vector indicating the performance criteria to be calculated.
 #'
 #' @return The performance criteria estimate and the associated MCSE.
@@ -10,14 +10,18 @@
 #' @export
 #'
 #' @examples
-#' calc_relative(res_dat = t_res, estimates = est, true_param = .5)
+#' calc_relative(res_dat = t_res, estimates = est, true_param = true_param)
 #'
 #'
 
 calc_relative <- function(res_dat, estimates, true_param, perfm_criteria = c("relative bias", "relative mse")){
 
-  estimates <- res_dat %>% dplyr::pull({{estimates}})
+  require(dplyr)
+
+  estimates <- res_dat %>% pull({{estimates}})
   K <- nrow(res_dat)
+  true_param <- res_dat %>% pull({{true_param}})
+  true_param <- true_param[1]
 
   #calculate sample stats
   t_bar <- mean(estimates)

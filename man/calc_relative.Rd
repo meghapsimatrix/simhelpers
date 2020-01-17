@@ -16,7 +16,7 @@ calc_relative(
 
 \item{estimates}{The name of the column containing estimates}
 
-\item{true_param}{A number indicating the true parameter.}
+\item{true_param}{The name of the column containing true parameters.}
 
 \item{perfm_criteria}{A character or a character vector indicating the performance criteria to be calculated.}
 }
@@ -27,7 +27,7 @@ The performance criteria estimate and the associated MCSE.
 Calculate performance criteria and MCSE.
 }
 \examples{
-calc_relative(res_dat = t_res, estimates = est, true_param = .5)
+calc_relative(res_dat = t_res, estimates = est, true_param = true_param)
 
 
 }

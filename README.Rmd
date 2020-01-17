@@ -41,7 +41,7 @@ library(knitr)
 
 welch_res %>%
   group_by(method, mean_diff) %>%
-  do(calc_abs(.,  estimates = est, true_param = .$mean_diff[1])) %>%
+  do(calc_abs(.,  estimates = est, true_param = mean_diff)) %>%
   kable()
 ```
 
@@ -50,7 +50,7 @@ Below, we calculate the relative criteria for the mean difference estimates. Not
 ```{r}
 welch_res %>%
   group_by(method, mean_diff) %>%
-  do(calc_relative(., estimates = est, true_param = .$mean_diff[1])) %>%
+  do(calc_relative(., estimates = est, true_param = mean_diff)) %>%
   kable()
 
 ```
@@ -71,7 +71,7 @@ Below we calculate the coverage and width performance criteria for the confidenc
 ```{r}
 welch_res %>%
   group_by(method, mean_diff) %>%
-  do(calc_coverage(., lower_bound = lower_bound, upper_bound = upper_bound, true_param = .$mean_diff[1])) %>%
+  do(calc_coverage(., lower_bound = lower_bound, upper_bound = upper_bound, true_param = mean_diff)) %>%
   kable()
 ```
 
@@ -81,7 +81,7 @@ welch_res %>%
 UNDER DEVELOPMENT :) 
 
 ```{r}
-calc_jacknife(res_dat = alpha_res, estimates = var_est, true_param = .8) %>%
+calc_jacknife(res_dat = alpha_res, estimates = Var_A, true_param = true_param) %>%
   kable()
 ```
 
