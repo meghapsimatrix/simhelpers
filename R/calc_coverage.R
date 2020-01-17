@@ -5,26 +5,23 @@
 #' @param upper_bound The column containing the upper bound estimates of the confidence intervals.
 #' @param true_param A number indicating the true parameter.
 #' @param alpha A number indicating the nominal alpha level.
-#' @param K A number indicating number of simulation iterations.
-#'  @param perfm_criteria A character or a character vector indicating the performance criteria to be calculated.
+#' @param perfm_criteria A character or a character vector indicating the performance criteria to be calculated.
 #'
 #' @return The performance criteria estimate and the associated MCSE.
 #'
 #' @export
 #'
 #' @examples
-#' calc_coverage(res_dat = t_res, lower_bound = lower_bound, upper_bound = upper_bound, true_param = .5, K = nrow(t_res))
+#' calc_coverage(res_dat = t_res, lower_bound = lower_bound, upper_bound = upper_bound, true_param = .5)
 #'
 #'
 
-calc_coverage <- function(res_dat, lower_bound, upper_bound, true_param, alpha = .05, K, perfm_criteria = c("coverage", "width")){
+calc_coverage <- function(res_dat, lower_bound, upper_bound, true_param, alpha = .05, perfm_criteria = c("coverage", "width")){
 
-  res_dat <- res_dat %>%
-    dplyr::select(lb = {{lower_bound}},
-                  ub = {{upper_bound}})
+  lower_bound <- res_dat %>% dplyr::pull({{lower_bound}})
+  upper_bound <- res_dat %>% dplyr::pull({{upper_bound}})
 
-  lower_bound <- res_dat$lb
-  upper_bound <- res_dat$ub
+  K <- nrow(res_dat)
 
   # initialize data frame
   dat <- data.frame(matrix(ncol = 0, nrow = 1))

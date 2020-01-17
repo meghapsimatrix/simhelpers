@@ -4,7 +4,7 @@
 \alias{calc_rr}
 \title{Calculate performance criteria and MCSE.}
 \usage{
-calc_rr(res_dat, p_values, alpha = 0.05, K)
+calc_rr(res_dat, p_values, alpha = 0.05)
 }
 \arguments{
 \item{res_dat}{A dataframe or tibble containing simulation results.}
@@ -12,8 +12,6 @@ calc_rr(res_dat, p_values, alpha = 0.05, K)
 \item{p_values}{The name of the column containing p values.}
 
 \item{alpha}{A number indicating the nominal alpha level.}
-
-\item{K}{A number indicating number of simulation iterations.}
 }
 \value{
 The performance criteria estimate and the associated MCSE.
@@ -22,7 +20,7 @@ The performance criteria estimate and the associated MCSE.
 Calculate performance criteria and MCSE.
 }
 \examples{
-calc_rr(res_dat = t_res, p_values = p_val, K = nrow(t_res))
+calc_rr(res_dat = t_res, p_values = p_val)
 
 
 }

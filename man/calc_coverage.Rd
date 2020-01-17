@@ -10,7 +10,6 @@ calc_coverage(
   upper_bound,
   true_param,
   alpha = 0.05,
-  K,
   perfm_criteria = c("coverage", "width")
 )
 }
@@ -25,8 +24,7 @@ calc_coverage(
 
 \item{alpha}{A number indicating the nominal alpha level.}
 
-\item{K}{A number indicating number of simulation iterations.
-@param perfm_criteria A character or a character vector indicating the performance criteria to be calculated.}
+\item{perfm_criteria}{A character or a character vector indicating the performance criteria to be calculated.}
 }
 \value{
 The performance criteria estimate and the associated MCSE.
@@ -35,7 +33,7 @@ The performance criteria estimate and the associated MCSE.
 Calculate performance criteria and MCSE.
 }
 \examples{
-calc_coverage(res_dat = t_res, lower_bound = lower_bound, upper_bound = upper_bound, true_param = .5, K = nrow(t_res))
+calc_coverage(res_dat = t_res, lower_bound = lower_bound, upper_bound = upper_bound, true_param = .5)
 
 
 }

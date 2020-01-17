@@ -8,7 +8,6 @@ calc_relative(
   res_dat,
   estimates,
   true_param,
-  K,
   perfm_criteria = c("relative bias", "relative mse")
 )
 }
@@ -19,8 +18,6 @@ calc_relative(
 
 \item{true_param}{A number indicating the true parameter.}
 
-\item{K}{A number indicating number of simulation iterations.}
-
 \item{perfm_criteria}{A character or a character vector indicating the performance criteria to be calculated.}
 }
 \value{
@@ -30,7 +27,7 @@ The performance criteria estimate and the associated MCSE.
 Calculate performance criteria and MCSE.
 }
 \examples{
-calc_relative(res_dat = t_res, estimates = est, true_param = .5, K = nrow(t_res))
+calc_relative(res_dat = t_res, estimates = est, true_param = .5)
 
 
 }

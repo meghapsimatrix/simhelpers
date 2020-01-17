@@ -3,7 +3,6 @@
 #' @param res_dat A dataframe or tibble containing variance estimates.
 #' @param estimates The column containing the variance estimates.
 #' @param true_param A number indicating the true parameter.
-#' @param K A number indicating number of simulation iterations.
 #'
 #' @return The performance criteria estimate and the associated MCSE.
 #'
@@ -11,15 +10,13 @@
 #' @export
 #'
 #' @examples
-#' calc_jacknife(res_dat = alpha_res, estimates = var_est, true_param = .8, K = nrow(alpha_res))
+#' calc_jacknife(res_dat = alpha_res, estimates = var_est, true_param = .8)
 #'
 
-calc_jacknife <- function(res_dat, estimates, true_param, K){
+calc_jacknife <- function(res_dat, estimates, true_param){
 
-  res_dat <- res_dat %>%
-    dplyr::select(est = {{estimates}})
-
-  var_est <- res_dat$est
+  var_est <- res_dat %>% dplyr::pull({{estimates}})
+  K <- nrow(res_dat)
 
   # calculate sample stats
   v_bar <- mean(var_est)

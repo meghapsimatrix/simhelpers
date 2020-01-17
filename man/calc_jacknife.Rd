@@ -4,7 +4,7 @@
 \alias{calc_jacknife}
 \title{Calculate jacknife Monte Carlo SE for variance estimators.}
 \usage{
-calc_jacknife(res_dat, estimates, true_param, K)
+calc_jacknife(res_dat, estimates, true_param)
 }
 \arguments{
 \item{res_dat}{A dataframe or tibble containing variance estimates.}
@@ -12,8 +12,6 @@ calc_jacknife(res_dat, estimates, true_param, K)
 \item{estimates}{The column containing the variance estimates.}
 
 \item{true_param}{A number indicating the true parameter.}
-
-\item{K}{A number indicating number of simulation iterations.}
 }
 \value{
 The performance criteria estimate and the associated MCSE.
@@ -22,6 +20,6 @@ The performance criteria estimate and the associated MCSE.
 Calculate jacknife Monte Carlo SE for variance estimators.
 }
 \examples{
-calc_jacknife(res_dat = alpha_res, estimates = var_est, true_param = .8, K = nrow(alpha_res))
+calc_jacknife(res_dat = alpha_res, estimates = var_est, true_param = .8)
 
 }
