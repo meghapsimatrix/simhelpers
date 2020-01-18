@@ -15,21 +15,22 @@ least squares (OLS) regression perform if errors are heteroskedastic?
 estimates from a propensity score analysis? To answer such questions, we
 conduct experiments by simulating thousands of datasets from
 pseudo-random sampling (Morris et al., 2018). We generate datasets under
-conditions where the errors are heteroskedastic or there is missing data
-present following Missing at Random (MAR) mechanism. Then, we apply
-statistical methods, like OLS, to each of the datasets and extract
-measures like effect estimate, p values, confidence intervals. We then
-analyze the methods using performance criteria like bias, Type 1 error
-rate etc.
+known conditions. For example, we can generate data where the errors are
+heteroskedastic or there is missing data present following Missing at
+Random (MAR) mechanism. Then, we apply statistical methods, like OLS, to
+each of the datasets and extract measures like mean difference,
+regression coefficients, p values, and confidence intervals. We then
+analyze the methods using performance criteria measures like bias, Type
+1 error rate etc.
 
 When examining performance measures, we need to also consider the error
 in the estimate of the performance measures due to the fact that we
 generate a finite number of samples. The error is quantified in the form
 of Monte Carlo standard error (MCSE).
 
-The goal of SimHelpers is to help with running simulation studies. This
+The goal of SimHelpers is to assist in running simulation studies. This
 package provides a set of functions that calculates various performance
-measures and associated MCSE. The functions are divided into broad
+measures and associated MCSE. The functions are divided into broad four
 categories: absolute criteria, relative criteria, rejection rate and
 confidence interval coverage. The functions are:
 
@@ -41,15 +42,15 @@ confidence interval coverage. The functions are:
 The functions are created to work with `tidyeval` practice using
 packages like `dplyr`. The package
 [vignette](https://github.com/meghapsimatrix/SimHelpers/blob/master/vignettes/MCSE.Rmd)
-covers details about MCSE and the formulas used to calculate them by the
-functions in SimHelpers. The vignette also includes examples on how to
-use the functions with `dplyr` workflow.
+covers details about MCSE and the formulas used to calculate them. The
+vignette also includes examples on how to use the functions with `dplyr`
+workflow.
 
-In addition to the set of functions that calculate performance measures
-and MCSE, the package also includes a function, `create_skeleton` that
+In addition to the set of functions that calculates performance measures
+and MCSE, the package also includes a function, `create_skeleton`, that
 generates a skeleton outline of a simulation study that can be applied
 when designing one. Another function, `evaluate_by_row` runs the
-simulation for each combination of conditions. Lastly, the
+simulation for each combination of conditions row by row. Lastly, the
 `start_parallel` function sets up parallel processing.
 
 The package also contains several datasets that contain results from
