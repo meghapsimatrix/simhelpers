@@ -63,7 +63,7 @@ library(knitr)
 ```
 
 
-## Experimental Design
+## Experimental Design Initial
 
 Before we begin working on the simulation study, decide what model and design parameters you want to vary. Parameters can include sample size, proportion of missing data etc. 
 
