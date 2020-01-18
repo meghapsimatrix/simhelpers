@@ -65,7 +65,7 @@ library(knitr)
 
 ## Experimental Design
 
-Before we begin working on the simulation study, decide what model and design parameters you want to vary. Paramaeters can include sample size, proportion of missing data etc. 
+Before we begin working on the simulation study, decide what model and design parameters you want to vary. Parameters can include sample size, proportion of missing data etc. 
 
 
 ## Generating Dataset
@@ -144,7 +144,9 @@ calc_performance <- function(results) {
 
 ```
 
-## Simulation Driver and Iterations
+## Simulation Driver 
+
+The following code chunk sets up the simulation driver. The arguments specify the number of iterations for the simulation and any parameters that need to be specified to run the data generating and estimating functions. The function then calculates the performance measures and returns the data with the results. 
 
 ```{r, eval = FALSE}
 run_sim <- function(iterations, model_params, design_params, seed = NULL) {
@@ -161,6 +163,7 @@ run_sim <- function(iterations, model_params, design_params, seed = NULL) {
 }
 ```
 
+Here is an example with the running simulation study: 
 
 ```{r}
 run_sim <- function(iterations, mean_diff, var_equal, seed = NULL) {
@@ -237,6 +240,8 @@ head(params)
 
 
 ## Running the Simulation
+
+Here we run the simulation using `purrr` package serial workflow:
 
 ```{r}
 system.time(
