@@ -1,0 +1,187 @@
+---
+title: "Simulation Workflow"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{simulation_workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+
+Simulation studies generally follow the following workflow: 
+
+1. Create an experimental design
+2. Generate a dataset
+3. Run statistical methods on the dataset
+4. Measure performance criteria and calculate MCSE
+5. Run steps 1-3 thousands of times for each of the experimental design conditions
+6. Evaluate the overall results
+
+The following flowchart depicts the workflow:
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(DiagrammeR)
+
+grViz("digraph flowchart {
+      # node definitions with substituted label text
+      node [fontname = Helvetica, shape = rectangle]        
+      tab1 [label = '@@1']
+      tab2 [label = '@@2']
+      tab3 [label = '@@3']
+      tab4 [label = '@@4']
+      tab5 [label = '@@5']
+
+      # edge definitions with the node IDs
+      tab1 -> tab2 -> tab3 -> tab4 -> tab5;
+      }
+
+      [1]: 'Experimental Design'
+      [2]: 'Data Generating Model'
+      [3]: 'Estimation Methods'
+      [4]: 'Performance Summaries'
+      [5]: 'Results'
+      ")
+```
+
+## Experimental Design
+
+```{r, eval = FALSE}
+set.seed(20150316) # change this seed value!
+
+# now express the simulation parameters as vectors/lists
+
+design_factors <- list(factor1 = , factor2 = , ...) # combine into a design set
+
+params <-
+  cross_df(design_factors) %>%
+  mutate(
+    iterations = 5,
+    seed = round(runif(1) * 2^30) + 1:n()
+  )
+
+# All look right?
+lengths(design_factors)
+nrow(params)
+head(params)
+
+```
+
+
+## Generating Dataset
+
+The data generating function takes in model parameters. For example, we can generate data varying the sample size or level of heteroskedasticity or amount of missingness. Below is a skeleton of the data generating function. The arguments are any data generating parameters that you would want to vary. 
+
+```{r}
+generate_dat <- function(model_params) {
+
+  return(dat)
+}
+```
+
+Below is an example where random normal data are generated for two groups. The arguments are `n` indicating sample size and `mean_diff` indicating mean difference. 
+
+```{r}
+generate_dat <- function(n = 50, mean_diff){
+
+  dat <- tibble(group_1 = rnorm(n, 0, 1),
+                group_2 = rnorm(n, mean_diff, 2))
+
+  return(dat)
+
+}
+```
+
+
+## Estimation Methods
+
+Here, we run some statistical methods to estimate a test statistic, regression coefficients, p values, or confidence intervals. The function takes in the data and any design parameters. 
+
+```{r}
+estimate <- function(dat, design_params) {
+
+  return(result)
+}
+```
+
+Below is an example function that runs a t-test on a simulated dataset. A design parameter includes specifying whether to run a Welch t-test, which does not assume that the population variances of the outcome for the two groups are equal, or to run a normal t-test, which will assume that the variances are equal. The function returns a tibble containing the method, mean difference estimate, p value, and upper and lower bound of the confidence interval. 
+
+```{r}
+estimate <- function(dat, var_equal = FALSE){
+
+  result <- tidy(t.test(dat$group_2, dat$group_1, var.equal = var_equal)) %>%
+    mutate(est = estimate1 - estimate2) %>%
+    dplyr::select(method, est, p_val = p.value, lower_bound = conf.low, upper_bound = conf.high)
+
+  return(result)
+
+}
+
+```
+
+
+## Performance Summaries 
+
+In this step, we create a function to calculate performance measures based on the results that we extracted from the estimation step. The function below takes in the results, and any model parameters. 
+
+```{r}
+calc_performance <- function(results, model_params) {
+
+  return(performance_measures)
+}
+```
+
+
+
+```{r}
+calc_performance <- function(results, model_params) {
+  
+  performance_measures <- results  %>%
+    group_by(method, mean_diff) %>%
+    group_modify(~ calc_rr(.x, p_values = p_val))
+
+  return(performance_measures)
+}
+
+```
+
+## Simulation Driver and Iteration
+
+```{r, eval = FALSE}
+run_sim <- function(iterations, model_params, design_params, seed = NULL) {
+  if (!is.null(seed)) set.seed(seed)
+
+  results <-
+    rerun(iterations, {
+      dat <- generate_dat(model_params)
+      estimate(dat, design_params)
+    }) %>%
+    bind_rows()
+
+  calc_performance(results, model_params)
+}
+```
+
+
+
+# Example from SimHelpers
+
+The `create_skeleton` function will take in an argument specifying the name of the R file which will contain the skeleton of functions required to run a simulation study. 
+
+```{r setup, eval = FALSE}
+library(SimHelpers)
+
+create_skeleton("Frane_replication")
+```
+
+```{r}
+
+```
+
