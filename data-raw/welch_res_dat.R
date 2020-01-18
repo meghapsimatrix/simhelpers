@@ -22,13 +22,13 @@ generate_dat <- function(n = 50, mean_diff){
 
 # function to calculate t-test, pulls out estimate of the mean difference, p val and ci
 
-estimate_t <- function(sim_dat, var_equal = FALSE){
+estimate <- function(dat, var_equal = FALSE){
 
-  res <- tidy(t.test(sim_dat$group_2, sim_dat$group_1, var.equal = var_equal)) %>%
+  result <- tidy(t.test(dat$group_2, dat$group_1, var.equal = var_equal)) %>%
     mutate(est = estimate1 - estimate2) %>%
     dplyr::select(method, est, p_val = p.value, lower_bound = conf.low, upper_bound = conf.high)
 
-  return(res)
+  return(result)
 
 }
 
@@ -43,7 +43,7 @@ run_sim <- function(iterations, mean_diff, var_equal, seed = NULL) {
   results <-
     rerun(iterations, {
       dat <- generate_dat(mean_diff = mean_diff)
-      estimate_t(sim_dat = dat, var_equal = var_equal)
+      estimate(dat, var_equal = var_equal)
     }) %>%
     bind_rows()
 

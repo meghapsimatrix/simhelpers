@@ -1,11 +1,13 @@
 rm(list = ls())
 
+
 #------------------------------------------------------
 # Set development values for simulation parameters
 #------------------------------------------------------
 
 # What are your model parameters?
 # What are your design parameters?
+
 
 #------------------------------------------------------
 # Data Generating Model
@@ -26,7 +28,7 @@ generate_dat <- function(model_params) {
 
 estimate <- function(dat, design_params) {
 
-  return(result)
+  return(results)
 }
 
 # Test the estimation function
@@ -63,7 +65,6 @@ run_sim <- function(iterations, model_params, design_params, seed = NULL) {
 
 # demonstrate the simulation driver
 
-
 #-------------------------------------
 # Experimental Design
 #-------------------------------------
@@ -78,7 +79,7 @@ design_factors <- list(factor1 = , factor2 = , ...) # combine into a design set
 params <-
   cross_df(design_factors) %>%
   mutate(
-    iterations = 5,
+    iterations = 1000, # change this to how many ever iterations
     seed = round(runif(1) * 2^30) + 1:n()
   )
 
@@ -86,6 +87,8 @@ params <-
 lengths(design_factors)
 nrow(params)
 head(params)
+
+
 
 
 
@@ -104,7 +107,7 @@ system.time(
   results <-
     params %>%
     mutate(res = pmap(., .f = run_sim)) %>%
-    unnest()
+    unnest(cols = res)
 )
 
 #--------------------------------------------------------
