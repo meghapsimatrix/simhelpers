@@ -28,11 +28,11 @@ in the estimate of the performance measures due to the fact that we
 generate a finite number of samples. The error is quantified in the form
 of Monte Carlo standard error (MCSE).
 
-The goal of SimHelpers is to assist in running simulation studies. This
-package provides a set of functions that calculates various performance
-measures and associated MCSE. The functions are divided into broad four
-categories: absolute criteria, relative criteria, rejection rate and
-confidence interval coverage. The functions are:
+The goal of `SimHelpers` is to assist in running simulation studies.
+This package provides a set of functions that calculates various
+performance measures and associated MCSE. The functions are divided into
+broad four categories: absolute criteria, relative criteria, rejection
+rate and confidence interval coverage. The functions are:
 
   - `calc_abs` : Absolute criteria (bias, variance, mse, rmse)
   - `calc_relative`: Relative criteria (relative bias, relative mse)

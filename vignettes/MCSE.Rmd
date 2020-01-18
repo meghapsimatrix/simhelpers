@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 Simulations are experiments to study performance of statistical methods under known data-generating conditions (Morris, White and Crowther, 2018). Methodologists examine questions like: (1) how does ordinary least squares (OLS) regression perform if errors are heteroskedastic? (2) how does the presence of missing data affect treatment effect estimates from a propensity score analysis? To answer such questions, we conduct experiments by simulating thousands of datasets from pseudo-random sampling (Morris et al., 2018). We generate datasets under known conditions. For example, we can generate data where the errors are heteroskedastic or there is missing data present following Missing at Random (MAR) mechanism. Then, we apply statistical methods, like OLS, to each of the datasets and extract measures like mean difference, regression coefficients, p values, and confidence intervals. We then analyze the methods using performance criteria measures like bias, Type 1 error rate etc.
 
-When examining performance measures, we need to also consider the error in the estimate of the performance measures due to the fact that we generate a finite number of samples. The error is quantified in the form of Monte Carlo standard error (MCSE). This package provides a function that calculates various performance measures and associated MCSE. Below, I describe the performance criteria covered in this package and the formula for calculating the performance measures and the MCSE (Morris et al., 2018).
+When examining performance measures, we need to also consider the error in the estimate of the performance measures due to the fact that we generate a finite number of samples. The error is quantified in the form of Monte Carlo standard error (MCSE). The goal of SimHelpers is to assist in running simulation studies. This package provides a set of functions that calculates various performance measures and associated MCSE. This vignette focuses on the set of functions. Below, we explain three major categories of performance criteria: absolute, relative and hypothesis testing. We provide formulas used to calculate the performance measures and MCSE and demonstrate how to use the functions in the `SimHelpers` package. 
 
 The formula notations and explanations of the performance measures follow notes from Dr. James Pustejovsky's [Data Analysis, Simulation and Programming in R course (Spring, 2019)](https://www.jepusto.com/teaching/daspir/).
 
@@ -30,7 +30,7 @@ The formula notations and explanations of the performance measures follow notes 
 Bias characterizes whether the estimate on average lies above or below the true parameter. 
 Variance characterizes the precision of the estimates - how much does each estimate deviates from the average of the estimates? Note that variance is inverse of precision - the higher the variance, the lower the precision. Mean square error and root mean square error characterizes the accuracy of the estimates. It measures how far off on average are the estimates from the true parameter. Absolute criteria will be in the scale of the estimates.
 
-The table below shows the performance criteria, what they measure, definition, estimation, and MCSE formula. The equation for the MCSE of RMSE is derived using [the delta method](https://www.jepusto.com/multivariate-delta-method/), which states that:
+The table below shows each of the performance criteria, what it measures, definition, estimation, and the MCSE formula. The equation for the MCSE of RMSE is derived using [the delta method](https://www.jepusto.com/multivariate-delta-method/), which states that:
 
 $$
 \text{Var}\left(f(X)\right) = \left(\frac{\partial f}{\partial \theta}\right)^2 \text{Var}(X)
@@ -70,9 +70,9 @@ knitr::kable(abs_dat, escape = FALSE, caption = "Table 1. Absolute Performance C
 
 ### Example
 
-We use the `welch_res` dataset included in the package. It contains the results from an example simulation study comparing Welch t-test to normal t-test. The code used to generate the data and results can be found [here](https://github.com/meghapsimatrix/SimHelpers/blob/master/data-raw/welch_res_dat.R). Below, we calculate the absolute performance criteria for the estimate of the mean difference. We present the results by method and mean difference (conditions which were varied to generate the `welch_res` data). The `calc_abs` function is designed to work with the `dplyr` `tidyeval` workflow. The first argument, `res_dat`, is a dataset containing the results from a simulation study. The second argument, `estimates`, is the name of the column containing the estimates like mean difference or regression coefficients. The third argument, `true_param`, is the name of the column containing the true parameters. The fourth argument `perfm_criteria` lets the user specify which criteria to evaluate. In the example below, we ask for all the available criteria. 
+We use the `welch_res` dataset included in the package. It contains the results from an example simulation study comparing the heteroskedasticity robust Welch t-test to normal t-test. The code used to generate the data and results can be found [here](https://github.com/meghapsimatrix/SimHelpers/blob/master/data-raw/welch_res_dat.R). Below, we calculate the absolute performance criteria for the estimate of the mean difference. We present the results by method and mean difference (conditions which were varied to generate the `welch_res` data). The `calc_abs` function is designed to work with the `dplyr` `tidyeval` workflow. The first argument, `res_dat`, is a dataset containing the results from a simulation study. The second argument, `estimates`, is the name of the column containing the estimates like mean difference or regression coefficients. The third argument, `true_param`, is the name of the column containing the true parameters. The fourth argument `perfm_criteria` lets the user specify which criteria to evaluate. The criteria can be specified using a character vector: `c("bias", "variance", "mse", "rmse")`. By default, the function returns, bias, variance, mean square error (mse), and root mean square error (rmse). In the example below, we ask for all the available criteria. 
 
-We use `dplyr` syntax to group by two conditions that were varied to generate the simulation data: method and mean differences. We provide examples using `do()` and `group_modify()` to run `calc_abs()` on results for each combination of the conditions. We use `mutate_if` to round the results to three decimal places. 
+We use `dplyr` syntax to group by the two conditions that were varied to generate the simulation data: method and mean differences. We provide examples using `do()` and `group_modify()` to run `calc_abs()` on each subset of the results for each combination of the conditions. We use `mutate_if` to round the results to three decimal places. 
 
 ```{r example, message = FALSE, warning = FALSE}
 library(SimHelpers)
@@ -81,17 +81,17 @@ library(knitr)
 
 # using do()
 welch_res %>%
-  group_by(method, mean_diff) %>%
-  do(calc_abs(.,  estimates = est, true_param = mean_diff)) %>%
-  mutate_if(is.numeric, round, 3) %>%
-  kable()
+  group_by(method, mean_diff) %>% # grouping 
+  do(calc_abs(.,  estimates = est, true_param = mean_diff)) %>% # run the function
+  mutate_if(is.numeric, round, 3) %>% # rounding
+  kable() # create a kable table 
 ```
 
 
 ```{r}
 # using group_modify()
 welch_res %>%
-  mutate(params = mean_diff) %>%
+  mutate(params = mean_diff) %>% # group_modify cannot take in a group column as an argument
   group_by(method, mean_diff) %>%
   group_modify(~ calc_abs(.x,  estimates = est, true_param = params)) %>%
   mutate_if(is.numeric, round, 3) %>%
@@ -99,13 +99,11 @@ welch_res %>%
 ```
 
 
-
-
 ## Relative Criteria
 
 Relative criteria can be useful to look at if multiple true parameter values are used to generate the data to run the simulation and if performance measure changes according to the true value. It can be only used when $|\theta| > 0$ as we cannot divide by $0$ (Morris et al., 2018). 
 
-Table 2 below lists the criteria, definition, estimation and MCSE formula. 
+Table 2 below lists the criteria, definition, estimation and the MCSE formula. 
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 rel_dat <- tibble(Criterion = c("Relative Bias","Relative MSE"),
@@ -122,7 +120,7 @@ knitr::kable(rel_dat, escape = FALSE, caption = "Table 2. Relative Performance C
 
 ### Example 
 
-Below, we calculate the relative criteria for the mean difference estimates. Note that when mean difference is 0, the relative measures cannot be calculated. The function returns `NA` values for conditions where the mean difference is 0. The syntax is similar to the one that we used earlier for `calc_abs`.
+Below, we calculate the relative criteria for the mean difference estimates. Note that when mean difference is 0, the relative measures cannot be calculated. The function returns `NA` values for conditions where the mean difference is 0. The syntax is similar to the one that we used earlier for `calc_abs`. The `perfm_criteria` argument allows the user to specify which criteria to evaluate: `c("relative bias", "relative mse")`. 
 
 
 ```{r}
@@ -168,6 +166,7 @@ knitr::kable(hyp_dat, escape = FALSE, caption = "Table 3. Hypothesis Testing and
 
 Below we calculate the rejection rate performance criteria for the hypothesis tests done using t-test. The `calc_rr` function takes in a dataset as the first argument. The second argument, `p_values` requires a column containing p values.  
 
+
 ```{r}
 # using do()
 welch_res %>%
@@ -184,9 +183,7 @@ welch_res %>%
   kable()
 ```
 
-
-
-Below we calculate the coverage and width performance criteria for the confidence intervals for the estimate of the mean difference. The `calc_coverage` function takes in a result data as the first argument. The second and third arguments, `lower_bound` and `upper_bound` take in columns that contain the lower and upper bound estimates of the confidence interval. The `true_param` argument takes in a column containing the true parameters. Like `calc_abs` and `calc_relative`, `calc_coverage` also has an argument `perfm_criteria` where the user can specify which criteria to evaluate. 
+Below we calculate the coverage and width performance criteria for the confidence intervals for the estimate of the mean difference. The `calc_coverage` function takes in a result data as the first argument. The second and third arguments, `lower_bound` and `upper_bound` take in columns that contain the lower and upper bound estimates of the confidence interval. The `true_param` argument takes in a column containing the true parameters. Like `calc_abs` and `calc_relative`, `calc_coverage` also has an argument `perfm_criteria` where the user can specify which criteria to evaluate: `c("coverage", "width")`. 
 
 ```{r}
 # using do()
@@ -209,5 +206,5 @@ welch_res %>%
 
 # How to evaluate MCSE
 
-There is no hard cut-offs (at least that I know of). However, the associated MCSE should be small compared to the performance measure. 
+The associated MCSE should be small compared to the performance measure. 
 
