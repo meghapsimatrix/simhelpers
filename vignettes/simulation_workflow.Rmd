@@ -58,7 +58,6 @@ The explanation of the workflow in this vignette follow notes from Dr. James Pus
 ```{r, warning = FALSE, message = FALSE}
 library(SimHelpers)
 library(tidyverse)
-library(broom)
 library(knitr)
 ```
 
@@ -104,15 +103,41 @@ estimate <- function(dat, design_params) {
 }
 ```
 
-Below is an example function that runs a t-test on a simulated dataset. A design parameter includes specifying whether to run a Welch t-test, which does not assume that the population variances of the outcome for the two groups are equal, or to run a normal t-test, which will assume that the variances are equal. The function returns a tibble containing the method, mean difference estimate, p value, and upper and lower bound of the confidence interval. 
+Below is an example function that runs a t-test on a simulated dataset. A design parameter includes specifying whether to run a Welch t-test, which does not assume that the population variances of the outcome for the two groups are equal, or to run a normal t-test, which will assume that the variances are equal. The function returns a tibble containing the method, mean difference estimate, p value, and upper and lower bound of the confidence interval. The `t.test` function can be used to estimate but writing out the formulas below just for fun. 
 
 ```{r}
 estimate <- function(dat, mean_diff, var_equal = FALSE){
-
-  results <- tidy(t.test(dat$group_2, dat$group_1, var.equal = var_equal)) %>%
-    mutate(est = estimate1 - estimate2, 
-           mean_diff = mean_diff) %>%
-    dplyr::select(method, mean_diff, est, p_val = p.value, lower_bound = conf.low, upper_bound = conf.high)
+  
+  # calculate summary stats
+  est <- mean(dat$group_1) - mean(dat$group_2)
+  n1 <- n2 <- nrow(dat)
+  var_1 <- var(dat$group_1)
+  var_2 <- var(dat$group_2)
+  
+  # normal t-test
+  if(var_equal == TRUE){
+   df <- n1 + n2 - 2
+   sp_sq <- ((n1-1) * var_1 + (n2 - 1) * var_2) / df
+   vd <- sp_sq * (1 / n1 + 1 / n2)
+   method <- "T Test"
+  }
+  
+  
+  # welch t-test
+  if(var_equal == FALSE){
+   df <- (var_1 / n1 + var_2 / n2)^2 / (((1 / (n1 - 1)) * (var_1 / n1)^2) + ((1 / (n2 - 1)) * (var_2 / n2)^2)) 
+   vd <- var_1 / n1 + var_2 / n2
+   method <- "Welch T Test"
+  }
+  
+  #t and pvalue
+  se <- sqrt(vd)
+  t <- est / se
+  p_val <-  2 * pt(-abs(t), df = df)
+  ci <- est + c(-1, 1) * qt(.975, df = df) * se
+  
+  # results 
+  results <- tibble(method = method, est = est, p_val = p_val, lower_bound = ci[1], upper_bound = ci[2])
 
   return(results)
 
@@ -239,7 +264,7 @@ head(params)
 
 
 
-## Running the Simulation
+## Running the Simulation in Serial
 
 Here we run the simulation using `purrr` package serial workflow:
 
@@ -255,6 +280,34 @@ system.time(
 
 results %>%
   kable()
+```
+
+## Running the Simulation in Parallel
+
+Below we use the `future` and the `furrr` package to run the simulation in parallel. These packages are designed to work with the `purrr` functions. The line below sets up a cluster set up on your computer or network. For more complicated network setups, please see the [documentation for the future package](https://cran.r-project.org/web/packages/future/vignettes/future-1-overview.html). 
+
+```{r, eval = FALSE}
+plan(multiprocess)
+```
+
+Once the cluster is configured, we can just replace `pmap` from `purrr` with `future_pmap` to run the simulation in parallel. 
+
+```{r}
+library(future)
+library(furrr)
+
+plan(multiprocess) # choose an appropriate plan from the future package
+
+system.time(
+  results <-
+    params %>%
+    mutate(res = future_pmap(., .f = run_sim)) %>%
+    unnest(cols = res)
+)
+
+results %>%
+  kable()
+
 ```
 
 

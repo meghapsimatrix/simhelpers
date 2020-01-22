@@ -134,7 +134,7 @@ system.time(
   results <-
     params %>%
     mutate(res = future_pmap(., .f = run_sim)) %>%
-    unnest()
+    unnest(cols = res)
 )
 
 #--------------------------------------------------------
