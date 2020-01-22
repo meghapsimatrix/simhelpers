@@ -258,7 +258,6 @@ results %>%
 ```
 
 
-
 # Example from SimHelpers
 
 The `create_skeleton` function will take in an argument specifying the name of the R file which will contain the skeleton of functions required to run a simulation study. 
