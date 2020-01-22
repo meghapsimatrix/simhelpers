@@ -106,7 +106,7 @@ estimate <- function(dat, design_params) {
 Below is an example function that runs a t-test on a simulated dataset. A design parameter includes specifying whether to run a Welch t-test, which does not assume that the population variances of the outcome for the two groups are equal, or to run a normal t-test, which will assume that the variances are equal. The function returns a tibble containing the method, mean difference estimate, p value, and upper and lower bound of the confidence interval. The `t.test` function can be used to estimate but writing out the formulas below just for fun. 
 
 ```{r}
-estimate <- function(dat, mean_diff, var_equal = FALSE){
+estimate <- function(dat, method){
   
   # calculate summary stats
   est <- mean(dat$group_1) - mean(dat$group_2)
@@ -115,19 +115,17 @@ estimate <- function(dat, mean_diff, var_equal = FALSE){
   var_2 <- var(dat$group_2)
   
   # normal t-test
-  if(var_equal == TRUE){
-   df <- n1 + n2 - 2
-   sp_sq <- ((n1-1) * var_1 + (n2 - 1) * var_2) / df
-   vd <- sp_sq * (1 / n1 + 1 / n2)
-   method <- "T Test"
+  if(method == "t-test"){
+    df <- n1 + n2 - 2
+    sp_sq <- ((n1-1) * var_1 + (n2 - 1) * var_2) / df
+    vd <- sp_sq * (1 / n1 + 1 / n2)
   }
   
   
   # welch t-test
-  if(var_equal == FALSE){
-   df <- (var_1 / n1 + var_2 / n2)^2 / (((1 / (n1 - 1)) * (var_1 / n1)^2) + ((1 / (n2 - 1)) * (var_2 / n2)^2)) 
-   vd <- var_1 / n1 + var_2 / n2
-   method <- "Welch T Test"
+  if(method == "Welch t-test"){
+    df <- (var_1 / n1 + var_2 / n2)^2 / (((1 / (n1 - 1)) * (var_1 / n1)^2) + ((1 / (n2 - 1)) * (var_2 / n2)^2)) 
+    vd <- var_1 / n1 + var_2 / n2
   }
   
   #t and pvalue
@@ -137,12 +135,11 @@ estimate <- function(dat, mean_diff, var_equal = FALSE){
   ci <- est + c(-1, 1) * qt(.975, df = df) * se
   
   # results 
-  results <- tibble(method = method, est = est, p_val = p_val, lower_bound = ci[1], upper_bound = ci[2])
-
+  results <- tibble(est = est, p_val = p_val, lower_bound = ci[1], upper_bound = ci[2])
+  
   return(results)
-
+  
 }
-
 ```
 
 
@@ -191,13 +188,13 @@ run_sim <- function(iterations, model_params, design_params, seed = NULL) {
 Here is an example with the running simulation study: 
 
 ```{r}
-run_sim <- function(iterations, mean_diff, var_equal, seed = NULL) {
+run_sim <- function(iterations, mean_diff, method, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
 
   results <-
     rerun(iterations, {
       dat <- generate_dat(mean_diff)
-      estimate(dat, var_equal)
+      estimate(dat, method)
     }) %>%
     bind_rows()
 
@@ -245,7 +242,7 @@ set.seed(20200110)
 
 design_factors <- list(
   mean_diff = c(0, .5, 1, 2),
-  var_equal = c(TRUE, FALSE)
+  method = c("t-test", "Welch t-test")
 )
 
 params <-

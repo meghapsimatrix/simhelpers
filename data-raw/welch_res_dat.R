@@ -7,10 +7,10 @@ library(broom)
 
 # function to create normally distributed data for each group to run t test
 
-generate_dat <- function(n = 50, mean_diff){
+generate_dat <- function(mean_diff){
 
-  dat <- tibble(group_1 = rnorm(n, 0, 1),
-                group_2 = rnorm(n, mean_diff, 2))
+  dat <- tibble(group_1 = rnorm(n = 50, 0, 1),
+                group_2 = rnorm(n = 50, mean_diff, 2))
 
   return(dat)
 
@@ -20,36 +20,57 @@ generate_dat <- function(n = 50, mean_diff){
 
 # Estimation Procedures ---------------------------------------------------
 
-# function to calculate t-test, pulls out estimate of the mean difference, p val and ci
+# function to calculate t-test, pextracts estimate of the mean difference, p val and ci
 
-estimate <- function(dat, var_equal = FALSE){
+estimate <- function(dat, method){
 
-  result <- tidy(t.test(dat$group_2, dat$group_1, var.equal = var_equal)) %>%
-    mutate(est = estimate1 - estimate2) %>%
-    dplyr::select(method, est, p_val = p.value, lower_bound = conf.low, upper_bound = conf.high)
+  # calculate summary stats
+  est <- mean(dat$group_1) - mean(dat$group_2)
+  n1 <- n2 <- nrow(dat)
+  var_1 <- var(dat$group_1)
+  var_2 <- var(dat$group_2)
 
-  return(result)
+  # normal t-test
+  if(method == "t-test"){
+    df <- n1 + n2 - 2
+    sp_sq <- ((n1-1) * var_1 + (n2 - 1) * var_2) / df
+    vd <- sp_sq * (1 / n1 + 1 / n2)
+  }
+
+
+  # welch t-test
+  if(method == "Welch t-test"){
+    df <- (var_1 / n1 + var_2 / n2)^2 / (((1 / (n1 - 1)) * (var_1 / n1)^2) + ((1 / (n2 - 1)) * (var_2 / n2)^2))
+    vd <- var_1 / n1 + var_2 / n2
+  }
+
+  #t and pvalue
+  se <- sqrt(vd)
+  t <- est / se
+  p_val <-  2 * pt(-abs(t), df = df)
+  ci <- est + c(-1, 1) * qt(.975, df = df) * se
+
+  # results
+  results <- tibble(est = est, p_val = p_val, lower_bound = ci[1], upper_bound = ci[2])
+
+  return(results)
 
 }
-
 
 
 # Simulation Driver -------------------------------------------------------
 
-run_sim <- function(iterations, mean_diff, var_equal, seed = NULL) {
-
+run_sim <- function(iterations, mean_diff, method, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
 
   results <-
     rerun(iterations, {
-      dat <- generate_dat(mean_diff = mean_diff)
-      estimate(dat, var_equal = var_equal)
+      dat <- generate_dat(mean_diff)
+      estimate(dat, method)
     }) %>%
     bind_rows()
 
-  return(results)
 }
-
 
 
 # Experimental Design -----------------------------------------------------
@@ -62,7 +83,7 @@ set.seed(20200110)
 
 design_factors <- list(
   mean_diff = c(0, .5, 1, 2),
-  var_equal = c(TRUE, FALSE)
+  method = c("t-test", "Welch t-test")
 )
 
 params <-
@@ -71,6 +92,7 @@ params <-
     iterations = 1000,
     seed = round(runif(1) * 2^30) + 1:n()
   )
+
 
 
 
