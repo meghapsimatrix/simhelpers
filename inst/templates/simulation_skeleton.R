@@ -115,7 +115,7 @@ system.time(
 #--------------------------------------------------------
 
 library(SimHelpers)
-cluster <- start_parallel(source_obj = source_obj, register = TRUE)
+cluster <- start_parallel(source_obj = source_obj)
 
 system.time(results <- plyr::mdply(params, .fun = run_sim, .parallel = TRUE))
 
