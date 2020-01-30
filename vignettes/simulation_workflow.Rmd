@@ -240,7 +240,7 @@ nrow(params)
 head(params)
 ```
 
-The code below specifies two factors `mean_diff` which denotes the mean difference between two groups on an outcome and `var_equal` which specifies whether to run the a t-test assuming population outcome variances of two groups are equal or not. 
+The code below specifies two design factors `mean_diff` which denotes the mean difference between two groups on an outcome and `n` which specifies whether the sample size. These are the between simulation factors. The within simulation iteration factor is the t-test method with one assuming equal variance and one not assuming equal variance. 
 
 ```{r}
 source_obj <- ls()
