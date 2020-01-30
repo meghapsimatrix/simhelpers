@@ -294,7 +294,7 @@ results %>%
 Below we use the `future` and the `furrr` package to run the simulation in parallel. These packages are designed to work with the `purrr` functions. The line below sets up a cluster set up on your computer or network. For more complicated network setups, please see the [documentation for the future package](https://cran.r-project.org/web/packages/future/vignettes/future-1-overview.html). 
 
 ```{r, eval = FALSE}
-plan(multiprocess)
+plan(multisession)
 ```
 
 Once the cluster is configured, we can just replace `pmap` from `purrr` with `future_pmap` to run the simulation in parallel. 
@@ -303,7 +303,7 @@ Once the cluster is configured, we can just replace `pmap` from `purrr` with `fu
 library(future)
 library(furrr)
 
-plan(multiprocess) # choose an appropriate plan from the future package
+plan(multisession) # choose an appropriate plan from the future package
 
 system.time(
   results <-
