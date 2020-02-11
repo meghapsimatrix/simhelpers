@@ -243,8 +243,6 @@ head(params)
 The code below specifies two design factors `mean_diff` which denotes the mean difference between two groups on an outcome and `n` which specifies whether the sample size. These are the between simulation factors. The within simulation iteration factor is the t-test method with one assuming equal variance and one not assuming equal variance. 
 
 ```{r}
-source_obj <- ls()
-
 set.seed(20200110)
 
 # now express the simulation parameters as vectors/lists
@@ -316,6 +314,16 @@ results %>%
   kable()
 
 ```
+
+
+In the `SimHelpers` package, we have a function `evaluate_by_row` that implements the `furrr` workflow: 
+
+```{r}
+plan(multisession)
+evaluate_by_row(params, run_sim) %>%
+  kable()
+```
+
 
 
 # Example from SimHelpers

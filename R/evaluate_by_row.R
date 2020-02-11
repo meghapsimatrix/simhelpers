@@ -35,8 +35,10 @@ evaluate_by_row <- function(params, sim_function, ...,
                             .progress = FALSE, .options = future_options(),
                             system_time = TRUE) {
 
+  require(furrr)
+
   sys_tm <- system.time(
-    results_list <- furrr::future_pmap(
+    results_list <- future_pmap(
       params,
       .f = sim_function,
       ...,

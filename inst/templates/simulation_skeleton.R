@@ -1,6 +1,3 @@
-rm(list = ls())
-
-
 #------------------------------------------------------
 # Set development values for simulation parameters
 #------------------------------------------------------
@@ -68,8 +65,6 @@ run_sim <- function(iterations, model_params, design_params, seed = NULL) {
 #-------------------------------------
 # Experimental Design
 #-------------------------------------
-source_obj <- ls()
-
 set.seed(20150316) # change this seed value!
 
 # now express the simulation parameters as vectors/lists
@@ -90,14 +85,6 @@ head(params)
 
 
 
-
-
-#--------------------------------------------------------
-# run simulations in serial - mdply workflow
-#--------------------------------------------------------
-
-system.time(results <- plyr::mdply(params, .fun = run_sim))
-
 #--------------------------------------------------------
 # run simulations in serial - purrr workflow
 #--------------------------------------------------------
@@ -110,16 +97,6 @@ system.time(
     unnest(cols = res)
 )
 
-#--------------------------------------------------------
-# run simulations in parallel - mdply workflow
-#--------------------------------------------------------
-
-library(SimHelpers)
-cluster <- start_parallel(source_obj = source_obj)
-
-system.time(results <- plyr::mdply(params, .fun = run_sim, .parallel = TRUE))
-
-stopCluster(cluster)
 
 #--------------------------------------------------------
 # run simulations in parallel - future + furrr workflow
@@ -128,8 +105,11 @@ stopCluster(cluster)
 library(future)
 library(furrr)
 
-plan(multiprocess) # choose an appropriate plan from the future package
+plan(multisession) # choose an appropriate plan from the future package
+evaluate_by_row(params, run_sim)
 
+# OR
+plan(multisession)
 system.time(
   results <-
     params %>%
