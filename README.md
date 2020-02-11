@@ -34,10 +34,10 @@ performance measures and associated MCSE. The functions are divided into
 broad four categories: absolute criteria, relative criteria, rejection
 rate and confidence interval coverage. The functions are:
 
-  - `calc_abs` : Absolute criteria (bias, variance, mse, rmse)
-  - `calc_relative`: Relative criteria (relative bias, relative mse)
-  - `calc_rr`: Rejection rate (Type 1 error rate, power)
-  - `calc_coverage`: Confidence interval coverage (coverage, width)
+  - `calc_abs()` : Absolute criteria (bias, variance, mse, rmse)
+  - `calc_relative()`: Relative criteria (relative bias, relative mse)
+  - `calc_rr()`: Rejection rate (Type 1 error rate, power)
+  - `calc_coverage()`: Confidence interval coverage (coverage, width)
 
 The functions are created to work with `tidyeval` practice using
 packages like `dplyr`. The package
@@ -47,11 +47,12 @@ vignette also includes examples on how to use the functions with `dplyr`
 workflow.
 
 In addition to the set of functions that calculates performance measures
-and MCSE, the package also includes a function, `create_skeleton`, that
-generates a skeleton outline of a simulation study that can be applied
-when designing one. Another function, `evaluate_by_row` runs the
-simulation for each combination of conditions row by row. Lastly, the
-`start_parallel` function sets up parallel processing.
+and MCSE, the package also includes a function, `create_skeleton()`,
+that generates a skeleton outline of a simulation study that can be
+applied when designing one. Another function, `evaluate_by_row()` runs
+the simulation for each combination of conditions row by row and
+implements the `future_pmap()` function from the `furrr` package to run
+the simulation in parallel.
 
 The package also contains several datasets that contain results from
 example simulation studies. The code used to generate the data is
