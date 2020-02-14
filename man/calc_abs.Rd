@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_abs.R
 \name{calc_abs}
 \alias{calc_abs}
-\title{Calculate performance criteria and MCSE.}
+\title{Calculate absolute performance criteria and MCSE.}
 \usage{
 calc_abs(
   res_dat,
@@ -21,10 +21,12 @@ calc_abs(
 \item{perfm_criteria}{A character or a character vector indicating the performance criteria to be calculated.}
 }
 \value{
-The performance criteria estimate and the associated MCSE.
+A dataframe containing the performance criteria estimate and the associated MCSE.
 }
 \description{
-Calculate performance criteria and MCSE.
+Calculates absolute bias, variance, mean squared error (mse)
+and root mean squared error (rmse). The function also calculates the associated
+Monte Carlo Standard errors.
 }
 \examples{
 calc_abs(res_dat = t_res, estimates = est, true_param = true_param)

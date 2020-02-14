@@ -1,11 +1,15 @@
-#' Calculate performance criteria and MCSE.
+#' @title Calculate absolute performance criteria and MCSE.
+#'
+#' @description Calculates absolute bias, variance, mean squared error (mse)
+#' and root mean squared error (rmse). The function also calculates the associated
+#' Monte Carlo Standard errors.
 #'
 #' @param res_dat A dataframe or tibble containing simulation results.
 #' @param estimates The name of the column containing estimates.
 #' @param true_param The name of the column containing true parameters.
 #' @param perfm_criteria A character or a character vector indicating the performance criteria to be calculated.
 #'
-#' @return The performance criteria estimate and the associated MCSE.
+#' @return A dataframe containing the performance criteria estimate and the associated MCSE.
 #'
 #'
 #' @export

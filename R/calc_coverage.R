@@ -1,4 +1,7 @@
-#' Calculate performance criteria and MCSE.
+#' @title Calculate confidence interval coverage and width and MCSE.
+#'
+#' @description Calculates confidence interval coverage and width. The function also calculates the associated
+#' Monte Carlo Standard error.
 #'
 #' @param res_dat A dataframe or tibble containing confidence interval results.
 #' @param lower_bound The column containing the lower bound estimates of the confidence intervals.
@@ -7,7 +10,7 @@
 #' @param alpha A number indicating the nominal alpha level.
 #' @param perfm_criteria A character or a character vector indicating the performance criteria to be calculated.
 #'
-#' @return The performance criteria estimate and the associated MCSE.
+#' @return A dataframe containing the  performance criteria estimate and the associated MCSE.
 #'
 #' @export
 #'

@@ -1,10 +1,13 @@
-#' Calculate performance criteria and MCSE.
+#' @title Calculate rejection rate and MCSE.
+#'
+#' @description Calculates rejection rate. The function also calculates the associated
+#' Monte Carlo Standard error.
 #'
 #' @param res_dat A dataframe or tibble containing simulation results.
 #' @param p_values The name of the column containing p values.
 #' @param alpha A number indicating the nominal alpha level.
 #'
-#' @return The performance criteria estimate and the associated MCSE.
+#' @return A dataframe containing the  performance criteria estimate and the associated MCSE.
 #'
 #' @export
 #'

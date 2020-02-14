@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_coverage.R
 \name{calc_coverage}
 \alias{calc_coverage}
-\title{Calculate performance criteria and MCSE.}
+\title{Calculate confidence interval coverage and width and MCSE.}
 \usage{
 calc_coverage(
   res_dat,
@@ -27,10 +27,11 @@ calc_coverage(
 \item{perfm_criteria}{A character or a character vector indicating the performance criteria to be calculated.}
 }
 \value{
-The performance criteria estimate and the associated MCSE.
+A dataframe containing the  performance criteria estimate and the associated MCSE.
 }
 \description{
-Calculate performance criteria and MCSE.
+Calculates confidence interval coverage and width. The function also calculates the associated
+Monte Carlo Standard error.
 }
 \examples{
 calc_coverage(res_dat = t_res, lower_bound = lower_bound, upper_bound = upper_bound, true_param = true_param)

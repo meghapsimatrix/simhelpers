@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_rr.R
 \name{calc_rr}
 \alias{calc_rr}
-\title{Calculate performance criteria and MCSE.}
+\title{Calculate rejection rate and MCSE.}
 \usage{
 calc_rr(res_dat, p_values, alpha = 0.05)
 }
@@ -14,10 +14,11 @@ calc_rr(res_dat, p_values, alpha = 0.05)
 \item{alpha}{A number indicating the nominal alpha level.}
 }
 \value{
-The performance criteria estimate and the associated MCSE.
+A dataframe containing the  performance criteria estimate and the associated MCSE.
 }
 \description{
-Calculate performance criteria and MCSE.
+Calculates rejection rate. The function also calculates the associated
+Monte Carlo Standard error.
 }
 \examples{
 calc_rr(res_dat = t_res, p_values = p_val)
