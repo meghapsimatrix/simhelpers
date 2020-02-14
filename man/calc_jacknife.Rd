@@ -4,7 +4,7 @@
 \alias{calc_jacknife}
 \title{Calculate jacknife Monte Carlo SE for variance estimators.}
 \usage{
-calc_jacknife(res_dat, estimates, true_param)
+calc_jacknife(res_dat, estimates, var_estimates, true_param)
 }
 \arguments{
 \item{res_dat}{A dataframe or tibble containing variance estimates.}

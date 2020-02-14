@@ -21,7 +21,7 @@ calc_abs(
 \item{perfm_criteria}{A character or a character vector indicating the performance criteria to be calculated.}
 }
 \value{
-A dataframe containing the performance criteria estimate and the associated MCSE.
+A tibble containing the performance criteria estimate and the associated MCSE.
 }
 \description{
 Calculates absolute bias, variance, mean squared error (mse)

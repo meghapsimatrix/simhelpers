@@ -9,7 +9,7 @@
 #' @param true_param The name of the column containing true parameters.
 #' @param perfm_criteria A character or a character vector indicating the performance criteria to be calculated.
 #'
-#' @return A dataframe containing the performance criteria estimate and the associated MCSE.
+#' @return A tibblecontaining the performance criteria estimate and the associated MCSE.
 #'
 #' @export
 #'
@@ -21,6 +21,7 @@
 calc_relative <- function(res_dat, estimates, true_param, perfm_criteria = c("relative bias", "relative mse")){
 
   require(dplyr)
+  require(tibble)
 
   estimates <- res_dat %>% pull({{estimates}})
   K <- nrow(res_dat)
@@ -36,21 +37,23 @@ calc_relative <- function(res_dat, estimates, true_param, perfm_criteria = c("re
   g_t <- (1/(K * s_t^3)) * sum((estimates - t_bar)^3)
   mse <- bias^2 + var_t
 
-  # initialize data frame
-  dat <- data.frame(matrix(ncol = 0, nrow = 1))
+  # initialize tibble
+  dat <- as_tibble(data.frame(matrix(ncol = 0, nrow = 1)))
 
   if("relative bias" %in% perfm_criteria){
-    dat$rel_bias <- t_bar / true_param
-    dat$rel_bias_mcse <- sqrt(var_t / (K * true_param^2))
-    dat$rel_bias <- ifelse(true_param == 0, NA, dat$rel_bias)
-    dat$rel_bias_mcse <- ifelse(true_param == 0, NA, dat$rel_bias_mcse)
+    dat <- dat %>%
+      mutate(rel_bias = t_bar / true_param,
+             rel_bias_mcse = sqrt(var_t / (K * true_param^2)),
+             rel_bias = if_else(true_param == 0, as.numeric(NA), rel_bias),
+             rel_bias_mcse = if_else(true_param == 0, as.numeric(NA), rel_bias_mcse))
   }
 
   if("relative mse" %in% perfm_criteria){
-    dat$rel_mse <- mse / (true_param^2)
-    dat$rel_mse_mcse <- sqrt((1 / K * true_param^2) * (s_t^4 * (k_t -1) + 4 * s_t^3 * g_t * bias + 4 * var_t * bias^2))
-    dat$rel_mse <- ifelse(true_param == 0, NA, dat$rel_mse)
-    dat$rel_mse_mcse <- ifelse(true_param == 0, NA, dat$rel_mse_mcse)
+    dat <- dat %>%
+      mutate(rel_mse = mse / (true_param^2),
+             rel_mse_mcse = sqrt((1 / K * true_param^2) * (s_t^4 * (k_t -1) + 4 * s_t^3 * g_t * bias + 4 * var_t * bias^2)),
+             rel_mse = if_else(true_param == 0, as.numeric(NA), rel_mse),
+             rel_mse_mcse = if_else(true_param == 0, as.numeric(NA), rel_mse_mcse))
   }
 
   return(dat)

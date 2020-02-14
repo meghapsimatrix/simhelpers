@@ -10,7 +10,7 @@
 #' @param alpha A number indicating the nominal alpha level.
 #' @param perfm_criteria A character or a character vector indicating the performance criteria to be calculated.
 #'
-#' @return A dataframe containing the  performance criteria estimate and the associated MCSE.
+#' @return A tibble containing the  performance criteria estimate and the associated MCSE.
 #'
 #' @export
 #'
@@ -22,6 +22,7 @@
 calc_coverage <- function(res_dat, lower_bound, upper_bound, true_param, alpha = .05, perfm_criteria = c("coverage", "width")){
 
   require(dplyr)
+  require(tibble)
 
   lower_bound <- res_dat %>% pull({{lower_bound}})
   upper_bound <- res_dat %>% pull({{upper_bound}})
@@ -30,17 +31,21 @@ calc_coverage <- function(res_dat, lower_bound, upper_bound, true_param, alpha =
   true_param <- true_param[1]
 
 
-  # initialize data frame
-  dat <- data.frame(matrix(ncol = 0, nrow = 1))
+  # initialize tibble
+  dat <- as_tibble(data.frame(matrix(ncol = 0, nrow = 1)))
 
   if("coverage" %in% perfm_criteria){
-    dat$coverage <- mean(lower_bound < true_param & true_param < upper_bound)
-    dat$coverage_mcse <- sqrt((dat$coverage * (1 - dat$coverage)) / K)
+    dat <- dat %>%
+      mutate(coverage = mean(lower_bound < true_param & true_param < upper_bound),
+             coverage_mcse = sqrt((coverage * (1 - coverage)) / K))
+
   }
 
   if("width" %in% perfm_criteria){
-    dat$width <- mean(upper_bound) - mean(lower_bound)
-    dat$width_mcse <- sqrt(var(upper_bound - lower_bound) / K)
+    dat <- dat %>%
+      mutate(width = mean(upper_bound) - mean(lower_bound),
+             width_mcse = sqrt(var(upper_bound - lower_bound) / K))
+
   }
 
   return(dat)

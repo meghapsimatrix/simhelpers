@@ -9,7 +9,7 @@
 #' @param true_param The name of the column containing true parameters.
 #' @param perfm_criteria A character or a character vector indicating the performance criteria to be calculated.
 #'
-#' @return A dataframe containing the performance criteria estimate and the associated MCSE.
+#' @return A tibble containing the performance criteria estimate and the associated MCSE.
 #'
 #'
 #' @export
@@ -22,6 +22,7 @@
 calc_abs <- function(res_dat, estimates, true_param, perfm_criteria = c("bias", "variance", "mse", "rmse")){
 
   require(dplyr)
+  require(tibble)
 
   estimates <- res_dat %>% pull({{estimates}})
   K <- nrow(res_dat)
@@ -39,28 +40,32 @@ calc_abs <- function(res_dat, estimates, true_param, perfm_criteria = c("bias", 
   mse <- bias^2 + var_t
   mse_mcse <- sqrt((1/K) * (s_t^4 * (k_t -1) + 4 * s_t^3 * g_t * bias + 4 * var_t * bias^2))
 
-  # initialize data frame
-  dat <- data.frame(matrix(ncol = 0, nrow = 1))
+  # initialize tibble
+  dat <- as_tibble(data.frame(matrix(ncol = 0, nrow = 1)))
 
   if("bias" %in% perfm_criteria){
-    dat$bias <- bias
-    dat$bias_mcse <- sqrt(var_t / K)
+    dat <- dat %>%
+      mutate(bias = bias,
+             bias_mcse = sqrt(var_t / K))
   }
 
   if("variance" %in% perfm_criteria){
-    dat$var <- var_t
-    dat$var_mcse <- var_t * sqrt(((k_t - 1) / K))
+    dat <- dat %>%
+      mutate(var = var_t,
+             var_mcse = var_t * sqrt(((k_t - 1) / K)))
   }
 
 
   if("mse" %in% perfm_criteria){
-    dat$mse <- mse
-    dat$mse_mcse <- mse_mcse
+    dat <- dat %>%
+      mutate(mse = mse,
+             mse_mcse = mse_mcse)
   }
 
   if("rmse" %in% perfm_criteria){
-    dat$rmse <- sqrt(mse)
-    dat$rmse_mcse <- sqrt((mse_mcse^2) / (4 * mse))
+    dat <- dat %>%
+      mutate(rmse = sqrt(mse),
+             rmse_mcse = sqrt((mse_mcse^2) / (4 * mse)))
   }
 
   return(dat)

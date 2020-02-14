@@ -14,7 +14,7 @@ calc_rr(res_dat, p_values, alpha = 0.05)
 \item{alpha}{A number indicating the nominal alpha level.}
 }
 \value{
-A dataframe containing the  performance criteria estimate and the associated MCSE.
+A tibble containing the  performance criteria estimate and the associated MCSE.
 }
 \description{
 Calculates rejection rate. The function also calculates the associated

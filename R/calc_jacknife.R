@@ -13,35 +13,38 @@
 #' calc_jacknife(res_dat = alpha_res, estimates = var_est, true_param = true_param)
 #'
 
-calc_jacknife <- function(res_dat, estimates, true_param){
+calc_jacknife <- function(res_dat, estimates, var_estimates, true_param){
 
   require(dplyr)
+  require(tibble)
 
-  var_est <- res_dat %>% dplyr::pull({{estimates}})
+  est <- res_dat %>% dplyr::pull({{estimates}})
+  var_est <- res_dat %>% dplyr::pull({{var_estimates}})
   K <- nrow(res_dat)
   true_param <- res_dat %>% dplyr::pull({{true_param}})
   true_param <- true_param[1]
 
 
   # calculate sample stats
-  v_bar <- mean(var_est)
+  v_bar <- mean(var_est) # sample mean of variance estimator
   v_var <- var(var_est)
+  t_bar <- mean(est)
+  t_var <- var(est)
   V_bar_j <- (1 / (K - 1)) * (K * v_bar - var_est)
-  S_sq_t_j <- (1 / (K - 2)) * ((K-1) * var(var_est) - (K / (K-1)) * (var_est - v_bar)^2)
-  T_bar_j <- (1 / (K - 1)) * (K * v_bar - var_est)
+  S_sq_t_j <- (1 / (K - 2)) * ((K-1) * t_var - (K / (K-1)) * (est - t_bar)^2)
+  # T_bar_j <- (1 / (K - 1)) * (K * v_bar - var_est)
   RB_var <- v_bar/ v_var
-  rmse_j <- sqrt((T_bar_j - true_param)^2 + ((K - 1) / K) * S_sq_t_j)
+  rmse_j <- sqrt((t_bar - true_param)^2 + ((K - 1) / K) * S_sq_t_j)
   rmse <- sqrt(mean((var_est - true_param)^2))
 
   # initialize data frame
-  dat <- data.frame(matrix(ncol = 0, nrow = 1))
-
-
-  dat$rbv <- RB_var
-  dat$rbv_mcse <- sqrt(v_var / K)
-  dat$rbv_jack_mcse <- sqrt((1/K) * sum((V_bar_j/S_sq_t_j - RB_var)^2))
-  dat$rmsev <- rmse
-  dat$rmsev_jack_mcse <- sqrt((1/K) * sum((rmse_j - rmse)^2))
+  dat <- tibble(
+    rbv = RB_var,
+    rbv_mcse = sqrt(v_var / K),
+    rbv_jack_mcse = sqrt((1/K) * sum((V_bar_j/S_sq_t_j - RB_var)^2)),
+    rmsev = rmse,
+    rmsev_jack_mcse = sqrt((1/K) * sum((rmse_j - rmse)^2))
+  )
 
 
   return(dat)

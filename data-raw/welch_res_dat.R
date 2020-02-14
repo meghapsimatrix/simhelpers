@@ -9,8 +9,8 @@ library(broom)
 
 generate_dat <- function(mean_diff, n){
 
-  dat <- tibble(group_1 = rnorm(n = n, 0, 1),
-                group_2 = rnorm(n = n, mean_diff, 2))
+  dat <- tibble(group_1 = rnorm(n = n, mean_diff, 1),
+                group_2 = rnorm(n = n, 0, 2))
 
   return(dat)
 

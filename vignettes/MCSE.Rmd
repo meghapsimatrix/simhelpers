@@ -16,9 +16,11 @@ knitr::opts_chunk$set(
 
 # Introduction to Simulation Studies and Monte Carlo Standard Errors
 
-Simulations are experiments to study performance of statistical methods under known data-generating conditions (Morris, White and Crowther, 2018). Methodologists examine questions like: (1) how does ordinary least squares (OLS) regression perform if errors are heteroskedastic? (2) how does the presence of missing data affect treatment effect estimates from a propensity score analysis? To answer such questions, we conduct experiments by simulating thousands of datasets from pseudo-random sampling (Morris et al., 2018). We generate datasets under known conditions. For example, we can generate data where the errors are heteroskedastic or there is missing data present following Missing at Random (MAR) mechanism. Then, we apply statistical methods, like OLS, to each of the datasets and extract measures like mean difference, regression coefficients, p values, and confidence intervals. We then analyze the methods using performance criteria measures like bias, Type 1 error rate etc.
+Simulations are experiments to study the performance of statistical methods under known data-generating conditions (Morris, White and Crowther, 2018). Methodologists examine questions like: (1) how does ordinary least squares (OLS) regression perform if errors are heteroskedastic? (2) how does the presence of missing data affect treatment effect estimates from a propensity score analysis? To answer such questions, we conduct experiments by simulating thousands of datasets from pseudo-random sampling (Morris et al., 2018). We generate datasets under known conditions. For example, we can generate data where the errors are heteroskedastic or there is missing data present following Missing at Random (MAR) mechanism. Then, we apply statistical methods, like OLS and propensity score estimation using logistic regression, to each of the datasets and extract measures like mean difference, regression coefficients, p values, and confidence intervals. We then analyze the methods using performance criteria measures like bias, Type 1 error rate etc.
 
-When examining performance measures, we need to also consider the error in the estimate of the performance measures due to the fact that we generate a finite number of samples. The error is quantified in the form of Monte Carlo standard error (MCSE). The goal of SimHelpers is to assist in running simulation studies. This package provides a set of functions that calculates various performance measures and associated MCSE. This vignette focuses on the set of functions. Below, we explain three major categories of performance criteria: absolute, relative and hypothesis testing. We provide formulas used to calculate the performance measures and MCSE and demonstrate how to use the functions in the `SimHelpers` package. 
+When examining performance measures, we need to also consider the error in the estimate of the performance measures due to the fact that we generate a finite number of samples. The error is quantified in the form of Monte Carlo standard error (MCSE). 
+
+The goal of SimHelpers is to assist in running simulation studies. This package provides a set of functions that calculates various performance measures and associated MCSE. This vignette focuses on the set of functions. Below, we explain three major categories of performance criteria: absolute, relative and hypothesis testing. We provide formulas used to calculate the performance measures and MCSE and demonstrate how to use the functions in the `SimHelpers` package. 
 
 The formula notations and explanations of the performance measures follow notes from Dr. James Pustejovsky's [Data Analysis, Simulation and Programming in R course (Spring, 2019)](https://www.jepusto.com/teaching/daspir/).
 
@@ -124,15 +126,6 @@ Below, we calculate the relative criteria for the mean difference estimates. Not
 
 
 ```{r}
-# using do()
-welch_res %>%
-  group_by(n, mean_diff, method) %>%
-  do(calc_relative(., estimates = est, true_param = mean_diff)) %>%
-  mutate_if(is.numeric, round, 3) %>%
-  kable()
-```
-
-```{r}
 # using group_modify()
 welch_res %>%
   mutate(params = mean_diff) %>%
@@ -168,14 +161,6 @@ Below we calculate the rejection rate performance criteria for the hypothesis te
 
 
 ```{r}
-# using do()
-welch_res %>%
-  group_by(n, mean_diff, method) %>%
-  do(calc_rr(., p_values = p_val)) %>%
-  kable()
-```
-
-```{r}
 # using group_modify()
 welch_res %>%
   group_by(n, mean_diff, method) %>%
@@ -184,14 +169,6 @@ welch_res %>%
 ```
 
 Below we calculate the coverage and width performance criteria for the confidence intervals for the estimate of the mean difference. The `calc_coverage` function takes in a result data as the first argument. The second and third arguments, `lower_bound` and `upper_bound` take in columns that contain the lower and upper bound estimates of the confidence interval. The `true_param` argument takes in a column containing the true parameters. Like `calc_abs` and `calc_relative`, `calc_coverage` also has an argument `perfm_criteria` where the user can specify which criteria to evaluate: `c("coverage", "width")`. 
-
-```{r}
-# using do()
-welch_res %>%
-  group_by(n, mean_diff, method) %>%
-  do(calc_coverage(., lower_bound = lower_bound, upper_bound = upper_bound, true_param = mean_diff)) %>%
-  kable()
-```
 
 ```{r}
 # using group_modify()
