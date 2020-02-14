@@ -20,7 +20,7 @@ Simulations are experiments to study the performance of statistical methods unde
 
 When examining performance measures, we need to also consider the error in the estimate of the performance measures due to the fact that we generate a finite number of samples. The error is quantified in the form of Monte Carlo standard error (MCSE). 
 
-The goal of SimHelpers is to assist in running simulation studies. This package provides a set of functions that calculates various performance measures and associated MCSE. This vignette focuses on the set of functions. Below, we explain three major categories of performance criteria: absolute, relative and hypothesis testing. We provide formulas used to calculate the performance measures and MCSE and demonstrate how to use the functions in the `SimHelpers` package. 
+The goal of `SimHelpers` is to assist in running simulation studies. This package provides a set of functions that calculates various performance measures and associated MCSE. This vignette focuses on the set of functions. Below, we explain three major categories of performance criteria: absolute, relative and hypothesis testing. We provide formulas used to calculate the performance measures and MCSE and demonstrate how to use the functions in the `SimHelpers` package. 
 
 The formula notations and explanations of the performance measures follow notes from Dr. James Pustejovsky's [Data Analysis, Simulation and Programming in R course (Spring, 2019)](https://www.jepusto.com/teaching/daspir/).
 
