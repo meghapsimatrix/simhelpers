@@ -1,6 +1,9 @@
 #' Calculate jacknife Monte Carlo SE for variance estimators.
 #'
-#' @param res_dat data frame or tibble containing variance estimates.
+#'#' @description Calculates relative bias of variance estimators.
+#' The function also calculates the associated jacknife Monte Carlo Standard errors.
+#'
+#' @param res_dat data frame or tibble containing the simulation results.
 #' @param estimates name of the column containing the estimates.
 #' @param var_estimates name of the column containing the variance estimates.
 #' @param true_param name of the column containing true parameters.
@@ -11,7 +14,7 @@
 #' @export
 #'
 #' @examples
-#' calc_rbvjk(res_dat = alpha_res, estimates = est, var_estimates = var_est, true_param = true_param)
+#' calc_rbvjk(res_dat = alpha_res, estimates = A, var_estimates = Var_A, true_param = true_param)
 #'
 
 calc_rbvjk <- function(res_dat, estimates, var_estimates, true_param){

@@ -7,7 +7,7 @@
 calc_rbvjk(res_dat, estimates, var_estimates, true_param)
 }
 \arguments{
-\item{res_dat}{data frame or tibble containing variance estimates.}
+\item{res_dat}{data frame or tibble containing the simulation results.}
 
 \item{estimates}{name of the column containing the estimates.}
 
@@ -19,9 +19,10 @@ calc_rbvjk(res_dat, estimates, var_estimates, true_param)
 A tibble containing the performance criteria estimate and the associated MCSE.
 }
 \description{
-Calculate jacknife Monte Carlo SE for variance estimators.
+#' @description Calculates relative bias of variance estimators.
+The function also calculates the associated jacknife Monte Carlo Standard errors.
 }
 \examples{
-calc_rbvjk(res_dat = alpha_res, estimates = est, var_estimates = var_est, true_param = true_param)
+calc_rbvjk(res_dat = alpha_res, estimates = A, var_estimates = Var_A, true_param = true_param)
 
 }

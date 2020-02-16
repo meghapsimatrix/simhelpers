@@ -148,6 +148,12 @@ welch_res %>%
   kable()
 ```
 
+### Relative Bias of Variance Estimator
+
+```{r}
+calc_rbvjk(res_dat = alpha_res, estimates = A, var_estimates = Var_A, true_param = true_param) %>%
+  kable()
+```
 
 
 ## Hypothesis Testing and Confidence Intervals
