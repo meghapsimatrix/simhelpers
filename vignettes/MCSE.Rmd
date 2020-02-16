@@ -32,7 +32,7 @@ The formula notations and explanations of the performance measures follow notes 
 Bias characterizes whether the estimate on average lies above or below the true parameter. 
 Variance characterizes the precision of the estimates. It characterizes the deviation of each estimate from the average of the estimates. Note that variance is the inverse of precision. Therefore, the higher the variance, the lower the precision. Mean squared error (MSE) and root mean squared error (RMSE) characterize the accuracy of the estimates. MSE and RMSE measure how far off on average the estimates are from the true parameter. Absolute criteria are in the same scale as the estimates. MSE is in squared deviation scale and RMSE is in the scale of the estimates.
 
-The table below shows each of the performance criteria, what it measures, its definition, its estimate, and its MCSE formula. The equation for the MCSE of RMSE is derived using [the delta method](https://www.jepusto.com/multivariate-delta-method/), which states that:
+The equation for the MCSE of RMSE is derived using [the delta method](https://www.jepusto.com/multivariate-delta-method/), which states that:
 
 $$
 \text{Var}\left(f(X)\right) = \left(\frac{\partial f}{\partial \theta}\right)^2 \text{Var}(X)
@@ -57,6 +57,8 @@ Let $T$ denote an estimator for a parameter $\theta$. From running a simulation 
 - Sample skewness (standardized): $g_T = \frac{1}{K S_T^3}\sum_{k=1}^K \left(T_k - \bar{T}\right)^3$
 - Sample kurtosis (standardized): $k_T = \frac{1}{K S_T^4} \sum_{k=1}^K \left(T_k - \bar{T}\right)^4$
 
+The table below shows each of the performance criteria, what it measures, its definition, its estimate, and its MCSE formula. 
+
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 library(tidyverse)
 library(kableExtra)
@@ -75,15 +77,23 @@ knitr::kable(abs_dat, escape = FALSE, caption = "Table 1. Absolute Performance C
 
 ### Example
 
-We use the `welch_res` dataset included in the package. It contains the results from an example simulation study comparing the heteroskedasticity robust Welch t-test to normal t-test. The code used to generate the data and results can be found [here](https://github.com/meghapsimatrix/SimHelpers/blob/master/data-raw/welch_res_dat.R). Below, we calculate the absolute performance criteria for the estimate of the mean difference. We present the results by method and mean difference (conditions which were varied to generate the `welch_res` data). The `calc_abs` function is designed to work with the `dplyr` `tidyeval` workflow. The first argument, `res_dat`, is a dataset containing the results from a simulation study. The second argument, `estimates`, is the name of the column containing the estimates like mean difference or regression coefficients. The third argument, `true_param`, is the name of the column containing the true parameters. The fourth argument `perfm_criteria` lets the user specify which criteria to evaluate. The criteria can be specified using a character vector: `c("bias", "variance", "mse", "rmse")`. By default, the function returns, bias, variance, mean square error (mse), and root mean square error (rmse). In the example below, we ask for all the available criteria. 
+We use the `welch_res` dataset included in the package. It contains the results from an example simulation study comparing the heteroskedasticity robust Welch t-test to normal t-test. The code used to generate the data and results can be found [here](https://github.com/meghapsimatrix/SimHelpers/blob/master/data-raw/welch_res_dat.R). We varied the mean difference parameter when generating data for two groups. We set the values to 0, 0.5, 1 and 2. We also varied the sample size per group, setting sample size values to 50, 100, and 200. We generated the data with slightly unequal variances. With each simulated data, we ran normal t-test, which assumes homogeneity of variance, and we also ran Welch t-test which does not assume homogeneity of variance. We extracted the estimate (mean difference), p value, and the upper and lower bounds of the confidence intervals. 
 
-We use `dplyr` syntax to group by the two conditions that were varied to generate the simulation data: method and mean differences. We provide examples using `do()` and `group_modify()` to run `calc_abs()` on each subset of the results for each combination of the conditions. We use `mutate_if` to round the results to three decimal places. 
-
-```{r example, message = FALSE, warning = FALSE}
+```{r, message = FALSE, warning = FALSE}
 library(SimHelpers)
 library(tidyverse)
 library(knitr)
 
+welch_res %>%
+  glimpse()
+```
+
+
+Below, we calculate the absolute performance criteria for the estimate of the mean difference. We present the results by sample size, mean difference, and the t-test method. The `calc_abs` function is designed to work with the `dplyr` `tidyeval` workflow. The first argument, `res_dat`, is a dataset containing the results from a simulation study. The second argument, `estimates`, is the name of the column containing the estimates like mean difference or regression coefficients. The third argument, `true_param`, is the name of the column containing the true parameters. The fourth argument `perfm_criteria` lets the user specify which criteria to evaluate. The criteria can be specified using a character vector: `c("bias", "variance", "mse", "rmse")`. By default, the function returns, bias, variance, mean square error (mse), and root mean square error (rmse). In the example below, we ask for all the available criteria. 
+
+We use `dplyr` syntax to group by the two conditions that were varied to generate the simulation data: method and mean differences. We provide examples using `do()` and `group_modify()` to run `calc_abs()` on each subset of the results for each combination of the conditions. We use `mutate_if` to round the results to three decimal places. 
+
+```{r}
 # using do()
 welch_res %>%
   group_by(n, mean_diff, method) %>% # grouping 
