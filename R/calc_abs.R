@@ -7,7 +7,7 @@
 #' @param res_dat data frame or tibble containing the simulation results.
 #' @param estimates name of the column containing the estimates.
 #' @param true_param name of the column containing the true parameters.
-#' @param perfm_criteria character or haracter vector indicating the performance criteria to be calculated.
+#' @param perfm_criteria character or character vector indicating the performance criteria to be calculated.
 #'
 #' @return A tibble containing the performance criteria estimate(s) and the associated MCSE.
 #'

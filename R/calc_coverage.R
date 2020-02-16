@@ -1,4 +1,4 @@
-#' @title Calculate confidence interval coverage and width and MCSE.
+#' @title Calculate confidence interval coverage, width and MCSE.
 #'
 #' @description Calculates confidence interval coverage and width. The function also calculates the associated
 #' Monte Carlo Standard error.

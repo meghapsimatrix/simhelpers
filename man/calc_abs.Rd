@@ -18,7 +18,7 @@ calc_abs(
 
 \item{true_param}{name of the column containing the true parameters.}
 
-\item{perfm_criteria}{character or haracter vector indicating the performance criteria to be calculated.}
+\item{perfm_criteria}{character or character vector indicating the performance criteria to be calculated.}
 }
 \value{
 A tibble containing the performance criteria estimate(s) and the associated MCSE.

@@ -21,11 +21,11 @@ calc_relative(
 \item{perfm_criteria}{character or character vector indicating the performance criteria to be calculated.}
 }
 \value{
-A tibblecontaining the performance criteria estimate(s) and the associated MCSE.
+A tibble containing the performance criteria estimate(s) and the associated MCSE.
 }
 \description{
-Calculates relative bias, mean squared error (mse)
-and root mean squared error (rmse). The function also calculates the associated
+Calculates relative bias, and mean squared error (relative mse).
+The function also calculates the associated
 Monte Carlo Standard errors.
 }
 \examples{

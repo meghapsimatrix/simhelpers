@@ -1,7 +1,7 @@
 #' @title Calculate relative performance criteria and MCSE.
 #'
-#' @description Calculates relative bias, mean squared error (mse)
-#' and root mean squared error (rmse). The function also calculates the associated
+#' @description Calculates relative bias, and mean squared error (relative mse).
+#' The function also calculates the associated
 #' Monte Carlo Standard errors.
 #'
 #' @param res_dat data frame or tibble containing the simulation results.
@@ -9,7 +9,7 @@
 #' @param true_param name of the column containing the true parameters.
 #' @param perfm_criteria character or character vector indicating the performance criteria to be calculated.
 #'
-#' @return A tibblecontaining the performance criteria estimate(s) and the associated MCSE.
+#' @return A tibble containing the performance criteria estimate(s) and the associated MCSE.
 #'
 #' @export
 #'
