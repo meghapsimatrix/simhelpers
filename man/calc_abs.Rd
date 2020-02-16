@@ -12,13 +12,13 @@ calc_abs(
 )
 }
 \arguments{
-\item{res_dat}{A dataframe or tibble containing the simulation results.}
+\item{res_dat}{data frame or tibble containing the simulation results.}
 
-\item{estimates}{The name of the column containing the estimates.}
+\item{estimates}{name of the column containing the estimates.}
 
-\item{true_param}{The name of the column containing the true parameters.}
+\item{true_param}{name of the column containing the true parameters.}
 
-\item{perfm_criteria}{A character or a character vector indicating the performance criteria to be calculated.}
+\item{perfm_criteria}{character or haracter vector indicating the performance criteria to be calculated.}
 }
 \value{
 A tibble containing the performance criteria estimate(s) and the associated MCSE.

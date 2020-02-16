@@ -4,10 +4,10 @@
 #' and root mean squared error (rmse). The function also calculates the associated
 #' Monte Carlo Standard errors.
 #'
-#' @param res_dat A dataframe or tibble containing the simulation results.
-#' @param estimates The name of the column containing the estimates
-#' @param true_param The name of the column containing the true parameters.
-#' @param perfm_criteria A character or a character vector indicating the performance criteria to be calculated.
+#' @param res_dat data frame or tibble containing the simulation results.
+#' @param estimates name of the column containing the estimates
+#' @param true_param name of the column containing the true parameters.
+#' @param perfm_criteria character or character vector indicating the performance criteria to be calculated.
 #'
 #' @return A tibblecontaining the performance criteria estimate(s) and the associated MCSE.
 #'

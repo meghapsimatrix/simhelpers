@@ -3,12 +3,12 @@
 #' @description Calculates confidence interval coverage and width. The function also calculates the associated
 #' Monte Carlo Standard error.
 #'
-#' @param res_dat A dataframe or tibble containing the simulation results.
-#' @param lower_bound The column containing the lower bound estimates of the confidence intervals.
-#' @param upper_bound The column containing the upper bound estimates of the confidence intervals.
-#' @param true_param The name of the column containing the true parameters.
-#' @param alpha A number indicating the nominal alpha level. Default value is set to the conventional .05.
-#' @param perfm_criteria A character or a character vector indicating the performance criteria to be calculated.
+#' @param res_dat data frame or tibble containing the simulation results.
+#' @param lower_bound name of the column containing the lower bound estimates of the confidence intervals.
+#' @param upper_bound name of the column containing the upper bound estimates of the confidence intervals.
+#' @param true_param name of the column containing the true parameters.
+#' @param alpha number indicating the nominal alpha level. Default value is set to the conventional .05.
+#' @param perfm_criteria character or character vector indicating the performance criteria to be calculated.
 #'
 #' @return A tibble containing the  performance criteria estimate(s) and the associated MCSE.
 #'
