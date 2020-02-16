@@ -4,7 +4,7 @@
 #' Monte Carlo Standard error.
 #'
 #' @param res_dat data frame or tibble containing the simulation results.
-#' @param p_values name of the column containing the p values.
+#' @param p_values name of the column containing the p-values.
 #' @param alpha number indicating the nominal alpha level. Default value is set to the conventional .05.
 #'
 #' @return A tibble containing the performance criteria estimate and the associated MCSE.

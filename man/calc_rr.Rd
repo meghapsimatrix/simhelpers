@@ -9,7 +9,7 @@ calc_rr(res_dat, p_values, alpha = 0.05)
 \arguments{
 \item{res_dat}{data frame or tibble containing the simulation results.}
 
-\item{p_values}{name of the column containing the p values.}
+\item{p_values}{name of the column containing the p-values.}
 
 \item{alpha}{number indicating the nominal alpha level. Default value is set to the conventional .05.}
 }
