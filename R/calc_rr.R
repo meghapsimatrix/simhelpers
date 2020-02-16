@@ -7,7 +7,7 @@
 #' @param p_values The name of the column containing p values.
 #' @param alpha A number indicating the nominal alpha level.
 #'
-#' @return A tibble containing the  performance criteria estimate and the associated MCSE.
+#' @return A tibble containing the performance criteria estimate and the associated MCSE.
 #'
 #' @export
 #'

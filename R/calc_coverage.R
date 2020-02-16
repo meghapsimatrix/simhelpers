@@ -10,7 +10,7 @@
 #' @param alpha A number indicating the nominal alpha level.
 #' @param perfm_criteria A character or a character vector indicating the performance criteria to be calculated.
 #'
-#' @return A tibble containing the  performance criteria estimate and the associated MCSE.
+#' @return A tibble containing the  performance criteria estimate(s) and the associated MCSE.
 #'
 #' @export
 #'
