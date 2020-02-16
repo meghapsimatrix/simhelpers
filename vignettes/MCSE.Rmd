@@ -78,7 +78,7 @@ knitr::kable(abs_dat, escape = FALSE, caption = "Table 1. Absolute Performance C
 
 ### Example
 
-We use the `welch_res` dataset included in the package. It contains the results from an example simulation study comparing the heteroskedasticity robust Welch t-test to normal t-test. The code used to generate the data and results can be found [here](https://github.com/meghapsimatrix/SimHelpers/blob/master/data-raw/welch_res_dat.R). We varied the mean difference parameter when generating data for two groups. We set the values to 0, 0.5, 1 and 2. We also varied the sample size per group, setting sample size values to 50, 100, and 200. We generated the data with slightly unequal variances. With each simulated data, we ran normal t-test, which assumes homogeneity of variance, and we also ran Welch t-test which does not assume homogeneity of variance. We extracted the estimate (mean difference), p-value, and the upper and lower bounds of the confidence intervals. 
+We use the `welch_res` dataset included in the package. It contains the results from an example simulation study comparing the heteroskedasticity robust Welch t-test to normal t-test. The code used to generate the data and results can be found [here](https://github.com/meghapsimatrix/SimHelpers/blob/master/data-raw/welch_res_dat.R). We varied the mean difference parameter when generating data for two groups. We set the values to 0, 0.5, 1 and 2. We also varied the sample size per group, setting sample size values to 50, 100, and 200. We generated the data with slightly unequal variances. With each simulated data, we ran normal t-test, which assumes homogeneity of variance, and we also ran Welch t-test which does not assume homogeneity of variance. We extracted the estimate (mean difference), variance of the estimates, p-value, and the upper and lower bounds of the confidence intervals. 
 
 ```{r, message = FALSE, warning = FALSE}
 library(SimHelpers)
@@ -151,8 +151,31 @@ welch_res %>%
 
 ### Relative Bias of Variance Estimator
 
+Variances estimators are always positive. Therefore, relative performance criteria are often used to assess variance estimators. Let $V$ denote the sampling variance of of a point-estimator $T$. To assess to relative bias of $V$, we need to divide it by the true value of the sampling variance of $T$ which we may not know. In such scenario, we can use the sample variance of $T$ across the replications ($S_T^2$) to estimate the true sampling variance $\text{Var}(T)$. The relative bias would then be estimated by $\bar{V} / S_T^2$, the average of the variance estimates divided by the sample variance of the point-estimates.
+
+To estimate MCSE of the relative bias of the variance estimator, we need to account for the uncertainty in the estimation of the true sampling variance. One way to do so is to use the _jackknife_ technique. Jack-knifing involves excluding a replicate $j$ and calculating relative bias $\bar{V}_{(j)}/ S_{T(j)}^2$. Calculating all $K$  versions of this relative bias estimate, excluding each of replicates at a time, and taking the variance yields the jackknife variance estimator:
+
+$$
+MCSE\left(RB\right) = \frac{1}{K} \sum_{j=1}^K \left(\frac{\bar{V}_{(j)}}{S_{T(j)}^2} - \frac{\bar{V}}{S_T^2}\right)^2.
+$$
+
+To avoid the time consuming calculation to derive the MCSE as specified above, we reformulate the MCSE using some algebra tricks:
+
+$$
+\begin{aligned}
+\bar{V}_{(j)} &= \frac{1}{K - 1}\left(K \bar{V} - V_j\right) \\
+S_{T(j)}^2 &= \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]
+\end{aligned}
+$$
+
+The function `calc_rbvjk()` calculates the jack-knife MCSE of the relative bias estimate of a variance estimator. The function requires `res_dat`, a data frame or tibble containing simulation results, `estimates`, the name of the column containing point-estimates, `var_estimates`, the name of the column containing the variance estimates, and `true_param`, the name of the column containing the true parameters of the point-estimator. 
+
 ```{r}
-calc_rbvjk(res_dat = alpha_res, estimates = A, var_estimates = Var_A, true_param = true_param) %>%
+welch_res %>%
+  mutate(params = mean_diff) %>%
+  group_by(n, mean_diff, method) %>%
+  group_modify(~ calc_rbvjk(.x,  estimates = est, var_estimates = var, true_param = params)) %>%
+  mutate_if(is.numeric, round, 3) %>%
   kable()
 ```
 
@@ -177,7 +200,7 @@ knitr::kable(hyp_dat, escape = FALSE, caption = "Table 3. Hypothesis Testing and
 
 ### Example
 
-Below we calculate the rejection rates for the hypothesis tests conducted using t-test. The null hypothesis states that the two groups have the same means. The `calc_rr()` function requries a data set or tibble as the first argument. The second argument, `p_values`, requires the name of the column containing p-values.  
+Below we calculate the rejection rates for the hypothesis tests conducted using t-test. The null hypothesis states that the two groups have the same means. The `calc_rr()` function requires a data set or tibble as the first argument. The second argument, `p_values`, requires the name of the column containing p-values.  
 
 
 ```{r}
@@ -208,4 +231,7 @@ The associated MCSE should be small compared to the performance measure.
 # References 
 
 Morris, T. P., White, I. R., & Crowther, M. J. (2019). Using simulation studies to evaluate statistical methods. Statistics in medicine, 38(11), 2074-2102.
+
+Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source
+  Software, 4(43), 1686, https://doi.org/10.21105/joss.01686
 

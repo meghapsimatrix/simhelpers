@@ -51,7 +51,7 @@ estimate <- function(dat){
     ci <- est + c(-1, 1) * qt(.975, df = df) * se
 
 
-    return(tibble(method = method, est = est, p_val = p_val, lower_bound = ci[1], upper_bound = ci[2]))
+    return(tibble(method = method, est = est, var = vd, p_val = p_val, lower_bound = ci[1], upper_bound = ci[2]))
   }
 
   results <- bind_rows(calc_t(est = est, vd = vd, df = df, method = "t-test"),

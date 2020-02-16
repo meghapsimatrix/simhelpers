@@ -6,7 +6,7 @@
 #' @param res_dat data frame or tibble containing the simulation results.
 #' @param estimates name of the column containing the estimates.
 #' @param var_estimates name of the column containing the variance estimates.
-#' @param true_param name of the column containing true parameters.
+#' @param true_param name of the column containing true parameters of the point estimator.
 #'
 #' @return A tibble containing the performance criteria estimate and the associated MCSE.
 #'

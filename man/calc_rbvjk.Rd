@@ -13,7 +13,7 @@ calc_rbvjk(res_dat, estimates, var_estimates, true_param)
 
 \item{var_estimates}{name of the column containing the variance estimates.}
 
-\item{true_param}{name of the column containing true parameters.}
+\item{true_param}{name of the column containing true parameters of the point estimator.}
 }
 \value{
 A tibble containing the performance criteria estimate and the associated MCSE.
