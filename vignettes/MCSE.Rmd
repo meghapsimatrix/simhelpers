@@ -30,9 +30,9 @@ The formula notations and explanations of the performance measures follow notes 
 ## Absolute Criteria
 
 Bias characterizes whether the estimate on average lies above or below the true parameter. 
-Variance characterizes the precision of the estimates - how much does each estimate deviates from the average of the estimates? Note that variance is inverse of precision - the higher the variance, the lower the precision. Mean square error and root mean square error characterizes the accuracy of the estimates. It measures how far off on average are the estimates from the true parameter. Absolute criteria will be in the scale of the estimates.
+Variance characterizes the precision of the estimates. It characterizes the deviation of each estimate from the average of the estimates. Note that variance is the inverse of precision. Therefore, the higher the variance, the lower the precision. Mean squared error (MSE) and root mean squared error (RMSE) characterize the accuracy of the estimates. MSE and RMSE measure how far off on average the estimates are from the true parameter. Absolute criteria are in the same scale as the estimates. MSE is in squared deviation scale and RMSE is in the scale of the estimates.
 
-The table below shows each of the performance criteria, what it measures, definition, estimation, and the MCSE formula. The equation for the MCSE of RMSE is derived using [the delta method](https://www.jepusto.com/multivariate-delta-method/), which states that:
+The table below shows each of the performance criteria, what it measures, its definition, its estimate, and its MCSE formula. The equation for the MCSE of RMSE is derived using [the delta method](https://www.jepusto.com/multivariate-delta-method/), which states that:
 
 $$
 \text{Var}\left(f(X)\right) = \left(\frac{\partial f}{\partial \theta}\right)^2 \text{Var}(X)
@@ -63,7 +63,7 @@ library(kableExtra)
 
 abs_dat <- tibble(Criterion = c("Bias","Variance","MSE", "RMSE"),
               Measure = c("Difference from true parameter", "Precision", "Accuracy", "Accuracy"),
-              Definition = c("$E(T) - \\theta$", "$E(T - E(T))^2$",  "$E(T - \\theta)^2$", "$\\sqrt{E(T - \\theta)^2}$"),
+              Definition = c("$\\text{E}(T) - \\theta$", "$\\text{E}(T - \\text{E}(T))^2$",  "\\text{E}(T - \\theta)^2$", "$\\sqrt{\\text{E}(T - \\theta)^2}$"),
               Estimate = c("$\\bar{T} - \\theta$", "$S_T^2$", "$(\\bar{T} - \\theta)^2 + S_T^2$", "$\\sqrt{(\\bar{T} - \\theta)^2 + S_T^2}$"),
               MCSE = c("$\\sqrt{S_T^2/ K}$", "$S_T^2 \\sqrt{\\frac{k_T - 1}{K}}$",  
                        "$\\sqrt{\\frac{1}{K}[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_T^2 (\\bar{T} - \\theta)^2}$ ", "$\\sqrt{\\frac{S_{MSE}^2}{4 MSE}}$"))
@@ -112,7 +112,7 @@ Table 2 below lists the criteria, definition, estimation and the MCSE formula.
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 rel_dat <- tibble(Criterion = c("Relative Bias","Relative MSE"),
-              Definition = c("$E(L) / \\lambda$", "$E(L - \\lambda)^2/ \\lambda^2$"),
+              Definition = c("$\\text{E}(L) / \\lambda$", "$\\text{E}(L - \\lambda)^2/ \\lambda^2$"),
               Estimate = c("$\\bar{L} / \\lambda$", "$\\frac{(\\bar{L} - \\lambda)^2 + S_L^2}{\\lambda^2}$"),
               MCSE = c("$\\sqrt{S_L^2 / (K\\lambda^2)}$", 
                        "$\\sqrt{\\frac{1}{K\\lambda^2}[S_L^4 (k_L - 1) + 4 S_L^3 g_L(\\bar{L} - \\lambda) + 4 S_L^2 (\\bar{L} - \\lambda)^2}$"))
@@ -148,7 +148,7 @@ When doing hypothesis tests, we are often interested in whether Type 1 error rat
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 hyp_dat <- tibble(Criterion = c("Rejection Rate","Coverage","Width"),
               Measure = c("Type 1 Error or Power", "Proportion of intervals containing true parameter", "Precision"),
-              Definition = c("$\\rho_\\alpha = Pr(P_k) < \\alpha$", "$\\omega_\\beta = Pr(A \\leq \\theta \\leq B)$", "$E(W) = E(B - A)$"),
+              Definition = c("$\\rho_\\alpha = Pr(P_k) < \\alpha$", "$\\omega_\\beta = Pr(A \\leq \\theta \\leq B)$", "$\\text{E}(W) = \\text{E}(B - A)$"),
               Estimate = c("$r_\\alpha  = \\frac{1}{K} \\sum_{k=1}^K I(P_k < \\alpha)$", "$\\frac{1}{K}\\sum_{k=1}^K I(A_k \\leq \\theta \\leq B_k)$", "$\\bar{W} = \\bar{B} - \\bar{A}$"),
               MCSE = c("$\\sqrt{\\rho_\\alpha(1 - \\rho_\\alpha) / K}$",  
                        "$\\sqrt{\\omega_\\beta (1 - \\omega_\\beta) / K}$", "$\\sqrt{S_W^2 / K}$"))
