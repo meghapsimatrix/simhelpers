@@ -7,7 +7,7 @@ library(broom)
 
 # function to create normally distributed data for each group to run t test
 
-generate_dat <- function(mean_diff, n){
+generate_dat <- function(n, mean_diff){
 
   dat <- tibble(group_1 = rnorm(n = n, mean_diff, 1),
                 group_2 = rnorm(n = n, 0, 2))
@@ -65,12 +65,12 @@ estimate <- function(dat){
 
 # Simulation Driver -------------------------------------------------------
 
-run_sim <- function(iterations, mean_diff, n, seed = NULL) {
+run_sim <- function(iterations, n, mean_diff, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
 
   results <-
     rerun(iterations, {
-      dat <- generate_dat(mean_diff, n)
+      dat <- generate_dat(n, mean_diff)
       estimate(dat)
     }) %>%
     bind_rows()
@@ -87,8 +87,8 @@ set.seed(20200110)
 # now express the simulation parameters as vectors/lists
 
 design_factors <- list(
-  mean_diff = c(0, .5, 1, 2),
-  n = c(50, 100, 200)
+  n = c(50, 100, 200),
+  mean_diff = c(0, .5, 1, 2)
 )
 
 params <-

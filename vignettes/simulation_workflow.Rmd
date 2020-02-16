@@ -64,12 +64,12 @@ library(knitr)
 
 ## Experimental Design Initial
 
-Before we begin working on the simulation study, decide what model and design parameters you want to vary. Parameters can include sample size, proportion of missing data etc. 
+Before we begin working on the simulation study, we should decide what model and design parameters we want to vary. Parameters can include sample size, proportion of missing data etc. 
 
 
 ## Generating Dataset
 
-The data generating function takes in model parameters. For example, we can generate data varying the sample size or level of heteroskedasticity or amount of missingness. Below is a skeleton of the data generating function. The arguments are any data generating parameters that you would want to vary. 
+The data generating function below takes in model parameters. For example, we can generate data varying the sample size or level of heteroskedasticity or the amount of missingness. Below is a skeleton of the data generating function. The arguments are any data generating parameters that we would want to vary. 
 
 ```{r, eval = FALSE}
 generate_dat <- function(model_params) {
@@ -78,10 +78,10 @@ generate_dat <- function(model_params) {
 }
 ```
 
-Below is an example where random normal data are generated for two groups. The function takes in two arguments, `mean_diff`, indicating the mean difference, and `n`, indicating sample size per group assuming equal sample size. 
+Below is an example where we generate random normal data for two groups. The function takes in two arguments: `n`, indicating sample size per group assuming equal sample size, and `mean_diff`, indicating the mean difference. 
 
 ```{r}
-generate_dat <- function(mean_diff, n){
+generate_dat <- function(n, mean_diff){
 
   dat <- tibble(group_1 = rnorm(n = n, 0, 1),
                 group_2 = rnorm(n = n, mean_diff, 2))
@@ -103,7 +103,7 @@ estimate <- function(dat, design_params) {
 }
 ```
 
-Below is an example function that runs a t-test on a simulated dataset. A design parameter includes specifying whether to run a Welch t-test, which does not assume that the population variances of the outcome for the two groups are equal, or to run a normal t-test, which will assume that the variances are equal. The function returns a tibble containing the method, mean difference estimate, p value, and upper and lower bound of the confidence interval. The `t.test` function can be used to estimate but writing out the formulas below just for fun. 
+Below is an example function that runs a t-test on a simulated dataset. A design parameter includes specifying whether to run a Welch t-test, which does not assume that the population variances of the outcome for the two groups are equal, or to run a normal t-test, which will assume that the variances are equal. The function returns a tibble containing the method, mean difference estimate, p value, and upper and lower bound of the confidence interval. The `t.test()` function can be used to estimate but writing out the formulas below just for fun. 
 
 ```{r}
 estimate <- function(dat){
@@ -160,7 +160,7 @@ calc_performance <- function(results, model_params) {
 }
 ```
 
-The function below fills in the `calc_performance`. We use the `calc_rr` function in the `SimHelpers` package to calculate rejection rates. 
+The function below fills in the `calc_performance()`. We use the `calc_rr()` function in the `SimHelpers` package to calculate rejection rates. 
 
 ```{r}
 calc_performance <- function(results) {
@@ -196,12 +196,12 @@ run_sim <- function(iterations, model_params, design_params, seed = NULL) {
 Here is an example with the running simulation study: 
 
 ```{r}
-run_sim <- function(iterations, mean_diff, n, seed = NULL) {
+run_sim <- function(iterations, n, mean_diff, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
 
   results <-
     rerun(iterations, {
-      dat <- generate_dat(mean_diff, n)
+      dat <- generate_dat(n, mean_diff)
       estimate(dat)
     }) %>%
     bind_rows()
@@ -215,12 +215,10 @@ run_sim <- function(iterations, mean_diff, n, seed = NULL) {
 
 ## Experimental Design Revisit
 
-Now that we have all our functions in order, we can specify the exact factors we want to manipulate in the study. The following code chunk creates a list of design factors and uses the `cross_df` function from `purrr` package that creates every combination of the factor levels. 
+Now that we have all our functions in order, we can specify the exact factors we want to manipulate in the study. The following code chunk creates a list of design factors and uses the `cross_df()` function from `purrr` package that creates every combination of the factor levels. 
 
 
 ```{r, eval = FALSE}
-source_obj <- ls()
-
 set.seed(20150316) # change this seed value!
 
 # now express the simulation parameters as vectors/lists
@@ -240,7 +238,7 @@ nrow(params)
 head(params)
 ```
 
-The code below specifies two design factors `mean_diff` which denotes the mean difference between two groups on an outcome and `n` which specifies whether the sample size. These are the between simulation factors. The within simulation iteration factor is the t-test method with one assuming equal variance and one not assuming equal variance. 
+The code below specifies two design factors: `n`, which specifies the sample size per group assuming equal sample size and `mean_diff`, which denotes the mean difference between two groups on an outcome. These are the between simulation factors. The within simulation iteration factor is the t-test method with one assuming equal variance and one not assuming equal variance. 
 
 ```{r}
 set.seed(20200110)
@@ -248,8 +246,8 @@ set.seed(20200110)
 # now express the simulation parameters as vectors/lists
 
 design_factors <- list(
-  mean_diff = c(0, .5, 1, 2),
-  n = c(50, 100)
+  n = c(50, 100),
+  mean_diff = c(0, .5, 1, 2)
 )
 
 params <-
@@ -316,7 +314,7 @@ results %>%
 ```
 
 
-In the `SimHelpers` package, we have a function `evaluate_by_row` that implements the `furrr` workflow: 
+In the `SimHelpers` package, we have a function `evaluate_by_row()` that implements the `furrr` workflow: 
 
 ```{r}
 plan(multisession)
@@ -328,7 +326,7 @@ evaluate_by_row(params, run_sim) %>%
 
 # Example from SimHelpers
 
-The `create_skeleton` function will take in an argument specifying the name of the R file which will contain the skeleton of functions required to run a simulation study. 
+The `create_skeleton()` function will take in an argument specifying the name of the R file which will contain the skeleton of functions required to run a simulation study. 
 
 ```{r setup, eval = FALSE}
 create_skeleton("Frane_replication")
