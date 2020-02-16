@@ -37,7 +37,7 @@ calc_abs <- function(res_dat, estimates, true_param, perfm_criteria = c("bias", 
   k_t <- (1/(K * s_t^4)) * sum((estimates - t_bar)^4)
   g_t <- (1/(K * s_t^3)) * sum((estimates - t_bar)^3)
 
-  mse <- bias^2 + var_t
+  mse <- mean((estimates - true_param)^2)
   mse_mcse <- sqrt((1/K) * (s_t^4 * (k_t -1) + 4 * s_t^3 * g_t * bias + 4 * var_t * bias^2))
 
   # initialize tibble
