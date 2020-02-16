@@ -63,10 +63,10 @@ library(kableExtra)
 
 abs_dat <- tibble(Criterion = c("Bias","Variance","MSE", "RMSE"),
               Measure = c("Difference from true parameter", "Precision", "Accuracy", "Accuracy"),
-              Definition = c("$\\text{E}(T) - \\theta$", "$\\text{E}(T - \\text{E}(T))^2$",  "\\text{E}(T - \\theta)^2$", "$\\sqrt{\\text{E}(T - \\theta)^2}$"),
+              Definition = c("$\\text{E}(T) - \\theta$", "$\\text{E}\\left[(T - \\text{E}(T))^2\\right]$",  "$\\text{E}\\left[(T - \\theta)^2\\right]$", "$\\sqrt{\\text{E}\\left[(T - \\theta)^2\\right]}$"),
               Estimate = c("$\\bar{T} - \\theta$", "$S_T^2$", "$(\\bar{T} - \\theta)^2 + S_T^2$", "$\\sqrt{(\\bar{T} - \\theta)^2 + S_T^2}$"),
               MCSE = c("$\\sqrt{S_T^2/ K}$", "$S_T^2 \\sqrt{\\frac{k_T - 1}{K}}$",  
-                       "$\\sqrt{\\frac{1}{K}[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_T^2 (\\bar{T} - \\theta)^2}$ ", "$\\sqrt{\\frac{S_{MSE}^2}{4 MSE}}$"))
+                       "$\\sqrt{\\frac{1}{K}\\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_T^2 (\\bar{T} - \\theta)^2\\right]}$ ", "$\\sqrt{\\frac{S_{MSE}^2}{4 MSE}}$"))
 
 knitr::kable(abs_dat, escape = FALSE, caption = "Table 1. Absolute Performance Criteria") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
@@ -112,10 +112,10 @@ Table 2 below lists the criteria, definition, estimation and the MCSE formula.
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 rel_dat <- tibble(Criterion = c("Relative Bias","Relative MSE"),
-              Definition = c("$\\text{E}(L) / \\lambda$", "$\\text{E}(L - \\lambda)^2/ \\lambda^2$"),
+              Definition = c("$\\text{E}(L) / \\lambda$", "$\\text{E}\\left[(L - \\lambda)^2\\right]/ \\lambda^2$"),
               Estimate = c("$\\bar{L} / \\lambda$", "$\\frac{(\\bar{L} - \\lambda)^2 + S_L^2}{\\lambda^2}$"),
               MCSE = c("$\\sqrt{S_L^2 / (K\\lambda^2)}$", 
-                       "$\\sqrt{\\frac{1}{K\\lambda^2}[S_L^4 (k_L - 1) + 4 S_L^3 g_L(\\bar{L} - \\lambda) + 4 S_L^2 (\\bar{L} - \\lambda)^2}$"))
+                       "$\\sqrt{\\frac{1}{K\\lambda^2}\\left[S_L^4 (k_L - 1) + 4 S_L^3 g_L(\\bar{L} - \\lambda) + 4 S_L^2 (\\bar{L} - \\lambda)^2\\right]}$"))
 
 knitr::kable(rel_dat, escape = FALSE, caption = "Table 2. Relative Performance Criteria") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
@@ -149,9 +149,9 @@ When doing hypothesis tests, we are often interested in whether Type 1 error rat
 hyp_dat <- tibble(Criterion = c("Rejection Rate","Coverage","Width"),
               Measure = c("Type 1 Error or Power", "Proportion of intervals containing true parameter", "Precision"),
               Definition = c("$\\rho_\\alpha = Pr(P_k) < \\alpha$", "$\\omega_\\beta = Pr(A \\leq \\theta \\leq B)$", "$\\text{E}(W) = \\text{E}(B - A)$"),
-              Estimate = c("$r_\\alpha  = \\frac{1}{K} \\sum_{k=1}^K I(P_k < \\alpha)$", "$\\frac{1}{K}\\sum_{k=1}^K I(A_k \\leq \\theta \\leq B_k)$", "$\\bar{W} = \\bar{B} - \\bar{A}$"),
-              MCSE = c("$\\sqrt{\\rho_\\alpha(1 - \\rho_\\alpha) / K}$",  
-                       "$\\sqrt{\\omega_\\beta (1 - \\omega_\\beta) / K}$", "$\\sqrt{S_W^2 / K}$"))
+              Estimate = c("$r_\\alpha  = \\frac{1}{K} \\sum_{k=1}^K I(P_k < \\alpha)$", "$c_\\beta = \\frac{1}{K}\\sum_{k=1}^K I(A_k \\leq \\theta \\leq B_k)$", "$\\bar{W} = \\bar{B} - \\bar{A}$"),
+              MCSE = c("$\\sqrt{r_\\alpha(1 - r_\\alpha) / K}$",  
+                       "$\\sqrt{c_\\beta (1 - c_\\beta) / K}$", "$\\sqrt{S_W^2 / K}$"))
 
 knitr::kable(hyp_dat, escape = FALSE, caption = "Table 3. Hypothesis Testing and Confidence Intervals Performance Criteria") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
