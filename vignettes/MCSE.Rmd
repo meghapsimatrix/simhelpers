@@ -66,7 +66,8 @@ library(kableExtra)
 abs_dat <- tibble(Criterion = c("Bias","Variance","MSE", "RMSE"),
               Measure = c("Difference from true parameter", "Precision", "Accuracy", "Accuracy"),
               Definition = c("$\\text{E}(T) - \\theta$", "$\\text{E}\\left[(T - \\text{E}(T))^2\\right]$",  "$\\text{E}\\left[(T - \\theta)^2\\right]$", "$\\sqrt{\\text{E}\\left[(T - \\theta)^2\\right]}$"),
-              Estimate = c("$\\bar{T} - \\theta$", "$S_T^2$", "$(\\bar{T} - \\theta)^2 + S_T^2$", "$\\sqrt{(\\bar{T} - \\theta)^2 + S_T^2}$"),
+              Estimate = c("$\\bar{T} - \\theta$", "$S_T^2$", 
+                           "$\\frac{1}{K}\\sum_{k=1}^{K}\\left(T_k - \\theta\\right)^2$", "$\\sqrt{\\frac{1}{K}\\sum_{k=1}^{K}\\left(T_k - \\theta\\right)^2}$"),
               MCSE = c("$\\sqrt{S_T^2/ K}$", "$S_T^2 \\sqrt{\\frac{k_T - 1}{K}}$",  
                        "$\\sqrt{\\frac{1}{K}\\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_T^2 (\\bar{T} - \\theta)^2\\right]}$ ", "$\\sqrt{\\frac{S_{MSE}^2}{4 MSE}}$"))
 

@@ -94,7 +94,7 @@ generate_dat <- function(n, mean_diff){
 
 ## Estimation Methods
 
-Here, we run some statistical methods to estimate a test statistic, regression coefficients, p values, or confidence intervals. The function takes in the data and any design parameters. 
+Here, we run some statistical methods to estimate a test statistic, regression coefficients, p-values, or confidence intervals. The function takes in the data and any design parameters. 
 
 ```{r, eval = FALSE}
 estimate <- function(dat, design_params) {
@@ -103,7 +103,7 @@ estimate <- function(dat, design_params) {
 }
 ```
 
-Below is an example function that runs a t-test on a simulated dataset. A design parameter includes specifying whether to run a Welch t-test, which does not assume that the population variances of the outcome for the two groups are equal, or to run a normal t-test, which will assume that the variances are equal. The function returns a tibble containing the method, mean difference estimate, p value, and upper and lower bound of the confidence interval. The `t.test()` function can be used to estimate but writing out the formulas below just for fun. 
+Below is an example function that runs a t-test on a simulated dataset. The function runs a normal t-test, which assumes homogeneity of variance and a Welch t-test, which does not assume that the population variances of the outcome for the two groups are equal. The function returns a tibble containing the method, mean difference estimate, p-value, and upper and lower bounds of the confidence interval. We could use the `t.test()` function to extract everything we need but we are calculating the t-statistic using sample statistics just for fun.
 
 ```{r}
 estimate <- function(dat){
@@ -193,7 +193,7 @@ run_sim <- function(iterations, model_params, design_params, seed = NULL) {
 }
 ```
 
-Here is an example with the running simulation study: 
+Below is the driver for our running example of a simulation study: 
 
 ```{r}
 run_sim <- function(iterations, n, mean_diff, seed = NULL) {
@@ -238,7 +238,7 @@ nrow(params)
 head(params)
 ```
 
-The code below specifies two design factors: `n`, which specifies the sample size per group assuming equal sample size and `mean_diff`, which denotes the mean difference between two groups on an outcome. These are the between simulation factors. The within simulation iteration factor is the t-test method with one assuming equal variance and one not assuming equal variance. 
+The code below specifies two design factors: `n`, which specifies the sample size per group assuming equal sample size and `mean_diff`, which denotes the mean difference between two groups on an outcome. These are the between simulation factors. The within-simulation factor is the t-test method with one assuming equal variance and one not assuming equal variance. 
 
 ```{r}
 set.seed(20200110)
@@ -287,7 +287,7 @@ results %>%
 
 ## Running the Simulation in Parallel
 
-Below we use the `future` and the `furrr` package to run the simulation in parallel. These packages are designed to work with the `purrr` functions. The line below sets up a cluster set up on your computer or network. For more complicated network setups, please see the [documentation for the future package](https://cran.r-project.org/web/packages/future/vignettes/future-1-overview.html). 
+Below we use the `future` and the `furrr` package to run the simulation in parallel. These packages are designed to work with functions from the `purrr` package. The line below gets a cluster set up on your computer or network. For more complicated network setups, please see the [documentation for the future package](https://cran.r-project.org/web/packages/future/vignettes/future-1-overview.html). 
 
 ```{r, eval = FALSE}
 plan(multisession)
@@ -326,7 +326,7 @@ evaluate_by_row(params, run_sim) %>%
 
 # Example from SimHelpers
 
-The `create_skeleton()` function will take in an argument specifying the name of the R file which will contain the skeleton of functions required to run a simulation study. 
+The `create_skeleton()` from our `SimHelpers` function will take in an argument specifying the name of the R file which will contain the skeleton of functions required to run a simulation study. 
 
 ```{r setup, eval = FALSE}
 create_skeleton("Frane_replication")
