@@ -89,7 +89,7 @@ welch_res %>%
 ```
 
 
-Below, we calculate the absolute performance criteria for the estimate of the mean difference. We present the results by sample size, mean difference, and the t-test method. The `calc_abs` function is designed to work with the [`tidyeval`](https://tidyeval.tidyverse.org/index.html) workflow. The first argument, `res_dat`, is a data frame or a tibble containing the results from a simulation study. The second argument, `estimates`, is the name of the column containing the estimates like mean difference or regression coefficients. The third argument, `true_param`, is the name of the column containing the true parameters. The fourth argument `perfm_criteria` lets the user specify which criteria to evaluate. The criteria can be specified using a character or character vector. If the user only wants bias, they can specify `perfm_criteria = "bias"`. If the user wants bias and root mean squared error, they can specify `perfm_criteria = c("bias", "rmse")`. By default, the function returns, bias, variance, mean squared error (mse), and root mean squared error (rmse). In the example below, we ask for all the available criteria. 
+Below, we calculate the absolute performance criteria for the estimate of the mean difference. We present the results by sample size, mean difference, and the t-test method. The `calc_abs()` function is designed to work with the [`tidyeval`](https://tidyeval.tidyverse.org/index.html) workflow. The first argument, `res_dat`, requires a data frame or a tibble containing the results from a simulation study. The second argument, `estimates`, requires the name of the column containing the estimates like mean difference or regression coefficients. The third argument, `true_param`, requires the name of the column containing the true parameters. The fourth argument `perfm_criteria` lets the user specify which criteria to evaluate. The criteria can be specified using a character or character vector. If the user only wants bias, they can specify `perfm_criteria = "bias"`. If the user wants bias and root mean squared error, they can specify `perfm_criteria = c("bias", "rmse")`. By default, the function returns, bias, variance, mean squared error (mse), and root mean squared error (rmse). In the example below, we ask for all the available criteria. 
 
 We use `dplyr` syntax to group by the sample size, mean difference used to generate the data, and the method used to analyze the data. We provide examples using `do()` and `group_modify()` to run `calc_abs()` on results for each combination of the conditions. We use `mutate_if()` to round the results to three decimal places. Note that `mutate_if()` ignores the grouping variables by default. 
 
@@ -135,7 +135,7 @@ knitr::kable(rel_dat, escape = FALSE, caption = "Table 2. Relative Performance C
 
 ### Example 
 
-Below, we calculate the relative criteria for the mean difference estimates. Note that when mean difference is 0, the relative measures cannot be calculated. The function returns `NA` values for conditions where the mean difference is 0. The syntax is similar to the one that we used earlier for `calc_abs`. The `perfm_criteria` argument allows the user to specify which criteria to evaluate: `c("relative bias", "relative mse")`. 
+Below, we calculate the relative criteria for the mean difference estimates. Note that when mean difference is 0, the relative measures cannot be calculated. The function returns `NA` values for conditions where the mean difference is 0. The syntax for `calc_relative()` is similar to the one that we used earlier for `calc_abs()`. The `perfm_criteria` argument allows the user to specify which criteria to evaluate: `c("relative bias", "relative mse")`. 
 
 
 ```{r}
@@ -170,7 +170,7 @@ knitr::kable(hyp_dat, escape = FALSE, caption = "Table 3. Hypothesis Testing and
 
 ### Example
 
-Below we calculate the rejection rate performance criteria for the hypothesis tests done using t-test. The `calc_rr` function requries a data set or tibble as the first argument. The second argument, `p_values` requires the name of the column containing p-values.  
+Below we calculate the rejection rates for the hypothesis tests conducted using t-test. The null hypothesis states that the two groups have the same means. The `calc_rr()` function requries a data set or tibble as the first argument. The second argument, `p_values`, requires the name of the column containing p-values.  
 
 
 ```{r}
@@ -181,7 +181,7 @@ welch_res %>%
   kable()
 ```
 
-Below we calculate the coverage and width performance criteria for the confidence intervals for the estimate of the mean difference. The `calc_coverage` function takes in a result data as the first argument. The second and third arguments, `lower_bound` and `upper_bound` take in columns that contain the lower and upper bound estimates of the confidence interval. The `true_param` argument takes in a column containing the true parameters. Like `calc_abs` and `calc_relative`, `calc_coverage` also has an argument `perfm_criteria` where the user can specify which criteria to evaluate: `c("coverage", "width")`. 
+Below we calculate the confidence interval coverage rates and widths for the estimates of the mean difference. The `calc_coverage()` function requires a data frame or tibble containing the simulation results as the first argument. The second and third arguments, `lower_bound` and `upper_bound`, take in the name of the columns that contain the lower and upper bound estimates of the confidence interval. The `true_param` argument requires the name of the column containing the true parameters. Like `calc_abs()` and `calc_relative()`, `calc_coverage()` also has an argument `perfm_criteria` where the user can specify which criteria to evaluate: `c("coverage", "width")`. 
 
 ```{r}
 # using group_modify()
@@ -197,4 +197,8 @@ welch_res %>%
 # How to evaluate MCSE
 
 The associated MCSE should be small compared to the performance measure. 
+
+# References 
+
+Morris, T. P., White, I. R., & Crowther, M. J. (2019). Using simulation studies to evaluate statistical methods. Statistics in medicine, 38(11), 2074-2102.
 
