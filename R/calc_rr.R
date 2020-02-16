@@ -3,9 +3,9 @@
 #' @description Calculates rejection rate. The function also calculates the associated
 #' Monte Carlo Standard error.
 #'
-#' @param res_dat A dataframe or tibble containing simulation results.
-#' @param p_values The name of the column containing p values.
-#' @param alpha A number indicating the nominal alpha level.
+#' @param res_dat A dataframe or tibble containing the simulation results.
+#' @param p_values The name of the column containing the p values.
+#' @param alpha A number indicating the nominal alpha level. Default value is set to the conventional .05.
 #'
 #' @return A tibble containing the performance criteria estimate and the associated MCSE.
 #'

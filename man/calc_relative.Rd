@@ -12,11 +12,11 @@ calc_relative(
 )
 }
 \arguments{
-\item{res_dat}{A dataframe or tibble containing a column called est - estimates}
+\item{res_dat}{A dataframe or tibble containing the simulation results.}
 
-\item{estimates}{The name of the column containing estimates}
+\item{estimates}{The name of the column containing the estimates}
 
-\item{true_param}{The name of the column containing true parameters.}
+\item{true_param}{The name of the column containing the true parameters.}
 
 \item{perfm_criteria}{A character or a character vector indicating the performance criteria to be calculated.}
 }

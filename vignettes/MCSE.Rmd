@@ -46,6 +46,9 @@ $$
 $$
 \text{Var}\left(RMSE\right) = \left(\frac{\text{Var}(MSE)}{4 \times MSE}\right) 
 $$
+$$
+\text{MCSE}\left(RMSE\right) = \sqrt{\text{Var}(RMSE)}
+$$
 
 Let $T$ denote an estimator for a parameter $\theta$. From running a simulation study, we obtain $K$ iterations of the estimates $T_1,...,T_K$ for each data generating condition. We can calculate the following sample statistics for the estimates: 
 

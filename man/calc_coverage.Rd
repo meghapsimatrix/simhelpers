@@ -14,15 +14,15 @@ calc_coverage(
 )
 }
 \arguments{
-\item{res_dat}{A dataframe or tibble containing confidence interval results.}
+\item{res_dat}{A dataframe or tibble containing the simulation results.}
 
 \item{lower_bound}{The column containing the lower bound estimates of the confidence intervals.}
 
 \item{upper_bound}{The column containing the upper bound estimates of the confidence intervals.}
 
-\item{true_param}{The name of the column containing true parameters.}
+\item{true_param}{The name of the column containing the true parameters.}
 
-\item{alpha}{A number indicating the nominal alpha level.}
+\item{alpha}{A number indicating the nominal alpha level. Default value is set to the conventional .05.}
 
 \item{perfm_criteria}{A character or a character vector indicating the performance criteria to be calculated.}
 }
