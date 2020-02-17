@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 
 
-Simulation studies generally follow the following workflow: 
+Simulation studies generally follow the following workflow (Morris, White & Crowther, 2018): 
 
 1. Create an experimental design
 2. Generate a dataset
@@ -215,7 +215,7 @@ run_sim <- function(iterations, n, mean_diff, seed = NULL) {
 
 ## Experimental Design Revisit
 
-Now that we have all our functions in order, we can specify the exact factors we want to manipulate in the study. The following code chunk creates a list of design factors and uses the `cross_df()` function from `purrr` package that creates every combination of the factor levels. 
+Now that we have all our functions in order, we can specify the exact factors we want to manipulate in the study. The following code chunk creates a list of design factors and uses the [`cross_df()`](https://purrr.tidyverse.org/reference/cross.html) function from [`purrr`](https://purrr.tidyverse.org/) package that creates every combination of the factor levels. 
 
 
 ```{r, eval = FALSE}
@@ -287,13 +287,13 @@ results %>%
 
 ## Running the Simulation in Parallel
 
-Below we use the `future` and the `furrr` package to run the simulation in parallel. These packages are designed to work with functions from the `purrr` package. The line below gets a cluster set up on your computer or network. For more complicated network setups, please see the [documentation for the future package](https://cran.r-project.org/web/packages/future/vignettes/future-1-overview.html). 
+Below we use the [`future`](https://rstudio.github.io/promises/articles/futures.html) and the [`furrr`](https://davisvaughan.github.io/furrr/) package to run the simulation in parallel. These packages are designed to work with functions from the `purrr` package. The line below gets a cluster set up on your computer or network. For more complicated network setups, please see the [documentation for the future package](https://cran.r-project.org/web/packages/future/vignettes/future-1-overview.html). 
 
 ```{r, eval = FALSE}
 plan(multisession)
 ```
 
-Once the cluster is configured, we can just replace `pmap` from `purrr` with `future_pmap` to run the simulation in parallel. 
+Once the cluster is configured, we can just replace [`pmap()`](https://purrr.tidyverse.org/reference/map2.html) from `purrr` with [`future_pmap()`](https://davisvaughan.github.io/furrr/) to run the simulation in parallel. 
 
 ```{r}
 library(future)
@@ -333,4 +333,17 @@ create_skeleton("Frane_replication")
 ```
 
 
+# References 
 
+Bengtsson, H. (2020). future: Unified Parallel and Distributed
+  Processing in R for Everyone. R package version 1.16.0.
+  https://CRAN.R-project.org/package=future
+
+Morris, T. P., White, I. R., & Crowther, M. J. (2019). Using simulation studies to evaluate statistical methods. Statistics in medicine, 38(11), 2074-2102.
+
+Vaughan D., & Dancho, M. (2018). furrr: Apply Mapping Functions in
+  Parallel using Futures. R package version 0.1.0.
+  https://CRAN.R-project.org/package=furrr
+
+Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source
+  Software, 4(43), 1686, https://doi.org/10.21105/joss.01686
