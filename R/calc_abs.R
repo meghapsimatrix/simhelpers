@@ -21,12 +21,9 @@
 
 calc_abs <- function(res_dat, estimates, true_param, perfm_criteria = c("bias", "variance", "mse", "rmse")){
 
-  require(dplyr)
-  require(tibble)
-
-  estimates <- res_dat %>% pull({{estimates}})
+  estimates <- res_dat %>% dplyr::pull({{estimates}})
   K <- nrow(res_dat)
-  true_param <- res_dat %>% pull({{true_param}})
+  true_param <- res_dat %>% dplyr::pull({{true_param}})
   true_param <- true_param[1]
 
   # calculate sample stats
@@ -41,30 +38,30 @@ calc_abs <- function(res_dat, estimates, true_param, perfm_criteria = c("bias", 
   mse_mcse <- sqrt((1/K) * (s_t^4 * (k_t -1) + 4 * s_t^3 * g_t * bias + 4 * var_t * bias^2))
 
   # initialize tibble
-  dat <- as_tibble(data.frame(matrix(ncol = 0, nrow = 1)))
+  dat <- tibble::as_tibble(data.frame(matrix(ncol = 0, nrow = 1)))
 
   if("bias" %in% perfm_criteria){
     dat <- dat %>%
-      mutate(bias = bias,
+      dplyr::mutate(bias = bias,
              bias_mcse = sqrt(var_t / K))
   }
 
   if("variance" %in% perfm_criteria){
     dat <- dat %>%
-      mutate(var = var_t,
+      dplyr::mutate(var = var_t,
              var_mcse = var_t * sqrt(((k_t - 1) / K)))
   }
 
 
   if("mse" %in% perfm_criteria){
     dat <- dat %>%
-      mutate(mse = mse,
+      dplyr::mutate(mse = mse,
              mse_mcse = mse_mcse)
   }
 
   if("rmse" %in% perfm_criteria){
     dat <- dat %>%
-      mutate(rmse = sqrt(mse),
+      dplyr::mutate(rmse = sqrt(mse),
              rmse_mcse = sqrt((mse_mcse^2) / (4 * mse)))
   }
 

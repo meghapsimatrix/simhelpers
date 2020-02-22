@@ -19,8 +19,6 @@
 
 calc_rbvjk <- function(res_dat, estimates, var_estimates, true_param){
 
-  require(dplyr)
-  require(tibble)
 
   est <- res_dat %>% dplyr::pull({{estimates}})
   var_est <- res_dat %>% dplyr::pull({{var_estimates}})
@@ -38,7 +36,7 @@ calc_rbvjk <- function(res_dat, estimates, var_estimates, true_param){
   rb_var <- v_bar/ t_var
 
   # initialize data frame
-  dat <- tibble(
+  dat <- tibble::tibble(
     rbv = rb_var,
     rbv_jack_mcse = sqrt((1/K) * sum((v_bar_j/s_sq_t_j - rb_var)^2)),
   )

@@ -19,13 +19,10 @@
 
 calc_rr <- function(res_dat, p_values, alpha = .05){
 
-  require(dplyr)
-  require(tibble)
-
-  p_vals <- res_dat %>% pull({{p_values}})
+  p_vals <- res_dat %>% dplyr::pull({{p_values}})
   K <- nrow(res_dat)
 
-  dat <- tibble(rej_rate = mean(p_vals < alpha),
+  dat <- tibble::tibble(rej_rate = mean(p_vals < alpha),
                 rej_rate_mcse = sqrt((rej_rate * (1 - rej_rate)) / K))
 
   return(dat)

@@ -21,29 +21,26 @@
 
 calc_coverage <- function(res_dat, lower_bound, upper_bound, true_param, alpha = .05, perfm_criteria = c("coverage", "width")){
 
-  require(dplyr)
-  require(tibble)
-
-  lower_bound <- res_dat %>% pull({{lower_bound}})
-  upper_bound <- res_dat %>% pull({{upper_bound}})
+  lower_bound <- res_dat %>% dplyr::pull({{lower_bound}})
+  upper_bound <- res_dat %>% dplyr::pull({{upper_bound}})
   K <- nrow(res_dat)
-  true_param <- res_dat %>% pull({{true_param}})
+  true_param <- res_dat %>% dplyr::pull({{true_param}})
   true_param <- true_param[1]
 
 
   # initialize tibble
-  dat <- as_tibble(data.frame(matrix(ncol = 0, nrow = 1)))
+  dat <- tibble::as_tibble(data.frame(matrix(ncol = 0, nrow = 1)))
 
   if("coverage" %in% perfm_criteria){
     dat <- dat %>%
-      mutate(coverage = mean(lower_bound < true_param & true_param < upper_bound),
+      dplyr::mutate(coverage = mean(lower_bound < true_param & true_param < upper_bound),
              coverage_mcse = sqrt((coverage * (1 - coverage)) / K))
 
   }
 
   if("width" %in% perfm_criteria){
     dat <- dat %>%
-      mutate(width = mean(upper_bound) - mean(lower_bound),
+      dplyr::mutate(width = mean(upper_bound) - mean(lower_bound),
              width_mcse = sqrt(var(upper_bound - lower_bound) / K))
 
   }
