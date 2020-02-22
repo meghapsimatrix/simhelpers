@@ -9,7 +9,7 @@ evaluate_by_row(
   sim_function,
   ...,
   .progress = FALSE,
-  .options = future_options(),
+  .options = furrr::future_options(),
   system_time = TRUE
 )
 }

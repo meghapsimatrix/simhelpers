@@ -5,6 +5,10 @@ vignette: >
   %\VignetteIndexEntry{MCSE}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{dplyr}
+  %\VignetteDepends{tibble}
+  %\VignetteDepends{knitr}
+  %\VignetteDepends{kableExtra}
 ---
 
 ```{r, include = FALSE}

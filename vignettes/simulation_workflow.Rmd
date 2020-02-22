@@ -5,6 +5,12 @@ vignette: >
   %\VignetteIndexEntry{simulation_workflow}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{dplyr}
+  %\VignetteDepends{tibble}
+  %\VignetteDepends{knitr}
+  %\VignetteDepends{kableExtra}
+  %\VignetteDepends{purrr}
+  %\VignetteDepends{tidyr}
 ---
 
 ```{r, include = FALSE}
