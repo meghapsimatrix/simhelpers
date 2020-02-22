@@ -130,7 +130,7 @@ We use `dplyr` syntax to group by the sample size, mean difference used to gener
 welch_res %>%
   group_by(n, mean_diff, method) %>% # grouping 
   do(calc_abs(.,  estimates = est, true_param = mean_diff)) %>% # run the function
-  mutate_if(is.numeric, round, 3) %>% # rounding
+  mutate_if(is.numeric, round, 5) %>% # rounding
   kable() # create a kable table 
 ```
 
@@ -141,7 +141,7 @@ welch_res %>%
   mutate(params = mean_diff) %>% # group_modify cannot take in a group column as an argument
   group_by(n, mean_diff, method) %>%
   group_modify(~ calc_abs(.x,  estimates = est, true_param = params)) %>%
-  mutate_if(is.numeric, round, 3) %>%
+  mutate_if(is.numeric, round, 5) %>%
   kable()
 ```
 
@@ -176,7 +176,7 @@ welch_res %>%
   mutate(params = mean_diff) %>%
   group_by(n, mean_diff, method) %>%
   group_modify(~ calc_relative(.x,  estimates = est, true_param = params)) %>%
-  mutate_if(is.numeric, round, 3) %>%
+  mutate_if(is.numeric, round, 5) %>%
   kable()
 ```
 
@@ -206,7 +206,7 @@ welch_res %>%
   mutate(params = mean_diff) %>%
   group_by(n, mean_diff, method) %>%
   group_modify(~ calc_rbvjk(.x,  estimates = est, var_estimates = var, true_param = params)) %>%
-  mutate_if(is.numeric, round, 3) %>%
+  mutate_if(is.numeric, round, 5) %>%
   kable()
 ```
 
@@ -239,6 +239,7 @@ Below we calculate the rejection rates for the hypothesis tests conducted using 
 welch_res %>%
   group_by(n, mean_diff, method) %>%
   group_modify(~ calc_rr(.x, p_values = p_val)) %>%
+  mutate_if(is.numeric, round, 5) %>%
   kable()
 ```
 
@@ -250,6 +251,7 @@ welch_res %>%
   mutate(params = mean_diff) %>%
   group_by(n, mean_diff, method) %>%
   group_modify(~ calc_coverage(.x, lower_bound = lower_bound, upper_bound = upper_bound, true_param = params)) %>%
+  mutate_if(is.numeric, round, 5) %>%
   kable()
 ```
 
