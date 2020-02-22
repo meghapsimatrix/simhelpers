@@ -21,7 +21,11 @@ Imports:
     furrr,
     future,
     magrittr,
-    utils
+    utils,
+    DiagrammeR,
+    kableExtra,
+    purrr,
+    tibble
 Suggests:
     plyr,
     knitr,

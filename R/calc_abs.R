@@ -28,14 +28,20 @@ calc_abs <- function(res_dat, estimates, true_param, perfm_criteria = c("bias", 
 
   # calculate sample stats
   t_bar <- mean(estimates)
+  t_bar_j <- (1/K) * (K * t_bar - estimates)
   bias <- t_bar - true_param
+  bias_j_sq <- (t_bar_j - true_param)^2
   var_t <- var(estimates)
+  s_sq_t_j <- (1 / (K - 2)) * ((K - 1) * var_t - (K / (K - 1)) * (estimates - t_bar)^2)
   s_t <- sd(estimates)
   k_t <- (1/(K * s_t^4)) * sum((estimates - t_bar)^4)
   g_t <- (1/(K * s_t^3)) * sum((estimates - t_bar)^3)
 
   mse <- mean((estimates - true_param)^2)
   mse_mcse <- sqrt((1/K) * (s_t^4 * (k_t -1) + 4 * s_t^3 * g_t * bias + 4 * var_t * bias^2))
+  rmse <- sqrt(mse)
+  rmse_j <- sqrt(bias_j_sq + s_sq_t_j)
+
 
   # initialize tibble
   dat <- tibble::as_tibble(data.frame(matrix(ncol = 0, nrow = 1)))
@@ -61,8 +67,9 @@ calc_abs <- function(res_dat, estimates, true_param, perfm_criteria = c("bias", 
 
   if("rmse" %in% perfm_criteria){
     dat <- dat %>%
-      dplyr::mutate(rmse = sqrt(mse),
-             rmse_mcse = sqrt((mse_mcse^2) / (4 * mse)))
+      dplyr::mutate(rmse = rmse,
+             rmse_mcse_delta = sqrt((mse_mcse^2) / (4 * mse)),
+             rmse_mcse_jk = sqrt((1/K) * sum((rmse_j - rmse)^2)))
   }
 
   return(dat)

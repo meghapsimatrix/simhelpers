@@ -36,24 +36,6 @@ The formula notations and explanations of the performance measures follow notes 
 Bias characterizes whether the estimate on average lies above or below the true parameter. 
 Variance characterizes the precision of the estimates. It characterizes the deviation of each estimate from the average of the estimates. Note that variance is the inverse of precision. Therefore, the higher the variance, the lower the precision. Mean squared error (MSE) and root mean squared error (RMSE) characterize the accuracy of the estimates. MSE and RMSE measure how far off on average the estimates are from the true parameter. Absolute criteria are in the same scale as the estimates. MSE is in squared deviation scale and RMSE is in the scale of the estimates.
 
-The equation for the MCSE of RMSE is derived using [the delta method](https://www.jepusto.com/multivariate-delta-method/), which states that:
-
-$$
-\text{Var}\left(f(X)\right) = \left(\frac{\partial f}{\partial \theta}\right)^2 \text{Var}(X)
-$$
-
-Here let $X$ be $MSE$ and $f(X) = RMSE$ or $\sqrt{MSE}$
-
-$$
-\text{Var}\left(RMSE\right) = \left(\frac{1}{2\sqrt{MSE}}\right)^2 \text{Var}(MSE)
-$$
-$$
-\text{Var}\left(RMSE\right) = \left(\frac{\text{Var}(MSE)}{4 \times MSE}\right) 
-$$
-$$
-\text{MCSE}\left(RMSE\right) = \sqrt{\text{Var}(RMSE)}
-$$
-
 Let $T$ denote an estimator for a parameter $\theta$. From running a simulation study, we obtain $K$ iterations of the estimates $T_1,...,T_K$ for each data generating condition. We can calculate the following sample statistics for the estimates: 
 
 - Sample mean: $\bar{T} = \frac{1}{K}\sum_{k=1}^K T_k$ 
@@ -74,12 +56,54 @@ abs_dat <- tibble(Criterion = c("Bias","Variance","MSE", "RMSE"),
               Estimate = c("$\\bar{T} - \\theta$", "$S_T^2$", 
                            "$\\frac{1}{K}\\sum_{k=1}^{K}\\left(T_k - \\theta\\right)^2$", "$\\sqrt{\\frac{1}{K}\\sum_{k=1}^{K}\\left(T_k - \\theta\\right)^2}$"),
               MCSE = c("$\\sqrt{S_T^2/ K}$", "$S_T^2 \\sqrt{\\frac{k_T - 1}{K}}$",  
-                       "$\\sqrt{\\frac{1}{K}\\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_T^2 (\\bar{T} - \\theta)^2\\right]}$ ", "$\\sqrt{\\frac{S_{MSE}^2}{4 MSE}}$"))
+                       "$\\sqrt{\\frac{1}{K}\\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_T^2 (\\bar{T} - \\theta)^2\\right]}$ ", "$\\sqrt{\\frac{S_{MSE}^2}{4 MSE}}$ or $\\sqrt{\\frac{1}{K} \\left(RMSE_{(j)} - RMSE)^2\\right)}$"))
 
 knitr::kable(abs_dat, escape = FALSE, caption = "Table 1. Absolute Performance Criteria") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
   
 ```
+
+The equation for the MCSE of RMSE is derived using two methods. The first is [the delta method](https://www.jepusto.com/multivariate-delta-method/), which states that:
+
+$$
+\text{Var}\left(f(X)\right) = \left(\frac{\partial f}{\partial \theta}\right)^2 \text{Var}(X)
+$$
+
+Here let $X$ be $MSE$ and $f(X) = RMSE$ or $\sqrt{MSE}$
+
+$$
+\text{Var}\left(RMSE\right) = \left(\frac{1}{2\sqrt{MSE}}\right)^2 \text{Var}(MSE)
+$$
+$$
+\text{Var}\left(RMSE\right) = \left(\frac{\text{Var}(MSE)}{4 \times MSE}\right) 
+$$
+$$
+\text{MCSE}\left(RMSE\right) = \sqrt{\text{Var}(RMSE)}
+$$
+
+
+The second method is the jacknife technique, which involves excluding a replicate $j$ and calculating RMSE. The formula for RMSE is:
+
+$$\sqrt{\frac{1}{K}\sum_{k=1}^{K}\left(T_k - \theta\right)^2}$$
+
+This is approximately equivalent to:
+
+$$RMSE = \sqrt{(\bar{T} - \theta)^2 + S^2_T}$$
+
+The jacknife RMSE will be calculated as:
+
+$$RMSE_{(j)}  = \sqrt{(\bar{T}_{(j)} - \theta)^2 + S^2_{T(j)}}$$
+
+Here $\bar{T}_{(j)}$ $S^2_{T(j)}$ and indicate the mean and variance of the estimates leaving replicate $j$ out. Instead of each jacknife estimate, we use algebra tricks to calculate $\bar{T}_{(j)}$ and $S^2_{T(j)}$ as follows:
+
+$$\bar{T}_{(j)} = \frac{1}{K} \left(K \bar{T} - T_j\right)$$
+
+
+$$S_{T(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]$$
+
+Then, the MCSE of $RMSE_{(j)}$ will be calculated as:
+
+$$MCSE_{RMSE(JK)}  = \sqrt{\frac{1}{K} \left(RMSE_{(j)} - RMSE)^2\right)}$$
 
 ### Example
 

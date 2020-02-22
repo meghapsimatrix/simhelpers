@@ -4,7 +4,15 @@
 \name{t_res}
 \alias{t_res}
 \title{t-test Simulation Results}
-\format{}
+\format{A tibble with 1000 rows and 5 variables:
+\describe{
+  \item{est}{estimate of the mean difference}
+  \item{p_val}{p-value from the t-test}
+  \item{lower_bound}{lower bound of the confidence interval}
+  \item{upper_bound}{upper bound of the confidence interval}
+  \item{true_param}{true mean difference used to generate the data}
+
+}}
 \usage{
 t_res
 }

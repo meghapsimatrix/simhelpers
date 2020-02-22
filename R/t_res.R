@@ -9,7 +9,7 @@
 #'   \item{p_val}{p-value from the t-test}
 #'   \item{lower_bound}{lower bound of the confidence interval}
 #'   \item{upper_bound}{upper bound of the confidence interval}
-#'   \item{true_param{true mean difference used to generate the data}
+#'   \item{true_param}{true mean difference used to generate the data}
 #'
 #' }
 #'
