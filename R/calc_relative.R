@@ -41,16 +41,16 @@ calc_relative <- function(res_dat, estimates, true_param, perfm_criteria = c("re
     dat <- dat %>%
       dplyr::mutate(rel_bias = t_bar / true_param,
              rel_bias_mcse = sqrt(var_t / (K * true_param^2)),
-             rel_bias = if_else(true_param == 0, as.numeric(NA), rel_bias),
-             rel_bias_mcse = if_else(true_param == 0, as.numeric(NA), rel_bias_mcse))
+             rel_bias = dplyr::if_else(true_param == 0, as.numeric(NA), rel_bias),
+             rel_bias_mcse = dplyr::if_else(true_param == 0, as.numeric(NA), rel_bias_mcse))
   }
 
   if("relative mse" %in% perfm_criteria){
     dat <- dat %>%
       dplyr::mutate(rel_mse = mse / (true_param^2),
              rel_mse_mcse = sqrt((1 / K * true_param^2) * (s_t^4 * (k_t - 1) + 4 * s_t^3 * g_t * bias + 4 * var_t * bias^2)),
-             rel_mse = if_else(true_param == 0, as.numeric(NA), rel_mse),
-             rel_mse_mcse = if_else(true_param == 0, as.numeric(NA), rel_mse_mcse))
+             rel_mse = dplyr::if_else(true_param == 0, as.numeric(NA), rel_mse),
+             rel_mse_mcse = dplyr::if_else(true_param == 0, as.numeric(NA), rel_mse_mcse))
   }
 
   return(dat)
