@@ -57,8 +57,12 @@ The explanation of the workflow in this vignette follow notes from Dr. James Pus
 
 ```{r, warning = FALSE, message = FALSE}
 library(SimHelpers)
-library(tidyverse)
+library(dplyr)
+library(tibble)
+library(purrr)
+library(tidyr)
 library(knitr)
+library(kableExtra)
 ```
 
 

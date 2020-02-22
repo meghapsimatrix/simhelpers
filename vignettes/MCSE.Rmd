@@ -60,7 +60,8 @@ Let $T$ denote an estimator for a parameter $\theta$. From running a simulation 
 The table below shows each of the performance criteria, what it measures, its definition, its estimate, and its MCSE formula. 
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-library(tidyverse)
+library(dplyr)
+library(tibble)
 library(kableExtra)
 
 abs_dat <- tibble(Criterion = c("Bias","Variance","MSE", "RMSE"),
@@ -81,9 +82,11 @@ knitr::kable(abs_dat, escape = FALSE, caption = "Table 1. Absolute Performance C
 We use the `welch_res` dataset included in the package. It contains the results from an example simulation study comparing the heteroskedasticity robust Welch t-test to normal t-test. The code used to generate the data and results can be found [here](https://github.com/meghapsimatrix/SimHelpers/blob/master/data-raw/welch_res_dat.R). We varied the mean difference parameter when generating data for two groups. We set the values to 0, 0.5, 1 and 2. We also varied the sample size per group, setting sample size values to 50, 100, and 200. We generated the data with slightly unequal variances. With each simulated data, we ran normal t-test, which assumes homogeneity of variance, and we also ran Welch t-test which does not assume homogeneity of variance. We extracted the estimate (mean difference), variance of the estimates, p-value, and the upper and lower bounds of the confidence intervals. 
 
 ```{r, message = FALSE, warning = FALSE}
+library(dplyr)
+library(tibble)
 library(SimHelpers)
-library(tidyverse)
 library(knitr)
+library(kableExtra)
 
 welch_res %>%
   glimpse()
