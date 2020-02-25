@@ -4,7 +4,12 @@
 \alias{calc_rbvjk}
 \title{Calculate jacknife Monte Carlo SE for variance estimators.}
 \usage{
-calc_rbvjk(res_dat, estimates, var_estimates, true_param)
+calc_rbvjk(
+  res_dat,
+  estimates,
+  var_estimates,
+  perfm_criteria = c("relative bias", "relative mse", "relative rmse")
+)
 }
 \arguments{
 \item{res_dat}{data frame or tibble containing the simulation results.}
@@ -13,7 +18,7 @@ calc_rbvjk(res_dat, estimates, var_estimates, true_param)
 
 \item{var_estimates}{name of the column containing the variance estimates.}
 
-\item{true_param}{name of the column containing true parameters of the point estimator.}
+\item{perfm_criteria}{character or character vector indicating the performance criteria to be calculated.}
 }
 \value{
 A tibble containing the performance criteria estimate and the associated MCSE.
@@ -23,6 +28,6 @@ A tibble containing the performance criteria estimate and the associated MCSE.
 The function also calculates the associated jacknife Monte Carlo Standard errors.
 }
 \examples{
-calc_rbvjk(res_dat = alpha_res, estimates = A, var_estimates = Var_A, true_param = true_param)
+calc_rbvjk(res_dat = alpha_res, estimates = A, var_estimates = Var_A)
 
 }

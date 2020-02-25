@@ -56,33 +56,15 @@ abs_dat <- tibble(Criterion = c("Bias","Variance","MSE", "RMSE"),
               Estimate = c("$\\bar{T} - \\theta$", "$S_T^2$", 
                            "$\\frac{1}{K}\\sum_{k=1}^{K}\\left(T_k - \\theta\\right)^2$", "$\\sqrt{\\frac{1}{K}\\sum_{k=1}^{K}\\left(T_k - \\theta\\right)^2}$"),
               MCSE = c("$\\sqrt{S_T^2/ K}$", "$S_T^2 \\sqrt{\\frac{k_T - 1}{K}}$",  
-                       "$\\sqrt{\\frac{1}{K}\\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_T^2 (\\bar{T} - \\theta)^2\\right]}$ ", "$\\sqrt{\\frac{S_{MSE}^2}{4 MSE}}$ or $\\sqrt{\\frac{1}{K} \\left(RMSE_{(j)} - RMSE)^2\\right)}$"))
+                       "$\\sqrt{\\frac{1}{K}\\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_T^2 (\\bar{T} - \\theta)^2\\right]}$ ", "$\\sqrt{\\frac{1}{K} \\left(RMSE_{(j)} - RMSE)^2\\right)}$"))
 
 knitr::kable(abs_dat, escape = FALSE, caption = "Table 1. Absolute Performance Criteria") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
   
 ```
 
-The equation for the MCSE of RMSE is derived using two methods. The first is [the delta method](https://www.jepusto.com/multivariate-delta-method/), which states that:
 
-$$
-\text{Var}\left(f(X)\right) = \left(\frac{\partial f}{\partial \theta}\right)^2 \text{Var}(X)
-$$
-
-Here let $X$ be $MSE$ and $f(X) = RMSE$ or $\sqrt{MSE}$
-
-$$
-\text{Var}\left(RMSE\right) = \left(\frac{1}{2\sqrt{MSE}}\right)^2 \text{Var}(MSE)
-$$
-$$
-\text{Var}\left(RMSE\right) = \left(\frac{\text{Var}(MSE)}{4 \times MSE}\right) 
-$$
-$$
-\text{MCSE}\left(RMSE\right) = \sqrt{\text{Var}(RMSE)}
-$$
-
-
-The second method is the jacknife technique, which involves excluding a replicate $j$ and calculating RMSE. The formula for RMSE is:
+The equation for the MCSE of RMSE is derived  the jacknife technique, which involves excluding a replicate $j$ and calculating RMSE. The formula for RMSE is:
 
 $$\sqrt{\frac{1}{K}\sum_{k=1}^{K}\left(T_k - \theta\right)^2}$$
 
@@ -96,14 +78,14 @@ $$RMSE_{(j)}  = \sqrt{(\bar{T}_{(j)} - \theta)^2 + S^2_{T(j)}}$$
 
 Here $\bar{T}_{(j)}$ $S^2_{T(j)}$ and indicate the mean and variance of the estimates leaving replicate $j$ out. Instead of each jacknife estimate, we use algebra tricks to calculate $\bar{T}_{(j)}$ and $S^2_{T(j)}$ as follows:
 
-$$\bar{T}_{(j)} = \frac{1}{K} \left(K \bar{T} - T_j\right)$$
+$$\bar{T}_{(j)} = \frac{1}{K-1} \left(K \bar{T} - T_j\right)$$
 
 
 $$S_{T(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]$$
 
 Then, the MCSE of $RMSE_{(j)}$ will be calculated as:
 
-$$MCSE_{RMSE(JK)}  = \sqrt{\frac{1}{K} \left(RMSE_{(j)} - RMSE)^2\right)}$$
+$$MCSE_{RMSE(JK)}  = \sqrt{\frac{1}{K}\sum_{j=1}^K  \left(RMSE_{(j)} - RMSE\right)^2}$$
 
 ### Example
 
@@ -154,10 +136,10 @@ Table 2 below lists the criteria, definition, estimation and the MCSE formula.
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 rel_dat <- tibble(Criterion = c("Relative Bias","Relative MSE"),
-              Definition = c("$\\text{E}(L) / \\lambda$", "$\\text{E}\\left[(L - \\lambda)^2\\right]/ \\lambda^2$"),
-              Estimate = c("$\\bar{L} / \\lambda$", "$\\frac{(\\bar{L} - \\lambda)^2 + S_L^2}{\\lambda^2}$"),
-              MCSE = c("$\\sqrt{S_L^2 / (K\\lambda^2)}$", 
-                       "$\\sqrt{\\frac{1}{K\\lambda^2}\\left[S_L^4 (k_L - 1) + 4 S_L^3 g_L(\\bar{L} - \\lambda) + 4 S_L^2 (\\bar{L} - \\lambda)^2\\right]}$"))
+              Definition = c("$\\text{E}(T) / \\theta$", "$\\text{E}\\left[(T - \\theta)^2\\right]/ \\theta^2$"),
+              Estimate = c("$\\bar{T} / \\theta$", "$\\frac{(\\bar{T} - \\theta)^2 + S_T^2}{\\theta^2}$"),
+              MCSE = c("$\\sqrt{S_T^2 / (K\\theta^2)}$", 
+                       "$\\sqrt{\\frac{1}{K\\theta^2}\\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_L^2 (\\bar{T} - \\theta)^2\\right]}$"))
 
 knitr::kable(rel_dat, escape = FALSE, caption = "Table 2. Relative Performance Criteria") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
@@ -182,7 +164,7 @@ welch_res %>%
 
 ### Relative Bias of Variance Estimator
 
-Variances estimators are always positive. Therefore, relative performance criteria are often used to assess variance estimators. Let $V$ denote the sampling variance of of a point-estimator $T$. To assess to relative bias of $V$, we need to divide it by the true value of the sampling variance of $T$ which we may not know. In such scenario, we can use the sample variance of $T$ across the replications ($S_T^2$) to estimate the true sampling variance $\text{Var}(T)$. The relative bias would then be estimated by $\bar{V} / S_T^2$, the average of the variance estimates divided by the sample variance of the point-estimates.
+Variances estimators are always positive. Therefore, relative performance criteria are often used to assess variance estimators. Let $V$ denote the sampling variance of of a point-estimator $T$. To assess to relative bias of $V$, we need to divide it by the true value of the sampling variance of $T$, $\lambda$,  which we may not know. In such scenario, we can use the sample variance of $T$ across the replications ($S_T^2$) to estimate the true sampling variance $\text{Var}(T)$. The relative bias would then be estimated by $\bar{V} / S_T^2$, the average of the variance estimates divided by the sample variance of the point-estimates.
 
 To estimate MCSE of the relative bias of the variance estimator, we need to account for the uncertainty in the estimation of the true sampling variance. One way to do so is to use the _jackknife_ technique. Jack-knifing involves excluding a replicate $j$ and calculating relative bias $\bar{V}_{(j)}/ S_{T(j)}^2$. Calculating all $K$  versions of this relative bias estimate, excluding each of replicates at a time, and taking the variance yields the jackknife variance estimator:
 
@@ -199,16 +181,33 @@ S_{T(j)}^2 &= \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \
 \end{aligned}
 $$
 
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+rel_dat_var <- tibble(Criterion = c("Relative Bias","Relative MSE", "Relative RMSE"),
+              Definition = c("$\\text{E}(V) / \\lambda$", "$\\text{E}\\left[(V - \\lambda)^2\\right]/ \\lambda^2$", "$\\sqrt{\\text{E}\\left[(V - \\lambda)^2\\right]/ \\lambda^2}$"),
+              Estimate = c("$\\bar{V} / S_T^2$", "$\\frac{(\\bar{V} - S_T^2)^2 + S_V^2}{S_T^4}$", "$\\sqrt{\\frac{(\\bar{V} - S_T^2)^2 + S_V^2}{S_T^4}}$"),
+              MCSE = c("$\\frac{1}{K} \\sum_{j=1}^K \\left(RB_{(j)} - RB\\right)^2$", "$\\frac{1}{K} \\sum_{j=1}^K \\left(MSE_{(j)} - MSE\\right)^2$",
+                      "$\\frac{1}{K} \\sum_{j=1}^K \\left(RMSE_{(j)} - RMSE\\right)^2$" ))
+
+
+knitr::kable(rel_dat_var, escape = FALSE, caption = "Table 3. Relative Performance Criteria for Variance Estimators") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+  
+```
+
 The function `calc_rbvjk()` calculates the jack-knife MCSE of the relative bias estimate of a variance estimator. The function requires `res_dat`, a data frame or tibble containing simulation results, `estimates`, the name of the column containing point-estimates, `var_estimates`, the name of the column containing the variance estimates, and `true_param`, the name of the column containing the true parameters of the point-estimator. 
 
 ```{r}
 welch_res %>%
   mutate(params = mean_diff) %>%
   group_by(n, mean_diff, method) %>%
-  group_modify(~ calc_rbvjk(.x,  estimates = est, var_estimates = var, true_param = params)) %>%
+  group_modify(~ calc_rbvjk(.x,  estimates = est, var_estimates = var)) %>%
   mutate_if(is.numeric, round, 5) %>%
   kable()
 ```
+
+
+
 
 
 ## Hypothesis Testing and Confidence Intervals
@@ -224,7 +223,7 @@ hyp_dat <- tibble(Criterion = c("Rejection Rate","Coverage","Width"),
               MCSE = c("$\\sqrt{r_\\alpha(1 - r_\\alpha) / K}$",  
                        "$\\sqrt{c_\\beta (1 - c_\\beta) / K}$", "$\\sqrt{S_W^2 / K}$"))
 
-knitr::kable(hyp_dat, escape = FALSE, caption = "Table 3. Hypothesis Testing and Confidence Intervals Performance Criteria") %>%
+knitr::kable(hyp_dat, escape = FALSE, caption = "Table 4. Hypothesis Testing and Confidence Intervals Performance Criteria") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 

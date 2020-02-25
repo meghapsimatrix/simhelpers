@@ -8,7 +8,7 @@ calc_relative(
   res_dat,
   estimates,
   true_param,
-  perfm_criteria = c("relative bias", "relative mse")
+  perfm_criteria = c("relative bias", "relative mse", "relative rmse")
 )
 }
 \arguments{

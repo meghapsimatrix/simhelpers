@@ -23,7 +23,7 @@ calc_rr <- function(res_dat, p_values, alpha = .05){
   K <- nrow(res_dat)
 
   dat <- tibble::tibble(rej_rate = mean(p_vals < alpha),
-                rej_rate_mcse = sqrt((rej_rate * (1 - rej_rate)) / K))
+                        rej_rate_mcse = sqrt((rej_rate * (1 - rej_rate)) / K))
 
   return(dat)
 

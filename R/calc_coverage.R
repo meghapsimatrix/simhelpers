@@ -35,14 +35,14 @@ calc_coverage <- function(res_dat, lower_bound, upper_bound, true_param, alpha =
   if("coverage" %in% perfm_criteria){
     dat <- dat %>%
       dplyr::mutate(coverage = mean(lower_bound < true_param & true_param < upper_bound),
-             coverage_mcse = sqrt((coverage * (1 - coverage)) / K))
+                    coverage_mcse = sqrt((coverage * (1 - coverage)) / K))
 
   }
 
   if("width" %in% perfm_criteria){
     dat <- dat %>%
       dplyr::mutate(width = mean(upper_bound) - mean(lower_bound),
-             width_mcse = sqrt(var(upper_bound - lower_bound) / K))
+                    width_mcse = sqrt(var(upper_bound - lower_bound) / K))
 
   }
 
