@@ -132,14 +132,24 @@ welch_res %>%
 
 Relative criteria can be useful to look at if multiple true parameter values are used to generate the data to run the simulation and if performance measure changes according to the true value. It can be only used when $|\theta| > 0$ as we cannot divide by $0$ (Morris et al., 2018). 
 
+To derive the MCSE for Relative RMSE, we again used the jacknife technique. The formula to calculate RMSE is:
+
+$$RMSE = \sqrt{\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}}$$
+
+The jacknife RMSE will be calculated as:
+
+$$RMSE_{(j)}  = \sqrt{\frac{(\bar{T}_{(j)} - \theta)^2 + S_{T(j)}^2}{\theta^2}}$$
+
+Here $\bar{T}_{(j)}$ $S^2_{T(j)}$ and indicate the mean and variance of the estimates leaving replicate $j$ out. These are calculated as specified in above when we described the algebra trick to estimate these values. The MCSE is then calculated as specified in the table below. 
+
 Table 2 below lists the criteria, definition, estimation and the MCSE formula. 
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-rel_dat <- tibble(Criterion = c("Relative Bias","Relative MSE"),
-              Definition = c("$\\text{E}(T) / \\theta$", "$\\text{E}\\left[(T - \\theta)^2\\right]/ \\theta^2$"),
-              Estimate = c("$\\bar{T} / \\theta$", "$\\frac{(\\bar{T} - \\theta)^2 + S_T^2}{\\theta^2}$"),
+rel_dat <- tibble(Criterion = c("Relative Bias","Relative MSE", "Relative RMSE"),
+              Definition = c("$\\text{E}(T) / \\theta$", "$\\text{E}\\left[(T - \\theta)^2\\right]/ \\theta^2$", "$\\sqrt{\\text{E}\\left[(T - \\theta)^2\\right]/ \\theta^2}$"),
+              Estimate = c("$\\bar{T} / \\theta$", "$\\frac{(\\bar{T} - \\theta)^2 + S_T^2}{\\theta^2}$", "$\\sqrt{\\frac{(\\bar{T} - \\theta)^2 + S_T^2}{\\theta^2}}$"),
               MCSE = c("$\\sqrt{S_T^2 / (K\\theta^2)}$", 
-                       "$\\sqrt{\\frac{1}{K\\theta^2}\\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_L^2 (\\bar{T} - \\theta)^2\\right]}$"))
+                       "$\\sqrt{\\frac{1}{K\\theta^2}\\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_L^2 (\\bar{T} - \\theta)^2\\right]}$", "$\\sqrt{\\frac{1}{K} \\left(RMSE_{(j)} - RMSE)^2\\right)}$"))
 
 knitr::kable(rel_dat, escape = FALSE, caption = "Table 2. Relative Performance Criteria") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
@@ -149,7 +159,7 @@ knitr::kable(rel_dat, escape = FALSE, caption = "Table 2. Relative Performance C
 
 ### Example 
 
-Below, we calculate the relative criteria for the mean difference estimates. Note that when mean difference is 0, the relative measures cannot be calculated. The function returns `NA` values for conditions where the mean difference is 0. The syntax for `calc_relative()` is similar to the one that we used earlier for `calc_abs()`. The `perfm_criteria` argument allows the user to specify which criteria to evaluate: `c("relative bias", "relative mse")`. 
+Below, we calculate the relative criteria for the mean difference estimates. Note that when mean difference is 0, the relative measures cannot be calculated. The function returns `NA` values for conditions where the mean difference is 0. The syntax for `calc_relative()` is similar to the one that we used earlier for `calc_abs()`. The `perfm_criteria` argument allows the user to specify which criteria to evaluate: `c("relative bias", "relative mse", "relative rmse")`. 
 
 
 ```{r}
@@ -164,15 +174,15 @@ welch_res %>%
 
 ### Relative Bias of Variance Estimator
 
-Variances estimators are always positive. Therefore, relative performance criteria are often used to assess variance estimators. Let $V$ denote the sampling variance of of a point-estimator $T$. To assess to relative bias of $V$, we need to divide it by the true value of the sampling variance of $T$, $\lambda$,  which we may not know. In such scenario, we can use the sample variance of $T$ across the replications ($S_T^2$) to estimate the true sampling variance $\text{Var}(T)$. The relative bias would then be estimated by $\bar{V} / S_T^2$, the average of the variance estimates divided by the sample variance of the point-estimates.
+Variances estimators are always positive. Therefore, relative performance criteria are often used to assess variance estimators. For variance estimators, we have $V$ denoting the sampling variance of of a point-estimator $T$. To assess to relative criteria for $V$, we need to divide it by the true value of the sampling variance of $T$, $\lambda = \text{Var}(T)$,  which we may not know. In such scenario, we can use the sample variance of $T$ across the replications ($S_T^2$) to estimate the true sampling variance. 
 
-To estimate MCSE of the relative bias of the variance estimator, we need to account for the uncertainty in the estimation of the true sampling variance. One way to do so is to use the _jackknife_ technique. Jack-knifing involves excluding a replicate $j$ and calculating relative bias $\bar{V}_{(j)}/ S_{T(j)}^2$. Calculating all $K$  versions of this relative bias estimate, excluding each of replicates at a time, and taking the variance yields the jackknife variance estimator:
+The relative bias would then be estimated by $\bar{V} / S_T^2$, the average of the variance estimates divided by the sample variance of the point-estimates. To estimate MCSE of the relative bias of the variance estimator, we need to account for the uncertainty in the estimation of the true sampling variance. One way to do so is to use the _jackknife_ technique. Jack-knifing involves excluding a replicate $j$ and calculating relative bias $\bar{V}_{(j)}/ S_{T(j)}^2$. Calculating all $K$  versions of this relative bias estimate, excluding each of replicates at a time, and taking the variance yields the jackknife variance estimator:
 
 $$
 MCSE\left(RB\right) = \frac{1}{K} \sum_{j=1}^K \left(\frac{\bar{V}_{(j)}}{S_{T(j)}^2} - \frac{\bar{V}}{S_T^2}\right)^2.
 $$
 
-To avoid the time consuming calculation to derive the MCSE as specified above, we reformulate the MCSE using some algebra tricks:
+We reformulate the MCSE using some algebra tricks. Similar to how we reformulated them for the RMSE MCSE formulas above. 
 
 $$
 \begin{aligned}
@@ -181,6 +191,13 @@ S_{T(j)}^2 &= \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \
 \end{aligned}
 $$
 
+Similary, we can estimate the MCSE of relative MSE and RMSE using jacknnife technique. To estimate the MSE we need to estimate $S_{V(j)}^2$ which represents the sample variance of the variance estimates leaving replicate $j$ out. We can estimte $S_{V(j)}^2$ as specified below: 
+
+$$S_{V(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_V^2 - \frac{K}{K - 1}\left(V_j - \bar{V}\right)^2\right]$$
+
+We can then estimate jacknife relative MSE and RMSE following the same logic as we described above and then calculate the MCSE. 
+
+Table 3 below lists relative performance measures for variance estimators. 
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 rel_dat_var <- tibble(Criterion = c("Relative Bias","Relative MSE", "Relative RMSE"),
