@@ -198,7 +198,7 @@ S_{T(j)}^2 &= \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \
 \end{aligned}
 $$
 
-Similary, we can estimate the MCSE of relative MSE and RMSE using jacknnife technique. To estimate the MSE we need to estimate $S_{V(j)}^2$ which represents the sample variance of the variance estimates leaving replicate $j$ out. We can estimte $S_{V(j)}^2$ as specified below: 
+Similarly, we can estimate the MCSE of relative MSE and RMSE using jackknife technique. To estimate the MSE we need to estimate $S_{V(j)}^2$ which represents the sample variance of the variance estimates leaving replicate $j$ out. We can estimate $S_{V(j)}^2$ as specified below: 
 
 $$S_{V(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_V^2 - \frac{K}{K - 1}\left(V_j - \bar{V}\right)^2\right]$$
 
