@@ -15,10 +15,10 @@
 #' @export
 #'
 #' @examples
-#' calc_rbvjk(res_dat = alpha_res, estimates = A, var_estimates = Var_A)
+#' calc_rel_var(res_dat = alpha_res, estimates = A, var_estimates = Var_A)
 #'
 
-calc_rbvjk <- function(res_dat, estimates, var_estimates, perfm_criteria = c("relative bias", "relative mse", "relative rmse")){
+calc_rel_var <- function(res_dat, estimates, var_estimates, perfm_criteria = c("relative bias", "relative mse", "relative rmse")){
 
 
   estimates <- res_dat %>% dplyr::pull({{estimates}})

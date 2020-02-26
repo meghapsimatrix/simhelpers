@@ -20,11 +20,11 @@ knitr::opts_chunk$set(
 
 # Introduction to Simulation Studies and Monte Carlo Standard Errors
 
-Simulations are experiments to study the performance of statistical methods under known data-generating conditions (Morris, White & Crowther, 2018). Methodologists examine questions like: (1) how does ordinary least squares (OLS) regression perform if errors are heteroskedastic? (2) how does the presence of missing data affect treatment effect estimates from a propensity score analysis? To answer such questions, we conduct experiments by simulating thousands of datasets from pseudo-random sampling (Morris et al., 2018). We generate datasets under known conditions. For example, we can generate data where the errors are heteroskedastic or there is missing data present following Missing at Random (MAR) mechanism. Then, we apply statistical methods, like OLS and propensity score estimation using logistic regression, to each of the datasets and extract measures like mean difference, regression coefficients, p-values, and confidence intervals. We then analyze the methods using performance criteria measures like bias, Type 1 error rate etc.
+Simulations are experiments to study the performance of statistical methods under known data-generating conditions (Morris, White & Crowther, 2018). Methodologists examine questions like: (1) how does ordinary least squares (OLS) regression perform if errors are heteroskedastic? (2) how does the presence of missing data affect treatment effect estimates from a propensity score analysis? (3) how does robust variance estimation perform when sample size is small? To answer such questions, we conduct experiments by simulating thousands of datasets from pseudo-random sampling (Morris et al., 2018). We generate datasets under known conditions. For example, we can generate data where the errors are heteroskedastic or there is missing data present following Missing at Random (MAR) mechanism. Then, we apply statistical methods, like OLS and propensity score estimation using logistic regression, to each of the datasets and extract measures like regression coefficients, p-values, and confidence intervals. We then analyze the methods using performance criteria measures like bias, Type 1 error rate or root mean squared error. 
 
 When examining performance measures, we need to also consider the error in the estimate of the performance measures due to the fact that we generate a finite number of samples. The error is quantified in the form of Monte Carlo standard error (MCSE). 
 
-The goal of `SimHelpers` is to assist in running simulation studies. This package provides a set of functions that calculates various performance measures and associated MCSE. This vignette focuses on the set of functions. Below, we explain three major categories of performance criteria: absolute, relative and hypothesis testing. We provide formulas used to calculate the performance measures and MCSE and demonstrate how to use the functions in the `SimHelpers` package. 
+The goal of `SimHelpers` is to assist in running simulation studies. This package provides a set of functions that calculates various performance measures and associated MCSE. This vignette focuses on the set of functions. Below, we explain three major categories of performance criteria: (1) absolute criteria, (2) relative criteria, and (3) criteria to evaluate hypothesis testing. We provide formulas used to calculate the performance measures and MCSE and demonstrate how to use the functions in the `SimHelpers` package. 
 
 The formula notations and explanations of the performance measures follow notes from Dr. James Pustejovsky's [Data Analysis, Simulation and Programming in R course (Spring, 2019)](https://www.jepusto.com/teaching/daspir/).
 
@@ -64,7 +64,7 @@ knitr::kable(abs_dat, escape = FALSE, caption = "Table 1. Absolute Performance C
 ```
 
 
-The equation for the MCSE of RMSE is derived  the jacknife technique, which involves excluding a replicate $j$ and calculating RMSE. The formula for RMSE is:
+The equation for the MCSE of RMSE is derived using the jacknife technique, which involves excluding a replicate $j$ and calculating RMSE. The formula for RMSE is:
 
 $$\sqrt{\frac{1}{K}\sum_{k=1}^{K}\left(T_k - \theta\right)^2}$$
 
@@ -76,7 +76,7 @@ The jacknife RMSE will be calculated as:
 
 $$RMSE_{(j)}  = \sqrt{(\bar{T}_{(j)} - \theta)^2 + S^2_{T(j)}}$$
 
-Here $\bar{T}_{(j)}$ $S^2_{T(j)}$ and indicate the mean and variance of the estimates leaving replicate $j$ out. Instead of each jacknife estimate, we use algebra tricks to calculate $\bar{T}_{(j)}$ and $S^2_{T(j)}$ as follows:
+Here $\bar{T}_{(j)}$ and $S^2_{T(j)}$ and indicate the mean and variance of the estimates leaving replicate $j$ out. Instead of calculating each jacknife estimate, we use algebra tricks to calculate $\bar{T}_{(j)}$ and $S^2_{T(j)}$ as follows:
 
 $$\bar{T}_{(j)} = \frac{1}{K-1} \left(K \bar{T} - T_j\right)$$
 
@@ -103,9 +103,9 @@ welch_res %>%
 ```
 
 
-Below, we calculate the absolute performance criteria for the estimate of the mean difference. We present the results by sample size, mean difference, and the t-test method. The `calc_abs()` function is designed to work with the [`tidyeval`](https://tidyeval.tidyverse.org/index.html) workflow. The first argument, `res_dat`, requires a data frame or a tibble containing the results from a simulation study. The second argument, `estimates`, requires the name of the column containing the estimates like mean difference or regression coefficients. The third argument, `true_param`, requires the name of the column containing the true parameters. The fourth argument `perfm_criteria` lets the user specify which criteria to evaluate. The criteria can be specified using a character or character vector. If the user only wants bias, they can specify `perfm_criteria = "bias"`. If the user wants bias and root mean squared error, they can specify `perfm_criteria = c("bias", "rmse")`. By default, the function returns, bias, variance, mean squared error (mse), and root mean squared error (rmse). In the example below, we ask for all the available criteria. 
+Below, we calculate the absolute performance criteria for the estimate of the mean difference. We present the results by sample size, mean difference, and the t-test method. The `calc_abs()` function is designed to work with the [`tidyeval`](https://tidyeval.tidyverse.org/index.html) workflow. The first argument, `res_dat`, requires a data frame or a tibble containing the results from a simulation study. The second argument, `estimates`, requires the name of the column containing the estimates like mean difference or regression coefficients. The third argument, `true_param`, requires the name of the column containing the true parameters. The fourth argument `perfm_criteria` lets the user specify which criteria to evaluate. The criteria can be specified using a character or character vector. If the user only wants bias, they can specify `perfm_criteria = "bias"`. If the user wants bias and root mean squared error, they can specify `perfm_criteria = c("bias", "rmse")`. By default, the function returns, bias, variance, mean squared error (mse), and root mean squared error (rmse), `perfm_criteria = c("bias", "variance", "mse", "rmse")`. In the example below, we ask for all the available criteria. 
 
-We use `dplyr` syntax to group by the sample size, mean difference used to generate the data, and the method used to analyze the data. We provide examples using [`do()`](https://dplyr.tidyverse.org/reference/do.html) and [`group_modify()`](https://dplyr.tidyverse.org/reference/group_map.html) to run `calc_abs()` on results for each combination of the conditions. We use [`mutate_if()`](https://dplyr.tidyverse.org/reference/mutate_all.html) to round the results to three decimal places. Note that `mutate_if()` ignores the grouping variables by default. 
+We use `dplyr` syntax to group by the sample size and mean difference that were used to generate the data, and the method used to analyze the data. We provide examples using [`do()`](https://dplyr.tidyverse.org/reference/do.html) and [`group_modify()`](https://dplyr.tidyverse.org/reference/group_map.html) to run `calc_abs()` on results for each combination of the conditions. We use [`mutate_if()`](https://dplyr.tidyverse.org/reference/mutate_all.html) to round the results to five decimal places. Note that `mutate_if()` ignores the grouping variables by default. 
 
 ```{r}
 # using do()
@@ -132,7 +132,7 @@ welch_res %>%
 
 Relative criteria can be useful to look at if multiple true parameter values are used to generate the data to run the simulation and if performance measure changes according to the true value. It can be only used when $|\theta| > 0$ as we cannot divide by $0$ (Morris et al., 2018). 
 
-To derive the MCSE for Relative RMSE, we again used the jacknife technique. The formula to calculate RMSE is:
+To derive the MCSE for relative RMSE, we again used the jacknife technique. The formula to calculate relative RMSE is:
 
 $$RMSE = \sqrt{\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}}$$
 
@@ -140,12 +140,13 @@ The jacknife RMSE will be calculated as:
 
 $$RMSE_{(j)}  = \sqrt{\frac{(\bar{T}_{(j)} - \theta)^2 + S_{T(j)}^2}{\theta^2}}$$
 
-Here $\bar{T}_{(j)}$ $S^2_{T(j)}$ and indicate the mean and variance of the estimates leaving replicate $j$ out. These are calculated as specified in above when we described the algebra trick to estimate these values. The MCSE is then calculated as specified in the table below. 
+Here $\bar{T}_{(j)}$ and $S^2_{T(j)}$ are calculated as specified above when we described the algebra trick to estimate these values. The MCSE is then calculated as specified in the table below. 
 
-Table 2 below lists the criteria, definition, estimation and the MCSE formula. 
+Table 2 below shows each of the performance criteria, what it measures, its definition, its estimate, and its MCSE formula. 
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 rel_dat <- tibble(Criterion = c("Relative Bias","Relative MSE", "Relative RMSE"),
+                  Measure = c("Relative difference from true parameter", "Accuracy", "Accuracy"),
               Definition = c("$\\text{E}(T) / \\theta$", "$\\text{E}\\left[(T - \\theta)^2\\right]/ \\theta^2$", "$\\sqrt{\\text{E}\\left[(T - \\theta)^2\\right]/ \\theta^2}$"),
               Estimate = c("$\\bar{T} / \\theta$", "$\\frac{(\\bar{T} - \\theta)^2 + S_T^2}{\\theta^2}$", "$\\sqrt{\\frac{(\\bar{T} - \\theta)^2 + S_T^2}{\\theta^2}}$"),
               MCSE = c("$\\sqrt{S_T^2 / (K\\theta^2)}$", 
@@ -159,7 +160,7 @@ knitr::kable(rel_dat, escape = FALSE, caption = "Table 2. Relative Performance C
 
 ### Example 
 
-Below, we calculate the relative criteria for the mean difference estimates. Note that when mean difference is 0, the relative measures cannot be calculated. The function returns `NA` values for conditions where the mean difference is 0. The syntax for `calc_relative()` is similar to the one that we used earlier for `calc_abs()`. The `perfm_criteria` argument allows the user to specify which criteria to evaluate: `c("relative bias", "relative mse", "relative rmse")`. 
+Below, we calculate the relative criteria for the mean difference estimates. Note that when mean difference is 0, the relative measures cannot be calculated. The function returns `NA` values for conditions where the mean difference is 0. The syntax for `calc_relative()` is similar to the one that we used earlier for `calc_abs()`. The `perfm_criteria` argument allows the user to specify which criteria to evaluate: `perfm_criteria = c("relative bias", "relative mse", "relative rmse")`. 
 
 
 ```{r}
@@ -172,17 +173,23 @@ welch_res %>%
   kable()
 ```
 
-### Relative Bias of Variance Estimator
+## Relative Criteria for Variance Estimators
 
-Variances estimators are always positive. Therefore, relative performance criteria are often used to assess variance estimators. For variance estimators, we have $V$ denoting the sampling variance of of a point-estimator $T$. To assess to relative criteria for $V$, we need to divide it by the true value of the sampling variance of $T$, $\lambda = \text{Var}(T)$,  which we may not know. In such scenario, we can use the sample variance of $T$ across the replications ($S_T^2$) to estimate the true sampling variance. 
+Variances estimators are always positive. Therefore, relative performance criteria are often used to assess variance estimators. For variance estimators, we have $V$ denoting the sampling variance of of a point-estimator $T$. To assess to relative criteria for $V$, we need to divide it by the true value of the sampling variance of $T$, $\lambda = \text{Var}(T)$,  which we may not know. In such scenario, we can use the sample variance of $T$ across the replications, $S_T^2$, to estimate the true sampling variance. 
 
-The relative bias would then be estimated by $\bar{V} / S_T^2$, the average of the variance estimates divided by the sample variance of the point-estimates. To estimate MCSE of the relative bias of the variance estimator, we need to account for the uncertainty in the estimation of the true sampling variance. One way to do so is to use the _jackknife_ technique. Jack-knifing involves excluding a replicate $j$ and calculating relative bias $\bar{V}_{(j)}/ S_{T(j)}^2$. Calculating all $K$  versions of this relative bias estimate, excluding each of replicates at a time, and taking the variance yields the jackknife variance estimator:
+The relative bias would then be estimated by $RB = \bar{V} / S_T^2$, the average of the variance estimates divided by the sample variance of the point-estimates. To estimate MCSE of the relative bias of the variance estimator, we need to account for the uncertainty in the estimation of the true sampling variance. One way to do so is to use the _jackknife_ technique. Jack-knifing involves excluding a replicate $j$ and calculating relative bias $\bar{V}_{(j)}/ S_{T(j)}^2$. The Monte Carlo standard error can then be calculated as:
 
 $$
-MCSE\left(RB\right) = \frac{1}{K} \sum_{j=1}^K \left(\frac{\bar{V}_{(j)}}{S_{T(j)}^2} - \frac{\bar{V}}{S_T^2}\right)^2.
+MCSE\left(RB\right) = \sqrt{\frac{1}{K} \sum_{j=1}^K \left(RB_{(j)} - RB\right)^2}
+$$
+which can be written as:
+
+$$
+MCSE\left(RB\right) = \sqrt{\frac{1}{K} \sum_{j=1}^K \left(\frac{\bar{V}_{(j)}}{S_{T(j)}^2} - \frac{\bar{V}}{S_T^2}\right)^2}
 $$
 
-We reformulate the MCSE using some algebra tricks. Similar to how we reformulated them for the RMSE MCSE formulas above. 
+
+We reformulate the MCSE using some algebra tricks similar to how we reformulated them for the RMSE MCSE formulas above. 
 
 $$
 \begin{aligned}
@@ -201,10 +208,11 @@ Table 3 below lists relative performance measures for variance estimators.
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 rel_dat_var <- tibble(Criterion = c("Relative Bias","Relative MSE", "Relative RMSE"),
+                      Measure = c("Relative difference from true parameter", "Accuracy", "Accuracy"),
               Definition = c("$\\text{E}(V) / \\lambda$", "$\\text{E}\\left[(V - \\lambda)^2\\right]/ \\lambda^2$", "$\\sqrt{\\text{E}\\left[(V - \\lambda)^2\\right]/ \\lambda^2}$"),
               Estimate = c("$\\bar{V} / S_T^2$", "$\\frac{(\\bar{V} - S_T^2)^2 + S_V^2}{S_T^4}$", "$\\sqrt{\\frac{(\\bar{V} - S_T^2)^2 + S_V^2}{S_T^4}}$"),
-              MCSE = c("$\\frac{1}{K} \\sum_{j=1}^K \\left(RB_{(j)} - RB\\right)^2$", "$\\frac{1}{K} \\sum_{j=1}^K \\left(MSE_{(j)} - MSE\\right)^2$",
-                      "$\\frac{1}{K} \\sum_{j=1}^K \\left(RMSE_{(j)} - RMSE\\right)^2$" ))
+              MCSE = c("$\\sqrt{\\frac{1}{K} \\sum_{j=1}^K \\left(RB_{(j)} - RB\\right)^2}$", "$\\sqrt{\\frac{1}{K} \\sum_{j=1}^K \\left(MSE_{(j)} - MSE\\right)^2}$",
+                      "$\\sqrt{\\frac{1}{K} \\sum_{j=1}^K \\left(RMSE_{(j)} - RMSE\\right)^2}$" ))
 
 
 knitr::kable(rel_dat_var, escape = FALSE, caption = "Table 3. Relative Performance Criteria for Variance Estimators") %>%
@@ -212,13 +220,13 @@ knitr::kable(rel_dat_var, escape = FALSE, caption = "Table 3. Relative Performan
   
 ```
 
-The function `calc_rbvjk()` calculates the jack-knife MCSE of the relative bias estimate of a variance estimator. The function requires `res_dat`, a data frame or tibble containing simulation results, `estimates`, the name of the column containing point-estimates, `var_estimates`, the name of the column containing the variance estimates, and `true_param`, the name of the column containing the true parameters of the point-estimator. 
+The function `calc_rel_var()` calculates the performance criteria estimate and the jack-knife MCSE of the relative bias estimate of a variance estimator. The function requires `res_dat`, a data frame or tibble containing simulation results, `estimates`, the name of the column containing point-estimates, `var_estimates`, the name of the column containing the variance estimates, and `perfm_criteria`, the criteria to be evaluated: `perfm_criteria = c("relative bias", "relative mse", "relative rmse")`.
 
 ```{r}
 welch_res %>%
   mutate(params = mean_diff) %>%
   group_by(n, mean_diff, method) %>%
-  group_modify(~ calc_rbvjk(.x,  estimates = est, var_estimates = var)) %>%
+  group_modify(~ calc_rel_var(.x,  estimates = est, var_estimates = var)) %>%
   mutate_if(is.numeric, round, 5) %>%
   kable()
 ```
@@ -229,7 +237,9 @@ welch_res %>%
 
 ## Hypothesis Testing and Confidence Intervals
 
-When doing hypothesis tests, we are often interested in whether Type 1 error rate is controlled and whether the test has enough power to detect the effect of interest. Rejection rate captures the proportion of times the p-value is below a specified $\alpha$ level, the proportion of times we can reject the null hypothesis. When the specified effect is 0, we can examine Type 1 error rates and when the magnitude of the effect is greater than 0, we can examine power. We are also interested in confidence interval coverage, proportion of intervals that contain the true parameter, and the interval width, which is an indicator of the precision of the estimate.
+When doing hypothesis tests, we are often interested in whether Type 1 error rate is adequately controlled and whether the test has enough power to detect the effect of interest. Rejection rate captures the proportion of times the p-value is below a specified $\alpha$ level, the proportion of times we can reject the null hypothesis. When the specified effect size is 0, we can examine Type 1 error rates and when the magnitude of the effect is greater than 0, we can examine power. We are also interested in confidence interval coverage, proportion of intervals that contain the true parameter, and the interval width, which is an indicator of the precision of the estimate.
+
+Table 4 below presents the performance criteria used to evaluate hypothesis tests. 
 
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
@@ -247,7 +257,7 @@ knitr::kable(hyp_dat, escape = FALSE, caption = "Table 4. Hypothesis Testing and
 
 ### Example
 
-Below we calculate the rejection rates for the hypothesis tests conducted using t-test. The null hypothesis states that the two groups have the same means. The `calc_rr()` function requires a data set or tibble as the first argument. The second argument, `p_values`, requires the name of the column containing p-values.  
+Below we calculate the rejection rates for the hypothesis tests conducted using t-test. The null hypothesis states that the two groups have the same means. The `calc_rr()` function requires a data frame or tibble containing simulation results as the first argument. The second argument, `p_values`, requires the name of the column containing p-values. The third argument, `alpha` lets the user specify a value for $\alpha$. The default value is set to the conventional 0.05.   
 
 
 ```{r}
@@ -259,7 +269,7 @@ welch_res %>%
   kable()
 ```
 
-Below we calculate the confidence interval coverage rates and widths for the estimates of the mean difference. The `calc_coverage()` function requires a data frame or tibble containing the simulation results as the first argument. The second and third arguments, `lower_bound` and `upper_bound`, take in the name of the columns that contain the lower and upper bound estimates of the confidence interval. The `true_param` argument requires the name of the column containing the true parameters. Like `calc_abs()` and `calc_relative()`, `calc_coverage()` also has an argument `perfm_criteria` where the user can specify which criteria to evaluate: `c("coverage", "width")`. 
+Below we calculate the confidence interval coverage rates and widths for the estimates of the mean difference. The `calc_coverage()` function requires a data frame or tibble containing the simulation results as the first argument. The second and third arguments, `lower_bound` and `upper_bound`, take in the name of the columns that contain the lower and upper bound estimates of the confidence interval. The `true_param` argument requires the name of the column containing the true parameters. Like `calc_abs()` and `calc_relative()`, `calc_coverage()` also has an argument, `perfm_criteria`, where the user can specify which criteria to evaluate: `perfm_criteria = c("coverage", "width")`. 
 
 ```{r}
 # using group_modify()
@@ -275,11 +285,19 @@ welch_res %>%
 
 # How to evaluate MCSE
 
-The associated MCSE should be small compared to the performance measure. 
+The associated MCSE should be small compared to the performance measure. Below is an example from Frane (2015) of how to write up MCSE results as part of simulation study results. Frane (2015) compared various methods to control Type 1 error rates when conducting analysis on multiple outcome variables. 
+
+"Only Bonferroni and MP strictly controlled the PFER; the observed maximum PFER was 0.050 for Bonferroni, 0.051 for Sidák, 0.061 for Holm, 0.100 for Hochberg, and 0.050 for MP (estimated SE ≤ 0.0002 for all estimates)."
+
+The PFER refers to per family error rate, the expected number of Type 1 errors out of $m$ comparisons. MP refers to MANOVA protected tests. The SE reported in the bracket refers to the MCSE. The number of replications was 1,000,000 in Frane (2015). We note that the number is quite high and generally 1,000 to 10,000 replications are enough. The resulting MCSEs in Frane (2015) therefore are way smaller compared to the values for PFER. 
+
+For more information for performance criteria and MCSE, we recommend Morris, White & Crowther (2018).
 
 # References 
 
-Morris, T. P., White, I. R., & Crowther, M. J. (2019). Using simulation studies to evaluate statistical methods. Statistics in medicine, 38(11), 2074-2102.
+Frane, A. V. (2015). Power and Type I Error Control for Univariate Comparisons in Multivariate Two-Group Designs. Multivariate Behavioral Research, 50(2), 233–247. http://doi.org/10.1080/00273171.2014.968836
+
+Morris, T. P., White, I. R., & Crowther, M. J. (2019). Using simulation studies to evaluate statistical methods. Statistics in medicine, 38(11), 2074-2102. http://doi.org/10.1002/sim.8086
 
 Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source
   Software, 4(43), 1686, https://doi.org/10.21105/joss.01686
