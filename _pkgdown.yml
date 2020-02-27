@@ -1,1 +1,22 @@
 destination: docs
+
+reference:
+  - title: "Performance Criteria and MCSE"
+    desc: "Functions calculating performance critieria and MCSE."
+    contents:
+      - calc_abs
+      - calc_relative
+      - calc_rel_var
+      - calc_rr
+      - calc_coverage
+  - title: "Simulation Workflow"
+    desc: "Functions for setting up simulation workflow."
+    contents:
+      - create_skeleton
+      - evaluate_by_row
+  - title: "Example Datasets"
+    desc: "Example datasets from simulation studies."
+    contents:
+      - alpha_res
+      - t_res
+      - welch_res
