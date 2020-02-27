@@ -29,13 +29,10 @@ The goal of `SimHelpers` is to assist in running simulation studies. This packag
 - `calc_rr()`: Rejection rate (Type 1 error rate, power)
 - `calc_coverage()`: Confidence interval coverage (coverage, width)
 
-The functions are created to work with `tidyeval` practice using packages like `dplyr`. The package [vignette](https://github.com/meghapsimatrix/SimHelpers/blob/master/vignettes/MCSE.Rmd) covers details about MCSE and the formulas used to calculate them. The vignette also includes examples on how to use the functions with `dplyr` workflow. 
+The functions are created to work with `tidyeval` practice using packages like `dplyr`. The package vignette covers details about MCSE and the formulas used to calculate them. The vignette also includes examples on how to use the functions with `dplyr` workflow. 
 
-In addition to the set of functions that calculates performance measures and MCSE, the package also includes a function, `create_skeleton()`, that generates a skeleton outline of a simulation study that can be applied when designing one. Another function, `evaluate_by_row()` runs the simulation for each combination of conditions row by row and implements the `future_pmap()` function from the `furrr` package to run the simulation in parallel. 
+In addition to the set of functions that calculates performance measures and MCSE, the package also includes a function, `create_skeleton()`, that generates a skeleton outline of a simulation study that can be applied when designing one. Another function, `evaluate_by_row()` runs the simulation for each combination of conditions row by row and implements the `future_pmap()` function from the `furrr` package to run the simulation in parallel. The package also contains several datasets that contain results from example simulation studies. 
 
-The package also contains several datasets that contain results from example simulation studies. The code used to generate the data is available [here](https://github.com/meghapsimatrix/SimHelpers/tree/master/data-raw).
-
-The package is still under development. We will be updating and adding functions in the near future. 
 
 ## Installation
 

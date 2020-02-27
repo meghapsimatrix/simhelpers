@@ -40,11 +40,9 @@ rate and confidence interval coverage. The functions are:
   - `calc_coverage()`: Confidence interval coverage (coverage, width)
 
 The functions are created to work with `tidyeval` practice using
-packages like `dplyr`. The package
-[vignette](https://github.com/meghapsimatrix/SimHelpers/blob/master/vignettes/MCSE.Rmd)
-covers details about MCSE and the formulas used to calculate them. The
-vignette also includes examples on how to use the functions with `dplyr`
-workflow.
+packages like `dplyr`. The package vignette covers details about MCSE
+and the formulas used to calculate them. The vignette also includes
+examples on how to use the functions with `dplyr` workflow.
 
 In addition to the set of functions that calculates performance measures
 and MCSE, the package also includes a function, `create_skeleton()`,
@@ -52,15 +50,8 @@ that generates a skeleton outline of a simulation study that can be
 applied when designing one. Another function, `evaluate_by_row()` runs
 the simulation for each combination of conditions row by row and
 implements the `future_pmap()` function from the `furrr` package to run
-the simulation in parallel.
-
-The package also contains several datasets that contain results from
-example simulation studies. The code used to generate the data is
-available
-[here](https://github.com/meghapsimatrix/SimHelpers/tree/master/data-raw).
-
-The package is still under development. We will be updating and adding
-functions in the near future.
+the simulation in parallel. The package also contains several datasets
+that contain results from example simulation studies.
 
 ## Installation
 
