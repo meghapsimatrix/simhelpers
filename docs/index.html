@@ -79,24 +79,9 @@
 <a href="#simhelpers" class="anchor"></a>SimHelpers</h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>Simulations are experiments to study performance of statistical methods under known data-generating conditions (Morris, White and Crowther, 2018). Methodologists examine questions like: (1) how does ordinary least squares (OLS) regression perform if errors are heteroskedastic?</p>
-<p>(2) how does the presence of missing data affect treatment effect estimates from a propensity score analysis? To answer such questions, we conduct experiments by simulating thousands of datasets from pseudo-random sampling (Morris et al., 2018). We generate datasets under known conditions. For example, we can generate data where the errors are heteroskedastic or there is missing data present following Missing at Random (MAR) mechanism. Then, we apply statistical methods, like OLS, to each of the datasets and extract measures like mean difference, regression coefficients, p values, and confidence intervals. We then analyze the methods using performance criteria measures like bias, Type 1 error rate etc.</p>
-<p>When examining performance measures, we need to also consider the error in the estimate of the performance measures due to the fact that we generate a finite number of samples. The error is quantified in the form of Monte Carlo standard error (MCSE).</p>
-<p>The goal of <code>SimHelpers</code> is to assist in running simulation studies. This package provides a set of functions that calculates various performance measures and associated MCSE. The functions are divided into broad four categories: absolute criteria, relative criteria, rejection rate and confidence interval coverage. The functions are:</p>
-<ul>
-<li>
-<code><a href="reference/calc_abs.html">calc_abs()</a></code> : Absolute criteria (bias, variance, mse, rmse)</li>
-<li>
-<code><a href="reference/calc_relative.html">calc_relative()</a></code>: Relative criteria (relative bias, relative mse)</li>
-<li>
-<code><a href="reference/calc_rr.html">calc_rr()</a></code>: Rejection rate (Type 1 error rate, power)</li>
-<li>
-<code><a href="reference/calc_coverage.html">calc_coverage()</a></code>: Confidence interval coverage (coverage, width)</li>
-</ul>
-<p>The functions are created to work with <code>tidyeval</code> practice using packages like <code>dplyr</code>. The package <a href="https://github.com/meghapsimatrix/SimHelpers/blob/master/vignettes/MCSE.Rmd">vignette</a> covers details about MCSE and the formulas used to calculate them. The vignette also includes examples on how to use the functions with <code>dplyr</code> workflow.</p>
-<p>In addition to the set of functions that calculates performance measures and MCSE, the package also includes a function, <code><a href="reference/create_skeleton.html">create_skeleton()</a></code>, that generates a skeleton outline of a simulation study that can be applied when designing one. Another function, <code><a href="reference/evaluate_by_row.html">evaluate_by_row()</a></code> runs the simulation for each combination of conditions row by row and implements the <code>future_pmap()</code> function from the <code>furrr</code> package to run the simulation in parallel.</p>
-<p>The package also contains several datasets that contain results from example simulation studies. The code used to generate the data is available <a href="https://github.com/meghapsimatrix/SimHelpers/tree/master/data-raw">here</a>.</p>
-<p>The package is still under development. We will be updating and adding functions in the near future.</p>
+<p>Simulations are experiments to study the performance of statistical methods under known data-generating conditions (Morris, White &amp; Crowther, 2018). Methodologists examine questions like: (1) how does ordinary least squares (OLS) regression perform if errors are heteroskedastic? (2) how does the presence of missing data affect treatment effect estimates from a propensity score analysis? (3) how does robust variance estimation perform when sample size is small? To answer such questions, we conduct experiments by simulating thousands of datasets from pseudo-random sampling (Morris et al., 2018).</p>
+<p>The goal of <code>SimHelpers</code> is to assist in running simulation studies. This package provides a set of functions that calculates various performance measures like bias, root mean squared error, rejection rates, and also calculates the associated Monte Carlo standard errors (MCSE). These functions are divided into broad four categories: absolute criteria, relative criteria, rejection rate, and confidence interval coverage. The functions are created to work with <code>tidyeval</code> practice using packages like <code>dplyr</code>.</p>
+<p>In addition to the set of functions that calculates performance measures and MCSE, the package also includes a function, <code><a href="reference/create_skeleton.html">create_skeleton()</a></code>, that generates a skeleton outline of a simulation study that can be applied when designing one. Another function, <code><a href="reference/evaluate_by_row.html">evaluate_by_row()</a></code> runs the simulation for each combination of conditions row by row and implements the <code>future_pmap()</code> function from the <code>furrr</code> package to run the simulation in parallel. The package also contains several datasets that contain results from example simulation studies.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
