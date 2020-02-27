@@ -63,7 +63,7 @@ The explanation of the workflow in this vignette follow notes from Dr. James Pus
 ## Libraries
 
 ```{r, warning = FALSE, message = FALSE}
-library(SimHelpers)
+library(simhelpers)
 library(dplyr)
 library(tibble)
 library(purrr)
@@ -171,7 +171,7 @@ calc_performance <- function(results, model_params) {
 }
 ```
 
-The function below fills in the `calc_performance()`. We use the `calc_rr()` function in the `SimHelpers` package to calculate rejection rates. 
+The function below fills in the `calc_performance()`. We use the `calc_rr()` function in the `simhelpers` package to calculate rejection rates. 
 
 ```{r}
 calc_performance <- function(results) {
@@ -325,7 +325,7 @@ results %>%
 ```
 
 
-In the `SimHelpers` package, we have a function `evaluate_by_row()` that implements the `furrr` workflow: 
+In the `simhelpers` package, we have a function `evaluate_by_row()` that implements the `furrr` workflow: 
 
 ```{r}
 plan(multisession)
@@ -335,9 +335,9 @@ evaluate_by_row(params, run_sim) %>%
 
 
 
-# Example from SimHelpers
+# Example from simhelpers
 
-The `create_skeleton()` from our `SimHelpers` function will take in an argument specifying the name of the R file which will contain the skeleton of functions required to run a simulation study. 
+The `create_skeleton()` from our `simhelpers` function will take in an argument specifying the name of the R file which will contain the skeleton of functions required to run a simulation study. 
 
 ```{r setup, eval = FALSE}
 create_skeleton("Frane_replication")

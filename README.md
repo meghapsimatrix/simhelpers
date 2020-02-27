@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# SimHelpers
+# simhelpers
 
 <!-- badges: start -->
 
@@ -17,7 +17,7 @@ does robust variance estimation perform when sample size is small? To
 answer such questions, we conduct experiments by simulating thousands of
 datasets from pseudo-random sampling (Morris et al., 2018).
 
-The goal of `SimHelpers` is to assist in running simulation studies.
+The goal of `simhelpers` is to assist in running simulation studies.
 This package provides a set of functions that calculates various
 performance measures like bias, root mean squared error, rejection
 rates, and also calculates the associated Monte Carlo standard errors
@@ -42,5 +42,5 @@ You can install the development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("meghapsimatrix/SimHelpers")
+devtools::install_github("meghapsimatrix/simhelpers")
 ```

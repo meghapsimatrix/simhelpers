@@ -1,4 +1,4 @@
-Package: SimHelpers
+Package: simhelpers
 Type: Package
 Title: Helper functions for simulation studies
 Version: 0.1.0

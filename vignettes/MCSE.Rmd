@@ -24,7 +24,7 @@ Simulations are experiments to study the performance of statistical methods unde
 
 When examining performance measures, we need to also consider the error in the estimate of the performance measures due to the fact that we generate a finite number of samples. The error is quantified in the form of Monte Carlo standard error (MCSE). 
 
-The goal of `SimHelpers` is to assist in running simulation studies. This package provides a set of functions that calculates various performance measures and associated MCSE. This vignette focuses on the set of functions. Below, we explain three major categories of performance criteria: (1) absolute criteria, (2) relative criteria, and (3) criteria to evaluate hypothesis testing. We provide formulas used to calculate the performance measures and MCSE and demonstrate how to use the functions in the `SimHelpers` package. 
+The goal of `simhelpers` is to assist in running simulation studies. This package provides a set of functions that calculates various performance measures and associated MCSE. This vignette focuses on the set of functions. Below, we explain three major categories of performance criteria: (1) absolute criteria, (2) relative criteria, and (3) criteria to evaluate hypothesis testing. We provide formulas used to calculate the performance measures and MCSE and demonstrate how to use the functions in the `simhelpers` package. 
 
 The formula notations and explanations of the performance measures follow notes from Dr. James Pustejovsky's [Data Analysis, Simulation and Programming in R course (Spring, 2019)](https://www.jepusto.com/teaching/daspir/).
 
@@ -89,12 +89,12 @@ $$MCSE_{RMSE(JK)}  = \sqrt{\frac{1}{K}\sum_{j=1}^K  \left(RMSE_{(j)} - RMSE\righ
 
 ### Example
 
-We use the `welch_res` dataset included in the package. It contains the results from an example simulation study comparing the heteroskedasticity robust Welch t-test to normal t-test. The code used to generate the data and results can be found [here](https://github.com/meghapsimatrix/SimHelpers/blob/master/data-raw/welch_res_dat.R). We varied the mean difference parameter when generating data for two groups. We set the values to 0, 0.5, 1 and 2. We also varied the sample size per group, setting sample size values to 50, 100, and 200. We generated the data with slightly unequal variances. With each simulated data, we ran normal t-test, which assumes homogeneity of variance, and we also ran Welch t-test which does not assume homogeneity of variance. We extracted the estimate (mean difference), variance of the estimates, p-value, and the upper and lower bounds of the confidence intervals. 
+We use the `welch_res` dataset included in the package. It contains the results from an example simulation study comparing the heteroskedasticity robust Welch t-test to normal t-test. The code used to generate the data and results can be found [here](https://github.com/meghapsimatrix/simhelpers/blob/master/data-raw/welch_res_dat.R). We varied the mean difference parameter when generating data for two groups. We set the values to 0, 0.5, 1 and 2. We also varied the sample size per group, setting sample size values to 50, 100, and 200. We generated the data with slightly unequal variances. With each simulated data, we ran normal t-test, which assumes homogeneity of variance, and we also ran Welch t-test which does not assume homogeneity of variance. We extracted the estimate (mean difference), variance of the estimates, p-value, and the upper and lower bounds of the confidence intervals. 
 
 ```{r, message = FALSE, warning = FALSE}
 library(dplyr)
 library(tibble)
-library(SimHelpers)
+library(simhelpers)
 library(knitr)
 library(kableExtra)
 
