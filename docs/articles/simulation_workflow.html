@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simulation Workflow • SimHelpers</title>
+<title>Simulation Workflow • simhelpers</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
@@ -30,7 +30,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">SimHelpers</a>
+        <a class="navbar-link" href="../index.html">simhelpers</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
@@ -96,19 +96,15 @@
 <li>Evaluate the overall results</li>
 </ol>
 <p>The following flowchart depicts the workflow. The chart is created using grViz() from <code>DiagrammeR</code> package.</p>
-<div id="htmlwidget-5b13fe8e7b6520cedb01" style="width:700px;height:432.632880098888px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5b13fe8e7b6520cedb01">{"x":{"diagram":"digraph flowchart {\n      # node definitions with substituted label text\n      node [fontname = Helvetica, shape = rectangle]        \n      tab1 [label = \"Experimental Design\"]\n      tab2 [label = \"Data Generating Model\"]\n      tab3 [label = \"Estimation Methods\"]\n      tab4 [label = \"Performance Summaries\"]\n      tab5 [label = \"Results\"]\n\n      # edge definitions with the node IDs\n      tab1 -> tab2 -> tab3 -> tab4 -> tab5;\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>The explanation of the workflow in this vignette follow notes from Dr. James Pustejovsky’s <a href="https://www.jepusto.com/teaching/daspir/">Data Analysis, Simulation and Programming in R course (Spring, 2019)</a>.</p>
-<div id="libraries" class="section level2">
-<h2 class="hasAnchor">
-<a href="#libraries" class="anchor"></a>Libraries</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(SimHelpers)</a>
+<div id="htmlwidget-4b3b41698c543626010e" style="width:700px;height:432.632880098888px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4b3b41698c543626010e">{"x":{"diagram":"digraph flowchart {\n      # node definitions with substituted label text\n      node [fontname = Helvetica, shape = rectangle]        \n      tab1 [label = \"Experimental Design\"]\n      tab2 [label = \"Data Generating Model\"]\n      tab3 [label = \"Estimation Methods\"]\n      tab4 [label = \"Performance Summaries\"]\n      tab5 [label = \"Results\"]\n\n      # edge definitions with the node IDs\n      tab1 -> tab2 -> tab3 -> tab4 -> tab5;\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>The explanation of the workflow in this vignette follow notes from Dr. James Pustejovsky’s <a href="https://www.jepusto.com/teaching/daspir/">Data Analysis, Simulation and Programming in R course (Spring, 2019)</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(simhelpers)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tibble)</a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(purrr)</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(knitr)</a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(kableExtra)</a></code></pre></div>
-</div>
 <div id="experimental-design-initial" class="section level2">
 <h2 class="hasAnchor">
 <a href="#experimental-design-initial" class="anchor"></a>Experimental Design Initial</h2>
@@ -188,7 +184,7 @@
 <a class="sourceLine" id="cb6-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span>(performance_measures)</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">}</a></code></pre></div>
-<p>The function below fills in the <code>calc_performance()</code>. We use the <code><a href="../reference/calc_rr.html">calc_rr()</a></code> function in the <code>SimHelpers</code> package to calculate rejection rates.</p>
+<p>The function below fills in the <code>calc_performance()</code>. We use the <code><a href="../reference/calc_rr.html">calc_rr()</a></code> function in the <code>simhelpers</code> package to calculate rejection rates.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">calc_performance &lt;-<span class="st"> </span><span class="cf">function</span>(results) {</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">  </a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">  performance_measures &lt;-<span class="st"> </span>results <span class="op">%&gt;%</span></a>
@@ -298,7 +294,7 @@
 <a class="sourceLine" id="cb12-7" data-line-number="7"><span class="st">    </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="dt">cols =</span> res)</a>
 <a class="sourceLine" id="cb12-8" data-line-number="8">)</a>
 <a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt;  14.731   0.253  17.351</span></a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt;  16.093   0.365  22.641</span></a>
 <a class="sourceLine" id="cb12-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb12-12" data-line-number="12">results <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb12-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a></code></pre></div>
@@ -716,7 +712,7 @@ Welch t-test
 <a class="sourceLine" id="cb14-10" data-line-number="10"><span class="st">    </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="dt">cols =</span> res)</a>
 <a class="sourceLine" id="cb14-11" data-line-number="11">)</a>
 <a class="sourceLine" id="cb14-12" data-line-number="12"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb14-13" data-line-number="13"><span class="co">#&gt;   0.267   0.024  14.395</span></a>
+<a class="sourceLine" id="cb14-13" data-line-number="13"><span class="co">#&gt;   0.264   0.025  16.534</span></a>
 <a class="sourceLine" id="cb14-14" data-line-number="14"></a>
 <a class="sourceLine" id="cb14-15" data-line-number="15">results <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb14-16" data-line-number="16"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a></code></pre></div>
@@ -1115,12 +1111,12 @@ Welch t-test
 </tr>
 </tbody>
 </table>
-<p>In the <code>SimHelpers</code> package, we have a function <code><a href="../reference/evaluate_by_row.html">evaluate_by_row()</a></code> that implements the <code>furrr</code> workflow:</p>
+<p>In the <code>simhelpers</code> package, we have a function <code><a href="../reference/evaluate_by_row.html">evaluate_by_row()</a></code> that implements the <code>furrr</code> workflow:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(multisession)</a>
 <a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw"><a href="../reference/evaluate_by_row.html">evaluate_by_row</a></span>(params, run_sim) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a>
 <a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt;   0.200   0.011  13.193</span></a></code></pre></div>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt;   0.205   0.010  14.173</span></a></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
@@ -1519,8 +1515,8 @@ Welch t-test
 </div>
 <div id="example-from-simhelpers" class="section level1">
 <h1 class="hasAnchor">
-<a href="#example-from-simhelpers" class="anchor"></a>Example from SimHelpers</h1>
-<p>The <code><a href="../reference/create_skeleton.html">create_skeleton()</a></code> from our <code>SimHelpers</code> function will take in an argument specifying the name of the R file which will contain the skeleton of functions required to run a simulation study.</p>
+<a href="#example-from-simhelpers" class="anchor"></a>Example from simhelpers</h1>
+<p>The <code><a href="../reference/create_skeleton.html">create_skeleton()</a></code> from our <code>simhelpers</code> function will take in an argument specifying the name of the R file which will contain the skeleton of functions required to run a simulation study.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw"><a href="../reference/create_skeleton.html">create_skeleton</a></span>(<span class="st">"Frane_replication"</span>)</a></code></pre></div>
 </div>
 <div id="references" class="section level1">
@@ -1540,8 +1536,7 @@ Welch t-test
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#libraries">Libraries</a></li>
-      <li><a href="#experimental-design-initial">Experimental Design Initial</a></li>
+<li><a href="#experimental-design-initial">Experimental Design Initial</a></li>
       <li><a href="#generating-dataset">Generating Dataset</a></li>
       <li><a href="#estimation-methods">Estimation Methods</a></li>
       <li><a href="#performance-summaries">Performance Summaries</a></li>
@@ -1549,7 +1544,7 @@ Welch t-test
       <li><a href="#experimental-design-revisit">Experimental Design Revisit</a></li>
       <li><a href="#running-the-simulation-in-serial">Running the Simulation in Serial</a></li>
       <li><a href="#running-the-simulation-in-parallel">Running the Simulation in Parallel</a></li>
-      <li><a href="#example-from-simhelpers">Example from SimHelpers</a></li>
+      <li><a href="#example-from-simhelpers">Example from simhelpers</a></li>
       <li><a href="#references">References</a></li>
       </ul>
 </div>
