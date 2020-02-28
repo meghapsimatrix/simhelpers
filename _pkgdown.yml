@@ -1,5 +1,16 @@
 destination: docs
 
+authors:
+  Megha Joshi:
+    href: https://meghapsimatrix.com
+  James E. Pustejovsky:
+    href: https://www.jepusto.com/
+
+home:
+  links:
+  - text: Browse source code
+    href: https://github.com/meghapsimatrix/simhelpers
+
 reference:
   - title: "Performance Criteria and MCSE"
     desc: "Functions calculating performance critieria and MCSE."
