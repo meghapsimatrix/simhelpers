@@ -46,7 +46,7 @@ You can install the development version from
 devtools::install_github("meghapsimatrix/simhelpers")
 ```
 
-# Simulation
+# Simulation Results Example
 
 An example of results from a replication of a simulation study by Frane
 (2015).
