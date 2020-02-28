@@ -34,6 +34,9 @@ You can install the development version from [GitHub](https://github.com/) with:
 devtools::install_github("meghapsimatrix/simhelpers")
 ```
 
+# Simulation
+
+An example of results of a simulation study (Frane, 2015).
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
