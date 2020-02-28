@@ -1,5 +1,9 @@
 destination: docs
 
+template:
+  params:
+    bootswatch: cosmo
+
 authors:
   Megha Joshi:
     href: https://meghapsimatrix.com
