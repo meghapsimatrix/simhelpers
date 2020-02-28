@@ -45,3 +45,5 @@ You can install the development version from
 # install.packages("devtools")
 devtools::install_github("meghapsimatrix/simhelpers")
 ```
+
+<img src="man/figures/frane.png" align="center" />

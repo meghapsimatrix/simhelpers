@@ -35,3 +35,11 @@ devtools::install_github("meghapsimatrix/simhelpers")
 ```
 
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  fig.path = "man/figures/"
+)
+```
+
+<img src="man/figures/frane.png" align="center" />
+
