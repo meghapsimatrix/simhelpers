@@ -15,6 +15,6 @@
 alpha_res
 }
 \description{
-A dataset containing simulation results estimating Cronbach's alpha and it's variance
+A dataset containing simulation results estimating Cronbach's alpha and its variance
 }
 \keyword{datasets}

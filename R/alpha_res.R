@@ -1,6 +1,6 @@
 #' Cronbach's alpha Simulation Results
 #'
-#' A dataset containing simulation results estimating Cronbach's alpha and it's variance
+#' A dataset containing simulation results estimating Cronbach's alpha and its variance
 #'
 #'
 #' @format A tibble with 1000 rows and 3 variables:
