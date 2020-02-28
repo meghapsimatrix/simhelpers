@@ -51,4 +51,4 @@ devtools::install_github("meghapsimatrix/simhelpers")
 An example of results from a replication of a simulation study by Frane
 (2015).
 
-<img src="man/figures/frane.png" align="center" />
+![](man/figures/frane.png)
