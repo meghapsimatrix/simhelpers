@@ -92,9 +92,9 @@ $$MCSE_{RMSE(JK)}  = \sqrt{\frac{1}{K}\sum_{j=1}^K  \left(RMSE_{(j)} - RMSE\righ
 We use the `welch_res` dataset included in the package. It contains the results from an example simulation study comparing the heteroskedasticity robust Welch t-test to normal t-test. The code used to generate the data and results can be found [here](https://github.com/meghapsimatrix/simhelpers/blob/master/data-raw/welch_res_dat.R). We varied the mean difference parameter when generating data for two groups. We set the values to 0, 0.5, 1 and 2. We also varied the sample size per group, setting sample size values to 50, 100, and 200. We generated the data with slightly unequal variances. With each simulated data, we ran normal t-test, which assumes homogeneity of variance, and we also ran Welch t-test which does not assume homogeneity of variance. We extracted the estimate (mean difference), variance of the estimates, p-value, and the upper and lower bounds of the confidence intervals. 
 
 ```{r, message = FALSE, warning = FALSE}
+library(simhelpers)
 library(dplyr)
 library(tibble)
-library(simhelpers)
 library(knitr)
 library(kableExtra)
 
@@ -220,13 +220,13 @@ knitr::kable(rel_dat_var, escape = FALSE, caption = "Table 3. Relative Performan
   
 ```
 
-The function `calc_rel_var()` calculates the performance criteria estimate and the jack-knife MCSE of the relative bias estimate of a variance estimator. The function requires `res_dat`, a data frame or tibble containing simulation results, `estimates`, the name of the column containing point-estimates, `var_estimates`, the name of the column containing the variance estimates, and `perfm_criteria`, the criteria to be evaluated: `perfm_criteria = c("relative bias", "relative mse", "relative rmse")`.
+The function `calc_relative_var()` calculates the performance criteria estimate and the jack-knife MCSE of the relative bias estimate of a variance estimator. The function requires `res_dat`, a data frame or tibble containing simulation results, `estimates`, the name of the column containing point-estimates, `var_estimates`, the name of the column containing the variance estimates, and `perfm_criteria`, the criteria to be evaluated: `perfm_criteria = c("relative bias", "relative mse", "relative rmse")`.
 
 ```{r}
 welch_res %>%
   mutate(params = mean_diff) %>%
   group_by(n, mean_diff, method) %>%
-  group_modify(~ calc_rel_var(.x,  estimates = est, var_estimates = var)) %>%
+  group_modify(~ calc_relative_var(.x,  estimates = est, var_estimates = var)) %>%
   mutate_if(is.numeric, round, 5) %>%
   kable()
 ```
@@ -257,14 +257,14 @@ knitr::kable(hyp_dat, escape = FALSE, caption = "Table 4. Hypothesis Testing and
 
 ### Example
 
-Below we calculate the rejection rates for the hypothesis tests conducted using t-test. The null hypothesis states that the two groups have the same means. The `calc_rr()` function requires a data frame or tibble containing simulation results as the first argument. The second argument, `p_values`, requires the name of the column containing p-values. The third argument, `alpha` lets the user specify a value for $\alpha$. The default value is set to the conventional 0.05.   
+Below we calculate the rejection rates for the hypothesis tests conducted using t-test. The null hypothesis states that the two groups have the same means. The `calc_rejection()` function requires a data frame or tibble containing simulation results as the first argument. The second argument, `p_values`, requires the name of the column containing p-values. The third argument, `alpha` lets the user specify a value for $\alpha$. The default value is set to the conventional 0.05.   
 
 
 ```{r}
 # using group_modify()
 welch_res %>%
   group_by(n, mean_diff, method) %>%
-  group_modify(~ calc_rr(.x, p_values = p_val)) %>%
+  group_modify(~ calc_rejection(.x, p_values = p_val)) %>%
   mutate_if(is.numeric, round, 5) %>%
   kable()
 ```

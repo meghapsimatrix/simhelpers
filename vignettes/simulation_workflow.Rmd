@@ -170,14 +170,14 @@ calc_performance <- function(results, model_params) {
 }
 ```
 
-The function below fills in the `calc_performance()`. We use the `calc_rr()` function in the `simhelpers` package to calculate rejection rates. 
+The function below fills in the `calc_performance()`. We use the `calc_rejection()` function in the `simhelpers` package to calculate rejection rates. 
 
 ```{r}
 calc_performance <- function(results) {
   
   performance_measures <- results %>%
     group_by(method) %>%
-    do(calc_rr(., p_values = p_val))
+    do(calc_rejection(., p_values = p_val))
 
   return(performance_measures)
 }

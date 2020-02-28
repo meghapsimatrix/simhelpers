@@ -12,12 +12,12 @@
 #' @export
 #'
 #' @examples
-#' calc_rr(res_dat = t_res, p_values = p_val)
+#' calc_rejection(res_dat = t_res, p_values = p_val)
 #'
 #'
 
 
-calc_rr <- function(res_dat, p_values, alpha = .05){
+calc_rejection <- function(res_dat, p_values, alpha = .05){
 
   p_vals <- res_dat %>% dplyr::pull({{p_values}})
   K <- nrow(res_dat)

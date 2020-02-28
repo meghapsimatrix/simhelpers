@@ -6,8 +6,8 @@ reference:
     contents:
       - calc_absolute
       - calc_relative
-      - calc_rel_var
-      - calc_rr
+      - calc_relative_var
+      - calc_rejection
       - calc_coverage
   - title: "Simulation Workflow"
     desc: "Functions for setting up simulation workflow."
