@@ -103,15 +103,15 @@ welch_res %>%
 ```
 
 
-Below, we calculate the absolute performance criteria for the estimate of the mean difference. We present the results by sample size, mean difference, and the t-test method. The `calc_abs()` function is designed to work with the [`tidyeval`](https://tidyeval.tidyverse.org/index.html) workflow. The first argument, `res_dat`, requires a data frame or a tibble containing the results from a simulation study. The second argument, `estimates`, requires the name of the column containing the estimates like mean difference or regression coefficients. The third argument, `true_param`, requires the name of the column containing the true parameters. The fourth argument `perfm_criteria` lets the user specify which criteria to evaluate. The criteria can be specified using a character or character vector. If the user only wants bias, they can specify `perfm_criteria = "bias"`. If the user wants bias and root mean squared error, they can specify `perfm_criteria = c("bias", "rmse")`. By default, the function returns, bias, variance, mean squared error (mse), and root mean squared error (rmse), `perfm_criteria = c("bias", "variance", "mse", "rmse")`. In the example below, we ask for all the available criteria. 
+Below, we calculate the absolute performance criteria for the estimate of the mean difference. We present the results by sample size, mean difference, and the t-test method. The `calc_absolute()` function is designed to work with the [`tidyeval`](https://tidyeval.tidyverse.org/index.html) workflow. The first argument, `res_dat`, requires a data frame or a tibble containing the results from a simulation study. The second argument, `estimates`, requires the name of the column containing the estimates like mean difference or regression coefficients. The third argument, `true_param`, requires the name of the column containing the true parameters. The fourth argument `perfm_criteria` lets the user specify which criteria to evaluate. The criteria can be specified using a character or character vector. If the user only wants bias, they can specify `perfm_criteria = "bias"`. If the user wants bias and root mean squared error, they can specify `perfm_criteria = c("bias", "rmse")`. By default, the function returns, bias, variance, mean squared error (mse), and root mean squared error (rmse), `perfm_criteria = c("bias", "variance", "mse", "rmse")`. In the example below, we ask for all the available criteria. 
 
-We use `dplyr` syntax to group by the sample size and mean difference that were used to generate the data, and the method used to analyze the data. We provide examples using [`do()`](https://dplyr.tidyverse.org/reference/do.html) and [`group_modify()`](https://dplyr.tidyverse.org/reference/group_map.html) to run `calc_abs()` on results for each combination of the conditions. We use [`mutate_if()`](https://dplyr.tidyverse.org/reference/mutate_all.html) to round the results to five decimal places. Note that `mutate_if()` ignores the grouping variables by default. 
+We use `dplyr` syntax to group by the sample size and mean difference that were used to generate the data, and the method used to analyze the data. We provide examples using [`do()`](https://dplyr.tidyverse.org/reference/do.html) and [`group_modify()`](https://dplyr.tidyverse.org/reference/group_map.html) to run `calc_absoluteolute()` on results for each combination of the conditions. We use [`mutate_if()`](https://dplyr.tidyverse.org/reference/mutate_all.html) to round the results to five decimal places. Note that `mutate_if()` ignores the grouping variables by default. 
 
 ```{r}
 # using do()
 welch_res %>%
   group_by(n, mean_diff, method) %>% # grouping 
-  do(calc_abs(.,  estimates = est, true_param = mean_diff)) %>% # run the function
+  do(calc_absolute(.,  estimates = est, true_param = mean_diff)) %>% # run the function
   mutate_if(is.numeric, round, 5) %>% # rounding
   kable() # create a kable table 
 ```
@@ -122,7 +122,7 @@ welch_res %>%
 welch_res %>%
   mutate(params = mean_diff) %>% # group_modify cannot take in a group column as an argument
   group_by(n, mean_diff, method) %>%
-  group_modify(~ calc_abs(.x,  estimates = est, true_param = params)) %>%
+  group_modify(~ calc_absolute(.x,  estimates = est, true_param = params)) %>%
   mutate_if(is.numeric, round, 5) %>%
   kable()
 ```
@@ -160,7 +160,7 @@ knitr::kable(rel_dat, escape = FALSE, caption = "Table 2. Relative Performance C
 
 ### Example 
 
-Below, we calculate the relative criteria for the mean difference estimates. Note that when mean difference is 0, the relative measures cannot be calculated. The function returns `NA` values for conditions where the mean difference is 0. The syntax for `calc_relative()` is similar to the one that we used earlier for `calc_abs()`. The `perfm_criteria` argument allows the user to specify which criteria to evaluate: `perfm_criteria = c("relative bias", "relative mse", "relative rmse")`. 
+Below, we calculate the relative criteria for the mean difference estimates. Note that when mean difference is 0, the relative measures cannot be calculated. The function returns `NA` values for conditions where the mean difference is 0. The syntax for `calc_relative()` is similar to the one that we used earlier for `calc_absolute()`. The `perfm_criteria` argument allows the user to specify which criteria to evaluate: `perfm_criteria = c("relative bias", "relative mse", "relative rmse")`. 
 
 
 ```{r}
@@ -269,7 +269,7 @@ welch_res %>%
   kable()
 ```
 
-Below we calculate the confidence interval coverage rates and widths for the estimates of the mean difference. The `calc_coverage()` function requires a data frame or tibble containing the simulation results as the first argument. The second and third arguments, `lower_bound` and `upper_bound`, take in the name of the columns that contain the lower and upper bound estimates of the confidence interval. The `true_param` argument requires the name of the column containing the true parameters. Like `calc_abs()` and `calc_relative()`, `calc_coverage()` also has an argument, `perfm_criteria`, where the user can specify which criteria to evaluate: `perfm_criteria = c("coverage", "width")`. 
+Below we calculate the confidence interval coverage rates and widths for the estimates of the mean difference. The `calc_coverage()` function requires a data frame or tibble containing the simulation results as the first argument. The second and third arguments, `lower_bound` and `upper_bound`, take in the name of the columns that contain the lower and upper bound estimates of the confidence interval. The `true_param` argument requires the name of the column containing the true parameters. Like `calc_absolute()` and `calc_relative()`, `calc_coverage()` also has an argument, `perfm_criteria`, where the user can specify which criteria to evaluate: `perfm_criteria = c("coverage", "width")`. 
 
 ```{r}
 # using group_modify()

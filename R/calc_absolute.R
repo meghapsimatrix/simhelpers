@@ -15,11 +15,11 @@
 #' @export
 #'
 #' @examples
-#' calc_abs(res_dat = t_res, estimates = est, true_param = true_param)
+#' calc_absolute(res_dat = t_res, estimates = est, true_param = true_param)
 #'
 #'
 
-calc_abs <- function(res_dat, estimates, true_param, perfm_criteria = c("bias", "variance", "mse", "rmse")){
+calc_absolute <- function(res_dat, estimates, true_param, perfm_criteria = c("bias", "variance", "mse", "rmse")){
 
   estimates <- res_dat %>% dplyr::pull({{estimates}})
   K <- nrow(res_dat)
