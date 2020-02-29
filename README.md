@@ -36,6 +36,8 @@ the `furrr` package to run the simulation in parallel. The package also
 contains several datasets that contain results from example simulation
 studies.
 
+<img src="man/figures/workflow.png" />
+
 ## Installation
 
 You can install the development version from
