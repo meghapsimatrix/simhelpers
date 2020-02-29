@@ -34,5 +34,6 @@ You can install the development version from [GitHub](https://github.com/) with:
 devtools::install_github("meghapsimatrix/simhelpers")
 ```
 
+## Simulation Workflow
 
-
+<img src="man/figures/workflow.png" align="center" alt="" />
