@@ -48,4 +48,4 @@ devtools::install_github("meghapsimatrix/simhelpers")
 
 ## Simulation Workflow
 
-<img src='man/figures/workflow.png' />
+<img src="man/figures/workflow.png" align="center" />

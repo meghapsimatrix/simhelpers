@@ -36,16 +36,6 @@ devtools::install_github("meghapsimatrix/simhelpers")
 
 ## Simulation Workflow
 
-```{r, echo = FALSE}
-embed_png <- function(path, dpi = NULL) {
-  meta <- attr(png::readPNG(path, native = TRUE, info = TRUE), "info")
-  if (!is.null(dpi)) meta$dpi <- rep(dpi, 2)
-  knitr::asis_output(paste0("<img src='", path, "' />"))
-}
-knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
-```
+<img src="man/figures/workflow.png" align="center" />
 
-```{r, echo = FALSE}
-embed_png("man/figures/workflow.png")
-```
 
