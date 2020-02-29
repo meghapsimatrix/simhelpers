@@ -29,5 +29,6 @@ Imports:
 Suggests:
     plyr,
     knitr,
-    rmarkdown
+    rmarkdown,
+    pkgdown
 VignetteBuilder: knitr
