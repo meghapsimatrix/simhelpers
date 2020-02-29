@@ -30,5 +30,6 @@ Suggests:
     plyr,
     knitr,
     rmarkdown,
-    pkgdown
+    pkgdown,
+    covr
 VignetteBuilder: knitr

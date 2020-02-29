@@ -7,6 +7,8 @@
 
 [![Travis build
 status](https://travis-ci.org/meghapsimatrix/simhelpers.svg?branch=master)](https://travis-ci.org/meghapsimatrix/simhelpers)
+[![Codecov test
+coverage](https://codecov.io/gh/meghapsimatrix/simhelpers/branch/master/graph/badge.svg)](https://codecov.io/gh/meghapsimatrix/simhelpers?branch=master)
 <!-- badges: end -->
 
 Simulations are experiments to study the performance of statistical
