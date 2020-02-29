@@ -4,5 +4,6 @@ language: R
 cache: packages
 
 after_success:
+  - Rscript -e 'covr::codecov()'
   - R CMD INSTALL .
   - Rscript -e 'pkgdown::build_site()'
