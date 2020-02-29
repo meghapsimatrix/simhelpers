@@ -45,7 +45,3 @@ You can install the development version from
 # install.packages("devtools")
 devtools::install_github("meghapsimatrix/simhelpers")
 ```
-
-# Simulation Workflow
-
-<img src="man/figures/unnamed-chunk-2-1.png" width="100%" />
