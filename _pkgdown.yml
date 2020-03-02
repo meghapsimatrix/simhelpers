@@ -17,8 +17,10 @@ authors:
 
 home:
   links:
-  - text: Browse source code
+  - text: Browse source code at
     href: https://github.com/meghapsimatrix/simhelpers
+  - text: Report a bug at
+    href: https://github.com/meghapsimatrix/simhelpers/issues
 
 reference:
   - title: "Performance Criteria and MCSE"
