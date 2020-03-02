@@ -3,6 +3,11 @@ destination: docs
 template:
   params:
     bootswatch: cosmo
+    docsearch:
+      api_key: f4d0d6658ae25a0f79f8db12ee660be0
+      index_name: simhelpers
+
+url: https://meghapsimatrix.github.io/simhelpers/index.html
 
 authors:
   Megha Joshi:
