@@ -25,7 +25,8 @@ Imports:
     DiagrammeR,
     kableExtra,
     purrr,
-    tibble
+    tibble,
+    rstudioapi
 Suggests:
     plyr,
     knitr,
