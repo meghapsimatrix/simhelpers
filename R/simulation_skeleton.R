@@ -3,17 +3,16 @@
 #' @description
 #' Creates and opens an .R file containing a skeleton for writing a Monte Carlo simulation study.
 #'
-#' @param filename Name of file to create.
 #' @param ... Further arguments passed to file.copy
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' create_skeleton("Behrens_Fisher_problem")
+#' create_skeleton()
 #' }
 
-create_skeleton <- function(filename, ...) {
+create_skeleton <- function(...) {
 
   from <- system.file("templates", "simulation_skeleton.R", package = "simhelpers")
   to <- tempfile(fileext = ".R")

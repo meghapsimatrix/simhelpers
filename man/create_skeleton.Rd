@@ -4,11 +4,9 @@
 \alias{create_skeleton}
 \title{Open a simulation skeleton}
 \usage{
-create_skeleton(filename, ...)
+create_skeleton(...)
 }
 \arguments{
-\item{filename}{Name of file to create.}
-
 \item{...}{Further arguments passed to file.copy}
 }
 \description{
@@ -16,6 +14,6 @@ Creates and opens an .R file containing a skeleton for writing a Monte Carlo sim
 }
 \examples{
 \dontrun{
-create_skeleton("Behrens_Fisher_problem")
+create_skeleton()
 }
 }
