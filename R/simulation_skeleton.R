@@ -15,9 +15,10 @@
 
 create_skeleton <- function(filename, ...) {
 
-  from <- system.file("templates","simulation_skeleton.R", package = "SimHelpers")
-  to <- paste0(filename,".R")
+  from <- system.file("templates", "simulation_skeleton.R", package = "simhelpers")
+  to <- paste0(filename, ".R")
   copy <- file.copy(from, to, ...)
 
   return(utils::file.edit(to))
+
 }
