@@ -16,9 +16,9 @@
 create_skeleton <- function(filename, ...) {
 
   from <- system.file("templates", "simulation_skeleton.R", package = "simhelpers")
-  to <- paste0(filename, ".R")
+  to <- tempfile(fileext = ".R")
   copy <- file.copy(from, to, ...)
 
-  return(utils::file.edit(to))
+  return(rstudioapi::navigateToFile(to))
 
 }
