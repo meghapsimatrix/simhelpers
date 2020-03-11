@@ -27,7 +27,8 @@ Imports:
     purrr,
     tibble,
     rstudioapi,
-    Rdpack
+    Rdpack,
+    tidyr
 Suggests:
     plyr,
     knitr,

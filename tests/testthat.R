@@ -1,10 +1,12 @@
 library(testthat)
 library(simhelpers)
-library(tidyverse)
+library(dplyr)
+library(tibble)
 library(future)
 library(furrr)
+library(tidyr)
 
-test_check("simhelpers")
+# test_check("simhelpers")
 
 set.seed(54321)
 dat <- tibble(x = rnorm(10000, 1, 1), true_param = rep(1, 10000),
