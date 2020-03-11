@@ -23,4 +23,7 @@ Tipton_Pusto
 A dataset containing simulation results comparing small sample correctio
 methods for cluster robust variance estimation in meta-analysis
 }
+\references{
+\insertRef{tipton_small-sample_2015}{simhelpers}
+}
 \keyword{datasets}

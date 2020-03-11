@@ -26,11 +26,13 @@ Imports:
     kableExtra,
     purrr,
     tibble,
-    rstudioapi
+    rstudioapi,
+    Rdpack
 Suggests:
     plyr,
     knitr,
     rmarkdown,
     pkgdown,
     covr
+RdMacros: Rdpack
 VignetteBuilder: knitr

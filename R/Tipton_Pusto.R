@@ -17,4 +17,7 @@
 #'
 #' }
 #'
+#'@references
+#'\insertRef{tipton_small-sample_2015}{simhelpers}
+#'
 "Tipton_Pusto"
