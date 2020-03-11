@@ -17,7 +17,6 @@ Imports:
     parallel,
     rlang,
     dplyr,
-    tidyr,
     furrr,
     future,
     magrittr,
