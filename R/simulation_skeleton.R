@@ -12,12 +12,14 @@
 #' create_skeleton()
 #' }
 
-create_skeleton <- function(...) {
+create_skeleton <- function() {
 
   from <- system.file("templates", "simulation_skeleton.R", package = "simhelpers")
-  to <- tempfile(fileext = ".R")
-  copy <- file.copy(from, to, ...)
+  file_contents <- readLines(from, encoding = "UTF-8")
 
-  return(rstudioapi::navigateToFile(to))
+  rstudioapi::documentNew(text = paste0(file_contents, collapse = "\n"), type = "r")
 
+  return(NULL)
 }
+
+#------------------------------------------------------
