@@ -39,6 +39,7 @@ reference:
   - title: "Example Datasets"
     desc: "Example datasets from simulation studies."
     contents:
+      - Tipton_Pusto
       - alpha_res
       - t_res
       - welch_res
