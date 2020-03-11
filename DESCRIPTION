@@ -33,6 +33,7 @@ Suggests:
     knitr,
     rmarkdown,
     pkgdown,
-    covr
+    covr,
+    testthat
 RdMacros: Rdpack
 VignetteBuilder: knitr
