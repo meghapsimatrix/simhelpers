@@ -4,7 +4,7 @@
 #' methods for cluster robust variance estimation in meta-analysis
 #'
 #'
-#' @format A tibble with 15,300 rows and 15 variables:
+#' @format A tibble with 15,300 rows and 8 variables:
 #' \describe{
 #'   \item{num_studies}{the number of studies included in the meta-analysis}
 #'   \item{r}{correlation between outcomes}

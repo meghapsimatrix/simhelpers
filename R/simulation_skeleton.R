@@ -3,7 +3,6 @@
 #' @description
 #' Creates and opens an .R file containing a skeleton for writing a Monte Carlo simulation study.
 #'
-#' @param ... Further arguments passed to file.copy
 #'
 #' @export
 #'
