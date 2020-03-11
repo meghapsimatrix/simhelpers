@@ -64,7 +64,7 @@ knitr::kable(abs_dat, escape = FALSE, caption = "Table 1. Absolute Performance C
 ```
 
 
-The equation for the MCSE of RMSE is derived using the jacknife technique, which involves excluding a replicate $j$ and calculating RMSE. The formula for RMSE is:
+The equation for the MCSE of RMSE is derived using the jackknife technique, which involves excluding a replicate $j$ and calculating RMSE. The formula for RMSE is:
 
 $$\sqrt{\frac{1}{K}\sum_{k=1}^{K}\left(T_k - \theta\right)^2}$$
 
@@ -72,11 +72,11 @@ This is approximately equivalent to:
 
 $$RMSE = \sqrt{(\bar{T} - \theta)^2 + S^2_T}$$
 
-The jacknife RMSE will be calculated as:
+The jackknife RMSE will be calculated as:
 
 $$RMSE_{(j)}  = \sqrt{(\bar{T}_{(j)} - \theta)^2 + S^2_{T(j)}}$$
 
-Here $\bar{T}_{(j)}$ and $S^2_{T(j)}$ and indicate the mean and variance of the estimates leaving replicate $j$ out. Instead of calculating each jacknife estimate, we use algebra tricks to calculate $\bar{T}_{(j)}$ and $S^2_{T(j)}$ as follows:
+Here $\bar{T}_{(j)}$ and $S^2_{T(j)}$ and indicate the mean and variance of the estimates leaving replicate $j$ out. Instead of calculating each jackknife estimate, we use algebra tricks to calculate $\bar{T}_{(j)}$ and $S^2_{T(j)}$ as follows:
 
 $$\bar{T}_{(j)} = \frac{1}{K-1} \left(K \bar{T} - T_j\right)$$
 
@@ -106,7 +106,7 @@ welch_res %>%
 
 Below, we calculate the absolute performance criteria for the estimate of the mean difference. We present the results by sample size, mean difference, and the t-test method. The `calc_absolute()` function is designed to work with the [`tidyeval`](https://tidyeval.tidyverse.org/index.html) workflow. The first argument, `res_dat`, requires a data frame or a tibble containing the results from a simulation study. The second argument, `estimates`, requires the name of the column containing the estimates like mean difference or regression coefficients. The third argument, `true_param`, requires the name of the column containing the true parameters. The fourth argument `perfm_criteria` lets the user specify which criteria to evaluate. The criteria can be specified using a character or character vector. If the user only wants bias, they can specify `perfm_criteria = "bias"`. If the user wants bias and root mean squared error, they can specify `perfm_criteria = c("bias", "rmse")`. By default, the function returns, bias, variance, mean squared error (mse), and root mean squared error (rmse), `perfm_criteria = c("bias", "variance", "mse", "rmse")`. In the example below, we ask for all the available criteria. 
 
-We use `dplyr` syntax to group by the sample size and mean difference that were used to generate the data, and the method used to analyze the data. We provide examples using [`do()`](https://dplyr.tidyverse.org/reference/do.html) and [`group_modify()`](https://dplyr.tidyverse.org/reference/group_map.html) to run `calc_absoluteolute()` on results for each combination of the conditions. We use [`mutate_if()`](https://dplyr.tidyverse.org/reference/mutate_all.html) to round the results to five decimal places. Note that `mutate_if()` ignores the grouping variables by default. 
+We use `dplyr` syntax to group by the sample size and mean difference that were used to generate the data, and the method used to analyze the data. We provide examples using [`do()`](https://dplyr.tidyverse.org/reference/do.html) and [`group_modify()`](https://dplyr.tidyverse.org/reference/group_map.html) to run `calc_absolute()` on results for each combination of the conditions. We use [`mutate_if()`](https://dplyr.tidyverse.org/reference/mutate_all.html) to round the results to five decimal places. Note that `mutate_if()` ignores the grouping variables by default. 
 
 ```{r}
 # using do()
@@ -133,11 +133,11 @@ welch_res %>%
 
 Relative criteria can be useful to look at if multiple true parameter values are used to generate the data to run the simulation and if performance measure changes according to the true value. It can be only used when $|\theta| > 0$ as we cannot divide by $0$ (Morris et al., 2018). 
 
-To derive the MCSE for relative RMSE, we again used the jacknife technique. The formula to calculate relative RMSE is:
+To derive the MCSE for relative RMSE, we again used the jackknife technique. The formula to calculate relative RMSE is:
 
 $$RMSE = \sqrt{\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}}$$
 
-The jacknife RMSE will be calculated as:
+The jackknife RMSE will be calculated as:
 
 $$RMSE_{(j)}  = \sqrt{\frac{(\bar{T}_{(j)} - \theta)^2 + S_{T(j)}^2}{\theta^2}}$$
 
@@ -203,7 +203,7 @@ Similarly, we can estimate the MCSE of relative MSE and RMSE using jackknife tec
 
 $$S_{V(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_V^2 - \frac{K}{K - 1}\left(V_j - \bar{V}\right)^2\right]$$
 
-We can then estimate jacknife relative MSE and RMSE following the same logic as we described above and then calculate the MCSE. 
+We can then estimate jackknife relative MSE and RMSE following the same logic as we described above and then calculate the MCSE. 
 
 Table 3 below lists relative performance measures for variance estimators. 
 
