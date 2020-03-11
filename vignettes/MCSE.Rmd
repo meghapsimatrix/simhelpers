@@ -96,6 +96,7 @@ library(simhelpers)
 library(dplyr)
 library(tibble)
 library(knitr)
+library(dplyr)
 library(kableExtra)
 
 welch_res %>%
