@@ -151,7 +151,7 @@ rel_dat <- tibble(Criterion = c("Relative Bias","Relative MSE", "Relative RMSE")
               Definition = c("$\\text{E}(T) / \\theta$", "$\\text{E}\\left[(T - \\theta)^2\\right]/ \\theta^2$", "$\\sqrt{\\text{E}\\left[(T - \\theta)^2\\right]/ \\theta^2}$"),
               Estimate = c("$\\bar{T} / \\theta$", "$\\frac{(\\bar{T} - \\theta)^2 + S_T^2}{\\theta^2}$", "$\\sqrt{\\frac{(\\bar{T} - \\theta)^2 + S_T^2}{\\theta^2}}$"),
               MCSE = c("$\\sqrt{S_T^2 / (K\\theta^2)}$", 
-                       "$\\sqrt{\\frac{1}{K\\theta^2}\\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_L^2 (\\bar{T} - \\theta)^2\\right]}$", "$\\sqrt{\\frac{1}{K} \\left(RMSE_{(j)} - RMSE)^2\\right)}$"))
+                       "$\\sqrt{\\frac{1}{K\\theta^2}\\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_T^2 (\\bar{T} - \\theta)^2\\right]}$", "$\\sqrt{\\frac{1}{K} \\left(RMSE_{(j)} - RMSE)^2\\right)}$"))
 
 knitr::kable(rel_dat, escape = FALSE, caption = "Table 2. Relative Performance Criteria") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
