@@ -1,7 +1,5 @@
 library(testthat)
 library(simhelpers)
-library(testthat)
-library(simhelpers)
 library(dplyr)
 library(tibble)
 library(future)
