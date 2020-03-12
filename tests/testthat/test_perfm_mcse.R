@@ -35,6 +35,8 @@ test_that("check the mcse", {
   expect_equal(calc_absolute(dat, x, true_param, perfm_criteria = "bias") %>% pull(bias_mcse), sqrt(var(dat$x)/nrow(dat)))
   expect_equal(calc_absolute(dat, x, true_param, perfm_criteria = "variance") %>% pull(var_mcse), (var(dat$x) * sqrt((k_t - 1)/K)))
   expect_equal(calc_absolute(dat, x, true_param, perfm_criteria = "mse") %>% pull(mse_mcse), sqrt((1/K) * (s_t^4 * (k_t - 1) + 4 * s_t^3 * g_t * (mean(dat$x) - 1) + 4 * s_t^2 * (mean(dat$x - 1)^2))))
+  expect_equal(calc_relative(dat, x, true_param, perfm_criteria = "relative bias") %>% pull(rel_bias_mcse), sqrt(var(dat$x)/(nrow(dat) * 1^2)))
+  expect_equal(calc_relative(dat, x, true_param, perfm_criteria = "relative mse") %>% pull(rel_mse_mcse), sqrt((1/(K * 1^2)) * (s_t^4 * (k_t  - 1) + 4 * s_t^3 * g_t * (mean(dat$x) - 1) + 4 * s_t^2 * (mean(dat$x) - 1)^2)))
   expect_equal(calc_rejection(dat, p_values = p_value) %>% pull(rej_rate_mcse), sqrt((mean(dat$p_value < .05) * (1 - mean(dat$p_value < .05)))/K))
 })
 
