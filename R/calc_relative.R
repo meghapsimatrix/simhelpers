@@ -1,6 +1,6 @@
 #' @title Calculate relative performance criteria and MCSE.
 #'
-#' @description Calculates relative bias, and mean squared error (relative mse).
+#' @description Calculates relative bias, mean squared error (relative mse), and root mean squared error (relative rmse).
 #' The function also calculates the associated
 #' Monte Carlo Standard errors.
 #'
