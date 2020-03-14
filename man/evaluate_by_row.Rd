@@ -14,7 +14,7 @@ evaluate_by_row(
 )
 }
 \arguments{
-\item{params}{data frame of simulation parameter values. Each row should
+\item{params}{data frame of tibble containing simulation parameter values. Each row should
 represent a separate set of parameter values.}
 
 \item{sim_function}{function to be evaluated, with argument names matching
@@ -33,11 +33,11 @@ be the result from a call to \code{\link[=future_options]{future_options()}}.}
 \code{TRUE} by default.}
 }
 \value{
-A data frame containing parameter values and simulation results.
+A tibble containing parameter values and simulation results.
 }
 \description{
 Evaluates a simulation function on each row of a data frame
-  containing parameter values, returns a single data frame with parameters
+  containing parameter values. Returns a single data frame with parameters
   and simulation results. The function uses \code{furrr::future_pmap}, which
   allows for easy parallelization.
 }

@@ -1,11 +1,11 @@
 #' @title Evaluate a simulation function on each row of a data frame
 #'
 #' @description Evaluates a simulation function on each row of a data frame
-#'   containing parameter values, returns a single data frame with parameters
+#'   containing parameter values. Returns a single data frame with parameters
 #'   and simulation results. The function uses \code{furrr::future_pmap}, which
 #'   allows for easy parallelization.
 #'
-#' @param params data frame of simulation parameter values. Each row should
+#' @param params data frame of tibble containing simulation parameter values. Each row should
 #'   represent a separate set of parameter values.
 #' @param sim_function function to be evaluated, with argument names matching
 #'   the variable names in \code{params}. The function must return a
@@ -17,7 +17,7 @@
 #'
 #' @export
 #'
-#' @return A data frame containing parameter values and simulation results.
+#' @return A tibble containing parameter values and simulation results.
 #'
 #' @examples
 #' df <- data.frame(
