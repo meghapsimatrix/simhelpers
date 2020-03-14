@@ -42,7 +42,7 @@ The dataset contains:
 
   - `num_studies`: number of studies contained in each meta-analysis used to generate the data.
   - `r`: the correlation between outcomes that result in dependence.
-  - $Isq$: a measure of heterogeneity of true effects. 
+  - `Isq`: a measure of heterogeneity of true effects. 
   - `contrast`: type of contrast that was tested.
   - `test`: small sample method used. EDF and EDT are the two methods using eigen decomposition and AHA, AHB and AHZ are the three methods based on Hotelling’s $T^2$ distribution.
   - `q`: the number of parameters in the hypothesis test.
@@ -76,7 +76,7 @@ Tipton_Pusto %>%
   geom_hline(yintercept = .05, linetype = "dashed") + 
   geom_boxplot(alpha = .5) + 
   facet_grid(q ~ num_studies, scales = "free") + 
-  labs(x = "Method", y = "Type 1 Error Rate", caption = expression("FIGURE 2. Type I error for alpha of .05 of five alternative tests. Solid lines indicate the nominal alpha level")) + 
+  labs(x = "Method", y = "Type 1 Error Rate", caption = "FIGURE 2. Type I error forvof .05 of five alternative tests. Solid lines indicate the nominal alpha level") + 
   theme_bw() +
   theme(legend.position = "none")
 ```
