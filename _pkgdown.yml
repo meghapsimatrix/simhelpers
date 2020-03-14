@@ -24,7 +24,7 @@ home:
 
 reference:
   - title: "Performance Criteria and MCSE"
-    desc: "Functions calculating performance critieria and MCSE."
+    desc: "Functions for calculating performance critieria and MCSE."
     contents:
       - calc_absolute
       - calc_relative
