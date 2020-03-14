@@ -24,7 +24,7 @@ calc_relative(
 A tibble containing the performance criteria estimate(s) and the associated MCSE.
 }
 \description{
-Calculates relative bias, and mean squared error (relative mse).
+Calculates relative bias, mean squared error (relative mse), and root mean squared error (relative rmse).
 The function also calculates the associated
 Monte Carlo Standard errors.
 }

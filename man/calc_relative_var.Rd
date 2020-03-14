@@ -24,7 +24,7 @@ calc_relative_var(
 A tibble containing the performance criteria estimate and the associated MCSE.
 }
 \description{
-#' @description Calculates relative bias of variance estimators.
+Calculates relative bias of variance estimators.
 The function also calculates the associated jacknife Monte Carlo Standard errors.
 }
 \examples{
