@@ -7,7 +7,7 @@
 create_skeleton()
 }
 \description{
-Creates and opens an .R file containing a skeleton for writing a Monte Carlo simulation study.
+Creates and opens a .R file containing a skeleton for writing a Monte Carlo simulation study.
 }
 \examples{
 \dontrun{
