@@ -20,7 +20,7 @@
 Tipton_Pusto
 }
 \description{
-A dataset containing simulation results comparing small sample correctio
+A dataset containing simulation results comparing small sample correction
 methods for cluster robust variance estimation in meta-analysis
 }
 \references{
