@@ -8,6 +8,8 @@ vignette: >
   %\VignetteDepends{ggplot2}
   %\VignetteDepends{dplyr}
   %\VignetteDepends{tidyr}
+  %\VignetteDepends{knitr}
+  %\VignetteDepends{kableExtra}
 ---
 
 ```{r, include = FALSE}
@@ -19,22 +21,24 @@ knitr::opts_chunk$set(
 
 ## Introduction to Tipton and Pustejovsky (2015)
 
-In this vignette, we provide a brief example of how to present and report results from a simulation study. We replicate Figure 2 of Tipton and Pustejovsky (2015), which examined several small sample correctons for robust variance estimation in meta-analysis. 
+In this vignette, we provide a brief example of how to present and report results from a simulation study. We replicate Figure 2 of Tipton and Pustejovsky (2015), which examined several small sample corrections for robust variance estimation in meta-analysis. 
 
 Meta-analysis synthesizes results from multiple primary studies on a common topic. Two major goals of meta-analysis include summarizing the results across the studies using some form of an effect size measure and explaining the variability between studies in their reported effect sizes (Hedges, Tipton, & Johnson, 2010). Primary studies often report multiple estimates of effect sizes resulting from multiple correlated measures of an outcome, repeated measures of outcome data or the comparison of multiple treatment groups to the same control group (Hedges et al., 2010). These scenarios result in within-study dependence between these effect sizes. However, typical methods to conduct meta-analysis—pooling effect sizes or analyzing moderating effects with meta-regression—involve an assumption that each effect size is independent. Use of such methods that ignore dependence can result in inaccurate standard errors and therefore, hypothesis tests with incorrect Type 1 error rates and confidence intervals with incorrect coverage levels (Becker, 2000). 
 
-One alternative, using a multivariate model (Becker, 1992), explicitly models correlations among effect size estimates (Hedges et al., 2010; Tipton, 2015). However, multivariate meta-analysis requires knowledge of correlations or covariances between pairs of effect sizes within each primary study which are often difficult to obtain (Gleser & Olkin, 2009). Hedges et al. (2010) proposed the use of robust variance estimation (RVE) to handle dependent effect sizes. RVE does not require knowledge of the covariance structure between effect sizes like multivariate analyses. Instead, RVE estimates the variances for the meta-regression model’s coefficients using sandwich estimators (Hedges et al., 2010; Tipton, 2015). RVE is increasingly being used in applied meta-analyses (Tipton, 2015). However, the performance characteristics of RVE are asymptotic in that it requires a large number of clusters or studies to provide accurate standard errors (Cameron, Gelbach, & Miller, 2008; Tipton, 2015). If the number of studies in a meta-analysis is small, RVE can result in downwardly biased standard errors and inflation of Type 1 error rates (Cameron et al., 2008; Hedges et al., 2010; Tipton, 2015). Tipton (2015) and Tipton and Pustejovsky (2015) have introduced small sample corrections for RVE for tests of single coefficients and for multiple contrast hypotheses respectively. Tipton and Pustejovsky (2015) studied five methods, two based on eigen decomposition and three based on Hotelling’s $T^2$ distribution. The authors recommended a method (AHZ) which approximates the test statistic using Hotelling’s $T^2$  distribution with degrees of freedom proposed by Zhang (2012, 2013). This method resulted in Type 1 error rates closest to the nominal rate of .05. However, AHZ was shown to still have below nominal Type 1 error rates for tests of multiple contrast hypotheses.
+One alternative, using a multivariate model (Becker, 1992), explicitly models correlations among effect size estimates (Hedges et al., 2010; Tipton, 2015). However, multivariate meta-analysis requires knowledge of correlations or covariances between pairs of effect sizes within each primary study which are often difficult to obtain (Olkin & Gleser, 2009). Hedges et al. (2010) proposed the use of robust variance estimation (RVE) to handle dependent effect sizes. RVE does not require knowledge of the covariance structure between effect sizes like multivariate analyses. Instead, RVE estimates the variances for the meta-regression model’s coefficients using sandwich estimators (Hedges et al., 2010; Tipton, 2015). RVE is increasingly being used in applied meta-analyses (Tipton, 2015). However, the performance characteristics of RVE are asymptotic in that it requires a large number of clusters or studies to provide accurate standard errors (Cameron, Gelbach, & Miller, 2008; Tipton, 2015). If the number of studies in a meta-analysis is small, RVE can result in downwardly biased standard errors and inflation of Type 1 error rates (Cameron et al., 2008; Hedges et al., 2010; Tipton, 2015). Tipton (2015) and Tipton and Pustejovsky (2015) have introduced small sample corrections for RVE for tests of single coefficients and for multiple contrast hypotheses respectively. Tipton and Pustejovsky (2015) studied five methods, two based on eigen decomposition and three based on Hotelling’s $T^2$ distribution. The authors recommended a method (AHZ) which approximates the test statistic using Hotelling’s $T^2$  distribution with degrees of freedom proposed by Zhang (2012, 2013). This method resulted in Type 1 error rates closest to the nominal rate of .05. However, AHZ was shown to still have below nominal Type 1 error rates for tests of multiple contrast hypotheses.
 
 ## The Tipton_Pustejovsky Dataset
 
 The `simphelpers` package provides results from Tipton and Pustejovsky (2015). Specifically, the dataset contains results to replicate Figure 2 from the article. The dataset is named `Tipton_Pustejovsky`. 
 
 
-```{r setup}
+```{r setup, message=F, warning=F}
 library(simhelpers)
 library(ggplot2)
 library(dplyr)
 library(tidyr)
+library(knitr)
+library(kableExtra)
 ```
 
 
@@ -46,7 +50,7 @@ The dataset contains:
   - `contrast`: type of contrast that was tested.
   - `test`: small sample method used. EDF and EDT are the two methods using eigen decomposition and AHA, AHB and AHZ are the three methods based on Hotelling’s $T^2$ distribution.
   - `q`: the number of parameters in the hypothesis test.
-  - `rej_rate`: Type 1 error rate with the value for $\alpha$ set to .05.
+  - `rej_rate`: Type 1 error rate with the value for nominal $\alpha$ set to .05.
   - `mcse`: The Monte Carlo standard error for the Type 1 error rate
   
 Here is a glimpse of the dataset: 
@@ -76,7 +80,7 @@ Tipton_Pusto %>%
   geom_hline(yintercept = .05, linetype = "dashed") + 
   geom_boxplot(alpha = .5) + 
   facet_grid(q ~ num_studies, scales = "free") + 
-  labs(x = "Method", y = "Type 1 Error Rate", caption = "FIGURE 2. Type I error forvof .05 of five alternative tests. Solid lines indicate the nominal alpha level") + 
+  labs(x = "Method", y = "Type 1 Error Rate", caption = "FIGURE 2. Type I error for alpha of .05 of five alternative tests. Solid lines indicate the nominal alpha level") + 
   theme_bw() +
   theme(legend.position = "none")
 ```
@@ -92,11 +96,14 @@ Second, the EDF and EDT tests have Type I error rates that cover a wide range of
 
 ## Monte Carlo Standard Error
 
+Below we calculate the maximum Monte Carlo standard error (MCSE) for the combination of conditions presented in the graph above. We want to examine whether MCSE values are relatively small compared to the estimated Type 1 error rates. 
+
 ```{r}
 Tipton_Pusto %>%
   group_by(num_studies, q, test) %>%
   summarize(max_mcse = max(mcse)) %>%
-  pivot_wider(names_from = test, values_from = max_mcse)
+  pivot_wider(names_from = test, values_from = max_mcse) %>%
+  kable()
 ```
 
 
@@ -105,11 +112,19 @@ Tipton_Pusto %>%
 Becker, Betsy J. 2000. “Multivariate Meta-Analysis.” In Handbook of Applied Multi-
 variate Statistics and Mathematical Modeling, 499–525. Elsevier.
 
+Cameron, A Colin, Jonah B Gelbach, and Douglas L Miller. 2008. “Bootstrap-Based Improvements for Inference with Clustered Errors.” The Review of Economics and Statistics, 47.
+
 Hedges, Larry V., Elizabeth Tipton, and Matthew C. Johnson. 2010. “Robust Variance Estimation in Meta-Regression with Dependent Effect Size Estimates.” Research Synthesis Methods 1 (1): 39–65. https://doi.org/10.1002/jrsm.5.
+
+Olkin, I, and L Gleser. 2009. “Stochastically Dependent Effect Sizes.” The Handbook of Research Synthesis and Meta-Analysis. Russell Sage Foundation New York, NY, 357–76.
 
 Tipton, Elizabeth. 2015. “Small Sample Adjustments for Robust Variance Estimation with Meta-Regression.” Psychological Methods 20 (3): 375–93. https://doi.org/10. 1037/met0000011.
 
 Tipton, Elizabeth, and James E. Pustejovsky. 2015. “Small-Sample Adjustments for Tests of Moderators and Model Fit Using Robust Variance Estimation in Meta- Regression.” Journal of Educational and Behavioral Statistics 40 (6): 604–34. https:
 //doi.org/10.3102/1076998615606099.
+
+Zhang, Jin-Ting. 2012. “An Approximate Hotelling T2-Test for Heteroscedastic One-Way Manova.” Open Journal of Statistics 2 (1). Scientific Research Publishing: 1–11.
+
+———. 2013. “Tests of Linear Hypotheses in the Anova Under Heteroscedasticity.” International Journal of Advanced Statistics and Probability 1 (2). Citeseer: 9–24.
 
 
