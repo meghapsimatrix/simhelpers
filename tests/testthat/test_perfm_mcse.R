@@ -22,7 +22,7 @@ s_sq_t_j <- (1/(K-2)) * ((K - 1) * var(dat$x) - (K/(K-1)) * (dat$x - t_bar)^2)
 rmse <- sqrt(mean((dat$x - 1)^2))
 rmse_j <- sqrt((t_bar_j - 1)^2 + s_sq_t_j)
 
-
+cov <- mean(t_res$lower_bound < t_res$true_param & t_res$true_param < t_res$upper_bound)
 
 
 test_that("check the performance measures", {
@@ -36,7 +36,9 @@ test_that("check the performance measures", {
   expect_equal(calc_rejection(dat, p_values = p_value) %>% pull(rej_rate), mean(dat$p_value < .05))
   expect_equal(calc_rejection(dat, p_values = p_value, alpha = .10) %>% pull(rej_rate), mean(dat$p_value < .10))
   expect_equal(calc_rejection(dat, p_values = p_value, alpha = .01) %>% pull(rej_rate), mean(dat$p_value < .01))
-  expect_equal(calc_coverage(t_res, lower_bound, upper_bound, true_param, perfm_criteria = "coverage") %>% pull(coverage), mean(t_res$lower_bound < t_res$true_param & t_res$true_param < t_res$upper_bound))
+  expect_equal(calc_coverage(t_res, lower_bound, upper_bound, true_param, perfm_criteria = "coverage") %>% pull(coverage), cov)
+  expect_equal(calc_coverage(t_res, lower_bound, upper_bound, true_param, perfm_criteria = "width") %>% pull(width), mean(t_res$upper_bound) - mean(t_res$lower_bound))
+
 })
 
 test_that("check the mcse", {
@@ -47,6 +49,8 @@ test_that("check the mcse", {
   expect_equal(calc_relative(dat, x, true_param, perfm_criteria = "relative bias") %>% pull(rel_bias_mcse), sqrt(var(dat$x)/(nrow(dat) * 1^2)))
   expect_equal(calc_relative(dat, x, true_param, perfm_criteria = "relative mse") %>% pull(rel_mse_mcse), sqrt((1/(K * 1^2)) * (s_t^4 * (k_t  - 1) + 4 * s_t^3 * g_t * (mean(dat$x) - 1) + 4 * s_t^2 * (mean(dat$x) - 1)^2)))
   expect_equal(calc_rejection(dat, p_values = p_value) %>% pull(rej_rate_mcse), sqrt((mean(dat$p_value < .05) * (1 - mean(dat$p_value < .05)))/K))
+  expect_equal(calc_coverage(t_res, lower_bound, upper_bound, true_param, perfm_criteria = "coverage") %>% pull(coverage_mcse), sqrt((cov * (1 - cov))/nrow(t_res)))
+  expect_equal(calc_coverage(t_res, lower_bound, upper_bound, true_param, perfm_criteria = "width") %>% pull(width_mcse), sqrt(var(t_res$upper_bound - t_res$lower_bound)/nrow(t_res)))
 })
 
 
