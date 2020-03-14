@@ -36,7 +36,7 @@ test_that("check the performance measures", {
   expect_equal(calc_rejection(dat, p_values = p_value) %>% pull(rej_rate), mean(dat$p_value < .05))
   expect_equal(calc_rejection(dat, p_values = p_value, alpha = .10) %>% pull(rej_rate), mean(dat$p_value < .10))
   expect_equal(calc_rejection(dat, p_values = p_value, alpha = .01) %>% pull(rej_rate), mean(dat$p_value < .01))
-  expect_equal(calc_coverage(t_res, lower_bound, upper_bound, true_param, alpha = .05, perfm_criteria = "coverage") %>% pull(coverage), mean(t_res$lower_bound < t_res$true_param & t_res$true_param < t_res$upper_bound))
+  expect_equal(calc_coverage(t_res, lower_bound, upper_bound, true_param, perfm_criteria = "coverage") %>% pull(coverage), mean(t_res$lower_bound < t_res$true_param & t_res$true_param < t_res$upper_bound))
 })
 
 test_that("check the mcse", {

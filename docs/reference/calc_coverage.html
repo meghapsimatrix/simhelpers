@@ -43,7 +43,8 @@
 
 <meta property="og:title" content="Calculate confidence interval coverage, width and MCSE. — calc_coverage" />
 <meta property="og:description" content="Calculates confidence interval coverage and width. The function also calculates the associated
-Monte Carlo Standard error." />
+Monte Carlo Standard error. The confidence interval percentage is based on how you calculated the lower
+and upper bounds." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -135,7 +136,8 @@ Monte Carlo Standard error." />
 
     <div class="ref-description">
     <p>Calculates confidence interval coverage and width. The function also calculates the associated
-Monte Carlo Standard error.</p>
+Monte Carlo Standard error. The confidence interval percentage is based on how you calculated the lower
+and upper bounds.</p>
     </div>
 
     <pre class="usage"><span class='fu'>calc_coverage</span>(
@@ -143,7 +145,6 @@ Monte Carlo Standard error.</p>
   <span class='no'>lower_bound</span>,
   <span class='no'>upper_bound</span>,
   <span class='no'>true_param</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
   <span class='kw'>perfm_criteria</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"coverage"</span>, <span class='st'>"width"</span>)
 )</pre>
 
@@ -165,10 +166,6 @@ Monte Carlo Standard error.</p>
     <tr>
       <th>true_param</th>
       <td><p>name of the column containing the true parameters.</p></td>
-    </tr>
-    <tr>
-      <th>alpha</th>
-      <td><p>number indicating the nominal alpha level. Default value is set to the conventional .05.</p></td>
     </tr>
     <tr>
       <th>perfm_criteria</th>
