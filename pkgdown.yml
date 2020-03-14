@@ -4,6 +4,7 @@ pkgdown_sha: ~
 articles:
   MCSE: MCSE.html
   simulation_workflow: simulation_workflow.html
+  visualization: visualization.html
 urls:
   reference: https://meghapsimatrix.github.io/simhelpers/index.html/reference
   article: https://meghapsimatrix.github.io/simhelpers/index.html/articles
