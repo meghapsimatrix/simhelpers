@@ -29,7 +29,7 @@ One alternative, using a multivariate model (Becker, 1992), explicitly models co
 
 ## The Tipton_Pusto Dataset
 
-The `simphelpers` package provides results from Tipton and Pustejovsky (2015). Specifically, the dataset contains results to replicate Figure 2 from the article. The dataset is named `Tipton_Pustejovsky`. 
+The `simphelpers` package provides results from Tipton and Pustejovsky (2015). Specifically, the dataset contains results to replicate Figure 2 from the article. The dataset is named `Tipton_Pusto`. 
 
 
 ```{r setup, message=F, warning=F}
