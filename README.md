@@ -51,3 +51,8 @@ You can install the development version from
 # install.packages("devtools")
 devtools::install_github("meghapsimatrix/simhelpers")
 ```
+
+## Acknowledgments
+
+We are extremely thankful for the feedback provided by [Sangdon
+Lim](https://sdlim.com/).
