@@ -28,7 +28,8 @@ Imports:
     rstudioapi,
     Rdpack,
     tidyr,
-    ggplot2
+    ggplot2,
+    broom
 Suggests:
     plyr,
     knitr,
