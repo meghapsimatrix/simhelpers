@@ -7,7 +7,7 @@
 \format{A tibble with 1000 rows and 3 variables:
 \describe{
   \item{A}{estimate of alpha}
-  \item{Var_A}{variance of alpha}
+  \item{Var_A}{estimate of the variance of alpha}
   \item{true_param}{true alpha used to generate the data}
 
 }}
@@ -15,6 +15,6 @@
 alpha_res
 }
 \description{
-A dataset containing simulation results estimating Cronbach's alpha and its variance
+A dataset containing simulation results from estimating Cronbach's alpha and its variance
 }
 \keyword{datasets}
