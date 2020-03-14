@@ -14,7 +14,7 @@ evaluate_by_row(
 )
 }
 \arguments{
-\item{params}{data frame of tibble containing simulation parameter values. Each row should
+\item{params}{data frame or tibble containing simulation parameter values. Each row should
 represent a separate set of parameter values.}
 
 \item{sim_function}{function to be evaluated, with argument names matching
