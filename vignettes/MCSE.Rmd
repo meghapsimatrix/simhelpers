@@ -56,7 +56,7 @@ abs_dat <- tibble(Criterion = c("Bias","Variance","MSE", "RMSE"),
               Estimate = c("$\\bar{T} - \\theta$", "$S_T^2$", 
                            "$\\frac{1}{K}\\sum_{k=1}^{K}\\left(T_k - \\theta\\right)^2$", "$\\sqrt{\\frac{1}{K}\\sum_{k=1}^{K}\\left(T_k - \\theta\\right)^2}$"),
               MCSE = c("$\\sqrt{S_T^2/ K}$", "$S_T^2 \\sqrt{\\frac{k_T - 1}{K}}$",  
-                       "$\\sqrt{\\frac{1}{K}\\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_T^2 (\\bar{T} - \\theta)^2\\right]}$ ", "$\\sqrt{\\frac{1}{K} \\left(RMSE_{(j)} - RMSE)^2\\right)}$"))
+                       "$\\sqrt{\\frac{1}{K}\\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_T^2 (\\bar{T} - \\theta)^2\\right]}$ ", "$\\sqrt{\\frac{1}{K} \\sum_{j=1}^K \\left(RMSE_{(j)} - RMSE)^2\\right)}$"))
 
 knitr::kable(abs_dat, escape = FALSE, caption = "Table 1. Absolute Performance Criteria") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
@@ -89,7 +89,7 @@ $$MCSE_{RMSE(JK)}  = \sqrt{\frac{1}{K}\sum_{j=1}^K  \left(RMSE_{(j)} - RMSE\righ
 
 ### Example
 
-We use the `welch_res` dataset included in the package. It contains the results from an example simulation study comparing the heteroskedasticity robust Welch t-test to normal t-test. The code used to generate the data and results can be found [here](https://github.com/meghapsimatrix/simhelpers/blob/master/data-raw/welch_res_dat.R). We varied the mean difference parameter when generating data for two groups. We set the values to 0, 0.5, 1 and 2. We also varied the sample size per group, setting sample size values to 50, 100, and 200. We generated the data with slightly unequal variances. With each simulated data, we ran normal t-test, which assumes homogeneity of variance, and we also ran Welch t-test which does not assume homogeneity of variance. We extracted the estimate (mean difference), variance of the estimates, p-value, and the upper and lower bounds of the confidence intervals. 
+We use the `welch_res` dataset included in the package. It contains the results from an example simulation study comparing the heteroskedasticity robust Welch t-test to normal t-test. The code used to generate the data and derive results can be found [here](https://github.com/meghapsimatrix/simhelpers/blob/master/data-raw/welch_res_dat.R). We varied the mean difference parameter when generating data for two groups. We set the values to 0, 0.5, 1 and 2. We also varied the sample size per group, setting sample size values to 50, 100, and 200. We generated the data with slightly unequal variances. With each simulated data, we ran normal t-test, which assumes homogeneity of variance, and we also ran Welch t-test which does not assume homogeneity of variance. We extracted the estimate (mean difference), variance of the estimates, p-value, and the upper and lower bounds of the confidence intervals. 
 
 ```{r, message = FALSE, warning = FALSE}
 library(simhelpers)
@@ -106,15 +106,14 @@ welch_res %>%
 
 Below, we calculate the absolute performance criteria for the estimate of the mean difference. We present the results by sample size, mean difference, and the t-test method. The `calc_absolute()` function is designed to work with the [`tidyeval`](https://tidyeval.tidyverse.org/index.html) workflow. The first argument, `res_dat`, requires a data frame or a tibble containing the results from a simulation study. The second argument, `estimates`, requires the name of the column containing the estimates like mean difference or regression coefficients. The third argument, `true_param`, requires the name of the column containing the true parameters. The fourth argument `perfm_criteria` lets the user specify which criteria to evaluate. The criteria can be specified using a character or character vector. If the user only wants bias, they can specify `perfm_criteria = "bias"`. If the user wants bias and root mean squared error, they can specify `perfm_criteria = c("bias", "rmse")`. By default, the function returns, bias, variance, mean squared error (mse), and root mean squared error (rmse), `perfm_criteria = c("bias", "variance", "mse", "rmse")`. In the example below, we ask for all the available criteria. 
 
-We use `dplyr` syntax to group by the sample size and mean difference that were used to generate the data, and the method used to analyze the data. We provide examples using [`do()`](https://dplyr.tidyverse.org/reference/do.html) and [`group_modify()`](https://dplyr.tidyverse.org/reference/group_map.html) to run `calc_absolute()` on results for each combination of the conditions. We use [`mutate_if()`](https://dplyr.tidyverse.org/reference/mutate_all.html) to round the results to five decimal places. Note that `mutate_if()` ignores the grouping variables by default. 
+We use `dplyr` syntax to group by the sample size and mean difference that were used to generate the data, and the method used to analyze the data. We provide examples using [`do()`](https://dplyr.tidyverse.org/reference/do.html) and [`group_modify()`](https://dplyr.tidyverse.org/reference/group_map.html) to run `calc_absolute()` on results for each combination of the conditions. We round the results to five decimal places. 
 
 ```{r}
 # using do()
 welch_res %>%
   group_by(n, mean_diff, method) %>% # grouping 
   do(calc_absolute(.,  estimates = est, true_param = mean_diff)) %>% # run the function
-  mutate_if(is.numeric, round, 5) %>% # rounding
-  kable() # create a kable table 
+  kable(digits = 5) # create a kable table 
 ```
 
 
@@ -124,8 +123,7 @@ welch_res %>%
   mutate(params = mean_diff) %>% # group_modify cannot take in a group column as an argument
   group_by(n, mean_diff, method) %>%
   group_modify(~ calc_absolute(.x,  estimates = est, true_param = params)) %>%
-  mutate_if(is.numeric, round, 5) %>%
-  kable()
+  kable(digits = 5)
 ```
 
 
@@ -151,7 +149,7 @@ rel_dat <- tibble(Criterion = c("Relative Bias","Relative MSE", "Relative RMSE")
               Definition = c("$\\text{E}(T) / \\theta$", "$\\text{E}\\left[(T - \\theta)^2\\right]/ \\theta^2$", "$\\sqrt{\\text{E}\\left[(T - \\theta)^2\\right]/ \\theta^2}$"),
               Estimate = c("$\\bar{T} / \\theta$", "$\\frac{(\\bar{T} - \\theta)^2 + S_T^2}{\\theta^2}$", "$\\sqrt{\\frac{(\\bar{T} - \\theta)^2 + S_T^2}{\\theta^2}}$"),
               MCSE = c("$\\sqrt{S_T^2 / (K\\theta^2)}$", 
-                       "$\\sqrt{\\frac{1}{K\\theta^2}\\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_T^2 (\\bar{T} - \\theta)^2\\right]}$", "$\\sqrt{\\frac{1}{K} \\left(RMSE_{(j)} - RMSE)^2\\right)}$"))
+                       "$\\sqrt{\\frac{1}{K\\theta^2}\\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_T^2 (\\bar{T} - \\theta)^2\\right]}$", "$\\sqrt{\\frac{1}{K} \\sum_{j=1}^K \\left(RMSE_{(j)} - RMSE)^2\\right)}$"))
 
 knitr::kable(rel_dat, escape = FALSE, caption = "Table 2. Relative Performance Criteria") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
@@ -170,8 +168,7 @@ welch_res %>%
   mutate(params = mean_diff) %>%
   group_by(n, mean_diff, method) %>%
   group_modify(~ calc_relative(.x,  estimates = est, true_param = params)) %>%
-  mutate_if(is.numeric, round, 5) %>%
-  kable()
+  kable(digits = 5)
 ```
 
 ## Relative Criteria for Variance Estimators
@@ -228,8 +225,7 @@ welch_res %>%
   mutate(params = mean_diff) %>%
   group_by(n, mean_diff, method) %>%
   group_modify(~ calc_relative_var(.x,  estimates = est, var_estimates = var)) %>%
-  mutate_if(is.numeric, round, 5) %>%
-  kable()
+  kable(digits = 5)
 ```
 
 
@@ -266,8 +262,7 @@ Below we calculate the rejection rates for the hypothesis tests conducted using 
 welch_res %>%
   group_by(n, mean_diff, method) %>%
   group_modify(~ calc_rejection(.x, p_values = p_val)) %>%
-  mutate_if(is.numeric, round, 5) %>%
-  kable()
+  kable(digits = 5)
 ```
 
 Below we calculate the confidence interval coverage rates and widths for the estimates of the mean difference. The `calc_coverage()` function requires a data frame or tibble containing the simulation results as the first argument. The second and third arguments, `lower_bound` and `upper_bound`, take in the name of the columns that contain the lower and upper bound estimates of the confidence interval. The `true_param` argument requires the name of the column containing the true parameters. Like `calc_absolute()` and `calc_relative()`, `calc_coverage()` also has an argument, `perfm_criteria`, where the user can specify which criteria to evaluate: `perfm_criteria = c("coverage", "width")`. 
@@ -278,8 +273,7 @@ welch_res %>%
   mutate(params = mean_diff) %>%
   group_by(n, mean_diff, method) %>%
   group_modify(~ calc_coverage(.x, lower_bound = lower_bound, upper_bound = upper_bound, true_param = params)) %>%
-  mutate_if(is.numeric, round, 5) %>%
-  kable()
+  kable(digits = 5)
 ```
 
 
