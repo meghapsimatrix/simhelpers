@@ -236,7 +236,7 @@ welch_res %>%
 
 When doing hypothesis tests, we are often interested in whether Type 1 error rate is adequately controlled and whether the test has enough power to detect the effect of interest. Rejection rate captures the proportion of times the p-value is below a specified $\alpha$ level, the proportion of times we can reject the null hypothesis. When the specified effect size is 0, we can examine Type 1 error rates and when the magnitude of the effect is greater than 0, we can examine power. We are also interested in confidence interval coverage, proportion of intervals that contain the true parameter, and the interval width, which is an indicator of the precision of the estimate.
 
-Table 4 below presents the performance criteria used to evaluate hypothesis tests. 
+Table 4 below presents the performance criteria used to evaluate hypothesis tests. In the table, let $P_k$ denote the p-value from simulation replication $k$, for $k = 1,...,K$. Suppose that the confidence intervals are for the target parameter $\theta$ and have coverage level $\beta$. Let $A_k$ and $B_k$ denote the lower and upper end-points of the confidence interval from simulation replication $k$, and let $W_k = B_k − A_k$, all for $k = 1,...,K$. 
 
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
