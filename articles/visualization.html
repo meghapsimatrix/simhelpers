@@ -99,9 +99,9 @@
 <div id="introduction-to-tipton-and-pustejovsky-2015" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction-to-tipton-and-pustejovsky-2015" class="anchor"></a>Introduction to Tipton and Pustejovsky (2015)</h2>
-<p>In this vignette, we provide a brief example of how to present and report results from a simulation study. We replicate Figure 2 of Tipton and Pustejovsky (2015), which examined several small sample correctons for robust variance estimation in meta-analysis.</p>
+<p>In this vignette, we provide a brief example of how to present and report results from a simulation study. We replicate Figure 2 of Tipton and Pustejovsky (2015), which examined several small sample corrections for robust variance estimation in meta-analysis.</p>
 <p>Meta-analysis synthesizes results from multiple primary studies on a common topic. Two major goals of meta-analysis include summarizing the results across the studies using some form of an effect size measure and explaining the variability between studies in their reported effect sizes (Hedges, Tipton, &amp; Johnson, 2010). Primary studies often report multiple estimates of effect sizes resulting from multiple correlated measures of an outcome, repeated measures of outcome data or the comparison of multiple treatment groups to the same control group (Hedges et al., 2010). These scenarios result in within-study dependence between these effect sizes. However, typical methods to conduct meta-analysis—pooling effect sizes or analyzing moderating effects with meta-regression—involve an assumption that each effect size is independent. Use of such methods that ignore dependence can result in inaccurate standard errors and therefore, hypothesis tests with incorrect Type 1 error rates and confidence intervals with incorrect coverage levels (Becker, 2000).</p>
-<p>One alternative, using a multivariate model (Becker, 1992), explicitly models correlations among effect size estimates (Hedges et al., 2010; Tipton, 2015). However, multivariate meta-analysis requires knowledge of correlations or covariances between pairs of effect sizes within each primary study which are often difficult to obtain (Gleser &amp; Olkin, 2009). Hedges et al. (2010) proposed the use of robust variance estimation (RVE) to handle dependent effect sizes. RVE does not require knowledge of the covariance structure between effect sizes like multivariate analyses. Instead, RVE estimates the variances for the meta-regression model’s coefficients using sandwich estimators (Hedges et al., 2010; Tipton, 2015). RVE is increasingly being used in applied meta-analyses (Tipton, 2015). However, the performance characteristics of RVE are asymptotic in that it requires a large number of clusters or studies to provide accurate standard errors (Cameron, Gelbach, &amp; Miller, 2008; Tipton, 2015). If the number of studies in a meta-analysis is small, RVE can result in downwardly biased standard errors and inflation of Type 1 error rates (Cameron et al., 2008; Hedges et al., 2010; Tipton, 2015). Tipton (2015) and Tipton and Pustejovsky (2015) have introduced small sample corrections for RVE for tests of single coefficients and for multiple contrast hypotheses respectively. Tipton and Pustejovsky (2015) studied five methods, two based on eigen decomposition and three based on Hotelling’s <span class="math inline">\(T^2\)</span> distribution. The authors recommended a method (AHZ) which approximates the test statistic using Hotelling’s <span class="math inline">\(T^2\)</span> distribution with degrees of freedom proposed by Zhang (2012, 2013). This method resulted in Type 1 error rates closest to the nominal rate of .05. However, AHZ was shown to still have below nominal Type 1 error rates for tests of multiple contrast hypotheses.</p>
+<p>One alternative, using a multivariate model (Becker, 1992), explicitly models correlations among effect size estimates (Hedges et al., 2010; Tipton, 2015). However, multivariate meta-analysis requires knowledge of correlations or covariances between pairs of effect sizes within each primary study which are often difficult to obtain (Olkin &amp; Gleser, 2009). Hedges et al. (2010) proposed the use of robust variance estimation (RVE) to handle dependent effect sizes. RVE does not require knowledge of the covariance structure between effect sizes like multivariate analyses. Instead, RVE estimates the variances for the meta-regression model’s coefficients using sandwich estimators (Hedges et al., 2010; Tipton, 2015). RVE is increasingly being used in applied meta-analyses (Tipton, 2015). However, the performance characteristics of RVE are asymptotic in that it requires a large number of clusters or studies to provide accurate standard errors (Cameron, Gelbach, &amp; Miller, 2008; Tipton, 2015). If the number of studies in a meta-analysis is small, RVE can result in downwardly biased standard errors and inflation of Type 1 error rates (Cameron et al., 2008; Hedges et al., 2010; Tipton, 2015). Tipton (2015) and Tipton and Pustejovsky (2015) have introduced small sample corrections for RVE for tests of single coefficients and for multiple contrast hypotheses respectively. Tipton and Pustejovsky (2015) studied five methods, two based on eigen decomposition and three based on Hotelling’s <span class="math inline">\(T^2\)</span> distribution. The authors recommended a method (AHZ) which approximates the test statistic using Hotelling’s <span class="math inline">\(T^2\)</span> distribution with degrees of freedom proposed by Zhang (2012, 2013). This method resulted in Type 1 error rates closest to the nominal rate of .05. However, AHZ was shown to still have below nominal Type 1 error rates for tests of multiple contrast hypotheses.</p>
 </div>
 <div id="the-tipton_pustejovsky-dataset" class="section level2">
 <h2 class="hasAnchor">
@@ -110,15 +110,9 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(simhelpers)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; Attaching package: 'dplyr'</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; The following objects are masked from 'package:stats':</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt;     filter, lag</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; The following objects are masked from 'package:base':</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt;     intersect, setdiff, setequal, union</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</a></code></pre></div>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(knitr)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(kableExtra)</a></code></pre></div>
 <p>The dataset contains:</p>
 <ul>
 <li>
@@ -134,7 +128,7 @@
 <li>
 <code>q</code>: the number of parameters in the hypothesis test.</li>
 <li>
-<code>rej_rate</code>: Type 1 error rate with the value for <span class="math inline">\(\alpha\)</span> set to .05.</li>
+<code>rej_rate</code>: Type 1 error rate with the value for nominal <span class="math inline">\(\alpha\)</span> set to .05.</li>
 <li>
 <code>mcse</code>: The Monte Carlo standard error for the Type 1 error rate</li>
 </ul>
@@ -168,7 +162,7 @@
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span>(<span class="dt">yintercept =</span> <span class="fl">.05</span>, <span class="dt">linetype =</span> <span class="st">"dashed"</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span>(<span class="dt">alpha =</span> <span class="fl">.5</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span>(q <span class="op">~</span><span class="st"> </span>num_studies, <span class="dt">scales =</span> <span class="st">"free"</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">x =</span> <span class="st">"Method"</span>, <span class="dt">y =</span> <span class="st">"Type 1 Error Rate"</span>, <span class="dt">caption =</span> <span class="st">"FIGURE 2. Type I error forvof .05 of five alternative tests. Solid lines indicate the nominal alpha level"</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">x =</span> <span class="st">"Method"</span>, <span class="dt">y =</span> <span class="st">"Type 1 Error Rate"</span>, <span class="dt">caption =</span> <span class="st">"FIGURE 2. Type I error for alpha of .05 of five alternative tests. Solid lines indicate the nominal alpha level"</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">legend.position =</span> <span class="st">"none"</span>)</a></code></pre></div>
 <p><img src="visualization_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
@@ -183,38 +177,419 @@
 <div id="monte-carlo-standard-error" class="section level2">
 <h2 class="hasAnchor">
 <a href="#monte-carlo-standard-error" class="anchor"></a>Monte Carlo Standard Error</h2>
+<p>Below we calculate the maximum Monte Carlo standard error (MCSE) for the combination of conditions presented in the graph above. We want to examine whether MCSE values are relatively small compared to the estimated Type 1 error rates.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">Tipton_Pusto <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(num_studies, q, test) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="dt">max_mcse =</span> <span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(mcse)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> test, <span class="dt">values_from =</span> max_mcse)</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; # A tibble: 16 x 7</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; # Groups:   num_studies, q [16]</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;    num_studies q          EDF     EDT      AHA      AHB      AHZ</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt;  1 m =  10     q =  2 0.00315 0.00256 0.00145  0.00157  0.00190 </span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;  2 m =  10     q =  3 0.00361 0.00302 0.000141 0.000100 0.00111 </span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;  3 m =  10     q =  4 0.00391 0.00332 0        0        0.000331</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;  4 m =  10     q =  5 0.00427 0.00376 0        0        0       </span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;  5 m =  20     q =  2 0.00266 0.00253 0.00196  0.00202  0.00216 </span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;  6 m =  20     q =  3 0.00275 0.00273 0.00108  0.00105  0.00204 </span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt;  7 m =  20     q =  4 0.00281 0.00290 0        0.000100 0.00177 </span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;  8 m =  20     q =  5 0.00285 0.00304 0        0        0.000647</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt;  9 m =  40     q =  2 0.00236 0.00246 0.00218  0.00220  0.00222 </span></a>
-<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt; 10 m =  40     q =  3 0.00252 0.00263 0.00176  0.00177  0.00218 </span></a>
-<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt; 11 m =  40     q =  4 0.00247 0.00261 0.00113  0.00111  0.00203 </span></a>
-<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt; 12 m =  40     q =  5 0.00224 0.00262 0        0        0.00148 </span></a>
-<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt; 13 m =  80     q =  2 0.00239 0.00239 0.00223  0.00226  0.00229 </span></a>
-<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; 14 m =  80     q =  3 0.00245 0.00248 0.00205  0.00206  0.00225 </span></a>
-<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; 15 m =  80     q =  4 0.00250 0.00254 0.00179  0.00180  0.00222 </span></a>
-<a class="sourceLine" id="cb5-24" data-line-number="24"><span class="co">#&gt; 16 m =  80     q =  5 0.00236 0.00242 0.000712 0.000785 0.00188</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> test, <span class="dt">values_from =</span> max_mcse) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a></code></pre></div>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+num_studies
+</th>
+<th style="text-align:left;">
+q
+</th>
+<th style="text-align:right;">
+EDF
+</th>
+<th style="text-align:right;">
+EDT
+</th>
+<th style="text-align:right;">
+AHA
+</th>
+<th style="text-align:right;">
+AHB
+</th>
+<th style="text-align:right;">
+AHZ
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+m = 10
+</td>
+<td style="text-align:left;">
+q = 2
+</td>
+<td style="text-align:right;">
+0.0031475
+</td>
+<td style="text-align:right;">
+0.0025582
+</td>
+<td style="text-align:right;">
+0.0014537
+</td>
+<td style="text-align:right;">
+0.0015673
+</td>
+<td style="text-align:right;">
+0.0019047
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m = 10
+</td>
+<td style="text-align:left;">
+q = 3
+</td>
+<td style="text-align:right;">
+0.0036066
+</td>
+<td style="text-align:right;">
+0.0030186
+</td>
+<td style="text-align:right;">
+0.0001414
+</td>
+<td style="text-align:right;">
+0.0001000
+</td>
+<td style="text-align:right;">
+0.0011066
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m = 10
+</td>
+<td style="text-align:left;">
+q = 4
+</td>
+<td style="text-align:right;">
+0.0039079
+</td>
+<td style="text-align:right;">
+0.0033219
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+0.0003315
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m = 10
+</td>
+<td style="text-align:left;">
+q = 5
+</td>
+<td style="text-align:right;">
+0.0042684
+</td>
+<td style="text-align:right;">
+0.0037554
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m = 20
+</td>
+<td style="text-align:left;">
+q = 2
+</td>
+<td style="text-align:right;">
+0.0026580
+</td>
+<td style="text-align:right;">
+0.0025260
+</td>
+<td style="text-align:right;">
+0.0019619
+</td>
+<td style="text-align:right;">
+0.0020173
+</td>
+<td style="text-align:right;">
+0.0021608
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m = 20
+</td>
+<td style="text-align:left;">
+q = 3
+</td>
+<td style="text-align:right;">
+0.0027467
+</td>
+<td style="text-align:right;">
+0.0027284
+</td>
+<td style="text-align:right;">
+0.0010753
+</td>
+<td style="text-align:right;">
+0.0010524
+</td>
+<td style="text-align:right;">
+0.0020376
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m = 20
+</td>
+<td style="text-align:left;">
+q = 4
+</td>
+<td style="text-align:right;">
+0.0028081
+</td>
+<td style="text-align:right;">
+0.0028959
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+0.0001000
+</td>
+<td style="text-align:right;">
+0.0017732
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m = 20
+</td>
+<td style="text-align:left;">
+q = 5
+</td>
+<td style="text-align:right;">
+0.0028460
+</td>
+<td style="text-align:right;">
+0.0030383
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+0.0006467
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m = 40
+</td>
+<td style="text-align:left;">
+q = 2
+</td>
+<td style="text-align:right;">
+0.0023562
+</td>
+<td style="text-align:right;">
+0.0024617
+</td>
+<td style="text-align:right;">
+0.0021815
+</td>
+<td style="text-align:right;">
+0.0021959
+</td>
+<td style="text-align:right;">
+0.0022223
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m = 40
+</td>
+<td style="text-align:left;">
+q = 3
+</td>
+<td style="text-align:right;">
+0.0025209
+</td>
+<td style="text-align:right;">
+0.0026307
+</td>
+<td style="text-align:right;">
+0.0017627
+</td>
+<td style="text-align:right;">
+0.0017680
+</td>
+<td style="text-align:right;">
+0.0021753
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m = 40
+</td>
+<td style="text-align:left;">
+q = 4
+</td>
+<td style="text-align:right;">
+0.0024653
+</td>
+<td style="text-align:right;">
+0.0026128
+</td>
+<td style="text-align:right;">
+0.0011284
+</td>
+<td style="text-align:right;">
+0.0011066
+</td>
+<td style="text-align:right;">
+0.0020263
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m = 40
+</td>
+<td style="text-align:left;">
+q = 5
+</td>
+<td style="text-align:right;">
+0.0022423
+</td>
+<td style="text-align:right;">
+0.0026193
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+0.0014766
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m = 80
+</td>
+<td style="text-align:left;">
+q = 2
+</td>
+<td style="text-align:right;">
+0.0023878
+</td>
+<td style="text-align:right;">
+0.0023915
+</td>
+<td style="text-align:right;">
+0.0022323
+</td>
+<td style="text-align:right;">
+0.0022582
+</td>
+<td style="text-align:right;">
+0.0022934
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m = 80
+</td>
+<td style="text-align:left;">
+q = 3
+</td>
+<td style="text-align:right;">
+0.0024457
+</td>
+<td style="text-align:right;">
+0.0024758
+</td>
+<td style="text-align:right;">
+0.0020532
+</td>
+<td style="text-align:right;">
+0.0020598
+</td>
+<td style="text-align:right;">
+0.0022542
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m = 80
+</td>
+<td style="text-align:left;">
+q = 4
+</td>
+<td style="text-align:right;">
+0.0024950
+</td>
+<td style="text-align:right;">
+0.0025362
+</td>
+<td style="text-align:right;">
+0.0017942
+</td>
+<td style="text-align:right;">
+0.0018020
+</td>
+<td style="text-align:right;">
+0.0022203
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m = 80
+</td>
+<td style="text-align:left;">
+q = 5
+</td>
+<td style="text-align:right;">
+0.0023619
+</td>
+<td style="text-align:right;">
+0.0024206
+</td>
+<td style="text-align:right;">
+0.0007123
+</td>
+<td style="text-align:right;">
+0.0007850
+</td>
+<td style="text-align:right;">
+0.0018753
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
 <p>Becker, Betsy J. 2000. “Multivariate Meta-Analysis.” In Handbook of Applied Multi- variate Statistics and Mathematical Modeling, 499–525. Elsevier.</p>
+<p>Cameron, A Colin, Jonah B Gelbach, and Douglas L Miller. 2008. “Bootstrap-Based Improvements for Inference with Clustered Errors.” The Review of Economics and Statistics, 47.</p>
 <p>Hedges, Larry V., Elizabeth Tipton, and Matthew C. Johnson. 2010. “Robust Variance Estimation in Meta-Regression with Dependent Effect Size Estimates.” Research Synthesis Methods 1 (1): 39–65. <a href="https://doi.org/10.1002/jrsm.5" class="uri">https://doi.org/10.1002/jrsm.5</a>.</p>
+<p>Olkin, I, and L Gleser. 2009. “Stochastically Dependent Effect Sizes.” The Handbook of Research Synthesis and Meta-Analysis. Russell Sage Foundation New York, NY, 357–76.</p>
 <p>Tipton, Elizabeth. 2015. “Small Sample Adjustments for Robust Variance Estimation with Meta-Regression.” Psychological Methods 20 (3): 375–93. <a href="https://doi.org/10" class="uri">https://doi.org/10</a>. 1037/met0000011.</p>
 <p>Tipton, Elizabeth, and James E. Pustejovsky. 2015. “Small-Sample Adjustments for Tests of Moderators and Model Fit Using Robust Variance Estimation in Meta- Regression.” Journal of Educational and Behavioral Statistics 40 (6): 604–34. https: //doi.org/10.3102/1076998615606099.</p>
+<p>Zhang, Jin-Ting. 2012. “An Approximate Hotelling T2-Test for Heteroscedastic One-Way Manova.” Open Journal of Statistics 2 (1). Scientific Research Publishing: 1–11.</p>
+<p>———. 2013. “Tests of Linear Hypotheses in the Anova Under Heteroscedasticity.” International Journal of Advanced Statistics and Probability 1 (2). Citeseer: 9–24.</p>
 </div>
   </div>
 
