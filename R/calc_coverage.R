@@ -1,13 +1,13 @@
 #' @title Calculate confidence interval coverage, width and MCSE.
 #'
 #' @description Calculates confidence interval coverage and width. The function also calculates the associated
-#' Monte Carlo Standard error.
+#' Monte Carlo Standard error. The confidence interval percentage is based on how you calculated the lower
+#' and upper bounds.
 #'
 #' @param res_dat data frame or tibble containing the simulation results.
 #' @param lower_bound name of the column containing the lower bound estimates of the confidence intervals.
 #' @param upper_bound name of the column containing the upper bound estimates of the confidence intervals.
 #' @param true_param name of the column containing the true parameters.
-#' @param alpha number indicating the nominal alpha level. Default value is set to the conventional .05.
 #' @param perfm_criteria character or character vector indicating the performance criteria to be calculated.
 #'
 #' @return A tibble containing the  performance criteria estimate(s) and the associated MCSE.
@@ -20,7 +20,7 @@
 #'
 #'
 
-calc_coverage <- function(res_dat, lower_bound, upper_bound, true_param, alpha = .05, perfm_criteria = c("coverage", "width")){
+calc_coverage <- function(res_dat, lower_bound, upper_bound, true_param, perfm_criteria = c("coverage", "width")){
 
   lower_bound <- res_dat %>% dplyr::pull({{lower_bound}})
   upper_bound <- res_dat %>% dplyr::pull({{upper_bound}})

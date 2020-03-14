@@ -9,7 +9,6 @@ calc_coverage(
   lower_bound,
   upper_bound,
   true_param,
-  alpha = 0.05,
   perfm_criteria = c("coverage", "width")
 )
 }
@@ -22,8 +21,6 @@ calc_coverage(
 
 \item{true_param}{name of the column containing the true parameters.}
 
-\item{alpha}{number indicating the nominal alpha level. Default value is set to the conventional .05.}
-
 \item{perfm_criteria}{character or character vector indicating the performance criteria to be calculated.}
 }
 \value{
@@ -31,7 +28,8 @@ A tibble containing the  performance criteria estimate(s) and the associated MCS
 }
 \description{
 Calculates confidence interval coverage and width. The function also calculates the associated
-Monte Carlo Standard error.
+Monte Carlo Standard error. The confidence interval percentage is based on how you calculated the lower
+and upper bounds.
 }
 \examples{
 calc_coverage(res_dat = t_res, lower_bound = lower_bound,
