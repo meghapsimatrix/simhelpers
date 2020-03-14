@@ -5,7 +5,7 @@ vignette: >
   %\VignetteIndexEntry{visualization}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-  %\VignetteDepends{ggplot}
+  %\VignetteDepends{ggplot2}
   %\VignetteDepends{dplyr}
   %\VignetteDepends{tidyr}
 ---
