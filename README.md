@@ -27,8 +27,8 @@ performance measures like bias, root mean squared error, rejection
 rates, and also calculates the associated Monte Carlo standard errors
 (MCSE). These functions are divided into broad four categories: absolute
 criteria, relative criteria, rejection rate, and confidence interval
-coverage. The functions are created to work with `tidyeval` practice
-using packages like `dplyr`.
+coverage. The functions are created to work with the
+[`tidyeval`](https://tidyeval.tidyverse.org/index.html) practice.
 
 In addition to the set of functions that calculates performance measures
 and MCSE, the package also includes a function, `create_skeleton()`,
