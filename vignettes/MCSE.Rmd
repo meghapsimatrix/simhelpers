@@ -76,7 +76,7 @@ The jackknife RMSE will be calculated as:
 
 $$RMSE_{(j)}  = \sqrt{(\bar{T}_{(j)} - \theta)^2 + S^2_{T(j)}}$$
 
-Here $\bar{T}_{(j)}$ and $S^2_{T(j)}$ and indicate the mean and variance of the estimates leaving replicate $j$ out. Instead of calculating each jackknife estimate, we use algebra tricks to calculate $\bar{T}_{(j)}$ and $S^2_{T(j)}$ as follows:
+Here $\bar{T}_{(j)}$ and $S^2_{T(j)}$ indicate the mean and variance of the estimates leaving replicate $j$ out. Instead of calculating each jackknife estimate, we use algebra tricks to calculate $\bar{T}_{(j)}$ and $S^2_{T(j)}$ as follows:
 
 $$\bar{T}_{(j)} = \frac{1}{K-1} \left(K \bar{T} - T_j\right)$$
 
