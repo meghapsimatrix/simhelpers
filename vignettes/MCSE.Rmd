@@ -83,7 +83,7 @@ $$\bar{T}_{(j)} = \frac{1}{K-1} \left(K \bar{T} - T_j\right)$$
 
 $$S_{T(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]$$
 
-Then, the MCSE of $RMSE_{(j)}$ will be calculated as:
+Then, the jacknife MCSE of RMSE will be calculated as:
 
 $$MCSE_{RMSE(JK)}  = \sqrt{\frac{1}{K}\sum_{j=1}^K  \left(RMSE_{(j)} - RMSE\right)^2}$$
 
