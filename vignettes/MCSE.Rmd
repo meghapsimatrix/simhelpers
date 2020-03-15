@@ -218,7 +218,7 @@ knitr::kable(rel_dat_var, escape = FALSE, caption = "Table 3. Relative Performan
   
 ```
 
-The function `calc_relative_var()` calculates the performance criteria estimate and the jack-knife MCSE of the relative bias estimate of a variance estimator. The function requires `res_dat`, a data frame or tibble containing simulation results, `estimates`, the name of the column containing point-estimates, `var_estimates`, the name of the column containing the variance estimates, and `perfm_criteria`, the criteria to be evaluated: `perfm_criteria = c("relative bias", "relative mse", "relative rmse")`.
+The function `calc_relative_var()` calculates the relative performance criteria estimate and the jack-knife MCSE of a variance estimator. The function requires `res_dat`, a data frame or tibble containing simulation results, `estimates`, the name of the column containing point-estimates, `var_estimates`, the name of the column containing the variance estimates, and `perfm_criteria`, the criteria to be evaluated: `perfm_criteria = c("relative bias", "relative mse", "relative rmse")`.
 
 ```{r}
 welch_res %>%
@@ -265,7 +265,7 @@ welch_res %>%
   kable(digits = 5)
 ```
 
-Below we calculate the confidence interval coverage rates and widths for the estimates of the mean difference. The `calc_coverage()` function requires a data frame or tibble containing the simulation results as the first argument. The second and third arguments, `lower_bound` and `upper_bound`, take in the name of the columns that contain the lower and upper bound estimates of the confidence interval. The `true_param` argument requires the name of the column containing the true parameters. Like `calc_absolute()` and `calc_relative()`, `calc_coverage()` also has an argument, `perfm_criteria`, where the user can specify which criteria to evaluate: `perfm_criteria = c("coverage", "width")`. 
+Below we calculate the confidence interval coverage rates and widths for the estimates of the mean difference. The `calc_coverage()` function requires a data frame or tibble containing the simulation results as the first argument. The second and third arguments, `lower_bound` and `upper_bound`, take in the name of the columns that contain the lower and upper bound estimates of the confidence interval. The `true_param` argument requires the name of the column containing the true parameters. Like `calc_absolute()`, `calc_relative()` and `calc_relative_var()`, `calc_coverage()` also has an argument, `perfm_criteria`, where the user can specify which criteria to evaluate: `perfm_criteria = c("coverage", "width")`. 
 
 ```{r}
 # using group_modify()
@@ -284,7 +284,7 @@ The associated MCSE should be small compared to the performance measure. Below i
 
 "Only Bonferroni and MP strictly controlled the PFER; the observed maximum PFER was 0.050 for Bonferroni, 0.051 for Sidák, 0.061 for Holm, 0.100 for Hochberg, and 0.050 for MP (estimated SE ≤ 0.0002 for all estimates)."
 
-The PFER refers to per family error rate, the expected number of Type 1 errors out of $m$ comparisons. MP refers to MANOVA protected tests. The SE reported in the bracket refers to the MCSE. The number of replications was 1,000,000 in Frane (2015). We note that the number is quite high and generally 1,000 to 10,000 replications are enough. The resulting MCSEs in Frane (2015) therefore are way smaller compared to the values for PFER. 
+The PFER refers to per family error rate, the expected number of Type 1 errors out of $m$ comparisons. MP refers to MANOVA protected tests. The SE refers to the MCSE. The number of replications was 1,000,000 in Frane (2015). We note that the number is quite high and generally 1,000 to 10,000 replications are enough. The resulting MCSEs in Frane (2015) therefore are way smaller compared to the values for PFER. 
 
 For more information for performance criteria and MCSE, we recommend Morris, White & Crowther (2018).
 
