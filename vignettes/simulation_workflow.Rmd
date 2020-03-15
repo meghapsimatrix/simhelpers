@@ -410,7 +410,7 @@ evaluate_by_row(params, run_sim) %>%
 
 # Example from simhelpers
 
-The `create_skeleton()` from our `simhelpers` function will take in an argument specifying the name of the R file which will contain the skeleton of functions required to run a simulation study. 
+The `create_skeleton()` function from our `simhelpers` package will open an untitled .R file which will contain the skeleton of functions required to run a simulation study. 
 
 ```{r setup, eval = FALSE}
 create_skeleton()
