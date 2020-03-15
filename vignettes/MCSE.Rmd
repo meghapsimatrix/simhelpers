@@ -175,7 +175,7 @@ welch_res %>%
 
 Variances estimators are always positive. Therefore, relative performance criteria are often used to assess variance estimators. For variance estimators, we have $V$ denoting the sampling variance of of a point-estimator $T$. To assess the relative criteria for $V$, we need to divide it by the true value of the sampling variance of $T$, $\lambda = \text{Var}(T)$,  which we may not know. In such scenario, we can use the sample variance of $T$ across the replications, $S_T^2$, to estimate the true sampling variance. 
 
-The relative bias would then be estimated by $RB = \bar{V} / S_T^2$, the average of the variance estimates divided by the sample variance of the point-estimates. To estimate MCSE of the relative bias of the variance estimator, we need to account for the uncertainty in the estimation of the true sampling variance. One way to do so is to use the _jackknife_ technique. Jack-knifing involves excluding a replicate $j$ and calculating relative bias $\bar{V}_{(j)}/ S_{T(j)}^2$. The Monte Carlo standard error can then be calculated as:
+The relative bias would then be estimated by $RB = \bar{V} / S_T^2$, the average of the variance estimates divided by the sample variance of the point-estimates. To estimate MCSE of the relative bias of the variance estimator, we need to account for the uncertainty in the estimation of the true sampling variance. One way to do so is to use the jackknife technique. Jack-knifing involves excluding a replicate $j$ and calculating relative bias $\bar{V}_{(j)}/ S_{T(j)}^2$. The Monte Carlo standard error can then be calculated as:
 
 $$
 MCSE\left(RB\right) = \sqrt{\frac{1}{K} \sum_{j=1}^K \left(RB_{(j)} - RB\right)^2}
