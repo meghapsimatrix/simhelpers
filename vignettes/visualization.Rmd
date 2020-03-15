@@ -109,22 +109,21 @@ Tipton_Pusto %>%
 
 # References
 
-Becker, Betsy J. 2000. “Multivariate Meta-Analysis.” In Handbook of Applied Multi-
+Becker, B. J. (2000). “Multivariate Meta-Analysis.” In Handbook of Applied Multi-
 variate Statistics and Mathematical Modeling, 499–525. Elsevier.
 
-Cameron, A Colin, Jonah B Gelbach, and Douglas L Miller. 2008. “Bootstrap-Based Improvements for Inference with Clustered Errors.” The Review of Economics and Statistics, 47.
+Cameron, A. C., Gelbach, J. B., & Miller, D. L. (2008). Bootstrap-based improvements for inference with clustered errors. The Review of Economics and Statistics, 90(3), 414-427.
 
-Hedges, Larry V., Elizabeth Tipton, and Matthew C. Johnson. 2010. “Robust Variance Estimation in Meta-Regression with Dependent Effect Size Estimates.” Research Synthesis Methods 1 (1): 39–65. https://doi.org/10.1002/jrsm.5.
+Hedges, L. V., Tipton, E., and Johnson, M. C. (2010). “Robust Variance Estimation in Meta-Regression with Dependent Effect Size Estimates.” Research Synthesis Methods 1 (1): 39–65. https://doi.org/10.1002/jrsm.5.
 
-Olkin, I, and L Gleser. 2009. “Stochastically Dependent Effect Sizes.” The Handbook of Research Synthesis and Meta-Analysis. Russell Sage Foundation New York, NY, 357–76.
+Olkin, I., & Gleser, L. (2009). Stochastically dependent effect sizes. The handbook of research synthesis and meta-analysis, 357-376.
 
-Tipton, Elizabeth. 2015. “Small Sample Adjustments for Robust Variance Estimation with Meta-Regression.” Psychological Methods 20 (3): 375–93. https://doi.org/10. 1037/met0000011.
+Tipton, E. (2015). “Small Sample Adjustments for Robust Variance Estimation with Meta-Regression.” Psychological Methods 20 (3): 375–93. https://doi.org/10.1037/met0000011
 
-Tipton, Elizabeth, and James E. Pustejovsky. 2015. “Small-Sample Adjustments for Tests of Moderators and Model Fit Using Robust Variance Estimation in Meta- Regression.” Journal of Educational and Behavioral Statistics 40 (6): 604–34. https:
-//doi.org/10.3102/1076998615606099.
+Tipton, E., and Pustejovsky J. E. (2015). “Small-Sample Adjustments for Tests of Moderators and Model Fit Using Robust Variance Estimation in Meta-Regression.” Journal of Educational and Behavioral Statistics, 40(6), 604--634. ISSN 1076-9986, 1935-1054, doi: 10.3102/1076998615606099 , http://journals.sagepub.com/doi/10.3102/1076998615606099.
 
-Zhang, Jin-Ting. 2012. “An Approximate Hotelling T2-Test for Heteroscedastic One-Way Manova.” Open Journal of Statistics 2 (1). Scientific Research Publishing: 1–11.
+Zhang, J. T. (2012). “An Approximate Hotelling T2-Test for Heteroscedastic One-Way Manova.” Open Journal of Statistics 2 (1). Scientific Research Publishing: 1–11.
 
-———. 2013. “Tests of Linear Hypotheses in the Anova Under Heteroscedasticity.” International Journal of Advanced Statistics and Probability 1 (2). Citeseer: 9–24.
+———. (2013). “Tests of Linear Hypotheses in the Anova Under Heteroscedasticity.” International Journal of Advanced Statistics and Probability 1 (2). Citeseer: 9–24.
 
 
