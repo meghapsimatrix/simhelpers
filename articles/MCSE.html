@@ -224,7 +224,7 @@ Accuracy
 <p>Here <span class="math inline">\(\bar{T}_{(j)}\)</span> and <span class="math inline">\(S^2_{T(j)}\)</span> indicate the mean and variance of the estimates leaving replicate <span class="math inline">\(j\)</span> out. Instead of calculating each jackknife estimate, we use algebra tricks to calculate <span class="math inline">\(\bar{T}_{(j)}\)</span> and <span class="math inline">\(S^2_{T(j)}\)</span> as follows:</p>
 <p><span class="math display">\[\bar{T}_{(j)} = \frac{1}{K-1} \left(K \bar{T} - T_j\right)\]</span></p>
 <p><span class="math display">\[S_{T(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]\]</span></p>
-<p>Then, the MCSE of <span class="math inline">\(RMSE_{(j)}\)</span> will be calculated as:</p>
+<p>Then, the jacknife MCSE of RMSE will be calculated as:</p>
 <p><span class="math display">\[MCSE_{RMSE(JK)}  = \sqrt{\frac{1}{K}\sum_{j=1}^K  \left(RMSE_{(j)} - RMSE\right)^2}\]</span></p>
 <div id="example" class="section level3">
 <h3 class="hasAnchor">
