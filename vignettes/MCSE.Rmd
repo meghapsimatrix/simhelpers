@@ -265,7 +265,7 @@ welch_res %>%
   kable(digits = 5)
 ```
 
-Below we calculate the confidence interval coverage rates and widths for the estimates of the mean difference. The `calc_coverage()` function requires a data frame or tibble containing the simulation results as the first argument. The second and third arguments, `lower_bound` and `upper_bound`, take in the name of the columns that contain the lower and upper bound estimates of the confidence interval. The `true_param` argument requires the name of the column containing the true parameters. Like `calc_absolute()`, `calc_relative()` and `calc_relative_var()`, `calc_coverage()` also has an argument, `perfm_criteria`, where the user can specify which criteria to evaluate: `perfm_criteria = c("coverage", "width")`. 
+Below we calculate the confidence interval coverage rates and widths for the estimates of the mean difference. The `calc_coverage()` function requires a data frame or tibble containing the simulation results as the first argument. The second and third arguments, `lower_bound` and `upper_bound`, take in the name of the columns that contain the lower and upper bound estimates of the confidence intervals. The `true_param` argument requires the name of the column containing the true parameters. Like `calc_absolute()`, `calc_relative()` and `calc_relative_var()`, `calc_coverage()` also has an argument, `perfm_criteria`, where the user can specify which criteria to evaluate: `perfm_criteria = c("coverage", "width")`. 
 
 ```{r}
 # using group_modify()
