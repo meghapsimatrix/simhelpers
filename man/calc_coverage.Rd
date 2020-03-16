@@ -28,7 +28,7 @@ A tibble containing the  performance criteria estimate(s) and the associated MCS
 }
 \description{
 Calculates confidence interval coverage and width. The function also calculates the associated
-Monte Carlo Standard error. The confidence interval percentage is based on how you calculated the lower
+Monte Carlo standard errors. The confidence interval percentage is based on how you calculated the lower
 and upper bounds.
 }
 \examples{

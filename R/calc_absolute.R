@@ -2,7 +2,7 @@
 #'
 #' @description Calculates absolute bias, variance, mean squared error (mse)
 #' and root mean squared error (rmse). The function also calculates the associated
-#' Monte Carlo Standard errors.
+#' Monte Carlo standard errors.
 #'
 #' @param res_dat data frame or tibble containing the simulation results.
 #' @param estimates name of the column containing the estimates.

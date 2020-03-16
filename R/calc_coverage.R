@@ -1,7 +1,7 @@
 #' @title Calculate confidence interval coverage, width and MCSE.
 #'
 #' @description Calculates confidence interval coverage and width. The function also calculates the associated
-#' Monte Carlo Standard error. The confidence interval percentage is based on how you calculated the lower
+#' Monte Carlo standard errors. The confidence interval percentage is based on how you calculated the lower
 #' and upper bounds.
 #'
 #' @param res_dat data frame or tibble containing the simulation results.

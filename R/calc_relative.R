@@ -2,7 +2,7 @@
 #'
 #' @description Calculates relative bias, mean squared error (relative mse), and root mean squared error (relative rmse).
 #' The function also calculates the associated
-#' Monte Carlo Standard errors.
+#' Monte Carlo standard errors.
 #'
 #' @param res_dat data frame or tibble containing the simulation results.
 #' @param estimates name of the column containing the estimates.

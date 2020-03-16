@@ -26,7 +26,7 @@ A tibble containing the performance criteria estimate and the associated MCSE.
 \description{
 Calculates relative bias, mean squared error (relative mse), and root mean
 squared error (relative rmse)  of variance estimators.
-The function also calculates the associated jacknife Monte Carlo Standard errors.
+The function also calculates the associated jacknife Monte Carlo standard errors.
 }
 \examples{
 calc_relative_var(res_dat = alpha_res, estimates = A, var_estimates = Var_A)

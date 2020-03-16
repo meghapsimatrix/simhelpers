@@ -18,7 +18,7 @@ A tibble containing the performance criteria estimate and the associated MCSE.
 }
 \description{
 Calculates rejection rate. The function also calculates the associated
-Monte Carlo Standard error.
+Monte Carlo standard error.
 }
 \examples{
 calc_rejection(res_dat = t_res, p_values = p_val)

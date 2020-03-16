@@ -26,7 +26,7 @@ A tibble containing the performance criteria estimate(s) and the associated MCSE
 \description{
 Calculates absolute bias, variance, mean squared error (mse)
 and root mean squared error (rmse). The function also calculates the associated
-Monte Carlo Standard errors.
+Monte Carlo standard errors.
 }
 \examples{
 calc_absolute(res_dat = t_res, estimates = est, true_param = true_param)

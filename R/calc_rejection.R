@@ -1,7 +1,7 @@
 #' @title Calculate rejection rate and MCSE.
 #'
 #' @description Calculates rejection rate. The function also calculates the associated
-#' Monte Carlo Standard error.
+#' Monte Carlo standard error.
 #'
 #' @param res_dat data frame or tibble containing the simulation results.
 #' @param p_values name of the column containing the p-values.
