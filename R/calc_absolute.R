@@ -21,30 +21,27 @@
 
 calc_absolute <- function(res_dat, estimates, true_param, perfm_criteria = c("bias", "variance", "mse", "rmse")){
 
-  estimates <- res_dat %>% dplyr::pull({{estimates}})
-  K <- nrow(res_dat)
-  true_param <- res_dat %>% dplyr::pull({{true_param}})
-  true_param <- true_param[1]
+  estimates <- res_dat %>% dplyr::pull({{estimates}}) # estimates
+  K <- nrow(res_dat) # number if iterations
+  true_param <- res_dat %>% dplyr::pull({{true_param}}) # true param
+  true_param <- true_param[1] # true param
 
   # calculate sample stats
-  t_bar <- mean(estimates)
-  bias <- t_bar - true_param
-  var_t <- var(estimates)
-  s_t <- sd(estimates)
-  k_t <- (1/(K * s_t^4)) * sum((estimates - t_bar)^4)
-  g_t <- (1/(K * s_t^3)) * sum((estimates - t_bar)^3)
+  t_bar <- mean(estimates) # mean of estimates
+  bias <- t_bar - true_param # bias
+  var_t <- var(estimates) # variance
+  s_t <- sd(estimates) # standard deviation
+  k_t <- (1/(K * s_t^4)) * sum((estimates - t_bar)^4) # kurtosis
+  g_t <- (1/(K * s_t^3)) * sum((estimates - t_bar)^3) # skewness
 
-  mse <- mean((estimates - true_param)^2)
-  mse_mcse <- sqrt((1/K) * (s_t^4 * (k_t -1) + 4 * s_t^3 * g_t * bias + 4 * var_t * bias^2))
-  rmse <- sqrt(mse)
-
+  mse <- mean((estimates - true_param)^2) # calculate mse
 
   #jacknife
-  t_bar_j <- (1/(K - 1)) * (K * t_bar - estimates)
-  bias_j_sq <- (t_bar_j - true_param)^2
-  s_sq_t_j <- (1 / (K - 2)) * ((K - 1) * var_t - (K / (K - 1)) * (estimates - t_bar)^2)
+  t_bar_j <- (1/(K - 1)) * (K * t_bar - estimates) # jacknife t bar
+  bias_j_sq <- (t_bar_j - true_param)^2 # jacknife bias
+  s_sq_t_j <- (1 / (K - 2)) * ((K - 1) * var_t - (K / (K - 1)) * (estimates - t_bar)^2) # jacknife var
 
-  rmse_j <- sqrt(bias_j_sq + s_sq_t_j)
+  rmse_j <- sqrt(bias_j_sq + s_sq_t_j) # jacknife rmse
 
 
   # initialize tibble
@@ -66,12 +63,12 @@ calc_absolute <- function(res_dat, estimates, true_param, perfm_criteria = c("bi
   if("mse" %in% perfm_criteria){
     dat <- dat %>%
       dplyr::mutate(mse = mse,
-                    mse_mcse = mse_mcse)
+                    mse_mcse = sqrt((1/K) * (s_t^4 * (k_t -1) + 4 * s_t^3 * g_t * bias + 4 * var_t * bias^2)))
   }
 
   if("rmse" %in% perfm_criteria){
     dat <- dat %>%
-      dplyr::mutate(rmse = rmse,
+      dplyr::mutate(rmse = sqrt(mse),
                     rmse_mcse = sqrt((1/(K)) * sum((rmse_j - rmse)^2)))
   }
 

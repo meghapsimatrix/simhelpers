@@ -22,24 +22,24 @@
 calc_relative_var <- function(res_dat, estimates, var_estimates, perfm_criteria = c("relative bias", "relative mse", "relative rmse")){
 
 
-  estimates <- res_dat %>% dplyr::pull({{estimates}})
-  var_est <- res_dat %>% dplyr::pull({{var_estimates}})
-  K <- nrow(res_dat)
+  estimates <- res_dat %>% dplyr::pull({{estimates}}) # point estimates
+  var_est <- res_dat %>% dplyr::pull({{var_estimates}}) # variance estimates
+  K <- nrow(res_dat) # iterations
 
 
   # calculate sample stats
   v_bar <- mean(var_est) # sample mean of variance estimator
   t_bar <- mean(estimates) # sample mean of the estimates
   var_t <- var(estimates) # sample variance of the estiates
-  var_v <- var(var_est)
+  var_v <- var(var_est) # variance of variance estimates
 
   # jacknife
-  v_bar_j <- (1 / (K - 1)) * (K * v_bar - var_est)
-  s_sq_t_j <- (1 / (K - 2)) * ((K - 1) * var_t - (K / (K - 1)) * (estimates - t_bar)^2)
-  s_sq_v_j <- (1 / (K - 2)) * ((K - 1) * var_v - (K / (K - 1)) * (var_est - v_bar)^2)
+  v_bar_j <- (1 / (K - 1)) * (K * v_bar - var_est)  # jacknife mean of var estimates
+  s_sq_t_j <- (1 / (K - 2)) * ((K - 1) * var_t - (K / (K - 1)) * (estimates - t_bar)^2) # jacknife var of point estimates
+  s_sq_v_j <- (1 / (K - 2)) * ((K - 1) * var_v - (K / (K - 1)) * (var_est - v_bar)^2) # jacknife var of var estimates
 
-  rb_var <- v_bar/ var_t
-  rel_mse_var_j <- ((v_bar_j - s_sq_t_j)^2 + s_sq_v_j)/(s_sq_t_j)^2
+  rb_var <- v_bar/ var_t # reliative bias of variance estimates
+  rel_mse_var_j <- ((v_bar_j - s_sq_t_j)^2 + s_sq_v_j)/(s_sq_t_j)^2 # jacknife relative mse of var estimates
 
   # initialize tibble
   dat <- tibble::as_tibble(data.frame(matrix(ncol = 0, nrow = 1)))

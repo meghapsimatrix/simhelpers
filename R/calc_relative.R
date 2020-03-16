@@ -20,28 +20,28 @@
 
 calc_relative <- function(res_dat, estimates, true_param, perfm_criteria = c("relative bias", "relative mse", "relative rmse")){
 
-  estimates <- res_dat %>% dplyr::pull({{estimates}})
-  K <- nrow(res_dat)
-  true_param <- res_dat %>% dplyr::pull({{true_param}})
-  true_param <- true_param[1]
+  estimates <- res_dat %>% dplyr::pull({{estimates}}) # estimates
+  K <- nrow(res_dat) # number of iterations
+  true_param <- res_dat %>% dplyr::pull({{true_param}}) # true param
+  true_param <- true_param[1] # true param
 
   #calculate sample stats
-  t_bar <- mean(estimates)
-  bias <- t_bar - true_param
-  var_t <- var(estimates)
-  s_t <- sd(estimates)
-  k_t <- (1/(K * s_t^4)) * sum((estimates - t_bar)^4)
-  g_t <- (1/(K * s_t^3)) * sum((estimates - t_bar)^3)
+  t_bar <- mean(estimates) # mean of estimates
+  bias <- t_bar - true_param # bias absolute
+  var_t <- var(estimates) # variance
+  s_t <- sd(estimates) # standard deviation
+  k_t <- (1/(K * s_t^4)) * sum((estimates - t_bar)^4) # kurtosis
+  g_t <- (1/(K * s_t^3)) * sum((estimates - t_bar)^3) # skewness
 
   # jacknife
-  t_bar_j <- (1/(K - 1)) * (K * t_bar - estimates)
-  bias_j_sq <- (t_bar_j - true_param)^2
-  s_sq_t_j <- (1 / (K - 2)) * ((K - 1) * var_t - (K / (K - 1)) * (estimates - t_bar)^2)
+  t_bar_j <- (1/(K - 1)) * (K * t_bar - estimates) # jacknife mean of est
+  bias_j_sq <- (t_bar_j - true_param)^2 # jacknife bias
+  s_sq_t_j <- (1 / (K - 2)) * ((K - 1) * var_t - (K / (K - 1)) * (estimates - t_bar)^2) # jacknife var
 
 
-  mse <- bias^2 + var_t
-  rel_mse <- mse / (true_param^2)
-  rel_mse_j <- ((t_bar_j - true_param)^2 + s_sq_t_j)/(true_param)^2
+  mse <- bias^2 + var_t # mse
+  rel_mse <- mse / (true_param^2) # relative mse
+  rel_mse_j <- ((t_bar_j - true_param)^2 + s_sq_t_j)/(true_param)^2 # jacknife relative mse
 
 
   # initialize tibble
