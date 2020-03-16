@@ -58,7 +58,7 @@ calc_relative <- function(res_dat, estimates, true_param, perfm_criteria = c("re
   if("relative mse" %in% perfm_criteria){
     dat <- dat %>%
       dplyr::mutate(rel_mse = rel_mse,
-                    rel_mse_mcse = sqrt((1 / K * true_param^2) * (s_t^4 * (k_t - 1) + 4 * s_t^3 * g_t * bias + 4 * var_t * bias^2)),
+                    rel_mse_mcse = sqrt((1 / (K * true_param^2)) * (s_t^4 * (k_t - 1) + 4 * s_t^3 * g_t * bias + 4 * var_t * bias^2)),
                     rel_mse = dplyr::if_else(true_param == 0, as.numeric(NA), rel_mse),
                     rel_mse_mcse = dplyr::if_else(true_param == 0, as.numeric(NA), rel_mse_mcse))
   }

@@ -55,4 +55,4 @@ devtools::install_github("meghapsimatrix/simhelpers")
 ## Acknowledgments
 
 We are extremely thankful for the feedback provided by [Sangdon
-Lim](https://sdlim.com/).
+Lim](https://sdlim.com/) and Man Chen.
