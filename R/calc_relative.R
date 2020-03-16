@@ -5,7 +5,7 @@
 #' Monte Carlo Standard errors.
 #'
 #' @param res_dat data frame or tibble containing the simulation results.
-#' @param estimates name of the column containing the estimates
+#' @param estimates name of the column containing the estimates.
 #' @param true_param name of the column containing the true parameters.
 #' @param perfm_criteria character or character vector indicating the performance criteria to be calculated.
 #'

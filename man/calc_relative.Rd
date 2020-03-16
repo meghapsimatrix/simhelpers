@@ -14,7 +14,7 @@ calc_relative(
 \arguments{
 \item{res_dat}{data frame or tibble containing the simulation results.}
 
-\item{estimates}{name of the column containing the estimates}
+\item{estimates}{name of the column containing the estimates.}
 
 \item{true_param}{name of the column containing the true parameters.}
 
