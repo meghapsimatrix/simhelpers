@@ -34,7 +34,7 @@ calc_coverage <- function(res_dat, lower_bound, upper_bound, true_param, perfm_c
 
   if("coverage" %in% perfm_criteria){
     dat <- dat %>%
-      dplyr::mutate(coverage = mean(lower_bound < true_param & true_param < upper_bound),
+      dplyr::mutate(coverage = mean(lower_bound <= true_param & true_param <= upper_bound),
                     coverage_mcse = sqrt((coverage * (1 - coverage)) / K))
 
   }
