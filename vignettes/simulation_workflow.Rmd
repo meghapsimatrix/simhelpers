@@ -145,7 +145,7 @@ ggplot(graph_dat, aes(x = val, fill = group)) +
 
 ## Estimation Methods
 
-Here, we run some statistical methods to estimate a test statistic, regression coefficients, p-values, or confidence intervals. The function takes in the data and any design parameters. 
+Here, we run some statistical methods to estimate test statistics, regression coefficients, p-values, or confidence intervals. The function takes in the data and any design parameters. 
 
 ```{r, eval = FALSE}
 estimate <- function(dat, design_params) {
@@ -167,7 +167,7 @@ estimate <- function(dat){
 
   # normal t-test
   dft <- n1 + n2 - 2  # degrees of freedom
-  sp_sq <- ((n1-1) * var_1 + (n2 - 1) * var_2) / dft  # pooled sum of squares
+  sp_sq <- ((n1-1) * var_1 + (n2 - 1) * var_2) / dft  # pooled var
   vdt <- sp_sq * (1 / n1 + 1 / n2) # variance of estimate
 
 
@@ -177,12 +177,12 @@ estimate <- function(dat){
   vdw <- var_1 / n1 + var_2 / n2 # variance of estimate
 
 
-  #t and pvalue
+  # t and p value
   calc_t <- function(est, vd, df, method){
 
     se <- sqrt(vd)  # standard error 
     t <- est / se # t-test 
-    p_val <-  2 * pt(-abs(t), df = df) # value
+    p_val <-  2 * pt(-abs(t), df = df) # p value
     ci <- est + c(-1, 1) * qt(.975, df = df) * se # confidence interval
 
 

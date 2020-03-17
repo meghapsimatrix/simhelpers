@@ -22,7 +22,7 @@
 calc_absolute <- function(res_dat, estimates, true_param, perfm_criteria = c("bias", "variance", "mse", "rmse")){
 
   estimates <- res_dat %>% dplyr::pull({{estimates}}) # estimates
-  K <- nrow(res_dat) # number if iterations
+  K <- nrow(res_dat) # number of iterations
   true_param <- res_dat %>% dplyr::pull({{true_param}}) # true param
   true_param <- true_param[1] # true param
 

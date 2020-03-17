@@ -30,7 +30,7 @@ calc_relative_var <- function(res_dat, estimates, var_estimates, perfm_criteria 
   # calculate sample stats
   v_bar <- mean(var_est) # sample mean of variance estimator
   t_bar <- mean(estimates) # sample mean of the estimates
-  var_t <- var(estimates) # sample variance of the estiates
+  var_t <- var(estimates) # sample variance of the estimates
   var_v <- var(var_est) # variance of variance estimates
 
   # jacknife
