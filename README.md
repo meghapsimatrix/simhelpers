@@ -17,9 +17,10 @@ Crowther, 2018). Methodologists examine questions like: (1) how does
 ordinary least squares (OLS) regression perform if errors are
 heteroskedastic? (2) how does the presence of missing data affect
 treatment effect estimates from a propensity score analysis? (3) how
-does robust variance estimation perform when sample size is small? To
-answer such questions, we conduct experiments by simulating thousands of
-datasets from pseudo-random sampling (Morris et al., 2018).
+does cluster robust variance estimation perform when the number of
+clusters is small? To answer such questions, we conduct experiments by
+simulating thousands of datasets from pseudo-random sampling (Morris et
+al., 2018).
 
 The goal of `simhelpers` is to assist in running simulation studies.
 This package provides a set of functions that calculates various

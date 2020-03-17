@@ -30,8 +30,8 @@ calc_relative <- function(res_dat, estimates, true_param, perfm_criteria = c("re
   bias <- t_bar - true_param # bias absolute
   var_t <- var(estimates) # variance
   s_t <- sd(estimates) # standard deviation
-  k_t <- (1/(K * s_t^4)) * sum((estimates - t_bar)^4) # kurtosis
   g_t <- (1/(K * s_t^3)) * sum((estimates - t_bar)^3) # skewness
+  k_t <- (1/(K * s_t^4)) * sum((estimates - t_bar)^4) # kurtosis
 
   # jacknife
   t_bar_j <- (1/(K - 1)) * (K * t_bar - estimates) # jacknife mean of est

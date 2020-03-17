@@ -31,9 +31,9 @@ estimate <- function(dat){
   var_2 <- var(dat$group_2)
 
   # normal t-test
-  df <- n1 + n2 - 2
-  sp_sq <- ((n1-1) * var_1 + (n2 - 1) * var_2) / df
-  vd <- sp_sq * (1 / n1 + 1 / n2)
+  dft <- n1 + n2 - 2
+  sp_sq <- ((n1-1) * var_1 + (n2 - 1) * var_2) / dft
+  vdt <- sp_sq * (1 / n1 + 1 / n2)
 
 
 
@@ -54,7 +54,7 @@ estimate <- function(dat){
     return(tibble(method = method, est = est, var = vd, p_val = p_val, lower_bound = ci[1], upper_bound = ci[2]))
   }
 
-  results <- bind_rows(calc_t(est = est, vd = vd, df = df, method = "t-test"),
+  results <- bind_rows(calc_t(est = est, vd = vdt, df = dft, method = "t-test"),
                    calc_t(est = est, vd = vdw, df = dfw, method = "Welch t-test"))
 
 

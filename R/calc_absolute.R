@@ -31,8 +31,8 @@ calc_absolute <- function(res_dat, estimates, true_param, perfm_criteria = c("bi
   bias <- t_bar - true_param # bias
   var_t <- var(estimates) # variance
   s_t <- sd(estimates) # standard deviation
-  k_t <- (1/(K * s_t^4)) * sum((estimates - t_bar)^4) # kurtosis
   g_t <- (1/(K * s_t^3)) * sum((estimates - t_bar)^3) # skewness
+  k_t <- (1/(K * s_t^4)) * sum((estimates - t_bar)^4) # kurtosis
 
   mse <- mean((estimates - true_param)^2) # calculate mse
 
