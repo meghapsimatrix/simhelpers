@@ -36,10 +36,11 @@ and MCSE, the package also includes a function, `create_skeleton()`,
 that generates a skeleton outline of a simulation study that can be
 applied when designing and conducting one. Another function,
 `evaluate_by_row()`, runs the simulation for each combination of
-conditions row by row and implements the `future_pmap()` function from
-the `furrr` package to run the simulation in parallel. The package also
-contains several datasets that contain results from example simulation
-studies.
+conditions row by row and implements the
+[`future_pmap()`](https://davisvaughan.github.io/furrr/reference/future_map2.html)
+function from the [`furrr`](https://davisvaughan.github.io/furrr/)
+package to run the simulation in parallel. The package also contains
+several datasets that contain results from example simulation studies.
 
 <img src="man/figures/workflow.png" />
 

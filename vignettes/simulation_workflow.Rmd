@@ -377,7 +377,7 @@ Below we use the [`future`](https://rstudio.github.io/promises/articles/futures.
 plan(multisession)
 ```
 
-Once the cluster is configured, we can just replace [`pmap()`](https://purrr.tidyverse.org/reference/map2.html) from `purrr` with [`future_pmap()`](https://davisvaughan.github.io/furrr/) to run the simulation in parallel. 
+Once the cluster is configured, we can just replace [`pmap()`](https://purrr.tidyverse.org/reference/map2.html) from `purrr` with [`future_pmap()`](https://davisvaughan.github.io/furrr/reference/future_map2.html) to run the simulation in parallel. 
 
 ```{r}
 library(future)
