@@ -8,6 +8,8 @@ Authors@R: as.person(c(
   ))
 Maintainer: Megha Joshi <megha.j456@gmail.com>
 Description: Calculates performance criteria measures and associated Monte Carlo simulation errors for simulation results. Please see the vignette for more information on the calculations. 
+URL: https://meghapsimatrix.github.io/simhelpers/index.html
+BugReports: https://github.com/meghapsimatrix/simhelpers/issues
 Depends: R (>= 2.10)
 License: GPL-3 
 Encoding: UTF-8
