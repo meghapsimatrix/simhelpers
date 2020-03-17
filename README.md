@@ -25,10 +25,11 @@ The goal of `simhelpers` is to assist in running simulation studies.
 This package provides a set of functions that calculates various
 performance measures like bias, root mean squared error, rejection
 rates, and also calculates the associated Monte Carlo standard errors
-(MCSE). These functions are divided into broad four categories: absolute
-criteria, relative criteria, rejection rate, and confidence interval
-coverage. The functions are created to work with the
-[`tidyeval`](https://tidyeval.tidyverse.org/index.html) practice.
+(MCSE). These functions are divided into three major categories of
+performance criteria: (1) absolute criteria, (2) relative criteria, and
+(3) criteria to evaluate hypothesis testing. The functions are created
+to work with the [`tidyeval`](https://tidyeval.tidyverse.org/index.html)
+practice.
 
 In addition to the set of functions that calculates performance measures
 and MCSE, the package also includes a function, `create_skeleton()`,
