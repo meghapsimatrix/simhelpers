@@ -1,4 +1,4 @@
-#' Calculate jacknife Monte Carlo SE for variance estimators.
+#' Calculate jacknife Monte Carlo SE for variance estimators
 #'
 #' @description Calculates relative bias, mean squared error (relative mse), and root mean
 #' squared error (relative rmse)  of variance estimators.

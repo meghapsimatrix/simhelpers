@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_absolute.R
 \name{calc_absolute}
 \alias{calc_absolute}
-\title{Calculate absolute performance criteria and MCSE.}
+\title{Calculate absolute performance criteria and MCSE}
 \usage{
 calc_absolute(
   res_dat,

@@ -1,4 +1,4 @@
-#' @title Calculate rejection rate and MCSE.
+#' @title Calculate rejection rate and MCSE
 #'
 #' @description Calculates rejection rate. The function also calculates the associated
 #' Monte Carlo standard error.

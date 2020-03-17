@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_relative.R
 \name{calc_relative}
 \alias{calc_relative}
-\title{Calculate relative performance criteria and MCSE.}
+\title{Calculate relative performance criteria and MCSE}
 \usage{
 calc_relative(
   res_dat,

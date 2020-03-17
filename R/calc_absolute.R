@@ -1,4 +1,4 @@
-#' @title Calculate absolute performance criteria and MCSE.
+#' @title Calculate absolute performance criteria and MCSE
 #'
 #' @description Calculates absolute bias, variance, mean squared error (mse)
 #' and root mean squared error (rmse). The function also calculates the associated

@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_coverage.R
 \name{calc_coverage}
 \alias{calc_coverage}
-\title{Calculate confidence interval coverage, width and MCSE.}
+\title{Calculate confidence interval coverage, width and MCSE}
 \usage{
 calc_coverage(
   res_dat,

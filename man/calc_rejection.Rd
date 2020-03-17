@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_rejection.R
 \name{calc_rejection}
 \alias{calc_rejection}
-\title{Calculate rejection rate and MCSE.}
+\title{Calculate rejection rate and MCSE}
 \usage{
 calc_rejection(res_dat, p_values, alpha = 0.05)
 }

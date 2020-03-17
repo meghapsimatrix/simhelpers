@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_relative_var.R
 \name{calc_relative_var}
 \alias{calc_relative_var}
-\title{Calculate jacknife Monte Carlo SE for variance estimators.}
+\title{Calculate jacknife Monte Carlo SE for variance estimators}
 \usage{
 calc_relative_var(
   res_dat,
