@@ -3,8 +3,8 @@
 \docType{data}
 \name{welch_res}
 \alias{welch_res}
-\title{Welch t-test Simulation Results}
-\format{A tibble with 24000 rows and 10 variables:
+\title{Welch t-test simulation results}
+\format{A tibble with 24,000 rows and 10 variables:
 \describe{
   \item{n}{sample size per group assuming equal sample size.}
   \item{mean_diff}{true difference in means of two groups used to generate the data.}

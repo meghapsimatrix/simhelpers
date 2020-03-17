@@ -1,9 +1,9 @@
-#' Welch t-test Simulation Results
+#' Welch t-test simulation results
 #'
 #' A dataset containing simulation results from a study comparing Welch t-test to normal t-test.
 #'
 #'
-#' @format A tibble with 24000 rows and 10 variables:
+#' @format A tibble with 24,000 rows and 10 variables:
 #' \describe{
 #'   \item{n}{sample size per group assuming equal sample size.}
 #'   \item{mean_diff}{true difference in means of two groups used to generate the data.}

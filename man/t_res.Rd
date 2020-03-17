@@ -3,8 +3,8 @@
 \docType{data}
 \name{t_res}
 \alias{t_res}
-\title{t-test Simulation Results}
-\format{A tibble with 1000 rows and 5 variables:
+\title{t-test simulation results}
+\format{A tibble with 1,000 rows and 5 variables:
 \describe{
   \item{est}{estimate of the mean difference.}
   \item{p_val}{p-value from the t-test.}
