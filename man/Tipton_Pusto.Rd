@@ -16,14 +16,14 @@
   \item{mcse}{the Monte Carlo standard error for the estimate of the Type 1 error rate.}
 
 }}
+\source{
+\insertRef{tipton_small-sample_2015}{simhelpers}
+}
 \usage{
 Tipton_Pusto
 }
 \description{
 A dataset containing simulation results comparing small sample correction
 methods for cluster robust variance estimation in meta-analysis.
-}
-\references{
-\insertRef{tipton_small-sample_2015}{simhelpers}
 }
 \keyword{datasets}
