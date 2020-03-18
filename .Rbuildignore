@@ -9,3 +9,4 @@
 ^codecov\.yml$
 auxiliary
 cran-comments.md
+.nojekyll.R
