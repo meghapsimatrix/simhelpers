@@ -167,7 +167,7 @@ estimate <- function(dat){
 
   # normal t-test
   dft <- n1 + n2 - 2  # degrees of freedom
-  sp_sq <- ((n1-1) * var_1 + (n2 - 1) * var_2) / dft  # pooled var
+  sp_sq <- ((n1 - 1) * var_1 + (n2 - 1) * var_2) / dft  # pooled var
   vdt <- sp_sq * (1 / n1 + 1 / n2) # variance of estimate
 
 
