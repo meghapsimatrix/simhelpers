@@ -33,7 +33,7 @@ Simulation studies generally follow the following workflow (Morris, White & Crow
 5. Run steps 1-3 thousands of times for each of the experimental design conditions
 6. Evaluate the overall results
 
-The following flowchart depicts the workflow. The chart is created using `grViz()` from [`DiagrammeR`](https://rich-iannone.github.io/DiagrammeR/) package.
+The flowchart below depicts the workflow. The chart is created using `grViz()` from [`DiagrammeR`](https://rich-iannone.github.io/DiagrammeR/) package.
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 library(DiagrammeR)
