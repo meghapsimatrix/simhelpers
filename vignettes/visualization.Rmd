@@ -65,8 +65,8 @@ Below we clean the dataset for visualization. We add `q = ` in front of the valu
 
 ```{r}
 Tipton_Pusto <- Tipton_Pusto %>%
-  mutate(q = paste("q = ", q),
-         num_studies = paste("m = ", num_studies))
+  mutate(q_graph = paste("q = ", q),
+         m = paste("m = ", num_studies))
 ```
 
 
@@ -79,7 +79,7 @@ Tipton_Pusto %>%
   ggplot(aes(x = test, y = rej_rate, fill = test)) + 
   geom_hline(yintercept = .05, linetype = "dashed") + 
   geom_boxplot(alpha = .5) + 
-  facet_grid(q ~ num_studies, scales = "free") + 
+  facet_grid(q_graph ~ m, scales = "free") + 
   labs(x = "Method", y = "Type 1 Error Rate", caption = "FIGURE 2. Type I error for alpha of .05 of five alternative tests. Solid lines indicate the nominal alpha level") + 
   theme_bw() +
   theme(legend.position = "none",
@@ -97,19 +97,19 @@ Second, the EDF and EDT tests have Type I error rates that cover a wide range of
 
 ## Monte Carlo Standard Error
 
-Below we calculate the maximum Monte Carlo standard error (MCSE) and maximum error rate for the combination of conditions presented in the graph above. We want to examine whether MCSE values are relatively small compared to the estimated Type 1 error rates. The maximum MCSEs are relatively low for the eigen-decomposition methods. However, the maximum MCSEs are close to the naximum estimated error rates for the Hotelling's $T^2$ based methods. 
+Below we calculate the maximum Monte Carlo standard error (MCSE) and maximum error rate for the combination of conditions presented in the graph above. We want to examine whether MCSE values are relatively small compared to the estimated Type 1 error rates. The maximum MCSEs are relatively low for the eigen-decomposition methods. However, the maximum MCSEs are close to the maximum estimated error rates for the Hotelling's $T^2$ based methods for some conditions. 
 
 ```{r}
 Tipton_Pusto %>%
   group_by(num_studies, q, test) %>%
-  summarize(max_mcse = max(mcse),
-            max_rej = max(rej_rate)) %>%
-  pivot_longer(cols = max_mcse:max_rej,
+  summarize(mcse = max(mcse),
+            rej = max(rej_rate)) %>%
+  pivot_longer(cols = mcse:rej,
                names_to = "max",
                values_to = "val") %>%
   unite(test, test, max) %>%
   pivot_wider(names_from = test, values_from = val) %>%
-  kable()
+  kable(digits = 4)
 ```
 
 
