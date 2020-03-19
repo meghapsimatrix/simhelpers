@@ -200,14 +200,14 @@ estimate <- function(dat){
 Here again, it would be good to check if the function is running as it should. Below we run the `estimate()` function on the example dataset: 
 
 ```{r}
-(res_func <- estimate(example_dat) %>%
+(est_res <- estimate(example_dat) %>%
    mutate_if(is.numeric, round, 5))
 ```
 
 We can compare the results to those from the built-in `t.test()` function:
 
 ```{r}
-(t_func_res <- bind_rows(tidy(t.test(example_dat$group_1, example_dat$group_2, var.equal = TRUE)), 
+(t_res <- bind_rows(tidy(t.test(example_dat$group_1, example_dat$group_2, var.equal = TRUE)), 
           tidy(t.test(example_dat$group_1, example_dat$group_2))) %>%
   mutate(estimate = estimate1 - estimate2, 
          method = c("t-test", "Welch t-test")) %>%
@@ -218,7 +218,7 @@ We can compare the results to those from the built-in `t.test()` function:
 The values match. 
 
 ```{r}
-all_equal(res_func, t_func_res)
+all_equal(est_res, t_res)
 ```
 
 
