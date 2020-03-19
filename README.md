@@ -11,10 +11,10 @@ status](https://travis-ci.org/meghapsimatrix/simhelpers.svg?branch=master)](http
 coverage](https://codecov.io/gh/meghapsimatrix/simhelpers/branch/master/graph/badge.svg)](https://codecov.io/gh/meghapsimatrix/simhelpers?branch=master)
 <!-- badges: end -->
 
-Simulations are experiments to study the performance of statistical
-methods under known data-generating conditions (Morris, White &
-Crowther, 2018). Methodologists examine questions like: (1) how does
-ordinary least squares (OLS) regression perform if errors are
+Simulations are experiments designed to study the performance of
+statistical methods under known data-generating conditions (Morris,
+White & Crowther, 2018). Methodologists examine questions like: (1) how
+does ordinary least squares (OLS) regression perform if errors are
 heteroskedastic? (2) how does the presence of missing data affect
 treatment effect estimates from a propensity score analysis? (3) how
 does cluster robust variance estimation perform when the number of
