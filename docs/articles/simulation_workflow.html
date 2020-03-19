@@ -107,8 +107,8 @@
 <li>Evaluate the overall results</li>
 </ol>
 <p>The following flowchart depicts the workflow. The chart is created using <code>grViz()</code> from <a href="https://rich-iannone.github.io/DiagrammeR/"><code>DiagrammeR</code></a> package.</p>
-<div id="htmlwidget-ce1a67d237be2982c57f" style="width:700px;height:432.632880098888px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ce1a67d237be2982c57f">{"x":{"diagram":"digraph flowchart {\n      # node definitions with substituted label text\n      node [fontname = Helvetica, shape = rectangle]        \n      tab1 [label = \"Experimental Design\"]\n      tab2 [label = \"Data Generating Model\"]\n      tab3 [label = \"Estimation Methods\"]\n      tab4 [label = \"Performance Summaries\"]\n      tab5 [label = \"Results\"]\n\n      # edge definitions with the node IDs\n      tab1 -> tab2 -> tab3 -> tab4 -> tab5;\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>The explanation of the workflow in this vignette follow notes from Dr. James Pustejovsky’s <a href="https://www.jepusto.com/teaching/daspir/">Data Analysis, Simulation and Programming in R course (Spring, 2019)</a>.</p>
+<div id="htmlwidget-98b3f3776099858216eb" style="width:700px;height:432.632880098888px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-98b3f3776099858216eb">{"x":{"diagram":"digraph flowchart {\n      # node definitions with substituted label text\n      node [fontname = Helvetica, shape = rectangle]        \n      tab1 [label = \"Experimental Design\"]\n      tab2 [label = \"Data Generating Model\"]\n      tab3 [label = \"Estimation Methods\"]\n      tab4 [label = \"Performance Summaries\"]\n      tab5 [label = \"Results\"]\n\n      # edge definitions with the node IDs\n      tab1 -> tab2 -> tab3 -> tab4 -> tab5;\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>The explanation of the workflow in this vignette follow notes from Dr. James Pustejovsky’s <a href="https://www.jepusto.com/teaching/daspir/">Data Analysis, Simulation and Programming in R course (Spring, 2019)</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(simhelpers)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tibble)</a>
@@ -134,8 +134,8 @@
 <p>Below is an example where we generate random normal data for two groups. The function takes in two arguments: <code>n</code>, indicating sample size per group assuming equal sample size, and <code>mean_diff</code>, indicating the mean difference.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">generate_dat &lt;-<span class="st"> </span><span class="cf">function</span>(n, mean_diff){</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">  dat &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">group_1 =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="dt">n =</span> n, <span class="dv">0</span>, <span class="dv">1</span>), <span class="co"># mean 0 and sd of 1 </span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">                <span class="dt">group_2 =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="dt">n =</span> n, mean_diff, <span class="dv">2</span>)) <span class="co"># mean set to mean_diff, sd of 2</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">  dat &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">group_1 =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="dt">n =</span> n, mean_diff, <span class="dv">1</span>), <span class="co"># mean mean_diff and sd 1 </span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">                <span class="dt">group_2 =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="dt">n =</span> n, <span class="dv">0</span>, <span class="dv">2</span>)) <span class="co"># mean 0, sd 2</span></a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb3-6" data-line-number="6">  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span>(dat)</a>
 <a class="sourceLine" id="cb3-7" data-line-number="7"></a>
@@ -153,15 +153,15 @@
 <a class="sourceLine" id="cb4-10" data-line-number="10">graph_dat <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-11" data-line-number="11"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>()</a>
 <a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; # A tibble: 6 x 2</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt;   group       val</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt;   &lt;chr&gt;     &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 1 Group 1 -0.509 </span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; 2 Group 2  3.92  </span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt; 3 Group 1 -1.53  </span></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; 4 Group 2 -0.418 </span></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; 5 Group 1  0.0216</span></a>
-<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; 6 Group 2  1.14</span></a></code></pre></div>
-<p>Below, we create a summary table. The mean of the outcome for Group 1 is close to 0 and the mean for Group 2 is close to 1. The standard deviation of the outcome for Group 1 is close to 1 and the standard deviation for Group 2 is close to 2. The table matches what we specified in the data generating model.</p>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt;   group      val</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt;   &lt;chr&gt;    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 1 Group 1  0.491</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; 2 Group 2  2.92 </span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt; 3 Group 1 -0.534</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; 4 Group 2 -1.42 </span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; 5 Group 1  1.02 </span></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; 6 Group 2  0.143</span></a></code></pre></div>
+<p>Below, we create a summary table. The mean of the outcome for Group 1 is close to 1 and the mean for Group 2 is close to 0. The standard deviation of the outcome for Group 1 is close to 1 and the standard deviation for Group 2 is close to 2. The table matches what we specified in the data generating model.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">graph_dat <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(group) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="dt">n =</span> <span class="kw"><a href="https://dplyr.tidyverse.org/reference/n.html">n</a></span>(),</a>
@@ -192,7 +192,7 @@ Group 1
 10000
 </td>
 <td style="text-align:right;">
--0.002
+0.998
 </td>
 <td style="text-align:right;">
 0.996
@@ -206,7 +206,7 @@ Group 2
 10000
 </td>
 <td style="text-align:right;">
-0.986
+-0.014
 </td>
 <td style="text-align:right;">
 2.028
@@ -272,22 +272,22 @@ Group 2
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">(res_func &lt;-<span class="st"> </span><span class="kw">estimate</span>(example_dat) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">   </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_if</a></span>(is.numeric, round, <span class="dv">5</span>))</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt; # A tibble: 2 x 5</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;   method          est p_val lower_bound upper_bound</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; 1 t-test       -0.989     0       -1.03      -0.945</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; 2 Welch t-test -0.989     0       -1.03      -0.945</span></a></code></pre></div>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;   method         est p_val lower_bound upper_bound</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; 1 t-test        1.01     0       0.967        1.06</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; 2 Welch t-test  1.01     0       0.967        1.06</span></a></code></pre></div>
 <p>We can compare the results to those from the built-in <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">(t_func_res &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/broom/man/reexports.html">tidy</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span>(example_dat<span class="op">$</span>group_<span class="dv">1</span>, example_dat<span class="op">$</span>group_<span class="dv">2</span>, <span class="dt">var.equal =</span> <span class="ot">TRUE</span>)), </a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">          <span class="kw"><a href="https://rdrr.io/pkg/broom/man/reexports.html">tidy</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span>(example_dat<span class="op">$</span>group_<span class="dv">1</span>, example_dat<span class="op">$</span>group_<span class="dv">2</span>))) <span class="op">%&gt;%</span></a>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">(t_func_res &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="kw"><a href="http://broom.tidyverse.org/reference/reexports.html">tidy</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span>(example_dat<span class="op">$</span>group_<span class="dv">1</span>, example_dat<span class="op">$</span>group_<span class="dv">2</span>, <span class="dt">var.equal =</span> <span class="ot">TRUE</span>)), </a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">          <span class="kw"><a href="http://broom.tidyverse.org/reference/reexports.html">tidy</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span>(example_dat<span class="op">$</span>group_<span class="dv">1</span>, example_dat<span class="op">$</span>group_<span class="dv">2</span>))) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb10-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">estimate =</span> estimate1 <span class="op">-</span><span class="st"> </span>estimate2, </a>
 <a class="sourceLine" id="cb10-4" data-line-number="4">         <span class="dt">method =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"t-test"</span>, <span class="st">"Welch t-test"</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb10-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(method, <span class="dt">est =</span> estimate, <span class="dt">p_val =</span> p.value, <span class="dt">lower_bound =</span> conf.low, <span class="dt">upper_bound =</span> conf.high) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb10-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_if</a></span>(is.numeric, round, <span class="dv">5</span>))</a>
 <a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; # A tibble: 2 x 5</span></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt;   method          est p_val lower_bound upper_bound</span></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt;   &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; 1 t-test       -0.989     0       -1.03      -0.945</span></a>
-<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; 2 Welch t-test -0.989     0       -1.03      -0.945</span></a></code></pre></div>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt;   method         est p_val lower_bound upper_bound</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; 1 t-test        1.01     0       0.967        1.06</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; 2 Welch t-test  1.01     0       0.967        1.06</span></a></code></pre></div>
 <p>The values match.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="https://dplyr.tidyverse.org/reference/all_equal.html">all_equal</a></span>(res_func, t_func_res)</a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
@@ -418,7 +418,7 @@ Group 2
 <a class="sourceLine" id="cb19-7" data-line-number="7"><span class="st">    </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="dt">cols =</span> res)</a>
 <a class="sourceLine" id="cb19-8" data-line-number="8">)</a>
 <a class="sourceLine" id="cb19-9" data-line-number="9"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb19-10" data-line-number="10"><span class="co">#&gt;  15.327   0.251  19.837</span></a>
+<a class="sourceLine" id="cb19-10" data-line-number="10"><span class="co">#&gt;  11.455   0.147  12.118</span></a>
 <a class="sourceLine" id="cb19-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb19-12" data-line-number="12">results <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb19-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a></code></pre></div>
@@ -556,10 +556,10 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
-0.360
+0.340
 </td>
 <td style="text-align:right;">
-0.0151789
+0.0149800
 </td>
 </tr>
 <tr>
@@ -579,10 +579,10 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
-0.356
+0.335
 </td>
 <td style="text-align:right;">
-0.0151415
+0.0149256
 </td>
 </tr>
 <tr>
@@ -602,10 +602,10 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
-0.620
+0.600
 </td>
 <td style="text-align:right;">
-0.0153493
+0.0154919
 </td>
 </tr>
 <tr>
@@ -625,10 +625,10 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
-0.620
+0.600
 </td>
 <td style="text-align:right;">
-0.0153493
+0.0154919
 </td>
 </tr>
 <tr>
@@ -648,10 +648,10 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
-0.888
+0.876
 </td>
 <td style="text-align:right;">
-0.0099728
+0.0104223
 </td>
 </tr>
 <tr>
@@ -671,10 +671,10 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
-0.885
+0.871
 </td>
 <td style="text-align:right;">
-0.0100884
+0.0106000
 </td>
 </tr>
 <tr>
@@ -694,10 +694,10 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
-0.991
+0.989
 </td>
 <td style="text-align:right;">
-0.0029865
+0.0032983
 </td>
 </tr>
 <tr>
@@ -717,10 +717,10 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
-0.991
+0.989
 </td>
 <td style="text-align:right;">
-0.0029865
+0.0032983
 </td>
 </tr>
 <tr>
@@ -836,7 +836,7 @@ Welch t-test
 <a class="sourceLine" id="cb21-10" data-line-number="10"><span class="st">    </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="dt">cols =</span> res)</a>
 <a class="sourceLine" id="cb21-11" data-line-number="11">)</a>
 <a class="sourceLine" id="cb21-12" data-line-number="12"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb21-13" data-line-number="13"><span class="co">#&gt;   0.250   0.012  14.382</span></a>
+<a class="sourceLine" id="cb21-13" data-line-number="13"><span class="co">#&gt;   0.172   0.007   7.488</span></a>
 <a class="sourceLine" id="cb21-14" data-line-number="14"></a>
 <a class="sourceLine" id="cb21-15" data-line-number="15">results <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb21-16" data-line-number="16"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a></code></pre></div>
@@ -974,10 +974,10 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
-0.360
+0.340
 </td>
 <td style="text-align:right;">
-0.0151789
+0.0149800
 </td>
 </tr>
 <tr>
@@ -997,10 +997,10 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
-0.356
+0.335
 </td>
 <td style="text-align:right;">
-0.0151415
+0.0149256
 </td>
 </tr>
 <tr>
@@ -1020,10 +1020,10 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
-0.620
+0.600
 </td>
 <td style="text-align:right;">
-0.0153493
+0.0154919
 </td>
 </tr>
 <tr>
@@ -1043,10 +1043,10 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
-0.620
+0.600
 </td>
 <td style="text-align:right;">
-0.0153493
+0.0154919
 </td>
 </tr>
 <tr>
@@ -1066,10 +1066,10 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
-0.888
+0.876
 </td>
 <td style="text-align:right;">
-0.0099728
+0.0104223
 </td>
 </tr>
 <tr>
@@ -1089,10 +1089,10 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
-0.885
+0.871
 </td>
 <td style="text-align:right;">
-0.0100884
+0.0106000
 </td>
 </tr>
 <tr>
@@ -1112,10 +1112,10 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
-0.991
+0.989
 </td>
 <td style="text-align:right;">
-0.0029865
+0.0032983
 </td>
 </tr>
 <tr>
@@ -1135,10 +1135,10 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
-0.991
+0.989
 </td>
 <td style="text-align:right;">
-0.0029865
+0.0032983
 </td>
 </tr>
 <tr>
@@ -1240,7 +1240,7 @@ Welch t-test
 <a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw"><a href="../reference/evaluate_by_row.html">evaluate_by_row</a></span>(params, run_sim) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb22-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a>
 <a class="sourceLine" id="cb22-4" data-line-number="4"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb22-5" data-line-number="5"><span class="co">#&gt;   0.235   0.011  16.021</span></a></code></pre></div>
+<a class="sourceLine" id="cb22-5" data-line-number="5"><span class="co">#&gt;   0.151   0.007   7.663</span></a></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
@@ -1375,10 +1375,10 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
-0.360
+0.340
 </td>
 <td style="text-align:right;">
-0.0151789
+0.0149800
 </td>
 </tr>
 <tr>
@@ -1398,10 +1398,10 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
-0.356
+0.335
 </td>
 <td style="text-align:right;">
-0.0151415
+0.0149256
 </td>
 </tr>
 <tr>
@@ -1421,10 +1421,10 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
-0.620
+0.600
 </td>
 <td style="text-align:right;">
-0.0153493
+0.0154919
 </td>
 </tr>
 <tr>
@@ -1444,10 +1444,10 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
-0.620
+0.600
 </td>
 <td style="text-align:right;">
-0.0153493
+0.0154919
 </td>
 </tr>
 <tr>
@@ -1467,10 +1467,10 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
-0.888
+0.876
 </td>
 <td style="text-align:right;">
-0.0099728
+0.0104223
 </td>
 </tr>
 <tr>
@@ -1490,10 +1490,10 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
-0.885
+0.871
 </td>
 <td style="text-align:right;">
-0.0100884
+0.0106000
 </td>
 </tr>
 <tr>
@@ -1513,10 +1513,10 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
-0.991
+0.989
 </td>
 <td style="text-align:right;">
-0.0029865
+0.0032983
 </td>
 </tr>
 <tr>
@@ -1536,10 +1536,10 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
-0.991
+0.989
 </td>
 <td style="text-align:right;">
-0.0029865
+0.0032983
 </td>
 </tr>
 <tr>

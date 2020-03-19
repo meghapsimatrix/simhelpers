@@ -180,7 +180,7 @@ multiprocess, multisession, and multicore plans.</p></td>
     <tr>
       <th>.options</th>
       <td><p>The <code>future</code> specific options to use with the workers. This must
-be the result from a call to <code>future_options()</code>.</p></td>
+be the result from a call to <code><a href='https://rdrr.io/pkg/furrr/man/future_options.html'>future_options()</a></code>.</p></td>
     </tr>
     <tr>
       <th>system_time</th>
@@ -200,7 +200,7 @@ be the result from a call to <code>future_options()</code>.</p></td>
 )
 
 <span class='fu'>evaluate_by_row</span>(<span class='no'>df</span>, <span class='no'>rpois</span>)</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.202   0.033   0.616 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 12 x 3</span><span>
+#&gt;   0.104   0.012   0.119 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 12 x 3</span><span>
 #&gt;        n lambda .results
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span>     3      8        4
