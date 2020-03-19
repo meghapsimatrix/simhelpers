@@ -27,7 +27,7 @@ the variable names in \code{params}. The function must return a
 multiprocess, multisession, and multicore plans.}
 
 \item{.options}{The \code{future} specific options to use with the workers. This must
-be the result from a call to \code{\link[=future_options]{future_options()}}.}
+be the result from a call to \code{\link[furrr:future_options]{future_options()}}.}
 
 \item{system_time}{logical indicating whether to print computation time.
 \code{TRUE} by default.}

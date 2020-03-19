@@ -96,8 +96,8 @@ Below is an example where we generate random normal data for two groups. The fun
 ```{r}
 generate_dat <- function(n, mean_diff){
 
-  dat <- tibble(group_1 = rnorm(n = n, 0, 1), # mean 0 and sd of 1 
-                group_2 = rnorm(n = n, mean_diff, 2)) # mean set to mean_diff, sd of 2
+  dat <- tibble(group_1 = rnorm(n = n, mean_diff, 1), # mean mean_diff and sd 1 
+                group_2 = rnorm(n = n, 0, 2)) # mean 0, sd 2
 
   return(dat)
 
@@ -121,7 +121,7 @@ graph_dat %>%
   head()
 ```
 
-Below, we create a summary table. The mean of the outcome for Group 1 is close to 0 and the mean for Group 2 is close to 1. The standard deviation of the outcome for Group 1 is close to 1 and the standard deviation for Group 2 is close to 2. The table matches what we specified in the data generating model.  
+Below, we create a summary table. The mean of the outcome for Group 1 is close to 1 and the mean for Group 2 is close to 0. The standard deviation of the outcome for Group 1 is close to 1 and the standard deviation for Group 2 is close to 2. The table matches what we specified in the data generating model.  
 
 ```{r}
 graph_dat %>%

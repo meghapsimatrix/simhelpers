@@ -4,13 +4,15 @@
 \name{alpha_res}
 \alias{alpha_res}
 \title{Cronbach's alpha simulation results}
-\format{A tibble with 1,000 rows and 3 variables:
+\format{
+A tibble with 1,000 rows and 3 variables:
 \describe{
   \item{A}{estimate of alpha.}
   \item{Var_A}{estimate of the variance of alpha.}
   \item{true_param}{true alpha used to generate the data.}
 
-}}
+}
+}
 \usage{
 alpha_res
 }

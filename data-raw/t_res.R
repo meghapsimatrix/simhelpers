@@ -10,8 +10,8 @@ set.seed(20191228)
 
 generate_dat <- function(n = 50, effect_x){
 
-  dat <- tibble(group_1 = rnorm(n, 0, 1),
-                group_2 = rnorm(n, effect_x, 1))
+  dat <- tibble(group_1 = rnorm(n, effect_x, 1),
+                group_2 = rnorm(n, 0, 1))
 
   return(dat)
 
@@ -22,7 +22,7 @@ generate_dat <- function(n = 50, effect_x){
 
 estimate_t <- function(sim_dat, effect_x){
 
-  res <- tidy(t.test(sim_dat$group_2, sim_dat$group_1)) %>%
+  res <- tidy(t.test(sim_dat$group_1, sim_dat$group_2)) %>%
     select(est = estimate, p_val = p.value, lower_bound = conf.low, upper_bound = conf.high) %>%
     mutate(true_param = effect_x)
 

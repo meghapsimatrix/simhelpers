@@ -4,7 +4,8 @@
 \name{welch_res}
 \alias{welch_res}
 \title{Welch t-test simulation results}
-\format{A tibble with 24,000 rows and 10 variables:
+\format{
+A tibble with 24,000 rows and 10 variables:
 \describe{
   \item{n}{sample size per group assuming equal sample size.}
   \item{mean_diff}{true difference in means of two groups used to generate the data.}
@@ -17,7 +18,8 @@
   \item{lower_bound}{lower bound of the confidence interval.}
   \item{upper_bound}{upper bound of the confidence interval.}
 
-}}
+}
+}
 \usage{
 welch_res
 }
