@@ -51,7 +51,7 @@ The dataset contains:
   - `test`: small sample method used. EDF and EDT are the two methods using eigen decomposition and AHA, AHB and AHZ are the three methods based on Hotelling’s $T^2$ distribution.
   - `q`: the number of parameters in the hypothesis test.
   - `rej_rate`: Type 1 error rate with the value for nominal $\alpha$ set to .05.
-  - `mcse`: The Monte Carlo standard error for the Type 1 error rate
+  - `mcse`: The Monte Carlo standard error for the Type 1 error rate.
   
 Here is a glimpse of the dataset: 
 
@@ -72,9 +72,9 @@ Tipton_Pusto <- Tipton_Pusto %>%
 
 ## Visualization 
 
-Below we graph the Type 1 error rates. The error rate is mapped onto the `y axis`, the small sample method is mapped onto the `x axis`, the method is also mapped as `color filling` so different method will have different color. We add a dashed line on the nominal $\alpha$ level of .05. We create boxplots to capture the range of Type 1 error rates for each method. We facet by number of studies, `m`, and number of parameters used in the hypothesis test, `q`.
+Below we graph the Type 1 error rates. The error rate is mapped onto the `y axis`, the small sample method is mapped onto the `x axis`, the method is also mapped as `color filling` so that different methods will have different colors. We add a dashed line on the nominal $\alpha$ level of .05. We create boxplots to capture the range of Type 1 error rates for each method. We facet by number of studies, `m`, and number of parameters used in the hypothesis test, `q`.
 
-```{r, fig.width = 7, fig.height = 5}
+```{r, fig.width = 8, fig.height = 5.5}
 Tipton_Pusto %>%
   ggplot(aes(x = test, y = rej_rate, fill = test)) + 
   geom_hline(yintercept = .05, linetype = "dashed") + 
@@ -82,7 +82,8 @@ Tipton_Pusto %>%
   facet_grid(q ~ num_studies, scales = "free") + 
   labs(x = "Method", y = "Type 1 Error Rate", caption = "FIGURE 2. Type I error for alpha of .05 of five alternative tests. Solid lines indicate the nominal alpha level") + 
   theme_bw() +
-  theme(legend.position = "none")
+  theme(legend.position = "none",
+        plot.caption=element_text(hjust = 0, size = 10))
 ```
 
 ## Interpretation of Results
@@ -96,15 +97,21 @@ Second, the EDF and EDT tests have Type I error rates that cover a wide range of
 
 ## Monte Carlo Standard Error
 
-Below we calculate the maximum Monte Carlo standard error (MCSE) for the combination of conditions presented in the graph above. We want to examine whether MCSE values are relatively small compared to the estimated Type 1 error rates. 
+Below we calculate the maximum Monte Carlo standard error (MCSE) and maximum error rate for the combination of conditions presented in the graph above. We want to examine whether MCSE values are relatively small compared to the estimated Type 1 error rates. The maximum MCSEs are relatively low for the eigen-decomposition methods. However, the maximum MCSEs are close to the naximum estimated error rates for the Hotelling's $T^2$ based methods. 
 
 ```{r}
 Tipton_Pusto %>%
   group_by(num_studies, q, test) %>%
-  summarize(max_mcse = max(mcse)) %>%
-  pivot_wider(names_from = test, values_from = max_mcse) %>%
+  summarize(max_mcse = max(mcse),
+            max_rej = max(rej_rate)) %>%
+  pivot_longer(cols = max_mcse:max_rej,
+               names_to = "max",
+               values_to = "val") %>%
+  unite(test, test, max) %>%
+  pivot_wider(names_from = test, values_from = val) %>%
   kable()
 ```
+
 
 
 # References
