@@ -251,12 +251,6 @@ calc_performance <- function(results) {
 
 ```
 
-Here we run the `calc_performance()` function on the results we obtained above:
-
-```{r}
-calc_performance(res_func)
-```
-
 
 ## Simulation Driver 
 
