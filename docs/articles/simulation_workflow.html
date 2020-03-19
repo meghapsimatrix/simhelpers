@@ -107,8 +107,8 @@
 <li>Evaluate the overall results</li>
 </ol>
 <p>The flowchart below depicts the workflow. The chart is created using <code>grViz()</code> from <a href="https://rich-iannone.github.io/DiagrammeR/"><code>DiagrammeR</code></a> package.</p>
-<div id="htmlwidget-3fc9704cb3eac37eb789" style="width:700px;height:432.632880098888px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3fc9704cb3eac37eb789">{"x":{"diagram":"digraph flowchart {\n      # node definitions with substituted label text\n      node [fontname = Helvetica, shape = rectangle]        \n      tab1 [label = \"Experimental Design\"]\n      tab2 [label = \"Data Generating Model\"]\n      tab3 [label = \"Estimation Methods\"]\n      tab4 [label = \"Performance Summaries\"]\n      tab5 [label = \"Results\"]\n\n      # edge definitions with the node IDs\n      tab1 -> tab2 -> tab3 -> tab4 -> tab5;\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>The explanation of the workflow in this vignette follow notes from Dr. James Pustejovsky’s <a href="https://www.jepusto.com/teaching/daspir/">Data Analysis, Simulation and Programming in R course (Spring, 2019)</a>.</p>
+<div id="htmlwidget-a3df07e863e79e2a67a3" style="width:700px;height:432.632880098888px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a3df07e863e79e2a67a3">{"x":{"diagram":"digraph flowchart {\n      # node definitions with substituted label text\n      node [fontname = Helvetica, shape = rectangle]        \n      tab1 [label = \"Experimental Design\"]\n      tab2 [label = \"Data Generating Model\"]\n      tab3 [label = \"Estimation Methods\"]\n      tab4 [label = \"Performance Summaries\"]\n      tab5 [label = \"Results\"]\n\n      # edge definitions with the node IDs\n      tab1 -> tab2 -> tab3 -> tab4 -> tab5;\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>The explanation of the workflow in this vignette follow notes from Dr. James Pustejovsky’s <a href="https://www.jepusto.com/teaching/daspir/">Data Analysis, Simulation and Programming in R course (Spring, 2019)</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(simhelpers)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tibble)</a>
@@ -229,7 +229,7 @@ Group 2
 <a class="sourceLine" id="cb7-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span>(results)</a>
 <a class="sourceLine" id="cb7-4" data-line-number="4">}</a></code></pre></div>
-<p>Below is an example function that runs a t-test on a simulated dataset. The function runs a normal t-test, which assumes homogeneity of variance and a Welch t-test, which does not assume that the population variances of the outcome for the two groups are equal. The function returns a tibble containing the names of the two methods, mean difference estimates, p-values, and upper and lower bounds of the confidence intervals. We could use the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function to extract everything we need but we are calculating the t-statistic using sample statistics just for fun.</p>
+<p>Below is an example function that runs t-tests on a simulated dataset. The function runs a normal t-test, which assumes homogeneity of variance and a Welch t-test, which does not assume that the population variances of the outcome for the two groups are equal. The function returns a tibble containing the names of the two methods, mean difference estimates, p-values, and upper and lower bounds of the confidence intervals. We could use the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function to extract everything we need but we are calculating the t-statistic using sample statistics just for fun.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">estimate &lt;-<span class="st"> </span><span class="cf">function</span>(dat){</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3">  <span class="co"># calculate summary stats</span></a>
@@ -243,31 +243,28 @@ Group 2
 <a class="sourceLine" id="cb8-11" data-line-number="11">  sp_sq &lt;-<span class="st"> </span>((n1 <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>var_<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(n2 <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>var_<span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>dft  <span class="co"># pooled var</span></a>
 <a class="sourceLine" id="cb8-12" data-line-number="12">  vdt &lt;-<span class="st"> </span>sp_sq <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>n1 <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>n2) <span class="co"># variance of estimate</span></a>
 <a class="sourceLine" id="cb8-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb8-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb8-16" data-line-number="16">  <span class="co"># welch t-test</span></a>
-<a class="sourceLine" id="cb8-17" data-line-number="17">  dfw &lt;-<span class="st"> </span>(var_<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>n1 <span class="op">+</span><span class="st"> </span>var_<span class="dv">2</span> <span class="op">/</span><span class="st"> </span>n2)<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>(((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(n1 <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">*</span><span class="st"> </span>(var_<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>n1)<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(n2 <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">*</span><span class="st"> </span>(var_<span class="dv">2</span> <span class="op">/</span><span class="st"> </span>n2)<span class="op">^</span><span class="dv">2</span>))  <span class="co"># degrees of freedom </span></a>
-<a class="sourceLine" id="cb8-18" data-line-number="18">  vdw &lt;-<span class="st"> </span>var_<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>n1 <span class="op">+</span><span class="st"> </span>var_<span class="dv">2</span> <span class="op">/</span><span class="st"> </span>n2 <span class="co"># variance of estimate</span></a>
-<a class="sourceLine" id="cb8-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb8-14" data-line-number="14">  <span class="co"># welch t-test</span></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15">  dfw &lt;-<span class="st"> </span>(var_<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>n1 <span class="op">+</span><span class="st"> </span>var_<span class="dv">2</span> <span class="op">/</span><span class="st"> </span>n2)<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>(((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(n1 <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">*</span><span class="st"> </span>(var_<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>n1)<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(n2 <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">*</span><span class="st"> </span>(var_<span class="dv">2</span> <span class="op">/</span><span class="st"> </span>n2)<span class="op">^</span><span class="dv">2</span>))  <span class="co"># degrees of freedom </span></a>
+<a class="sourceLine" id="cb8-16" data-line-number="16">  vdw &lt;-<span class="st"> </span>var_<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>n1 <span class="op">+</span><span class="st"> </span>var_<span class="dv">2</span> <span class="op">/</span><span class="st"> </span>n2 <span class="co"># variance of estimate</span></a>
+<a class="sourceLine" id="cb8-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb8-18" data-line-number="18">  <span class="co"># t and p value</span></a>
+<a class="sourceLine" id="cb8-19" data-line-number="19">  calc_t &lt;-<span class="st"> </span><span class="cf">function</span>(est, vd, df, method){</a>
 <a class="sourceLine" id="cb8-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb8-21" data-line-number="21">  <span class="co"># t and p value</span></a>
-<a class="sourceLine" id="cb8-22" data-line-number="22">  calc_t &lt;-<span class="st"> </span><span class="cf">function</span>(est, vd, df, method){</a>
-<a class="sourceLine" id="cb8-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb8-24" data-line-number="24">    se &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(vd)  <span class="co"># standard error </span></a>
-<a class="sourceLine" id="cb8-25" data-line-number="25">    t &lt;-<span class="st"> </span>est <span class="op">/</span><span class="st"> </span>se <span class="co"># t-test </span></a>
-<a class="sourceLine" id="cb8-26" data-line-number="26">    p_val &lt;-<span class="st">  </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/TDist.html">pt</a></span>(<span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(t), <span class="dt">df =</span> df) <span class="co"># p value</span></a>
-<a class="sourceLine" id="cb8-27" data-line-number="27">    ci &lt;-<span class="st"> </span>est <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span>(.<span class="dv">975</span>, <span class="dt">df =</span> df) <span class="op">*</span><span class="st"> </span>se <span class="co"># confidence interval</span></a>
+<a class="sourceLine" id="cb8-21" data-line-number="21">    se &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(vd)  <span class="co"># standard error </span></a>
+<a class="sourceLine" id="cb8-22" data-line-number="22">    t &lt;-<span class="st"> </span>est <span class="op">/</span><span class="st"> </span>se <span class="co"># t-test </span></a>
+<a class="sourceLine" id="cb8-23" data-line-number="23">    p_val &lt;-<span class="st">  </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/TDist.html">pt</a></span>(<span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(t), <span class="dt">df =</span> df) <span class="co"># p value</span></a>
+<a class="sourceLine" id="cb8-24" data-line-number="24">    ci &lt;-<span class="st"> </span>est <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span>(.<span class="dv">975</span>, <span class="dt">df =</span> df) <span class="op">*</span><span class="st"> </span>se <span class="co"># confidence interval</span></a>
+<a class="sourceLine" id="cb8-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb8-26" data-line-number="26">    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">method =</span> method, <span class="dt">est =</span> est, <span class="dt">p_val =</span> p_val, <span class="dt">lower_bound =</span> ci[<span class="dv">1</span>], <span class="dt">upper_bound =</span> ci[<span class="dv">2</span>]))</a>
+<a class="sourceLine" id="cb8-27" data-line-number="27">  }</a>
 <a class="sourceLine" id="cb8-28" data-line-number="28"></a>
-<a class="sourceLine" id="cb8-29" data-line-number="29">    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">method =</span> method, <span class="dt">est =</span> est, <span class="dt">p_val =</span> p_val, <span class="dt">lower_bound =</span> ci[<span class="dv">1</span>], <span class="dt">upper_bound =</span> ci[<span class="dv">2</span>]))</a>
-<a class="sourceLine" id="cb8-30" data-line-number="30">  }</a>
+<a class="sourceLine" id="cb8-29" data-line-number="29">  results &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="kw">calc_t</span>(<span class="dt">est =</span> est, <span class="dt">vd =</span> vdt, <span class="dt">df =</span> dft, <span class="dt">method =</span> <span class="st">"t-test"</span>),</a>
+<a class="sourceLine" id="cb8-30" data-line-number="30">                   <span class="kw">calc_t</span>(<span class="dt">est =</span> est, <span class="dt">vd =</span> vdw, <span class="dt">df =</span> dfw, <span class="dt">method =</span> <span class="st">"Welch t-test"</span>))</a>
 <a class="sourceLine" id="cb8-31" data-line-number="31"></a>
-<a class="sourceLine" id="cb8-32" data-line-number="32">  results &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="kw">calc_t</span>(<span class="dt">est =</span> est, <span class="dt">vd =</span> vdt, <span class="dt">df =</span> dft, <span class="dt">method =</span> <span class="st">"t-test"</span>),</a>
-<a class="sourceLine" id="cb8-33" data-line-number="33">                   <span class="kw">calc_t</span>(<span class="dt">est =</span> est, <span class="dt">vd =</span> vdw, <span class="dt">df =</span> dfw, <span class="dt">method =</span> <span class="st">"Welch t-test"</span>))</a>
+<a class="sourceLine" id="cb8-32" data-line-number="32"></a>
+<a class="sourceLine" id="cb8-33" data-line-number="33">  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span>(results)</a>
 <a class="sourceLine" id="cb8-34" data-line-number="34"></a>
-<a class="sourceLine" id="cb8-35" data-line-number="35"></a>
-<a class="sourceLine" id="cb8-36" data-line-number="36">  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span>(results)</a>
-<a class="sourceLine" id="cb8-37" data-line-number="37"></a>
-<a class="sourceLine" id="cb8-38" data-line-number="38">}</a></code></pre></div>
+<a class="sourceLine" id="cb8-35" data-line-number="35">}</a></code></pre></div>
 <p>Here again, it would be good to check if the function is running as it should. Below we run the <code>estimate()</code> function on the example dataset:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">(res_func &lt;-<span class="st"> </span><span class="kw">estimate</span>(example_dat) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">   </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_if</a></span>(is.numeric, round, <span class="dv">5</span>))</a>
@@ -410,7 +407,7 @@ Group 2
 <a class="sourceLine" id="cb18-7" data-line-number="7"><span class="st">    </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="dt">cols =</span> res)</a>
 <a class="sourceLine" id="cb18-8" data-line-number="8">)</a>
 <a class="sourceLine" id="cb18-9" data-line-number="9"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="co">#&gt;  15.677   0.242  22.964</span></a>
+<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="co">#&gt;   9.488   0.052   9.583</span></a>
 <a class="sourceLine" id="cb18-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb18-12" data-line-number="12">results <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb18-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a></code></pre></div>
@@ -828,7 +825,7 @@ Welch t-test
 <a class="sourceLine" id="cb20-10" data-line-number="10"><span class="st">    </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="dt">cols =</span> res)</a>
 <a class="sourceLine" id="cb20-11" data-line-number="11">)</a>
 <a class="sourceLine" id="cb20-12" data-line-number="12"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb20-13" data-line-number="13"><span class="co">#&gt;   0.276   0.013  12.858</span></a>
+<a class="sourceLine" id="cb20-13" data-line-number="13"><span class="co">#&gt;   0.167   0.007   6.975</span></a>
 <a class="sourceLine" id="cb20-14" data-line-number="14"></a>
 <a class="sourceLine" id="cb20-15" data-line-number="15">results <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb20-16" data-line-number="16"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a></code></pre></div>
@@ -1227,12 +1224,12 @@ Welch t-test
 </tr>
 </tbody>
 </table>
-<p>In the <code>simhelpers</code> package, we have a function <code><a href="../reference/evaluate_by_row.html">evaluate_by_row()</a></code> that implements the <code>furrr</code> workflow:</p>
+<p>In the <code>simhelpers</code> package, we have a function, <code><a href="../reference/evaluate_by_row.html">evaluate_by_row()</a></code>, that implements the <code>furrr</code> workflow:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(multisession)</a>
 <a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw"><a href="../reference/evaluate_by_row.html">evaluate_by_row</a></span>(params, run_sim) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb21-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a>
 <a class="sourceLine" id="cb21-4" data-line-number="4"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb21-5" data-line-number="5"><span class="co">#&gt;   0.239   0.012  12.807</span></a></code></pre></div>
+<a class="sourceLine" id="cb21-5" data-line-number="5"><span class="co">#&gt;   0.147   0.006   6.760</span></a></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
