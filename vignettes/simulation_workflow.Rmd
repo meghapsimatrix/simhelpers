@@ -154,7 +154,7 @@ estimate <- function(dat, design_params) {
 }
 ```
 
-Below is an example function that runs a t-test on a simulated dataset. The function runs a normal t-test, which assumes homogeneity of variance and a Welch t-test, which does not assume that the population variances of the outcome for the two groups are equal. The function returns a tibble containing the names of the two methods, mean difference estimates, p-values, and upper and lower bounds of the confidence intervals. We could use the `t.test()` function to extract everything we need but we are calculating the t-statistic using sample statistics just for fun.
+Below is an example function that runs t-tests on a simulated dataset. The function runs a normal t-test, which assumes homogeneity of variance and a Welch t-test, which does not assume that the population variances of the outcome for the two groups are equal. The function returns a tibble containing the names of the two methods, mean difference estimates, p-values, and upper and lower bounds of the confidence intervals. We could use the `t.test()` function to extract everything we need but we are calculating the t-statistic using sample statistics just for fun.
 
 ```{r}
 estimate <- function(dat){
@@ -170,12 +170,9 @@ estimate <- function(dat){
   sp_sq <- ((n1 - 1) * var_1 + (n2 - 1) * var_2) / dft  # pooled var
   vdt <- sp_sq * (1 / n1 + 1 / n2) # variance of estimate
 
-
-
   # welch t-test
   dfw <- (var_1 / n1 + var_2 / n2)^2 / (((1 / (n1 - 1)) * (var_1 / n1)^2) + ((1 / (n2 - 1)) * (var_2 / n2)^2))  # degrees of freedom 
   vdw <- var_1 / n1 + var_2 / n2 # variance of estimate
-
 
   # t and p value
   calc_t <- function(est, vd, df, method){
@@ -392,7 +389,7 @@ results %>%
 ```
 
 
-In the `simhelpers` package, we have a function `evaluate_by_row()` that implements the `furrr` workflow: 
+In the `simhelpers` package, we have a function, `evaluate_by_row()`, that implements the `furrr` workflow: 
 
 ```{r}
 plan(multisession)
