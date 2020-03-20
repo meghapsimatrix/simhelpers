@@ -107,8 +107,8 @@
 <li>Evaluate the overall results</li>
 </ol>
 <p>The flowchart below depicts the workflow. The chart is created using <code>grViz()</code> from <a href="https://rich-iannone.github.io/DiagrammeR/"><code>DiagrammeR</code></a> package.</p>
-<div id="htmlwidget-f8167806c1422fce21fd" style="width:700px;height:432.632880098888px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f8167806c1422fce21fd">{"x":{"diagram":"digraph flowchart {\n      # node definitions with substituted label text\n      node [fontname = Helvetica, shape = rectangle]        \n      tab1 [label = \"Experimental Design\"]\n      tab2 [label = \"Data Generating Model\"]\n      tab3 [label = \"Estimation Methods\"]\n      tab4 [label = \"Performance Summaries\"]\n      tab5 [label = \"Results\"]\n\n      # edge definitions with the node IDs\n      tab1 -> tab2 -> tab3 -> tab4 -> tab5;\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>The explanation of the workflow in this vignette follow notes from Dr. James Pustejovsky’s <a href="https://www.jepusto.com/teaching/daspir/">Data Analysis, Simulation and Programming in R course (Spring, 2019)</a>.</p>
+<div id="htmlwidget-f7b36bd864540f060ee1" style="width:700px;height:432.632880098888px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f7b36bd864540f060ee1">{"x":{"diagram":"digraph flowchart {\n      # node definitions with substituted label text\n      node [fontname = Helvetica, shape = rectangle]        \n      tab1 [label = \"Experimental Design\"]\n      tab2 [label = \"Data Generating Model\"]\n      tab3 [label = \"Estimation Methods\"]\n      tab4 [label = \"Performance Summaries\"]\n      tab5 [label = \"Results\"]\n\n      # edge definitions with the node IDs\n      tab1 -> tab2 -> tab3 -> tab4 -> tab5;\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p>The explanation of the workflow in this vignette follow notes from Dr. James Pustejovsky’s <a href="https://www.jepusto.com/teaching/daspir/">Data Analysis, Simulation and Programming in R course (Spring, 2019)</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(simhelpers)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tibble)</a>
@@ -407,7 +407,7 @@ Group 2
 <a class="sourceLine" id="cb18-7" data-line-number="7"><span class="st">    </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="dt">cols =</span> res)</a>
 <a class="sourceLine" id="cb18-8" data-line-number="8">)</a>
 <a class="sourceLine" id="cb18-9" data-line-number="9"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="co">#&gt;   7.705   0.000   7.705</span></a>
+<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="co">#&gt;   7.785   0.000   7.785</span></a>
 <a class="sourceLine" id="cb18-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb18-12" data-line-number="12">results <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb18-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a></code></pre></div>
@@ -825,7 +825,7 @@ Welch t-test
 <a class="sourceLine" id="cb20-10" data-line-number="10"><span class="st">    </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="dt">cols =</span> res)</a>
 <a class="sourceLine" id="cb20-11" data-line-number="11">)</a>
 <a class="sourceLine" id="cb20-12" data-line-number="12"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb20-13" data-line-number="13"><span class="co">#&gt;   0.105   0.004   7.881</span></a>
+<a class="sourceLine" id="cb20-13" data-line-number="13"><span class="co">#&gt;   0.111   0.004   8.104</span></a>
 <a class="sourceLine" id="cb20-14" data-line-number="14"></a>
 <a class="sourceLine" id="cb20-15" data-line-number="15">results <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb20-16" data-line-number="16"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a></code></pre></div>
@@ -1229,7 +1229,7 @@ Welch t-test
 <a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw"><a href="../reference/evaluate_by_row.html">evaluate_by_row</a></span>(params, run_sim) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb21-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a>
 <a class="sourceLine" id="cb21-4" data-line-number="4"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb21-5" data-line-number="5"><span class="co">#&gt;   0.085   0.000   7.727</span></a></code></pre></div>
+<a class="sourceLine" id="cb21-5" data-line-number="5"><span class="co">#&gt;   0.090   0.000   8.071</span></a></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
