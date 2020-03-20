@@ -178,663 +178,78 @@
 <div id="monte-carlo-standard-error" class="section level2">
 <h2 class="hasAnchor">
 <a href="#monte-carlo-standard-error" class="anchor"></a>Monte Carlo Standard Error</h2>
-<p>Below we calculate the maximum Monte Carlo standard error (MCSE) and maximum error rate for the combination of conditions presented in the graph above. We want to examine whether MCSE values are relatively small compared to the estimated Type 1 error rates. The maximum MCSEs are relatively low for the eigen-decomposition methods. However, the maximum MCSEs are close to the maximum estimated error rates for the Hotelling’s <span class="math inline">\(T^2\)</span> based methods for some conditions.</p>
+<p>Below we calculate the maximum Monte Carlo standard error (MCSE) and maximum error rate for each of the methods presented in the graph above. We want to examine whether MCSE values are relatively small compared to the estimated Type 1 error rates. Overall, the maximum MCSEs are small compared to the maximum rejection rates.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">Tipton_Pusto <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(num_studies, q, test) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(test) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="dt">mcse =</span> <span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(mcse),</a>
 <a class="sourceLine" id="cb5-4" data-line-number="4">            <span class="dt">rej =</span> <span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(rej_rate)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span>(<span class="dt">cols =</span> mcse<span class="op">:</span>rej,</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">               <span class="dt">names_to =</span> <span class="st">"max"</span>,</a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">               <span class="dt">values_to =</span> <span class="st">"val"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span>(test, test, max) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> test, <span class="dt">values_from =</span> val) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits =</span> <span class="dv">4</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits =</span> <span class="dv">5</span>)</a></code></pre></div>
 <table class="table">
 <thead><tr>
-<th style="text-align:right;">
-num_studies
-</th>
 <th style="text-align:left;">
-q
+test
 </th>
 <th style="text-align:right;">
-EDF_mcse
+mcse
 </th>
 <th style="text-align:right;">
-EDF_rej
-</th>
-<th style="text-align:right;">
-EDT_mcse
-</th>
-<th style="text-align:right;">
-EDT_rej
-</th>
-<th style="text-align:right;">
-AHA_mcse
-</th>
-<th style="text-align:right;">
-AHA_rej
-</th>
-<th style="text-align:right;">
-AHB_mcse
-</th>
-<th style="text-align:right;">
-AHB_rej
-</th>
-<th style="text-align:right;">
-AHZ_mcse
-</th>
-<th style="text-align:right;">
-AHZ_rej
+rej
 </th>
 </tr></thead>
 <tbody>
 <tr>
-<td style="text-align:right;">
-10
-</td>
 <td style="text-align:left;">
-2
+EDF
 </td>
 <td style="text-align:right;">
-0.0031
-</td>
-<td style="text-align:right;">
-0.1115
-</td>
-<td style="text-align:right;">
-0.0026
-</td>
-<td style="text-align:right;">
-0.0704
-</td>
-<td style="text-align:right;">
-0.0015
-</td>
-<td style="text-align:right;">
-0.0216
-</td>
-<td style="text-align:right;">
-0.0016
-</td>
-<td style="text-align:right;">
-0.0252
-</td>
-<td style="text-align:right;">
-0.0019
-</td>
-<td style="text-align:right;">
-0.0377
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:left;">
-3
-</td>
-<td style="text-align:right;">
-0.0036
-</td>
-<td style="text-align:right;">
-0.1537
-</td>
-<td style="text-align:right;">
-0.0030
-</td>
-<td style="text-align:right;">
-0.1014
-</td>
-<td style="text-align:right;">
-0.0001
-</td>
-<td style="text-align:right;">
-0.0002
-</td>
-<td style="text-align:right;">
-0.0001
-</td>
-<td style="text-align:right;">
-0.0001
-</td>
-<td style="text-align:right;">
-0.0011
-</td>
-<td style="text-align:right;">
-0.0124
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:left;">
-4
-</td>
-<td style="text-align:right;">
-0.0039
-</td>
-<td style="text-align:right;">
-0.1881
-</td>
-<td style="text-align:right;">
-0.0033
-</td>
-<td style="text-align:right;">
-0.1263
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0003
-</td>
-<td style="text-align:right;">
-0.0011
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:left;">
-5
-</td>
-<td style="text-align:right;">
-0.0043
+0.00427
 </td>
 <td style="text-align:right;">
 0.2396
 </td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EDT
+</td>
 <td style="text-align:right;">
-0.0038
+0.00376
 </td>
 <td style="text-align:right;">
 0.1699
 </td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
 </tr>
 <tr>
-<td style="text-align:right;">
-20
-</td>
 <td style="text-align:left;">
-2
+AHA
 </td>
 <td style="text-align:right;">
-0.0027
-</td>
-<td style="text-align:right;">
-0.0765
-</td>
-<td style="text-align:right;">
-0.0025
-</td>
-<td style="text-align:right;">
-0.0685
-</td>
-<td style="text-align:right;">
-0.0020
-</td>
-<td style="text-align:right;">
-0.0401
-</td>
-<td style="text-align:right;">
-0.0020
-</td>
-<td style="text-align:right;">
-0.0425
-</td>
-<td style="text-align:right;">
-0.0022
-</td>
-<td style="text-align:right;">
-0.0491
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-20
-</td>
-<td style="text-align:left;">
-3
-</td>
-<td style="text-align:right;">
-0.0027
-</td>
-<td style="text-align:right;">
-0.0822
-</td>
-<td style="text-align:right;">
-0.0027
-</td>
-<td style="text-align:right;">
-0.0810
-</td>
-<td style="text-align:right;">
-0.0011
-</td>
-<td style="text-align:right;">
-0.0117
-</td>
-<td style="text-align:right;">
-0.0011
-</td>
-<td style="text-align:right;">
-0.0112
-</td>
-<td style="text-align:right;">
-0.0020
-</td>
-<td style="text-align:right;">
-0.0434
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-20
-</td>
-<td style="text-align:left;">
-4
-</td>
-<td style="text-align:right;">
-0.0028
-</td>
-<td style="text-align:right;">
-0.0863
-</td>
-<td style="text-align:right;">
-0.0029
-</td>
-<td style="text-align:right;">
-0.0924
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0001
-</td>
-<td style="text-align:right;">
-0.0001
-</td>
-<td style="text-align:right;">
-0.0018
-</td>
-<td style="text-align:right;">
-0.0325
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-20
-</td>
-<td style="text-align:left;">
-5
-</td>
-<td style="text-align:right;">
-0.0028
-</td>
-<td style="text-align:right;">
-0.0889
-</td>
-<td style="text-align:right;">
-0.0030
-</td>
-<td style="text-align:right;">
-0.1029
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0006
-</td>
-<td style="text-align:right;">
-0.0042
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-40
-</td>
-<td style="text-align:left;">
-2
-</td>
-<td style="text-align:right;">
-0.0024
-</td>
-<td style="text-align:right;">
-0.0590
-</td>
-<td style="text-align:right;">
-0.0025
-</td>
-<td style="text-align:right;">
-0.0648
-</td>
-<td style="text-align:right;">
-0.0022
-</td>
-<td style="text-align:right;">
-0.0501
-</td>
-<td style="text-align:right;">
-0.0022
-</td>
-<td style="text-align:right;">
-0.0508
-</td>
-<td style="text-align:right;">
-0.0022
-</td>
-<td style="text-align:right;">
-0.0521
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-40
-</td>
-<td style="text-align:left;">
-3
-</td>
-<td style="text-align:right;">
-0.0025
-</td>
-<td style="text-align:right;">
-0.0682
-</td>
-<td style="text-align:right;">
-0.0026
-</td>
-<td style="text-align:right;">
-0.0748
-</td>
-<td style="text-align:right;">
-0.0018
-</td>
-<td style="text-align:right;">
-0.0321
-</td>
-<td style="text-align:right;">
-0.0018
-</td>
-<td style="text-align:right;">
-0.0323
-</td>
-<td style="text-align:right;">
-0.0022
-</td>
-<td style="text-align:right;">
-0.0498
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-40
-</td>
-<td style="text-align:left;">
-4
-</td>
-<td style="text-align:right;">
-0.0025
-</td>
-<td style="text-align:right;">
-0.0650
-</td>
-<td style="text-align:right;">
-0.0026
-</td>
-<td style="text-align:right;">
-0.0737
-</td>
-<td style="text-align:right;">
-0.0011
-</td>
-<td style="text-align:right;">
-0.0129
-</td>
-<td style="text-align:right;">
-0.0011
-</td>
-<td style="text-align:right;">
-0.0124
-</td>
-<td style="text-align:right;">
-0.0020
-</td>
-<td style="text-align:right;">
-0.0429
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-40
-</td>
-<td style="text-align:left;">
-5
-</td>
-<td style="text-align:right;">
-0.0022
-</td>
-<td style="text-align:right;">
-0.0531
-</td>
-<td style="text-align:right;">
-0.0026
-</td>
-<td style="text-align:right;">
-0.0741
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0000
-</td>
-<td style="text-align:right;">
-0.0015
-</td>
-<td style="text-align:right;">
-0.0223
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-80
-</td>
-<td style="text-align:left;">
-2
-</td>
-<td style="text-align:right;">
-0.0024
-</td>
-<td style="text-align:right;">
-0.0607
-</td>
-<td style="text-align:right;">
-0.0024
-</td>
-<td style="text-align:right;">
-0.0609
-</td>
-<td style="text-align:right;">
-0.0022
+0.00223
 </td>
 <td style="text-align:right;">
 0.0526
 </td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AHB
+</td>
 <td style="text-align:right;">
-0.0023
+0.00226
 </td>
 <td style="text-align:right;">
 0.0539
 </td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AHZ
+</td>
 <td style="text-align:right;">
-0.0023
+0.00229
 </td>
 <td style="text-align:right;">
 0.0557
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-80
-</td>
-<td style="text-align:left;">
-3
-</td>
-<td style="text-align:right;">
-0.0024
-</td>
-<td style="text-align:right;">
-0.0639
-</td>
-<td style="text-align:right;">
-0.0025
-</td>
-<td style="text-align:right;">
-0.0656
-</td>
-<td style="text-align:right;">
-0.0021
-</td>
-<td style="text-align:right;">
-0.0441
-</td>
-<td style="text-align:right;">
-0.0021
-</td>
-<td style="text-align:right;">
-0.0444
-</td>
-<td style="text-align:right;">
-0.0023
-</td>
-<td style="text-align:right;">
-0.0537
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-80
-</td>
-<td style="text-align:left;">
-4
-</td>
-<td style="text-align:right;">
-0.0025
-</td>
-<td style="text-align:right;">
-0.0667
-</td>
-<td style="text-align:right;">
-0.0025
-</td>
-<td style="text-align:right;">
-0.0691
-</td>
-<td style="text-align:right;">
-0.0018
-</td>
-<td style="text-align:right;">
-0.0333
-</td>
-<td style="text-align:right;">
-0.0018
-</td>
-<td style="text-align:right;">
-0.0336
-</td>
-<td style="text-align:right;">
-0.0022
-</td>
-<td style="text-align:right;">
-0.0520
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-80
-</td>
-<td style="text-align:left;">
-5
-</td>
-<td style="text-align:right;">
-0.0024
-</td>
-<td style="text-align:right;">
-0.0593
-</td>
-<td style="text-align:right;">
-0.0024
-</td>
-<td style="text-align:right;">
-0.0625
-</td>
-<td style="text-align:right;">
-0.0007
-</td>
-<td style="text-align:right;">
-0.0051
-</td>
-<td style="text-align:right;">
-0.0008
-</td>
-<td style="text-align:right;">
-0.0062
-</td>
-<td style="text-align:right;">
-0.0019
-</td>
-<td style="text-align:right;">
-0.0365
 </td>
 </tr>
 </tbody>
