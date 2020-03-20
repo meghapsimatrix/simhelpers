@@ -290,7 +290,7 @@ run_sim <- function(iterations, n, mean_diff, seed = NULL) {
 
 ## Experimental Design Revisit
 
-Now that we have all our functions in order, we can specify the exact factors we want to manipulate in the study. The following code chunk creates a list of design factors and uses the [`cross_df()`](https://purrr.tidyverse.org/reference/cross.html) function from [`purrr`](https://purrr.tidyverse.org/) package that creates every combination of the factor levels. We also set the number of iterations and the seed that will be used when generating data.  
+Now that we have all our functions in order, we can specify the exact factors we want to manipulate in the study. The following code chunk creates a list of design factors and uses the [`cross_df()`](https://purrr.tidyverse.org/reference/cross.html) function from [`purrr`](https://purrr.tidyverse.org/) package to create every combination of the factor levels. We also set the number of iterations and the seed that will be used when generating data.  
 
 
 ```{r, eval = FALSE}
@@ -344,7 +344,7 @@ head(params)
 
 ## Running the Simulation in Serial
 
-Here we run the simulation using `purrr` package serial workflow:
+Here we run the simulation using `purrr` package serial workflow. We use [`pmap()`](https://purrr.tidyverse.org/reference/map2.html) function from `purrr` to run the `run_sim()` function on each condition specified in `params`. 
 
 ```{r}
 system.time(
