@@ -33,10 +33,9 @@ the [`tidyeval`](https://tidyeval.tidyverse.org/index.html) practice.
 
 In addition to the set of functions that calculates performance measures
 and MCSE, the package also includes a function, `create_skeleton()`,
-that generates a skeleton outline of a simulation study that can be
-applied when designing and conducting one. Another function,
-`evaluate_by_row()`, runs the simulation for each combination of
-conditions row by row and implements the
+that generates a skeleton outline of a simulation study. Another
+function, `evaluate_by_row()`, runs the simulation for each combination
+of conditions row by row and implements the
 [`future_pmap()`](https://davisvaughan.github.io/furrr/reference/future_map2.html)
 function from the [`furrr`](https://davisvaughan.github.io/furrr/)
 package to run the simulation in parallel. The package also contains
