@@ -344,7 +344,7 @@ head(params)
 
 ## Running the Simulation in Serial
 
-Here we run the simulation using `purrr` package serial workflow. We use [`pmap()`](https://purrr.tidyverse.org/reference/map2.html) function from `purrr` to run the `run_sim()` function on each condition specified in `params`. 
+Here we run the simulation using `purrr` package serial workflow. We use the [`pmap()`](https://purrr.tidyverse.org/reference/map2.html) function from `purrr` to run the `run_sim()` function on each condition specified in `params`. 
 
 ```{r}
 system.time(
