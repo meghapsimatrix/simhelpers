@@ -10,7 +10,7 @@
 #' @param perfm_criteria character or character vector indicating the performance criteria to be calculated.
 #'
 #'
-#' @return A tibble containing the performance criteria estimate and the associated MCSE.
+#' @return A tibble containing the performance criteria estimate(s) and the associated MCSE.
 #'
 #'
 #' @export
