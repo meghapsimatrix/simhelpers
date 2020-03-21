@@ -104,7 +104,7 @@ Tipton_Pusto %>%
   group_by(test) %>%
   summarize(mcse = max(mcse),
             rej = max(rej_rate)) %>%
-  kable(digits = 5)
+  kable(digits = 4)
 ```
 
 
