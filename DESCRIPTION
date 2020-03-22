@@ -23,7 +23,6 @@ Imports:
     future,
     magrittr,
     utils,
-    DiagrammeR,
     kableExtra,
     purrr,
     tibble,

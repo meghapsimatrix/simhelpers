@@ -11,7 +11,6 @@ vignette: >
   %\VignetteDepends{kableExtra}
   %\VignetteDepends{purrr}
   %\VignetteDepends{tidyr}
-  %\VignetteDepends{DiagrammeR}
   %\VignetteDepends{broom}
 ---
 
@@ -35,29 +34,8 @@ Simulation studies generally follow the following workflow (Morris, White & Crow
 
 The flowchart below depicts the workflow. The chart is created using `grViz()` from [`DiagrammeR`](https://rich-iannone.github.io/DiagrammeR/) package.
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE}
-library(DiagrammeR)
+<img src="../man/figures/workflow.png" />
 
-grViz("digraph flowchart {
-      # node definitions with substituted label text
-      node [fontname = Helvetica, shape = rectangle]        
-      tab1 [label = '@@1']
-      tab2 [label = '@@2']
-      tab3 [label = '@@3']
-      tab4 [label = '@@4']
-      tab5 [label = '@@5']
-
-      # edge definitions with the node IDs
-      tab1 -> tab2 -> tab3 -> tab4 -> tab5;
-      }
-
-      [1]: 'Experimental Design'
-      [2]: 'Data Generating Model'
-      [3]: 'Estimation Methods'
-      [4]: 'Performance Summaries'
-      [5]: 'Results'
-      ")
-```
 
 The explanation of the workflow in this vignette follow notes from Dr. James Pustejovsky's [Data Analysis, Simulation and Programming in R course (Spring, 2019)](https://www.jepusto.com/teaching/daspir/).
 
