@@ -23,20 +23,20 @@ Imports:
     future,
     magrittr,
     utils,
-    kableExtra,
     purrr,
     tibble,
     rstudioapi,
     Rdpack,
-    tidyr,
-    ggplot2,
-    broom
+    tidyr
 Suggests:
     plyr,
     knitr,
     rmarkdown,
     pkgdown,
     covr,
-    testthat
+    testthat,
+    kableExtra,
+    ggplot2,
+    broom
 RdMacros: Rdpack
 VignetteBuilder: knitr
