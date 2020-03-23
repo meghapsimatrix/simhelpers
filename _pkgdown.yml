@@ -22,7 +22,7 @@ home:
 
 reference:
   - title: "Performance Criteria and MCSE"
-    desc: "Functions for calculating performance critieria and MCSE."
+    desc: "Functions for calculating performance critieria and MCSE"
     contents:
       - calc_absolute
       - calc_relative
@@ -30,12 +30,12 @@ reference:
       - calc_rejection
       - calc_coverage
   - title: "Simulation Workflow"
-    desc: "Functions for setting up simulation workflow."
+    desc: "Functions for setting up simulation workflow"
     contents:
       - create_skeleton
       - evaluate_by_row
   - title: "Example Datasets"
-    desc: "Example datasets from simulation studies."
+    desc: "Example datasets from simulation studies"
     contents:
       - Tipton_Pusto
       - alpha_res
