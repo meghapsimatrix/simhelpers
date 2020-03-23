@@ -39,7 +39,7 @@ calc_relative_var <- function(res_dat, estimates, var_estimates, perfm_criteria 
   s_sq_v_j <- (1 / (K - 2)) * ((K - 1) * var_v - (K / (K - 1)) * (var_est - v_bar)^2) # jacknife var of var estimates
 
   rb_var <- v_bar/ var_t # reliative bias of variance estimates
-  rel_rmse_var <- ((v_bar - var_t)^2 + var_v) /  var_t^2
+  rel_mse_var <- ((v_bar - var_t)^2 + var_v) /  var_t^2
   rel_mse_var_j <- ((v_bar_j - s_sq_t_j)^2 + s_sq_v_j)/(s_sq_t_j)^2 # jacknife relative mse of var estimates
 
   # initialize tibble
@@ -56,7 +56,7 @@ calc_relative_var <- function(res_dat, estimates, var_estimates, perfm_criteria 
 
   if("relative mse" %in% perfm_criteria){
     dat <- dat %>%
-      dplyr::mutate(rel_mse_var = rel_rmse_var,
+      dplyr::mutate(rel_mse_var = rel_mse_var,
                     rel_mse_var_mcse = sqrt((1/K) * sum((rel_mse_var_j - rel_mse_var)^2)),
                     rel_mse_var = dplyr::if_else(var_t == 0, as.numeric(NA), rel_mse_var),
                     rel_mse_var_mcse = dplyr::if_else(var_t == 0, as.numeric(NA), rel_mse_var_mcse))
@@ -64,7 +64,7 @@ calc_relative_var <- function(res_dat, estimates, var_estimates, perfm_criteria 
 
   if("relative rmse" %in% perfm_criteria){
     dat <- dat %>%
-      dplyr::mutate(rel_rmse_var = sqrt(rel_rmse_var),
+      dplyr::mutate(rel_rmse_var = sqrt(rel_mse_var),
                     rel_rmse_var_mcse = sqrt((1/K) * sum((sqrt(rel_mse_var_j) - rel_rmse_var)^2)),
                     rel_rmse_var = dplyr::if_else(var_t == 0, as.numeric(NA), rel_rmse_var),
                     rel_rmse_var_mcse = dplyr::if_else(var_t == 0, as.numeric(NA), rel_rmse_var_mcse))
