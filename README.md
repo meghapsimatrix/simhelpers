@@ -76,9 +76,9 @@ useful as we would want to run performance summaries on combinations of
 design parameters. For parallel computing, we use the
 [`furrr`](https://davisvaughan.github.io/furrr/) and
 [`future`](https://rstudio.github.io/promises/articles/futures.html)
-packages. Moreover, compared to the `rsimsum` and `SimDesign` packages,
-`simhelpers` provides jacknife MCSE for variance estimators. It also
-provides jacknife MCSE estimates for root mean squared error.
+packages. Moreover, in contrast to the `rsimsum` and `SimDesign`
+packages, `simhelpers` provides jacknife MCSE for variance estimators.
+It also provides jacknife MCSE estimates for root mean squared error.
 
 The [`DeclareDesign`](https://declaredesign.org/) package allows users
 to declare and diagnose research designs, fabricate mock data, and
