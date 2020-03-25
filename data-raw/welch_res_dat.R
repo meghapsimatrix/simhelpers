@@ -9,11 +9,15 @@ library(broom)
 
 generate_dat <- function(n1, n2, mean_diff){
 
-  dat <- tibble(y = c(rnorm(n = n1, mean_diff, 1), rnorm(n = n2, 0, 2)),
-                group = c(rep("Group 1", n1), rep("Group 2", n2)))
+  dat <- tibble(
+    y = c(rnorm(n = n1, mean_diff, 1), # mean diff as mean, sd 1
+          rnorm(n = n2, 0, 2)), # mean 0, sd 2
+    group = c(rep("Group 1", n1), rep("Group 2", n2))
+  )
 
   return(dat)
 
+}
 }
 
 
@@ -22,53 +26,45 @@ generate_dat <- function(n1, n2, mean_diff){
 
 # function to calculate t-test, extracts estimate of the mean difference, p val and ci
 
+# t and p value
+calc_t <- function(est, vd, df, method){
+
+  se <- sqrt(vd)  # standard error
+  t <- est / se # t-test
+  p_val <-  2 * pt(-abs(t), df = df) # p value
+  ci <- est + c(-1, 1) * qt(.975, df = df) * se # confidence interval
+
+  return(tibble(method = method, est = est, var = vd, p_val = p_val, lower_bound = ci[1], upper_bound = ci[2]))
+}
+
+
 estimate <- function(dat, n1, n2){
 
-  means <- dat %>%
-    split(.$group)  %>%
-    map_dbl(~mean(.$y))
-
-  vars <- dat %>%
-    split(.$group)  %>%
-    map_dbl(~var(.$y))
+  # calculate summary stats
+  means <- tapply(dat$y, dat$group, mean)
+  vars <- tapply(dat$y, dat$group, var)
 
   # calculate summary stats
-  est <- means[1] - means[2]
-  var_1 <- vars[1]
-  var_2 <- vars[2]
+  est <- means[1] - means[2] # mean diff
+  var_1 <- vars[1] # var for group 1
+  var_2 <- vars[2] # var for group 2
 
-  # normal t-test
-  dft <- n1 + n2 - 2
-  sp_sq <- ((n1-1) * var_1 + (n2 - 1) * var_2) / dft
-  vdt <- sp_sq * (1 / n1 + 1 / n2)
-
-
+  # conventional t-test
+  dft <- n1 + n2 - 2  # degrees of freedom
+  sp_sq <- ((n1 - 1) * var_1 + (n2 - 1) * var_2) / dft  # pooled var
+  vdt <- sp_sq * (1 / n1 + 1 / n2) # variance of estimate
 
   # welch t-test
-  dfw <- (var_1 / n1 + var_2 / n2)^2 / (((1 / (n1 - 1)) * (var_1 / n1)^2) + ((1 / (n2 - 1)) * (var_2 / n2)^2))
-  vdw <- var_1 / n1 + var_2 / n2
-
-
-  #t and pvalue
-  calc_t <- function(est, vd, df, method){
-
-    se <- sqrt(vd)
-    t <- est / se
-    p_val <-  2 * pt(-abs(t), df = df)
-    ci <- est + c(-1, 1) * qt(.975, df = df) * se
-
-
-    return(tibble(method = method, est = est, var = vd, p_val = p_val, lower_bound = ci[1], upper_bound = ci[2]))
-  }
+  dfw <- (var_1 / n1 + var_2 / n2)^2 / (((1 / (n1 - 1)) * (var_1 / n1)^2) + ((1 / (n2 - 1)) * (var_2 / n2)^2))  # degrees of freedom
+  vdw <- var_1 / n1 + var_2 / n2 # variance of estimate
 
   results <- bind_rows(calc_t(est = est, vd = vdt, df = dft, method = "t-test"),
-                   calc_t(est = est, vd = vdw, df = dfw, method = "Welch t-test"))
+                       calc_t(est = est, vd = vdw, df = dfw, method = "Welch t-test"))
 
 
   return(results)
 
 }
-
 
 # Simulation Driver -------------------------------------------------------
 
