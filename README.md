@@ -14,7 +14,7 @@ coverage](https://codecov.io/gh/meghapsimatrix/simhelpers/branch/master/graph/ba
 Monte Carlo Simulations are computer experiments designed to study the
 performance of statistical methods under known data-generating
 conditions (Morris, White & Crowther, 2018). Methodologists use
-simualtions to examine questions such as: (1) how does ordinary least
+simulations to examine questions such as: (1) how does ordinary least
 squares regression perform if errors are heteroskedastic? (2) how does
 the presence of missing data affect treatment effect estimates from a
 propensity score analysis? (3) how does cluster robust variance
@@ -62,7 +62,7 @@ devtools::install_github("meghapsimatrix/simhelpers")
 ## Related Work
 
 Our explanation of MCSE formulas and our general simulation workflow is
-closely aligned with the approach described by Morris et al. (2018). We
+closely aligned with the approach described by Morris et al. (2018). We
 want to recognize several other R packages that offer functionality for
 conducting Monte Carlo simulation studies. In particular, the
 [`rsimsum`](https://cran.r-project.org/web/packages/rsimsum/index.html)
@@ -120,21 +120,21 @@ simulation studies. Journal of Open Source Software, 3(26), 739,
 <https://doi.org/10.21105/joss.00739> CRAN:
 <https://cran.r-project.org/web/packages/rsimsum/index.html>
 
-Graeme B., Jasper C., Alexander C., and Macartan H. (2019). Declaring
-and Diagnosing Research Designs. American Poliitcal Science Review
-113(3): 838-859. URL <http://declaredesign.org/paper.pdf> CRAN:
+Graeme B., Jasper C., Alexander C., & Macartan H. (2019). Declaring and
+Diagnosing Research Designs. American Poliitcal Science Review 113(3):
+838-859. URL <http://declaredesign.org/paper.pdf> CRAN:
 <https://cran.r-project.org/web/packages/DeclareDesign/index.html>
 
 Morris, T. P., White, I. R., & Crowther, M. J. (2019). Using simulation
 studies to evaluate statistical methods. Statistics in medicine, 38(11),
 2074-2102. <http://doi.org/10.1002/sim.8086>
 
-Vaughan D., & Dancho, M. (2018). furrr: Apply Mapping Functions in
+Vaughan, D., & Dancho, M. (2018). furrr: Apply Mapping Functions in
 Parallel using Futures. R package version 0.1.0.
 <https://CRAN.R-project.org/package=furrr>
 
-Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source
-Software, 4(43), 1686, <https://doi.org/10.21105/joss.01686>
+Wickham, H., et al., (2019). Welcome to the tidyverse. Journal of Open
+Source Software, 4(43), 1686, <https://doi.org/10.21105/joss.01686>
 
 ## Acknowledgments
 

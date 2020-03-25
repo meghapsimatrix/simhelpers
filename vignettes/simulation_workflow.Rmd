@@ -399,9 +399,9 @@ Iannone, R. (2020). DiagrammeR: Graph/Network Visualization. R package
 
 Morris, T. P., White, I. R., & Crowther, M. J. (2019). Using simulation studies to evaluate statistical methods. Statistics in medicine, 38(11), 2074-2102.
 
-Vaughan D., & Dancho, M. (2018). furrr: Apply Mapping Functions in
+Vaughan, D., & Dancho, M. (2018). furrr: Apply Mapping Functions in
   Parallel using Futures. R package version 0.1.0.
   https://CRAN.R-project.org/package=furrr
 
-Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source
+Wickham H., et al., (2019). Welcome to the tidyverse. Journal of Open Source
   Software, 4(43), 1686, https://doi.org/10.21105/joss.01686

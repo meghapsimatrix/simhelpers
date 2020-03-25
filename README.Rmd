@@ -57,14 +57,14 @@ Chalmers, P. (2019). SimDesign: Structure for Organizing Monte Carlo Simulation 
 Gasparini, A. (2018). rsimsum: Summarise results from Monte Carlo simulation studies. Journal of Open Source Software, 3(26), 739, https://doi.org/10.21105/joss.00739
 CRAN: https://cran.r-project.org/web/packages/rsimsum/index.html
 
-Graeme B., Jasper C., Alexander C., and Macartan H. (2019). Declaring and Diagnosing Research Designs. American Poliitcal Science Review 113(3): 838-859. URL http://declaredesign.org/paper.pdf
+Graeme B., Jasper C., Alexander C., & Macartan H. (2019). Declaring and Diagnosing Research Designs. American Poliitcal Science Review 113(3): 838-859. URL http://declaredesign.org/paper.pdf
 CRAN: https://cran.r-project.org/web/packages/DeclareDesign/index.html
 
 Morris, T. P., White, I. R., & Crowther, M. J. (2019). Using simulation studies to evaluate statistical methods. Statistics in medicine, 38(11), 2074-2102. http://doi.org/10.1002/sim.8086
 
-Vaughan D., & Dancho, M. (2018). furrr: Apply Mapping Functions in Parallel using Futures. R package version 0.1.0. https://CRAN.R-project.org/package=furrr
+Vaughan, D., & Dancho, M. (2018). furrr: Apply Mapping Functions in Parallel using Futures. R package version 0.1.0. https://CRAN.R-project.org/package=furrr
 
-Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source Software, 4(43), 1686, https://doi.org/10.21105/joss.01686
+Wickham, H., et al., (2019). Welcome to the tidyverse. Journal of Open Source Software, 4(43), 1686, https://doi.org/10.21105/joss.01686
 
 ## Acknowledgments 
 
