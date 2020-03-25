@@ -228,7 +228,7 @@ Group 2
 <div id="estimation-methods" class="section level2">
 <h2 class="hasAnchor">
 <a href="#estimation-methods" class="anchor"></a>Estimation Methods</h2>
-<p>In this step, we run some statistical methods to calculate test statistics, regression coefficients, p-values, or confidence intervals. The function takes in the data and any design parameters.</p>
+<p>In this step, we run some statistical methods to calculate test statistics, regression coefficients, p-values, or confidence intervals. The function takes in the data and any design parameters, such as options for how estimation should be carried out (e.g., use HC0 standard errors or HC2 standard errors).</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">estimate</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">dat</span>, <span class="no">design_params</span>) {
 
   <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">results</span>)
@@ -425,7 +425,7 @@ Group 2
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="kw">cols</span> <span class="kw">=</span> <span class="no">res</span>)
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   9.833   0.000   9.833</span>
+<span class="co">#&gt;   9.640   0.000   9.646</span>
 
 <span class="no">results</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</pre></body></html></div>
@@ -894,7 +894,7 @@ Welch t-test
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="kw">cols</span> <span class="kw">=</span> <span class="no">res</span>)
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.106   0.008   9.441</span>
+<span class="co">#&gt;   0.109   0.004   9.377</span>
 
 <span class="no">results</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</pre></body></html></div>
@@ -1349,7 +1349,7 @@ Welch t-test
 <span class="fu"><a href="../reference/evaluate_by_row.html">evaluate_by_row</a></span>(<span class="no">params</span>, <span class="no">run_sim</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.096   0.000   9.346</span></pre></body></html></div>
+<span class="co">#&gt;   0.096   0.001   9.361</span></pre></body></html></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
