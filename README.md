@@ -33,8 +33,9 @@ into three major categories of performance criteria: absolute criteria,
 relative criteria, and criteria to evaluate hypothesis testing. The
 functions use the
 [`tidyeval`](https://tidyeval.tidyverse.org/index.html) principles, so
-that they play well with `dplyr` and fit easily into a `%>%`-centric
-workflow.
+that they play well with
+[`dplyr`](https://dplyr.tidyverse.org/index.html) and fit easily into a
+`%>%`-centric workflow.
 
 In addition to the set of functions that calculates performance measures
 and MCSE, the package also includes a function, `create_skeleton()`,
