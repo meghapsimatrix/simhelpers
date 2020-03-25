@@ -293,7 +293,7 @@ nrow(params)
 head(params)
 ```
 
-The code below specifies two design factors: `n1`, which specifies the sample size for Group 1, `n2`, which specifies the sample size for Group 2, and `mean_diff`, which denotes the mean difference between two groups on an outcome. These are the between simulation factors. The within-simulation factor is the t-test method with one assuming equal variance and one not assuming equal variance. 
+The code below specifies three design factors: `n1`, which specifies the sample size for Group 1, `n2`, which specifies the sample size for Group 2, and `mean_diff`, which denotes the mean difference between two groups on an outcome. These are the between simulation factors. The within-simulation factor is the t-test method with one assuming equal variance and one not assuming equal variance. 
 
 ```{r}
 set.seed(20200110)

@@ -99,14 +99,14 @@
 <div id="introduction-to-tipton-and-pustejovsky-2015" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction-to-tipton-and-pustejovsky-2015" class="anchor"></a>Introduction to Tipton and Pustejovsky (2015)</h2>
-<p>In this vignette, we provide a brief example of how to present and report results from a simulation study. We replicate Figure 2 of Tipton and Pustejovsky (2015), which examined several small sample corrections for robust variance estimation in meta-analysis.</p>
-<p>Meta-analysis synthesizes results from multiple primary studies on a common topic. Three major goals of meta-analysis include summarizing the results across the studies using some form of an effect size measure, characterizing and explaining the variability in their reported effect sizes (Hedges, Tipton, &amp; Johnson, 2010). Primary studies often report multiple estimates of effect sizes resulting from multiple correlated measures of an outcome, repeated measures of outcome data or the comparison of multiple treatment groups to the same control group (Hedges et al., 2010). These scenarios result in within-study dependence between these effect sizes. However, typical methods to conduct meta-analysis—pooling effect sizes or analyzing moderating effects with meta-regression—involve an assumption that each effect size is independent. Use of such methods that ignore dependence can result in inaccurate standard errors and therefore, hypothesis tests with incorrect Type 1 error rates and confidence intervals with incorrect coverage levels (Becker, 2000).</p>
-<p>One alternative, using a multivariate model, explicitly models correlations among effect size estimates (Hedges et al., 2010; Tipton, 2015). However, multivariate meta-analysis requires knowledge of correlations or covariances between pairs of effect sizes within each primary study which are often difficult to obtain (Olkin &amp; Gleser, 2009). Hedges et al. (2010) proposed the use of robust variance estimation (RVE) to handle dependent effect sizes. RVE does not require knowledge of the covariance structure between effect sizes like multivariate analyses. Instead, RVE estimates the variances for the meta-regression model’s coefficients using sandwich estimators (Hedges et al., 2010; Tipton, 2015). RVE is increasingly being used in applied meta-analyses (Tipton, 2015). However, the performance characteristics of RVE are asymptotic in that it requires a large number of clusters or studies to provide accurate standard errors (Cameron, Gelbach, &amp; Miller, 2008; Tipton, 2015). If the number of studies in a meta-analysis is small, RVE can result in downwardly biased standard errors and inflation of Type 1 error rates (Cameron et al., 2008; Hedges et al., 2010; Tipton, 2015). Tipton (2015) and Tipton and Pustejovsky (2015) have introduced small sample corrections for RVE for tests of single coefficients and for multiple contrast hypotheses respectively. Tipton and Pustejovsky (2015) studied five methods, two based on eigen decomposition and three based on Hotelling’s <span class="math inline">\(T^2\)</span> distribution. The authors recommended a method (AHZ) which approximates the test statistic using Hotelling’s <span class="math inline">\(T^2\)</span> distribution with degrees of freedom proposed by Zhang (2012, 2013). This method resulted in Type 1 error rates closest to the nominal rate of .05. However, AHZ was shown to still have below nominal Type 1 error rates for tests of multiple contrast hypotheses.</p>
+<p>In this vignette, we provide a brief example of how to present and report results from a simulation study. We replicate Figure 2 of Tipton and Pustejovsky (2015), which examined several small sample corrections for robust variance estimation methods as used in meta-analysis.</p>
+<p>Meta-analysis is a set of statistical tools for synthesizeing results from multiple primary studies on a common topic. Three major goals of meta-analysis include summarizing the results across the studies using some form of an effect size measure, characterizing the amount of variation in effects, and explaining variation in effect sizes (Hedges, Tipton, &amp; Johnson, 2010). Primary studies often report multiple estimates of effect sizes resulting from multiple correlated measures of an outcome, repeated measures of outcome data or the comparison of multiple treatment groups to the same control group (Hedges et al., 2010). These scenarios result in statistical dependence between effect sizes from the same study. However, typical methods to conduct meta-analysis, such as averaging effect sizes or analyzing moderating effects with meta-regression, involve an assumption that each effect size is independent. Use of such methods that ignore dependence can result in inaccurate standard errors and therefore, hypothesis tests with incorrect Type 1 error rates and confidence intervals with incorrect coverage levels (Becker, 2000).</p>
+<p>One alternative, using a multivariate model, explicitly models correlations among effect size estimates (Hedges et al., 2010; Tipton, 2015). However, multivariate meta-analysis requires knowledge of correlations or covariances between pairs of effect sizes within each primary study which are often difficult to obtain (Olkin &amp; Gleser, 2009). Hedges et al. (2010) proposed the use of robust variance estimation (RVE) to handle dependent effect sizes. RVE does not require knowledge of the covariance structure between effect sizes like multivariate analyses. Instead, RVE estimates the variances for the meta-regression model’s coefficients using sandwich estimators (Hedges et al., 2010; Tipton, 2015). RVE is increasingly being used in applied meta-analyses (Tipton, 2015). However, the performance characteristics of RVE are asymptotic in that it requires a large number of clusters (studies) to provide accurate standard errors (Cameron, Gelbach, &amp; Miller, 2008; Tipton, 2015). If the number of studies in a meta-analysis is small, basic RVE can result in downwardly biased standard errors and inflation of Type 1 error rates (Cameron et al., 2008; Hedges et al., 2010; Tipton, 2015). Tipton (2015) and Tipton and Pustejovsky (2015) introduced small sample corrections for RVE for tests of single coefficients and for multiple contrast hypotheses, respectively. Tipton and Pustejovsky (2015) studied five methods, two based on eigen decomposition and three based on Hotelling’s <span class="math inline">\(T^2\)</span> distribution. The authors recommended a method (AHZ) which approximates the test statistic using Hotelling’s <span class="math inline">\(T^2\)</span> distribution with degrees of freedom proposed by Zhang (2012, 2013). This method resulted in Type 1 error rates closest to the nominal rate of .05. However, AHZ was shown to still have below nominal Type 1 error rates for tests of multiple contrast hypotheses.</p>
 </div>
 <div id="the-tipton_pusto-dataset" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-tipton_pusto-dataset" class="anchor"></a>The Tipton_Pusto Dataset</h2>
-<p>The <code>simphelpers</code> package provides results from Tipton and Pustejovsky (2015). Specifically, the dataset contains results to replicate Figure 2 from the article. The dataset is named <code>Tipton_Pusto</code>.</p>
+<p>The <code>simphelpers</code> package includes a dataset, <code>Tipton_Pusto</code>, containing a subset of the simulation results from Tipton and Pustejovsky (2015). Specifically, the dataset contains results to replicate Figure 2 from the article.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(simhelpers)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
@@ -156,7 +156,7 @@
 <div id="visualization" class="section level2">
 <h2 class="hasAnchor">
 <a href="#visualization" class="anchor"></a>Visualization</h2>
-<p>Below we graph the Type 1 error rates. The error rate is mapped onto the <code>y axis</code>, the small sample method is mapped onto the <code>x axis</code>, the method is also mapped as <code>color filling</code> so that different methods will have different colors. We add a dashed line on the nominal <span class="math inline">\(\alpha\)</span> level of .05. We create boxplots to capture the range of Type 1 error rates for each method. We facet by number of studies, <code>m</code>, and number of parameters used in the hypothesis test, <code>q</code>.</p>
+<p>Below we graph the Type 1 error rates. The error rate is mapped onto the <code>y axis</code>, the small sample method is mapped onto the <code>x axis</code>, the method is also mapped as <code>color filling</code> so that different methods will have different colors. We add a dashed line on the nominal <span class="math inline">\(\alpha\)</span> level of .05. We create boxplots to capture the range of Type 1 error rates for each method across the conditions examined in the simulation. We facet by number of studies, <code>m</code>, and number of parameters used in the hypothesis test, <code>q</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">Tipton_Pusto <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> test, <span class="dt">y =</span> rej_rate, <span class="dt">fill =</span> test)) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span>(<span class="dt">yintercept =</span> <span class="fl">.05</span>, <span class="dt">linetype =</span> <span class="st">"dashed"</span>) <span class="op">+</span><span class="st"> </span></a>
@@ -172,18 +172,21 @@
 <h2 class="hasAnchor">
 <a href="#interpretation-of-results" class="anchor"></a>Interpretation of Results</h2>
 <p>Here is the write-up of the results from Tipton and Pustejovsky (2015):</p>
-<p>"Figure 2 reveals several trends. First, Type I error for the EDF and EDT tests typically approach the nominal values from above, whereas the AHA, AHB, and AHZ tests approach the nominal values from below. This trend holds in relation to both <span class="math inline">\(m\)</span> and <span class="math inline">\(q\)</span>. For example, when there are 20 studies, as <span class="math inline">\(q\)</span> increases, the Type I error rates of the EDF and EDT tests increase to values far above nominal (close to .10), while the error rates decrease toward 0 for the AHA, AHB, and AHZ tests. For each value of <span class="math inline">\(q\)</span>, the error rates of all five tests converge toward the nominal values as the number of studies increases.</p>
-<p>Second, the EDF and EDT tests have Type I error rates that cover a wide range of values across the parameters and hypothesis specifications under study (as indicated by the long whiskers on each box). Because it is not possible to know a priori in which design condition a particular analysis will fall, it makes more sense to compare the maximum Type I error observed across tests. While the EDT and EDF tests have Type I error rates that are closest to nominal on average, they also exhibit error rates that are far above nominal under a large number of design conditions that cannot be identified a priori. In comparison, the AHA, AHB, and AHZ tests are typically more conservative and are also nearly always level-<span class="math inline">\(\alpha\)</span>, with a maximum error rate of 0.059 across all conditions studied. In describing further trends, we therefore focus only on the three AH tests."</p>
+<blockquote>
+<p>Figure 2 reveals several trends. First, Type I error for the EDF and EDT tests typically approach the nominal values from above, whereas the AHA, AHB, and AHZ tests approach the nominal values from below. This trend holds in relation to both <span class="math inline">\(m\)</span> and <span class="math inline">\(q\)</span>. For example, when there are 20 studies, as <span class="math inline">\(q\)</span> increases, the Type I error rates of the EDF and EDT tests increase to values far above nominal (close to .10), while the error rates decrease toward 0 for the AHA, AHB, and AHZ tests. For each value of <span class="math inline">\(q\)</span>, the error rates of all five tests converge toward the nominal values as the number of studies increases.</p>
+</blockquote>
+<blockquote>
+<p>Second, the EDF and EDT tests have Type I error rates that cover a wide range of values across the parameters and hypothesis specifications under study (as indicated by the long whiskers on each box). Because it is not possible to know a priori in which design condition a particular analysis will fall, it makes more sense to compare the maximum Type I error observed across tests. While the EDT and EDF tests have Type I error rates that are closest to nominal on average, they also exhibit error rates that are far above nominal under a large number of design conditions that cannot be identified a priori. In comparison, the AHA, AHB, and AHZ tests are typically more conservative and are also nearly always level-<span class="math inline">\(\alpha\)</span>, with a maximum error rate of 0.059 across all conditions studied. In describing further trends, we therefore focus only on the three AH tests.</p>
+</blockquote>
 </div>
 <div id="monte-carlo-standard-error" class="section level2">
 <h2 class="hasAnchor">
 <a href="#monte-carlo-standard-error" class="anchor"></a>Monte Carlo Standard Error</h2>
-<p>Below we calculate the maximum Monte Carlo standard error (MCSE) and maximum error rate for each of the methods presented in the graph above. We want to examine whether MCSE values are relatively small compared to the estimated Type 1 error rates. Overall, the maximum MCSEs are small compared to the maximum rejection rates.</p>
+<p>Below we calculate the maximum Monte Carlo standard error (MCSE) and maximum error rate for each of the methods presented in the graph above. Ideally, MCSE values should be relatively small compared to the estimated Type 1 error rates. Overall, the maximum MCSEs are small compared to the range of reported rejection rates.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">Tipton_Pusto <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(test) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="dt">mcse =</span> <span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(mcse),</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">            <span class="dt">rej =</span> <span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(rej_rate)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits =</span> <span class="dv">4</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="dt">mcse =</span> <span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(mcse)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits =</span> <span class="dv">4</span>)</a></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:left;">
@@ -191,9 +194,6 @@ test
 </th>
 <th style="text-align:right;">
 mcse
-</th>
-<th style="text-align:right;">
-rej
 </th>
 </tr></thead>
 <tbody>
@@ -204,9 +204,6 @@ EDF
 <td style="text-align:right;">
 0.0043
 </td>
-<td style="text-align:right;">
-0.2396
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -214,9 +211,6 @@ EDT
 </td>
 <td style="text-align:right;">
 0.0038
-</td>
-<td style="text-align:right;">
-0.1699
 </td>
 </tr>
 <tr>
@@ -226,9 +220,6 @@ AHA
 <td style="text-align:right;">
 0.0022
 </td>
-<td style="text-align:right;">
-0.0526
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -237,9 +228,6 @@ AHB
 <td style="text-align:right;">
 0.0023
 </td>
-<td style="text-align:right;">
-0.0539
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -247,9 +235,6 @@ AHZ
 </td>
 <td style="text-align:right;">
 0.0023
-</td>
-<td style="text-align:right;">
-0.0557
 </td>
 </tr>
 </tbody>
