@@ -74,7 +74,7 @@ package implements a generate-analyze-summarize model for writing
 simulations; it also includes tools for error handling and parallel
 computing.
 
-In contrast to the two packages mentioned above, our package works uses
+In contrast to the two packages mentioned above, our package uses
 [`tidyeval`](https://tidyeval.tidyverse.org/index.html) and outputs
 tibbles, which can then easily be used with
 [`dplyr`](https://dplyr.tidyverse.org/index.html),
