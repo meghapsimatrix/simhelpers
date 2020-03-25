@@ -1,6 +1,8 @@
 ---
 title: "Simulation Workflow"
 output: rmarkdown::html_vignette
+bibliography: references.bib
+csl: apa.csl
 vignette: >
   %\VignetteIndexEntry{simulation_workflow}
   %\VignetteEngine{knitr::rmarkdown}
@@ -23,7 +25,7 @@ knitr::opts_chunk$set(
 
 
 
-Simulation studies generally follow the following workflow (Morris, White & Crowther, 2018): 
+Simulation studies generally follow the following workflow [@morris2019using]: 
 
 1. Create an experimental design
 2. Generate a dataset
@@ -32,7 +34,7 @@ Simulation studies generally follow the following workflow (Morris, White & Crow
 5. Run steps 1-3 thousands of times for each of the experimental design conditions
 6. Evaluate the overall results
 
-The flowchart below depicts the workflow. The chart is created using `grViz()` from [`DiagrammeR`](https://rich-iannone.github.io/DiagrammeR/) package.
+The flowchart below depicts the workflow. The chart is created using `grViz()` from [`DiagrammeR`](https://rich-iannone.github.io/DiagrammeR/) package [@diag].
 
 <img src="../man/figures/workflow.png" />
 
@@ -271,7 +273,7 @@ run_sim <- function(iterations, n1, n2, mean_diff, seed = NULL) {
 
 ## Experimental Design Revisit
 
-Now that we have all our functions in order, we can specify the exact factors we want to manipulate in the study. The following code chunk creates a list of design factors and uses the [`cross_df()`](https://purrr.tidyverse.org/reference/cross.html) function from [`purrr`](https://purrr.tidyverse.org/) package to create every combination of the factor levels. We also set the number of iterations and the seed that will be used when generating data.  
+Now that we have all our functions in order, we can specify the exact factors we want to manipulate in the study. The following code chunk creates a list of design factors and uses the [`cross_df()`](https://purrr.tidyverse.org/reference/cross.html) function from [`purrr`](https://purrr.tidyverse.org/) package to create every combination of the factor levels. We also set the number of iterations and the seed that will be used when generating data [@tidyverse].  
 
 
 ```{r, eval = FALSE}
@@ -343,7 +345,7 @@ results %>%
 
 ## Running the Simulation in Parallel
 
-Below we use the [`future`](https://rstudio.github.io/promises/articles/futures.html) and the [`furrr`](https://davisvaughan.github.io/furrr/) packages to run the simulation in parallel. These packages are designed to work with functions from the `purrr` package. The line below gets a cluster set up on your computer or network. For more complicated network setups, please see the [documentation for the future package](https://cran.r-project.org/web/packages/future/vignettes/future-1-overview.html). 
+Below we use the [`future`](https://rstudio.github.io/promises/articles/futures.html) and the [`furrr`](https://davisvaughan.github.io/furrr/) packages to run the simulation in parallel [@future; @furrr]. These packages are designed to work with functions from the `purrr` package. The line below gets a cluster set up on your computer or network. For more complicated network setups, please see the [documentation for the future package](https://cran.r-project.org/web/packages/future/vignettes/future-1-overview.html). 
 
 ```{r, eval = FALSE}
 plan(multisession)
@@ -391,18 +393,3 @@ create_skeleton()
 
 # References 
 
-Bengtsson, H. (2020). future: Unified Parallel and Distributed
-  Processing in R for Everyone. R package version 1.16.0.
-  https://CRAN.R-project.org/package=future
-  
-Iannone, R. (2020). DiagrammeR: Graph/Network Visualization. R package
-  version 1.0.5. https://CRAN.R-project.org/package=DiagrammeR
-
-Morris, T. P., White, I. R., & Crowther, M. J. (2019). Using simulation studies to evaluate statistical methods. Statistics in medicine, 38(11), 2074-2102.
-
-Vaughan, D., & Dancho, M. (2018). furrr: Apply Mapping Functions in
-  Parallel using Futures. R package version 0.1.0.
-  https://CRAN.R-project.org/package=furrr
-
-Wickham H., et al., (2019). Welcome to the tidyverse. Journal of Open Source
-  Software, 4(43), 1686, https://doi.org/10.21105/joss.01686
