@@ -11,7 +11,7 @@ status](https://travis-ci.org/meghapsimatrix/simhelpers.svg?branch=master)](http
 coverage](https://codecov.io/gh/meghapsimatrix/simhelpers/branch/master/graph/badge.svg)](https://codecov.io/gh/meghapsimatrix/simhelpers?branch=master)
 <!-- badges: end -->
 
-Monte Carlo Simulations are computer experiments designed to study the
+Monte Carlo simulations are computer experiments designed to study the
 performance of statistical methods under known data-generating
 conditions (Morris, White & Crowther, 2018). Methodologists use
 simulations to examine questions such as: (1) how does ordinary least
