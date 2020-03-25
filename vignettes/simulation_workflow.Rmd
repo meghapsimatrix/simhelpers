@@ -122,7 +122,7 @@ ggplot(example_dat, aes(x = y, fill = group)) +
 
 ## Estimation Methods
 
-In this step, we run some statistical methods to calculate test statistics, regression coefficients, p-values, or confidence intervals. The function takes in the data and any design parameters.
+In this step, we run some statistical methods to calculate test statistics, regression coefficients, p-values, or confidence intervals. The function takes in the data and any design parameters, such as options for how estimation should be carried out (e.g., use HC0 standard errors or HC2 standard errors).
 
 ```{r, eval = FALSE}
 estimate <- function(dat, design_params) {
