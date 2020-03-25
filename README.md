@@ -86,7 +86,11 @@ explore tradeoffs between different designs. This package has very
 different, although related, aims compared to our package as it focuses
 more on research design and less on Monte Carlo simulations.
 
-### References
+## References
+
+Bengtsson, H. (2020). future: Unified Parallel and Distributed
+Processing in R for Everyone. R package version 1.16.0.
+<https://CRAN.R-project.org/package=future>
 
 Chalmers, P. (2019). SimDesign: Structure for Organizing Monte Carlo
 Simulation Designs. R package version 1.14.
@@ -105,6 +109,13 @@ and Diagnosing Research Designs. American Poliitcal Science Review
 Morris, T. P., White, I. R., & Crowther, M. J. (2019). Using simulation
 studies to evaluate statistical methods. Statistics in medicine, 38(11),
 2074-2102. <http://doi.org/10.1002/sim.8086>
+
+Vaughan D., & Dancho, M. (2018). furrr: Apply Mapping Functions in
+Parallel using Futures. R package version 0.1.0.
+<https://CRAN.R-project.org/package=furrr>
+
+Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source
+Software, 4(43), 1686, <https://doi.org/10.21105/joss.01686>
 
 ## Acknowledgments
 
