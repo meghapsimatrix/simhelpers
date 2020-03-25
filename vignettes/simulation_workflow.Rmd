@@ -69,13 +69,13 @@ generate_dat <- function(model_params) {
 }
 ```
 
-Below is an example where we generate random normal data for two groups. The function takes in two arguments: `n`, indicating sample size per group assuming equal sample size, and `mean_diff`, indicating the mean difference. 
+Below is an example where we generate random normal data for two groups. The function takes in three arguments: `n1`, indicating sample size for Group 1, `n2` indicating sample size for Group 1, and `mean_diff`, indicating the mean difference. 
 
 ```{r}
-generate_dat <- function(n, mean_diff){
+generate_dat <- function(n1, n2, mean_diff){
 
-  dat <- tibble(group_1 = rnorm(n = n, mean_diff, 1), # mean mean_diff and sd 1 
-                group_2 = rnorm(n = n, 0, 2)) # mean 0, sd 2
+  dat <- tibble(y = c(rnorm(n = n1, mean_diff, 1), rnorm(n = n2, 0, 2)),
+                group = c(rep("Group 1", n1), rep("Group 2", n2)))
 
   return(dat)
 
@@ -83,30 +83,24 @@ generate_dat <- function(n, mean_diff){
 ```
 
 
-After creating the data generating function, we should check whether it works. Below, we generate an example dataset with 10,000 people in each group and the `mean_diff` set to 1. We pivot the data to a long format for visualization. 
+After creating the data generating function, we should check whether it works. Below, we generate an example dataset with 10,000 people in each group and the `mean_diff` set to 1. 
 
 ```{r}
 set.seed(2020143)
-example_dat <- generate_dat(n = 10000, mean_diff = 1) 
+example_dat <- generate_dat(n1 = 10000, n2= 10000, mean_diff = 1) 
 
-graph_dat <- example_dat %>%
-  pivot_longer(cols = c(group_1:group_2),
-               names_to = "group",
-               values_to = "val") %>%
-  mutate(group = if_else(group == "group_1", "Group 1", "Group 2"))
-
-graph_dat %>%
+example_dat %>%
   head()
 ```
 
 Below, we create a summary table. The mean of the outcome for Group 1 is close to 1 and the mean for Group 2 is close to 0. The standard deviation of the outcome for Group 1 is close to 1 and the standard deviation for Group 2 is close to 2. The table matches what we specified in the data generating model.  
 
 ```{r}
-graph_dat %>%
+example_dat %>%
   group_by(group) %>%
   summarize(n = n(),
-            M = mean(val),
-            SD = sd(val)) %>%
+            M = mean(y),
+            SD = sd(y)) %>%
   kable(digits = 3)
 ```
 
@@ -114,7 +108,7 @@ graph_dat %>%
 Below we create a density plot of the values that we generated for each of the groups. The distributions seem normal. The peaks seem to have a difference of 1. And, the variances of the outcome scores are different for each group as we specified.
 
 ```{r, fig.width = 7, fig.height = 5}
-ggplot(graph_dat, aes(x = val, fill = group)) + 
+ggplot(example_dat, aes(x = y, fill = group)) + 
   geom_density(alpha = .5) + 
   labs(x = "Outcome Scores", y = "Density", fill = "Group") + 
   theme_bw()
@@ -135,13 +129,21 @@ estimate <- function(dat, design_params) {
 Below is an example function that runs t-tests on a simulated dataset. The function runs a normal t-test, which assumes homogeneity of variance and a Welch t-test, which does not assume that the population variances of the outcome for the two groups are equal. The function returns a tibble containing the names of the two methods, mean difference estimates, p-values, and upper and lower bounds of the confidence intervals. We could use the `t.test()` function to extract everything we need but we are calculating the t-statistic using sample statistics just for fun.
 
 ```{r}
-estimate <- function(dat){
+estimate <- function(dat, n1, n2){
 
   # calculate summary stats
-  est <- mean(dat$group_1) - mean(dat$group_2)  # mean diff
-  n1 <- n2 <- nrow(dat) # sample size per group
-  var_1 <- var(dat$group_1) # variance of outcome group 1
-  var_2 <- var(dat$group_2) # variance of outcome group 2
+  means <- dat %>%
+    split(.$group)  %>%
+    map_dbl(~mean(.$y))
+
+  vars <- dat %>%
+    split(.$group)  %>%
+    map_dbl(~var(.$y))
+
+  # calculate summary stats
+  est <- means[1] - means[2] # mean diff
+  var_1 <- vars[1] # var for group 1
+  var_2 <- vars[2] # var for group 2
 
   # normal t-test
   dft <- n1 + n2 - 2  # degrees of freedom
@@ -178,15 +180,15 @@ estimate <- function(dat){
 Here again, it would be good to check if the function is running as it should. Below we run the `estimate()` function on the example dataset: 
 
 ```{r}
-(est_res <- estimate(example_dat) %>%
+(est_res <- estimate(example_dat, n1 = 10000, n2 = 10000) %>%
    mutate_if(is.numeric, round, 5))
 ```
 
 We can compare the results to those from the built-in `t.test()` function:
 
 ```{r}
-(t_res <- bind_rows(tidy(t.test(example_dat$group_1, example_dat$group_2, var.equal = TRUE)), 
-          tidy(t.test(example_dat$group_1, example_dat$group_2))) %>%
+(t_res <- bind_rows(tidy(t.test(y ~ group, data = example_dat, var.equal = TRUE)), 
+          tidy(t.test(y ~ group, data = example_dat))) %>%
   mutate(estimate = estimate1 - estimate2, 
          method = c("t-test", "Welch t-test")) %>%
   select(method, est = estimate, p_val = p.value, lower_bound = conf.low, upper_bound = conf.high) %>%
@@ -249,13 +251,13 @@ run_sim <- function(iterations, model_params, design_params, seed = NULL) {
 Below is the driver for our example simulation study: 
 
 ```{r}
-run_sim <- function(iterations, n, mean_diff, seed = NULL) {
+run_sim <- function(iterations, n1, n2, mean_diff, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
 
   results <-
     rerun(iterations, {
-      dat <- generate_dat(n, mean_diff)
-      estimate(dat)
+      dat <- generate_dat(n2, n2, mean_diff)
+      estimate(dat, n1, n2)
     }) %>%
     bind_rows()
   
@@ -291,7 +293,7 @@ nrow(params)
 head(params)
 ```
 
-The code below specifies two design factors: `n`, which specifies the sample size per group assuming equal sample size and `mean_diff`, which denotes the mean difference between two groups on an outcome. These are the between simulation factors. The within-simulation factor is the t-test method with one assuming equal variance and one not assuming equal variance. 
+The code below specifies two design factors: `n1`, which specifies the sample size for Group 1, `n2`, which specifies the sample size for Group 2, and `mean_diff`, which denotes the mean difference between two groups on an outcome. These are the between simulation factors. The within-simulation factor is the t-test method with one assuming equal variance and one not assuming equal variance. 
 
 ```{r}
 set.seed(20200110)
@@ -299,10 +301,10 @@ set.seed(20200110)
 # now express the simulation parameters as vectors/lists
 
 design_factors <- list(
-  n = c(50, 100),
+  n1 = 50,
+  n2 = c(50, 70),
   mean_diff = c(0, .5, 1, 2)
 )
-
 params <-
   cross_df(design_factors) %>%
   mutate(

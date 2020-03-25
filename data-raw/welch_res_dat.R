@@ -20,7 +20,7 @@ generate_dat <- function(n1, n2, mean_diff){
 
 # Estimation Procedures ---------------------------------------------------
 
-# function to calculate t-test, pextracts estimate of the mean difference, p val and ci
+# function to calculate t-test, extracts estimate of the mean difference, p val and ci
 
 estimate <- function(dat, n1, n2){
 
