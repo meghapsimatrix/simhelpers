@@ -97,7 +97,7 @@ Here is the write-up of the results from Tipton and Pustejovsky (2015):
 
 ## Monte Carlo Standard Error
 
-Below we calculate the maximum Monte Carlo standard error (MCSE) and maximum error rate for each of the methods presented in the graph above. Ideally, MCSE values should be relatively small compared to the estimated Type 1 error rates. Overall, the maximum MCSEs are small compared to the range of reported rejection rates.  
+Below we calculate the maximum Monte Carlo standard error (MCSE) for each of the methods presented in the graph above. Ideally, MCSE values should be relatively small compared to the estimated Type 1 error rates. Overall, the maximum MCSEs are small compared to the range of reported rejection rates.  
 
 ```{r}
 Tipton_Pusto %>%
