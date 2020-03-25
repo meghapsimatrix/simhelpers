@@ -86,55 +86,25 @@ explore tradeoffs between different designs. This package has very
 different, although related, aims compared to our package as it focuses
 more on research design and less on Monte Carlo simulations.
 
-### References for Related Work
+### References
 
-Bien J. (2016). The simulator: An Engine to Streamline Simulations.
-<http://faculty.bscb.cornell.edu/~bien/simulator.pdf> CRAN:
-<https://cran.r-project.org/web/packages/simulator/index.html>
-
-Chan, T. J. (2014). ezsim: provide an easy to use framework to conduct
-simulation. R package version 0.5.5.
-<https://CRAN.R-project.org/package=ezsim>
-
-Epskamp, S. (2019). parSim: Parallel Simulation Studies. R package
-version 0.1.1. <https://CRAN.R-project.org/package=parSim>
+Chalmers, P. (2019). SimDesign: Structure for Organizing Monte Carlo
+Simulation Designs. R package version 1.14.
+<https://CRAN.R-project.org/package=SimDesign>
 
 Gasparini, A. (2018). rsimsum: Summarise results from Monte Carlo
 simulation studies. Journal of Open Source Software, 3(26), 739,
 <https://doi.org/10.21105/joss.00739> CRAN:
 <https://cran.r-project.org/web/packages/rsimsum/index.html>
 
-Goldfeld, K. (2019). simstudy: Simulation of Study Data. R package
-version 0.1.15. <https://CRAN.R-project.org/package=simstudy>
-
 Graeme B., Jasper C., Alexander C., and Macartan H. (2019). Declaring
 and Diagnosing Research Designs. American Poliitcal Science Review
 113(3): 838-859. URL <http://declaredesign.org/paper.pdf> CRAN:
 <https://cran.r-project.org/web/packages/DeclareDesign/index.html>
 
-Gorjanc G (2012). simSummary: Simulation summary. R package version
-0.1.0. <https://cran.r-project.org/web/packages/simSummary/index.html>
-
-Hofert M., & Maechler, M (2016). Parallel and Other Simulations in R
-Made Easy: An End-to-End Study. Journal of Statistical Software, 69(4),
-1-44. <doi:10.18637/jss.v069.i04> CRANL
-<https://cran.r-project.org/web/packages/simsalapar/index.html>
-
-Leschinski, C. H. (2019). MonteCarlo: Automatic Parallelized Monte Carlo
-Simulations. R package version 1.0.6.
-<https://CRAN.R-project.org/package=MonteCarlo>
-
 Morris, T. P., White, I. R., & Crowther, M. J. (2019). Using simulation
 studies to evaluate statistical methods. Statistics in medicine, 38(11),
 2074-2102. <http://doi.org/10.1002/sim.8086>
-
-Scheer, M. (2020). simTool: Conduct Simulation Studies with a Minimal
-Amount of Source Code. R package version 1.1.5.
-<https://CRAN.R-project.org/package=simTool>
-
-Scott, E. (2019). holodeck: A Tidy Interface for Simulating Multivariate
-Data. R package version 0.2.0.
-<https://CRAN.R-project.org/package=holodeck>
 
 ## Acknowledgments
 
