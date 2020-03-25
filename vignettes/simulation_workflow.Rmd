@@ -69,12 +69,13 @@ generate_dat <- function(model_params) {
 }
 ```
 
-Below is an example where we generate random normal data for two groups. The function takes in three arguments: `n1`, indicating sample size for Group 1, `n2` indicating sample size for Group 1, and `mean_diff`, indicating the mean difference. 
+Below is an example where we generate random normal data for two groups. The function takes in three arguments: `n1`, indicating sample size for Group 1, `n2` indicating sample size for Group 2, and `mean_diff`, indicating the mean difference. 
 
 ```{r}
 generate_dat <- function(n1, n2, mean_diff){
 
-  dat <- tibble(y = c(rnorm(n = n1, mean_diff, 1), rnorm(n = n2, 0, 2)),
+  dat <- tibble(y = c(rnorm(n = n1, mean_diff, 1), # mean diff as mean, sd 1
+                      rnorm(n = n2, 0, 2)), # mean 0, sd 2
                 group = c(rep("Group 1", n1), rep("Group 2", n2)))
 
   return(dat)
@@ -126,7 +127,7 @@ estimate <- function(dat, design_params) {
 }
 ```
 
-Below is an example function that runs t-tests on a simulated dataset. The function runs a normal t-test, which assumes homogeneity of variance and a Welch t-test, which does not assume that the population variances of the outcome for the two groups are equal. The function returns a tibble containing the names of the two methods, mean difference estimates, p-values, and upper and lower bounds of the confidence intervals. We could use the `t.test()` function to extract everything we need but we are calculating the t-statistic using sample statistics just for fun.
+Below is an example function that runs t-tests on a simulated dataset. The function runs a conventional t-test, which assumes homogeneity of variance and a Welch t-test, which does not assume that the population variances of the outcome for the two groups are equal. The function returns a tibble containing the names of the two methods, mean difference estimates, p-values, and upper and lower bounds of the confidence intervals. We could use the `t.test()` function to extract everything we need but we are calculating the t-statistic using sample statistics just for fun.
 
 ```{r}
 estimate <- function(dat, n1, n2){
@@ -145,7 +146,7 @@ estimate <- function(dat, n1, n2){
   var_1 <- vars[1] # var for group 1
   var_2 <- vars[2] # var for group 2
 
-  # normal t-test
+  # conventional t-test
   dft <- n1 + n2 - 2  # degrees of freedom
   sp_sq <- ((n1 - 1) * var_1 + (n2 - 1) * var_2) / dft  # pooled var
   vdt <- sp_sq * (1 / n1 + 1 / n2) # variance of estimate
@@ -177,7 +178,7 @@ estimate <- function(dat, n1, n2){
 ```
 
 
-Here again, it would be good to check if the function is running as it should. Below we run the `estimate()` function on the example dataset: 
+Here again, it would be good to check if the function runs as it should. Below we run the `estimate()` function on the example dataset: 
 
 ```{r}
 (est_res <- estimate(example_dat, n1 = 10000, n2 = 10000) %>%
