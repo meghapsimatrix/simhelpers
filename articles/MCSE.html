@@ -96,22 +96,17 @@
 
     
     
-<div id="introduction-to-simulation-studies-and-monte-carlo-standard-errors" class="section level1">
-<h1 class="hasAnchor">
-<a href="#introduction-to-simulation-studies-and-monte-carlo-standard-errors" class="anchor"></a>Introduction to Simulation Studies and Monte Carlo Standard Errors</h1>
-<p>Simulations are experiments designed to study the performance of statistical methods under known data-generating conditions (Morris, White and Crowther, 2018). Methodologists examine questions like: (1) how does ordinary least squares (OLS) regression perform if errors are heteroskedastic? (2) how does the presence of missing data affect treatment effect estimates from a propensity score analysis? (3) how does cluster robust variance estimation perform when the number of clusters is small? To answer such questions, we conduct experiments by simulating thousands of datasets from pseudo-random sampling (Morris et al., 2018). We generate datasets under known conditions. For example, we can generate data where the errors are heteroskedastic or there is missing data present following Missing at Random (MAR) mechanism. Then, we apply statistical methods, like OLS or propensity score estimation using logistic regression, to each of the datasets and extract measures like regression coefficients, p-values, and confidence intervals. We then analyze the methods using performance criteria measures like bias, Type 1 error rate or root mean squared error.</p>
-<p>When examining performance measures, we need to also consider the error in the estimate of the performance measures due to the fact that we generate a finite number of samples. The error is quantified in the form of Monte Carlo standard error (MCSE).</p>
-<p>The goal of <code>simhelpers</code> is to assist in running simulation studies. This package provides a set of functions that calculates various performance measures and associated MCSE. This vignette focuses on the set of functions. Below, we explain three major categories of performance criteria: (1) absolute criteria, (2) relative criteria, and (3) criteria to evaluate hypothesis testing. We provide formulas used to calculate the performance measures and MCSE and demonstrate how to use the functions in the <code>simhelpers</code> package.</p>
-<p>The formula notations and explanations of the performance measures follow notes from Dr. James Pustejovsky’s <a href="https://www.jepusto.com/teaching/daspir/">Data Analysis, Simulation and Programming in R course (Spring, 2019)</a>.</p>
-</div>
+<p>Monte Carlo Simulations are computer experiments designed to study the performance of statistical methods under known data-generating conditions (Morris, White &amp; Crowther, 2018). Methodologists use simulations to examine questions such as: (1) how does ordinary least squares (OLS) regression perform if errors are heteroskedastic? (2) how does the presence of missing data affect treatment effect estimates from a propensity score analysis? (3) how does cluster robust variance estimation perform when the number of clusters is small? To answer such questions, we conduct experiments by simulating thousands of datasets based on pseudo-random sampling (Morris et al., 2018). We generate datasets under known conditions. For example, we can generate data where the errors are heteroskedastic or there is missing data present following Missing at Random (MAR) mechanism. Then, we apply statistical methods, like OLS or propensity score estimation using logistic regression, to each of the datasets and extract results like regression coefficients, p-values, and confidence intervals. We then analyze the performance of these estimation methods using criteria such as bias, Type 1 error rate, or root mean squared error. Performance measures from simulation studies are estimates, based on a finite number of repeated samples from a data-generating process, and thus include some random error. When interpreting performance measures, it is important to consider how large the estimation error is. This is typically quantified as Monte Carlo standard error (MCSE).</p>
+<p>The goal of <code>simhelpers</code> is to assist in running simulation studies. This package provides a set of functions that calculate various performance measures and associated MCSE. This vignette focuses on the set of functions for calculating performance measures. Below, we explain three major categories of performance criteria: (1) absolute criteria, (2) relative criteria, and (3) criteria to evaluate hypothesis testing. We provide formulas used to calculate the performance measures and MCSE and demonstrate how to use the functions in the <code>simhelpers</code> package.</p>
+<p>The notation and explanations of the performance measures largely follow notes from Dr. James Pustejovsky’s <a href="https://www.jepusto.com/teaching/daspir/">Data Analysis, Simulation and Programming in R course (Spring, 2019)</a>.</p>
 <div id="performance-criteria-and-mcse" class="section level1">
 <h1 class="hasAnchor">
 <a href="#performance-criteria-and-mcse" class="anchor"></a>Performance Criteria and MCSE</h1>
 <div id="absolute-criteria" class="section level2">
 <h2 class="hasAnchor">
 <a href="#absolute-criteria" class="anchor"></a>Absolute Criteria</h2>
-<p>Bias characterizes whether the estimate on average lies above or below the true parameter. Variance characterizes the precision of the estimates. It characterizes the deviation of each estimate from the average of the estimates. Note that variance is the inverse of precision. Therefore, the higher the variance, the lower the precision. Mean squared error (MSE) and root mean squared error (RMSE) characterize the accuracy of the estimates. MSE and RMSE measure how far off on average the estimates are from the true parameter. Absolute criteria are in the same scale as the estimates. MSE is in squared deviation scale and RMSE is in the scale of the estimates.</p>
-<p>Let <span class="math inline">\(T\)</span> denote an estimator for a parameter <span class="math inline">\(\theta\)</span>. From running a simulation study, we obtain <span class="math inline">\(K\)</span> iterations of the estimates <span class="math inline">\(T_1,...,T_K\)</span> for each data generating condition. We can calculate the following sample statistics for the estimates:</p>
+<p>Bias characterizes whether an estimator tends to lie above or below the true parameter, on average. Variance characterizes the precision of an estimator, as the average squared deviation of the estimator from its average. Note that variance is the inverse of precision. Therefore, the higher the variance, the lower the precision. Mean squared error (MSE) and root mean squared error (RMSE) characterize the accuracy of the estimates. MSE and RMSE measure how far off, on average, an estimator is from the true parameter. Absolute criteria are in the same scale as the estimate. MSE is in squared deviation scale and RMSE is in the scale of the estimates.</p>
+<p>Let <span class="math inline">\(T\)</span> denote an estimator for a parameter <span class="math inline">\(\theta\)</span>. By running a simulation study, we obtain <span class="math inline">\(K\)</span> estimates <span class="math inline">\(T_1,...,T_K\)</span> (or realizations of the estimator) for each data generating condition. We can calculate the following sample statistics for the estimates:</p>
 <ul>
 <li>Sample mean: <span class="math inline">\(\bar{T} = \frac{1}{K}\sum_{k=1}^K T_k\)</span>
 </li>
@@ -122,7 +117,7 @@
 <li>Sample kurtosis (standardized): <span class="math inline">\(k_T = \frac{1}{K S_T^4} \sum_{k=1}^K \left(T_k - \bar{T}\right)^4\)</span>
 </li>
 </ul>
-<p>The table below shows each of the performance criteria, what it measures, its definition, its estimate, and its MCSE formula.</p>
+<p>Table 1 below shows each of the performance criteria, its interpretation, its formal definition, how the criterion is estimated in a simulation study, and the formula for the MCSE of the estimated performance measure.</p>
 <table class="table table table-striped table-hover">
 <caption>
 Table 1. Absolute Performance Criteria
@@ -210,7 +205,7 @@ Accuracy
 <span class="math inline">\(\sqrt{\frac{1}{K}\sum_{k=1}^{K}\left(T_k - \theta\right)^2}\)</span>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\frac{1}{K} \sum_{j=1}^K \left(RMSE_{(j)} - RMSE)^2\right)}\)</span>
+<span class="math inline">\(\sqrt{\frac{1}{K} \sum_{j=1}^K \left(RMSE_{(j)} - RMSE\right)^2}\)</span>
 </td>
 </tr>
 </tbody>
@@ -221,7 +216,7 @@ Accuracy
 <p><span class="math display">\[RMSE = \sqrt{(\bar{T} - \theta)^2 + S^2_T}\]</span></p>
 <p>The jackknife RMSE will be calculated as:</p>
 <p><span class="math display">\[RMSE_{(j)}  = \sqrt{(\bar{T}_{(j)} - \theta)^2 + S^2_{T(j)}}\]</span></p>
-<p>Here <span class="math inline">\(\bar{T}_{(j)}\)</span> and <span class="math inline">\(S^2_{T(j)}\)</span> indicate the mean and variance of the estimates leaving replicate <span class="math inline">\(j\)</span> out. Instead of calculating each jackknife estimate, we use algebra tricks to calculate <span class="math inline">\(\bar{T}_{(j)}\)</span> and <span class="math inline">\(S^2_{T(j)}\)</span> as follows:</p>
+<p>Here <span class="math inline">\(\bar{T}_{(j)}\)</span> and <span class="math inline">\(S^2_{T(j)}\)</span> indicate the mean and variance of the estimates leaving out replicate <span class="math inline">\(j\)</span>. Instead of calculating each jackknife estimate, we use algebraic tricks to calculate <span class="math inline">\(\bar{T}_{(j)}\)</span> and <span class="math inline">\(S^2_{T(j)}\)</span> as follows:</p>
 <p><span class="math display">\[\bar{T}_{(j)} = \frac{1}{K-1} \left(K \bar{T} - T_j\right)\]</span></p>
 <p><span class="math display">\[S_{T(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]\]</span></p>
 <p>Then, the jacknife MCSE of RMSE will be calculated as:</p>
@@ -229,7 +224,7 @@ Accuracy
 <div id="example" class="section level3">
 <h3 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h3>
-<p>We use the <code>welch_res</code> dataset included in the package. It contains the results from an example simulation study comparing the heteroskedasticity robust Welch t-test to normal t-test. The code used to generate the data and derive results can be found <a href="https://github.com/meghapsimatrix/simhelpers/blob/master/data-raw/welch_res_dat.R">here</a>. We varied the mean difference parameter when generating data for two groups. We set the values to 0, 0.5, 1 and 2. We also varied the sample size per group, setting sample size values to 50, 100, and 200. We generated the data with slightly unequal variances. With each simulated data, we ran normal t-test, which assumes homogeneity of variance, and we also ran Welch t-test, which does not assume homogeneity of variance. We extracted the estimates (mean differences), variances of the estimates, p-values, and the upper and lower bounds of the confidence intervals.</p>
+<p>We use the <code>welch_res</code> dataset included in the package. It contains the results from an example simulation study comparing the heteroskedasticity-robust Welch t-test to the usual two-sample t-test assuming equal variances. The code used to generate the data and derive results can be found <a href="https://github.com/meghapsimatrix/simhelpers/blob/master/data-raw/welch_res_dat.R">here</a>. We varied the mean difference parameter when generating data for two groups. We set the values to 0, 0.5, 1 and 2. We also varied the sample size per group, setting sample size values to 50, 100, and 200. We generated the data with slightly unequal variances. With each simulated dataset, we ran the usual t-test, which assumes homogeneity of variance, and we also ran Welch t-test, which does not assume homogeneity of variance. We extracted the estimates (mean differences), variances of the estimates, p-values, and the upper and lower bounds of the confidence intervals.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(simhelpers)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tibble)</a>
@@ -252,12 +247,13 @@ Accuracy
 <a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">#&gt; $ lower_bound &lt;dbl&gt; -0.5872300, -0.5899041, -0.5727856, -0.5741984, -0.647370…</span></a>
 <a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">#&gt; $ upper_bound &lt;dbl&gt; 0.6389020, 0.6415761, 0.5831027, 0.5845155, 0.4877263, 0.…</span></a></code></pre></div>
 <p>Below, we calculate the absolute performance criteria for the estimates of the mean differences. We present the results by sample size, mean difference, and the t-test method. The <code><a href="../reference/calc_absolute.html">calc_absolute()</a></code> function is designed to work with the <a href="https://tidyeval.tidyverse.org/index.html"><code>tidyeval</code></a> workflow. The first argument, <code>res_dat</code>, requires a data frame or a tibble containing the results from a simulation study. The second argument, <code>estimates</code>, requires the name of the column containing the estimates like mean difference or regression coefficients. The third argument, <code>true_param</code>, requires the name of the column containing the true parameters. The fourth argument, <code>perfm_criteria</code>, lets the user specify which criteria to evaluate. The criteria can be specified using a character or character vector. If the user only wants bias, they can specify <code>perfm_criteria = "bias"</code>. If the user wants bias and root mean squared error, they can specify <code>perfm_criteria = c("bias", "rmse")</code>. By default, the function returns bias, variance, mean squared error (mse), and root mean squared error (rmse), <code>perfm_criteria = c("bias", "variance", "mse", "rmse")</code>. In the example below, we ask for all the available criteria.</p>
-<p>We use <a href="https://dplyr.tidyverse.org/index.html"><code>dplyr</code></a> syntax to group by the sample size and mean difference that were used to generate the data, and the method used to analyze the data. We provide examples using <a href="https://dplyr.tidyverse.org/reference/do.html"><code><a href="https://dplyr.tidyverse.org/reference/do.html">do()</a></code></a> and <a href="https://dplyr.tidyverse.org/reference/group_map.html"><code><a href="https://dplyr.tidyverse.org/reference/group_map.html">group_modify()</a></code></a> to run <code><a href="../reference/calc_absolute.html">calc_absolute()</a></code> on results for each combination of the conditions. We round the results to five decimal places.</p>
+<p>We calculate the absolute performance measures only for the conventional t-test results because the mean difference is identical for the Welch t-test. We use <a href="https://dplyr.tidyverse.org/index.html"><code>dplyr</code></a> syntax to group by the sample size and mean difference that were used to generate the data. We provide examples using <a href="https://dplyr.tidyverse.org/reference/do.html"><code><a href="https://dplyr.tidyverse.org/reference/do.html">do()</a></code></a> and <a href="https://dplyr.tidyverse.org/reference/group_map.html"><code><a href="https://dplyr.tidyverse.org/reference/group_map.html">group_modify()</a></code></a> to run <code><a href="../reference/calc_absolute.html">calc_absolute()</a></code> on results for each combination of the conditions. Results are rounded to five decimal places.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># using do()</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">welch_res <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(n, mean_diff, method) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># grouping </span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/do.html">do</a></span>(<span class="kw"><a href="../reference/calc_absolute.html">calc_absolute</a></span>(.,  <span class="dt">estimates =</span> est, <span class="dt">true_param =</span> mean_diff)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># run the function</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits =</span> <span class="dv">5</span>) <span class="co"># create a kable table </span></a></code></pre></div>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(method <span class="op">==</span><span class="st"> "t-test"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(n, mean_diff) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># grouping </span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/do.html">do</a></span>(<span class="kw"><a href="../reference/calc_absolute.html">calc_absolute</a></span>(.,  <span class="dt">estimates =</span> est, <span class="dt">true_param =</span> mean_diff)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># run the function</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits =</span> <span class="dv">5</span>) <span class="co"># create a kable table </span></a></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
@@ -265,9 +261,6 @@ n
 </th>
 <th style="text-align:right;">
 mean_diff
-</th>
-<th style="text-align:left;">
-method
 </th>
 <th style="text-align:right;">
 bias
@@ -302,44 +295,6 @@ rmse_mcse
 <td style="text-align:right;">
 0.0
 </td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
--0.00890
-</td>
-<td style="text-align:right;">
-0.01000
-</td>
-<td style="text-align:right;">
-0.09999
-</td>
-<td style="text-align:right;">
-0.00425
-</td>
-<td style="text-align:right;">
-0.09997
-</td>
-<td style="text-align:right;">
-0.00425
-</td>
-<td style="text-align:right;">
-0.31618
-</td>
-<td style="text-align:right;">
-0.00027
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
 <td style="text-align:right;">
 -0.00890
 </td>
@@ -371,44 +326,6 @@ Welch t-test
 </td>
 <td style="text-align:right;">
 0.5
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-0.00449
-</td>
-<td style="text-align:right;">
-0.01025
-</td>
-<td style="text-align:right;">
-0.10512
-</td>
-<td style="text-align:right;">
-0.00468
-</td>
-<td style="text-align:right;">
-0.10503
-</td>
-<td style="text-align:right;">
-0.00468
-</td>
-<td style="text-align:right;">
-0.32409
-</td>
-<td style="text-align:right;">
-0.00028
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:left;">
-Welch t-test
 </td>
 <td style="text-align:right;">
 0.00449
@@ -442,44 +359,6 @@ Welch t-test
 <td style="text-align:right;">
 1.0
 </td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-0.00725
-</td>
-<td style="text-align:right;">
-0.00981
-</td>
-<td style="text-align:right;">
-0.09631
-</td>
-<td style="text-align:right;">
-0.00440
-</td>
-<td style="text-align:right;">
-0.09627
-</td>
-<td style="text-align:right;">
-0.00439
-</td>
-<td style="text-align:right;">
-0.31028
-</td>
-<td style="text-align:right;">
-0.00027
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
 <td style="text-align:right;">
 0.00725
 </td>
@@ -511,44 +390,6 @@ Welch t-test
 </td>
 <td style="text-align:right;">
 2.0
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
--0.00565
-</td>
-<td style="text-align:right;">
-0.00964
-</td>
-<td style="text-align:right;">
-0.09290
-</td>
-<td style="text-align:right;">
-0.00407
-</td>
-<td style="text-align:right;">
-0.09284
-</td>
-<td style="text-align:right;">
-0.00408
-</td>
-<td style="text-align:right;">
-0.30470
-</td>
-<td style="text-align:right;">
-0.00026
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:left;">
-Welch t-test
 </td>
 <td style="text-align:right;">
 -0.00565
@@ -582,44 +423,6 @@ Welch t-test
 <td style="text-align:right;">
 0.0
 </td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
--0.00934
-</td>
-<td style="text-align:right;">
-0.00703
-</td>
-<td style="text-align:right;">
-0.04945
-</td>
-<td style="text-align:right;">
-0.00212
-</td>
-<td style="text-align:right;">
-0.04949
-</td>
-<td style="text-align:right;">
-0.00211
-</td>
-<td style="text-align:right;">
-0.22245
-</td>
-<td style="text-align:right;">
-0.00019
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
 <td style="text-align:right;">
 -0.00934
 </td>
@@ -651,44 +454,6 @@ Welch t-test
 </td>
 <td style="text-align:right;">
 0.5
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-0.00536
-</td>
-<td style="text-align:right;">
-0.00721
-</td>
-<td style="text-align:right;">
-0.05205
-</td>
-<td style="text-align:right;">
-0.00235
-</td>
-<td style="text-align:right;">
-0.05203
-</td>
-<td style="text-align:right;">
-0.00235
-</td>
-<td style="text-align:right;">
-0.22810
-</td>
-<td style="text-align:right;">
-0.00020
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:left;">
-Welch t-test
 </td>
 <td style="text-align:right;">
 0.00536
@@ -722,44 +487,6 @@ Welch t-test
 <td style="text-align:right;">
 1.0
 </td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
--0.00947
-</td>
-<td style="text-align:right;">
-0.00723
-</td>
-<td style="text-align:right;">
-0.05225
-</td>
-<td style="text-align:right;">
-0.00234
-</td>
-<td style="text-align:right;">
-0.05229
-</td>
-<td style="text-align:right;">
-0.00236
-</td>
-<td style="text-align:right;">
-0.22866
-</td>
-<td style="text-align:right;">
-0.00020
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
 <td style="text-align:right;">
 -0.00947
 </td>
@@ -791,44 +518,6 @@ Welch t-test
 </td>
 <td style="text-align:right;">
 2.0
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-0.00261
-</td>
-<td style="text-align:right;">
-0.00730
-</td>
-<td style="text-align:right;">
-0.05332
-</td>
-<td style="text-align:right;">
-0.00232
-</td>
-<td style="text-align:right;">
-0.05328
-</td>
-<td style="text-align:right;">
-0.00232
-</td>
-<td style="text-align:right;">
-0.23082
-</td>
-<td style="text-align:right;">
-0.00020
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:left;">
-Welch t-test
 </td>
 <td style="text-align:right;">
 0.00261
@@ -862,44 +551,6 @@ Welch t-test
 <td style="text-align:right;">
 0.0
 </td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-0.00134
-</td>
-<td style="text-align:right;">
-0.00508
-</td>
-<td style="text-align:right;">
-0.02585
-</td>
-<td style="text-align:right;">
-0.00113
-</td>
-<td style="text-align:right;">
-0.02583
-</td>
-<td style="text-align:right;">
-0.00113
-</td>
-<td style="text-align:right;">
-0.16072
-</td>
-<td style="text-align:right;">
-0.00014
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-200
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
 <td style="text-align:right;">
 0.00134
 </td>
@@ -931,44 +582,6 @@ Welch t-test
 </td>
 <td style="text-align:right;">
 0.5
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
--0.00115
-</td>
-<td style="text-align:right;">
-0.00498
-</td>
-<td style="text-align:right;">
-0.02478
-</td>
-<td style="text-align:right;">
-0.00105
-</td>
-<td style="text-align:right;">
-0.02475
-</td>
-<td style="text-align:right;">
-0.00105
-</td>
-<td style="text-align:right;">
-0.15734
-</td>
-<td style="text-align:right;">
-0.00013
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-200
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:left;">
-Welch t-test
 </td>
 <td style="text-align:right;">
 -0.00115
@@ -1002,44 +615,6 @@ Welch t-test
 <td style="text-align:right;">
 1.0
 </td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
--0.01105
-</td>
-<td style="text-align:right;">
-0.00504
-</td>
-<td style="text-align:right;">
-0.02543
-</td>
-<td style="text-align:right;">
-0.00113
-</td>
-<td style="text-align:right;">
-0.02553
-</td>
-<td style="text-align:right;">
-0.00113
-</td>
-<td style="text-align:right;">
-0.15979
-</td>
-<td style="text-align:right;">
-0.00014
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-200
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
 <td style="text-align:right;">
 -0.01105
 </td>
@@ -1071,44 +646,6 @@ Welch t-test
 </td>
 <td style="text-align:right;">
 2.0
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-0.00577
-</td>
-<td style="text-align:right;">
-0.00490
-</td>
-<td style="text-align:right;">
-0.02397
-</td>
-<td style="text-align:right;">
-0.00103
-</td>
-<td style="text-align:right;">
-0.02398
-</td>
-<td style="text-align:right;">
-0.00103
-</td>
-<td style="text-align:right;">
-0.15486
-</td>
-<td style="text-align:right;">
-0.00013
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-200
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:left;">
-Welch t-test
 </td>
 <td style="text-align:right;">
 0.00577
@@ -1139,10 +676,11 @@ Welch t-test
 </table>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># using group_modify()</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">welch_res <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">params =</span> mean_diff) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># group_modify cannot take in a group column as an argument</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(n, mean_diff, method) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_map.html">group_modify</a></span>(<span class="op">~</span><span class="st"> </span><span class="kw"><a href="../reference/calc_absolute.html">calc_absolute</a></span>(.x,  <span class="dt">estimates =</span> est, <span class="dt">true_param =</span> params)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits =</span> <span class="dv">5</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(method <span class="op">==</span><span class="st"> "t-test"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">params =</span> mean_diff) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># group_modify cannot take in a group column as an argument</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(n, mean_diff) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># grouping </span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_map.html">group_modify</a></span>(<span class="op">~</span><span class="st"> </span><span class="kw"><a href="../reference/calc_absolute.html">calc_absolute</a></span>(.x,  <span class="dt">estimates =</span> est, <span class="dt">true_param =</span> params)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits =</span> <span class="dv">5</span>)</a></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
@@ -1150,9 +688,6 @@ n
 </th>
 <th style="text-align:right;">
 mean_diff
-</th>
-<th style="text-align:left;">
-method
 </th>
 <th style="text-align:right;">
 bias
@@ -1187,44 +722,6 @@ rmse_mcse
 <td style="text-align:right;">
 0.0
 </td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
--0.00890
-</td>
-<td style="text-align:right;">
-0.01000
-</td>
-<td style="text-align:right;">
-0.09999
-</td>
-<td style="text-align:right;">
-0.00425
-</td>
-<td style="text-align:right;">
-0.09997
-</td>
-<td style="text-align:right;">
-0.00425
-</td>
-<td style="text-align:right;">
-0.31618
-</td>
-<td style="text-align:right;">
-0.00027
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
 <td style="text-align:right;">
 -0.00890
 </td>
@@ -1256,44 +753,6 @@ Welch t-test
 </td>
 <td style="text-align:right;">
 0.5
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-0.00449
-</td>
-<td style="text-align:right;">
-0.01025
-</td>
-<td style="text-align:right;">
-0.10512
-</td>
-<td style="text-align:right;">
-0.00468
-</td>
-<td style="text-align:right;">
-0.10503
-</td>
-<td style="text-align:right;">
-0.00468
-</td>
-<td style="text-align:right;">
-0.32409
-</td>
-<td style="text-align:right;">
-0.00028
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:left;">
-Welch t-test
 </td>
 <td style="text-align:right;">
 0.00449
@@ -1327,44 +786,6 @@ Welch t-test
 <td style="text-align:right;">
 1.0
 </td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-0.00725
-</td>
-<td style="text-align:right;">
-0.00981
-</td>
-<td style="text-align:right;">
-0.09631
-</td>
-<td style="text-align:right;">
-0.00440
-</td>
-<td style="text-align:right;">
-0.09627
-</td>
-<td style="text-align:right;">
-0.00439
-</td>
-<td style="text-align:right;">
-0.31028
-</td>
-<td style="text-align:right;">
-0.00027
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
 <td style="text-align:right;">
 0.00725
 </td>
@@ -1396,44 +817,6 @@ Welch t-test
 </td>
 <td style="text-align:right;">
 2.0
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
--0.00565
-</td>
-<td style="text-align:right;">
-0.00964
-</td>
-<td style="text-align:right;">
-0.09290
-</td>
-<td style="text-align:right;">
-0.00407
-</td>
-<td style="text-align:right;">
-0.09284
-</td>
-<td style="text-align:right;">
-0.00408
-</td>
-<td style="text-align:right;">
-0.30470
-</td>
-<td style="text-align:right;">
-0.00026
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:left;">
-Welch t-test
 </td>
 <td style="text-align:right;">
 -0.00565
@@ -1467,44 +850,6 @@ Welch t-test
 <td style="text-align:right;">
 0.0
 </td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
--0.00934
-</td>
-<td style="text-align:right;">
-0.00703
-</td>
-<td style="text-align:right;">
-0.04945
-</td>
-<td style="text-align:right;">
-0.00212
-</td>
-<td style="text-align:right;">
-0.04949
-</td>
-<td style="text-align:right;">
-0.00211
-</td>
-<td style="text-align:right;">
-0.22245
-</td>
-<td style="text-align:right;">
-0.00019
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
 <td style="text-align:right;">
 -0.00934
 </td>
@@ -1536,44 +881,6 @@ Welch t-test
 </td>
 <td style="text-align:right;">
 0.5
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-0.00536
-</td>
-<td style="text-align:right;">
-0.00721
-</td>
-<td style="text-align:right;">
-0.05205
-</td>
-<td style="text-align:right;">
-0.00235
-</td>
-<td style="text-align:right;">
-0.05203
-</td>
-<td style="text-align:right;">
-0.00235
-</td>
-<td style="text-align:right;">
-0.22810
-</td>
-<td style="text-align:right;">
-0.00020
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:left;">
-Welch t-test
 </td>
 <td style="text-align:right;">
 0.00536
@@ -1607,44 +914,6 @@ Welch t-test
 <td style="text-align:right;">
 1.0
 </td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
--0.00947
-</td>
-<td style="text-align:right;">
-0.00723
-</td>
-<td style="text-align:right;">
-0.05225
-</td>
-<td style="text-align:right;">
-0.00234
-</td>
-<td style="text-align:right;">
-0.05229
-</td>
-<td style="text-align:right;">
-0.00236
-</td>
-<td style="text-align:right;">
-0.22866
-</td>
-<td style="text-align:right;">
-0.00020
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
 <td style="text-align:right;">
 -0.00947
 </td>
@@ -1676,44 +945,6 @@ Welch t-test
 </td>
 <td style="text-align:right;">
 2.0
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-0.00261
-</td>
-<td style="text-align:right;">
-0.00730
-</td>
-<td style="text-align:right;">
-0.05332
-</td>
-<td style="text-align:right;">
-0.00232
-</td>
-<td style="text-align:right;">
-0.05328
-</td>
-<td style="text-align:right;">
-0.00232
-</td>
-<td style="text-align:right;">
-0.23082
-</td>
-<td style="text-align:right;">
-0.00020
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:left;">
-Welch t-test
 </td>
 <td style="text-align:right;">
 0.00261
@@ -1747,44 +978,6 @@ Welch t-test
 <td style="text-align:right;">
 0.0
 </td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-0.00134
-</td>
-<td style="text-align:right;">
-0.00508
-</td>
-<td style="text-align:right;">
-0.02585
-</td>
-<td style="text-align:right;">
-0.00113
-</td>
-<td style="text-align:right;">
-0.02583
-</td>
-<td style="text-align:right;">
-0.00113
-</td>
-<td style="text-align:right;">
-0.16072
-</td>
-<td style="text-align:right;">
-0.00014
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-200
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
 <td style="text-align:right;">
 0.00134
 </td>
@@ -1816,44 +1009,6 @@ Welch t-test
 </td>
 <td style="text-align:right;">
 0.5
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
--0.00115
-</td>
-<td style="text-align:right;">
-0.00498
-</td>
-<td style="text-align:right;">
-0.02478
-</td>
-<td style="text-align:right;">
-0.00105
-</td>
-<td style="text-align:right;">
-0.02475
-</td>
-<td style="text-align:right;">
-0.00105
-</td>
-<td style="text-align:right;">
-0.15734
-</td>
-<td style="text-align:right;">
-0.00013
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-200
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:left;">
-Welch t-test
 </td>
 <td style="text-align:right;">
 -0.00115
@@ -1887,44 +1042,6 @@ Welch t-test
 <td style="text-align:right;">
 1.0
 </td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
--0.01105
-</td>
-<td style="text-align:right;">
-0.00504
-</td>
-<td style="text-align:right;">
-0.02543
-</td>
-<td style="text-align:right;">
-0.00113
-</td>
-<td style="text-align:right;">
-0.02553
-</td>
-<td style="text-align:right;">
-0.00113
-</td>
-<td style="text-align:right;">
-0.15979
-</td>
-<td style="text-align:right;">
-0.00014
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-200
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
 <td style="text-align:right;">
 -0.01105
 </td>
@@ -1956,44 +1073,6 @@ Welch t-test
 </td>
 <td style="text-align:right;">
 2.0
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-0.00577
-</td>
-<td style="text-align:right;">
-0.00490
-</td>
-<td style="text-align:right;">
-0.02397
-</td>
-<td style="text-align:right;">
-0.00103
-</td>
-<td style="text-align:right;">
-0.02398
-</td>
-<td style="text-align:right;">
-0.00103
-</td>
-<td style="text-align:right;">
-0.15486
-</td>
-<td style="text-align:right;">
-0.00013
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-200
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:left;">
-Welch t-test
 </td>
 <td style="text-align:right;">
 0.00577
@@ -2027,13 +1106,13 @@ Welch t-test
 <div id="relative-criteria" class="section level2">
 <h2 class="hasAnchor">
 <a href="#relative-criteria" class="anchor"></a>Relative Criteria</h2>
-<p>Relative criteria can be useful to look at if multiple true parameter values are used to generate the data to run the simulation and if performance measure changes according to the true value. It can be only used when <span class="math inline">\(|\theta| &gt; 0\)</span> as we cannot divide by <span class="math inline">\(0\)</span> (Morris et al., 2018).</p>
+<p>Relative criteria can be useful for describing an estimator’s performance, especially if performance varies in proportion to the true value of the target parameter. It can be only used when <span class="math inline">\(|\theta| &gt; 0\)</span> as we cannot divide by <span class="math inline">\(0\)</span> (Morris et al., 2018).</p>
 <p>To derive the MCSE for relative RMSE, we again used the jackknife technique. The formula to calculate relative RMSE is:</p>
 <p><span class="math display">\[RMSE = \sqrt{\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}}\]</span></p>
 <p>The jackknife RMSE will be calculated as:</p>
 <p><span class="math display">\[RMSE_{(j)}  = \sqrt{\frac{(\bar{T}_{(j)} - \theta)^2 + S_{T(j)}^2}{\theta^2}}\]</span></p>
 <p>Here <span class="math inline">\(\bar{T}_{(j)}\)</span> and <span class="math inline">\(S^2_{T(j)}\)</span> are calculated as specified above when we described the algebra trick to estimate these values. The MCSE is then calculated as specified in the table below.</p>
-<p>Table 2 below shows each of the performance criteria, what it measures, its definition, its estimate, and its MCSE formula.</p>
+<p>Table 2 below shows each of the relative performance criteria, its interpretation, its formal definition, how the criterion is estimated in a simulation study, and its MCSE formula.</p>
 <table class="table table table-striped table-hover">
 <caption>
 Table 2. Relative Performance Criteria
@@ -2104,7 +1183,7 @@ Accuracy
 <span class="math inline">\(\sqrt{\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}}\)</span>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\frac{1}{K} \sum_{j=1}^K \left(RMSE_{(j)} - RMSE)^2\right)}\)</span>
+<span class="math inline">\(\sqrt{\frac{1}{K\theta^2} \sum_{j=1}^K \left(RMSE_{(j)} - RMSE)^2\right)}\)</span>
 </td>
 </tr>
 </tbody>
@@ -2112,13 +1191,14 @@ Accuracy
 <div id="example-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#example-1" class="anchor"></a>Example</h3>
-<p>Below, we calculate the relative criteria for the mean difference estimates. Note that when the mean difference is 0, the relative measures cannot be calculated. The function returns <code>NA</code> values for conditions where the mean difference is 0. The syntax for <code><a href="../reference/calc_relative.html">calc_relative()</a></code> is similar to the one that we used earlier for <code><a href="../reference/calc_absolute.html">calc_absolute()</a></code>. The <code>perfm_criteria</code> argument allows the user to specify which criteria to evaluate: <code>perfm_criteria = c("relative bias", "relative mse", "relative rmse")</code>.</p>
+<p>Below, we calculate the relative criteria for the mean difference estimates. Note that when the mean difference is 0, the relative measures cannot be calculated and the function returns <code>NA</code> values. The syntax for <code><a href="../reference/calc_relative.html">calc_relative()</a></code> is similar to the one that we used earlier for <code><a href="../reference/calc_absolute.html">calc_absolute()</a></code>. The <code>perfm_criteria</code> argument allows the user to specify which criteria to evaluate: <code>perfm_criteria = c("relative bias", "relative mse", "relative rmse")</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># using group_modify()</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">welch_res <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">params =</span> mean_diff) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(n, mean_diff, method) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_map.html">group_modify</a></span>(<span class="op">~</span><span class="st"> </span><span class="kw"><a href="../reference/calc_relative.html">calc_relative</a></span>(.x,  <span class="dt">estimates =</span> est, <span class="dt">true_param =</span> params)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits =</span> <span class="dv">5</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(method <span class="op">==</span><span class="st"> "t-test"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">params =</span> mean_diff) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(n, mean_diff) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_map.html">group_modify</a></span>(<span class="op">~</span><span class="st"> </span><span class="kw"><a href="../reference/calc_relative.html">calc_relative</a></span>(.x,  <span class="dt">estimates =</span> est, <span class="dt">true_param =</span> params)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits =</span> <span class="dv">5</span>)</a></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
@@ -2126,9 +1206,6 @@ n
 </th>
 <th style="text-align:right;">
 mean_diff
-</th>
-<th style="text-align:left;">
-method
 </th>
 <th style="text-align:right;">
 rel_bias
@@ -2157,38 +1234,6 @@ rel_rmse_mcse
 <td style="text-align:right;">
 0.0
 </td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
 <td style="text-align:right;">
 NA
 </td>
@@ -2214,38 +1259,6 @@ NA
 </td>
 <td style="text-align:right;">
 0.5
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1.00898
-</td>
-<td style="text-align:right;">
-0.02051
-</td>
-<td style="text-align:right;">
-0.42055
-</td>
-<td style="text-align:right;">
-0.00936
-</td>
-<td style="text-align:right;">
-0.64850
-</td>
-<td style="text-align:right;">
-0.00046
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:left;">
-Welch t-test
 </td>
 <td style="text-align:right;">
 1.00898
@@ -2273,38 +1286,6 @@ Welch t-test
 <td style="text-align:right;">
 1.0
 </td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1.00725
-</td>
-<td style="text-align:right;">
-0.00981
-</td>
-<td style="text-align:right;">
-0.09637
-</td>
-<td style="text-align:right;">
-0.00439
-</td>
-<td style="text-align:right;">
-0.31043
-</td>
-<td style="text-align:right;">
-0.00022
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
 <td style="text-align:right;">
 1.00725
 </td>
@@ -2330,38 +1311,6 @@ Welch t-test
 </td>
 <td style="text-align:right;">
 2.0
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-0.99717
-</td>
-<td style="text-align:right;">
-0.00482
-</td>
-<td style="text-align:right;">
-0.02323
-</td>
-<td style="text-align:right;">
-0.00204
-</td>
-<td style="text-align:right;">
-0.15243
-</td>
-<td style="text-align:right;">
-0.00011
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:left;">
-Welch t-test
 </td>
 <td style="text-align:right;">
 0.99717
@@ -2389,38 +1338,6 @@ Welch t-test
 <td style="text-align:right;">
 0.0
 </td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
 <td style="text-align:right;">
 NA
 </td>
@@ -2446,38 +1363,6 @@ NA
 </td>
 <td style="text-align:right;">
 0.5
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1.01071
-</td>
-<td style="text-align:right;">
-0.01443
-</td>
-<td style="text-align:right;">
-0.20833
-</td>
-<td style="text-align:right;">
-0.00470
-</td>
-<td style="text-align:right;">
-0.45643
-</td>
-<td style="text-align:right;">
-0.00033
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:left;">
-Welch t-test
 </td>
 <td style="text-align:right;">
 1.01071
@@ -2505,38 +1390,6 @@ Welch t-test
 <td style="text-align:right;">
 1.0
 </td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-0.99053
-</td>
-<td style="text-align:right;">
-0.00723
-</td>
-<td style="text-align:right;">
-0.05234
-</td>
-<td style="text-align:right;">
-0.00236
-</td>
-<td style="text-align:right;">
-0.22877
-</td>
-<td style="text-align:right;">
-0.00016
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
 <td style="text-align:right;">
 0.99053
 </td>
@@ -2562,38 +1415,6 @@ Welch t-test
 </td>
 <td style="text-align:right;">
 2.0
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1.00130
-</td>
-<td style="text-align:right;">
-0.00365
-</td>
-<td style="text-align:right;">
-0.01333
-</td>
-<td style="text-align:right;">
-0.00116
-</td>
-<td style="text-align:right;">
-0.11547
-</td>
-<td style="text-align:right;">
-0.00008
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:left;">
-Welch t-test
 </td>
 <td style="text-align:right;">
 1.00130
@@ -2621,38 +1442,6 @@ Welch t-test
 <td style="text-align:right;">
 0.0
 </td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-200
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
 <td style="text-align:right;">
 NA
 </td>
@@ -2678,38 +1467,6 @@ NA
 </td>
 <td style="text-align:right;">
 0.5
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-0.99770
-</td>
-<td style="text-align:right;">
-0.00996
-</td>
-<td style="text-align:right;">
-0.09912
-</td>
-<td style="text-align:right;">
-0.00211
-</td>
-<td style="text-align:right;">
-0.31483
-</td>
-<td style="text-align:right;">
-0.00021
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-200
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:left;">
-Welch t-test
 </td>
 <td style="text-align:right;">
 0.99770
@@ -2737,38 +1494,6 @@ Welch t-test
 <td style="text-align:right;">
 1.0
 </td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-0.98895
-</td>
-<td style="text-align:right;">
-0.00504
-</td>
-<td style="text-align:right;">
-0.02556
-</td>
-<td style="text-align:right;">
-0.00113
-</td>
-<td style="text-align:right;">
-0.15987
-</td>
-<td style="text-align:right;">
-0.00011
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-200
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
 <td style="text-align:right;">
 0.98895
 </td>
@@ -2794,38 +1519,6 @@ Welch t-test
 </td>
 <td style="text-align:right;">
 2.0
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1.00289
-</td>
-<td style="text-align:right;">
-0.00245
-</td>
-<td style="text-align:right;">
-0.00600
-</td>
-<td style="text-align:right;">
-0.00051
-</td>
-<td style="text-align:right;">
-0.07747
-</td>
-<td style="text-align:right;">
-0.00005
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-200
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:left;">
-Welch t-test
 </td>
 <td style="text-align:right;">
 1.00289
@@ -2853,8 +1546,8 @@ Welch t-test
 <div id="relative-criteria-for-variance-estimators" class="section level2">
 <h2 class="hasAnchor">
 <a href="#relative-criteria-for-variance-estimators" class="anchor"></a>Relative Criteria for Variance Estimators</h2>
-<p>Variances estimators are always positive. Therefore, relative performance criteria are often used to assess variance estimators. For variance estimators, we have <span class="math inline">\(V\)</span> denoting the sampling variance of of a point-estimator <span class="math inline">\(T\)</span>. To assess the relative criteria for <span class="math inline">\(V\)</span>, we need to divide it by the true value of the sampling variance of <span class="math inline">\(T\)</span>, <span class="math inline">\(\lambda = \text{Var}(T)\)</span>, which we may not know. In such scenario, we can use the sample variance of <span class="math inline">\(T\)</span> across the replications, <span class="math inline">\(S_T^2\)</span>, to estimate the true sampling variance.</p>
-<p>The relative bias would then be estimated by <span class="math inline">\(RB = \bar{V} / S_T^2\)</span>, the average of the variance estimates divided by the sample variance of the point-estimates. To estimate MCSE of the relative bias of the variance estimator, we need to account for the uncertainty in the estimation of the true sampling variance. One way to do so is to use the jackknife technique that we described above. Jack-knifing involves excluding a replicate <span class="math inline">\(j\)</span> and calculating relative bias <span class="math inline">\(\bar{V}_{(j)}/ S_{T(j)}^2\)</span>. The Monte Carlo standard error can then be calculated as:</p>
+<p>Variances estimators are always positive, and so relative criteria are often used to characterize their performance. For variance estimators, we have <span class="math inline">\(V\)</span> denoting the sampling variance of a point estimator <span class="math inline">\(T\)</span>. To assess the relative criteria for <span class="math inline">\(V\)</span>, we need to divide it by the true value of the sampling variance of <span class="math inline">\(T\)</span>, <span class="math inline">\(\lambda = \text{Var}(T)\)</span>, which we may not be able to calculate directly. In such scenario, we can use the sample variance of <span class="math inline">\(T\)</span> across the replications, <span class="math inline">\(S_T^2\)</span>, to estimate the true sampling variance.</p>
+<p>The relative bias would then be estimated by <span class="math inline">\(RB = \bar{V} / S_T^2\)</span>, the average of the variance estimates divided by the sample variance of the point estimates. To estimate MCSE of the relative bias of the variance estimator, we need to account for the uncertainty in the estimation of the true sampling variance. One way to do so is to use the jackknife technique that we described above, which entails excluding a replicate <span class="math inline">\(j\)</span> and calculating relative bias <span class="math inline">\(\bar{V}_{(j)}/ S_{T(j)}^2\)</span>. The Monte Carlo standard error can then be calculated as:</p>
 <p><span class="math display">\[
 MCSE\left(RB\right) = \sqrt{\frac{1}{K} \sum_{j=1}^K \left(RB_{(j)} - RB\right)^2}
 \]</span> which can be written as:</p>
@@ -2868,8 +1561,8 @@ MCSE\left(RB\right) = \sqrt{\frac{1}{K} \sum_{j=1}^K \left(\frac{\bar{V}_{(j)}}{
 S_{T(j)}^2 &amp;= \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]
 \end{aligned}
 \]</span></p>
-<p>Similarly, we can estimate the MCSE of relative MSE and RMSE using the jackknife technique. To estimate the MSE we need to estimate <span class="math inline">\(S_{V(j)}^2\)</span> which represents the sample variance of the variance estimates leaving replicate <span class="math inline">\(j\)</span> out. We can estimate <span class="math inline">\(S_{V(j)}^2\)</span> as specified below:</p>
-<p><span class="math display">\[S_{V(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_V^2 - \frac{K}{K - 1}\left(V_j - \bar{V}\right)^2\right]\]</span></p>
+<p>Similarly, we can estimate the MCSE of relative MSE and RMSE using the jackknife technique. To estimate the MSE we need to estimate <span class="math inline">\(S_{V(j)}^2\)</span> which represents the sample variance of the variance estimates leaving replicate <span class="math inline">\(j\)</span> out. We calculate <span class="math inline">\(S_{V(j)}^2\)</span> as</p>
+<p><span class="math display">\[S_{V(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_V^2 - \frac{K}{K - 1}\left(V_j - \bar{V}\right)^2\right].\]</span></p>
 <p>We can then estimate the jackknife relative MSE and RMSE following the same logic as we described above and then calculate the MCSE.</p>
 <p>Table 3 below lists relative performance measures for variance estimators.</p>
 <table class="table table table-striped table-hover">
@@ -2947,7 +1640,10 @@ Accuracy
 </tr>
 </tbody>
 </table>
-<p>The function <code><a href="../reference/calc_relative_var.html">calc_relative_var()</a></code> calculates the relative performance criteria estimate and the jack-knife MCSE of a variance estimator. The function requires <code>res_dat</code>, a data frame or tibble containing simulation results, <code>estimates</code>, the name of the column containing point-estimates, <code>var_estimates</code>, the name of the column containing the variance estimates, and <code>perfm_criteria</code>, the criteria to be evaluated: <code>perfm_criteria = c("relative bias", "relative mse", "relative rmse")</code>.</p>
+<p>The function <code><a href="../reference/calc_relative_var.html">calc_relative_var()</a></code> calculates the relative performance criteria estimates and corresponding jack-knife MCSEs for a variance estimator. The function requires <code>res_dat</code>, a data frame or tibble containing simulation results, <code>estimates</code>, the name of the column containing point estimates, <code>var_estimates</code>, the name of the column containing the variance estimates, and <code>perfm_criteria</code>, the criteria to be evaluated: <code>perfm_criteria = c("relative bias", "relative mse", "relative rmse")</code>.</p>
+<div id="example-2" class="section level3">
+<h3 class="hasAnchor">
+<a href="#example-2" class="anchor"></a>Example</h3>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">welch_res <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">params =</span> mean_diff) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(n, mean_diff, method) <span class="op">%&gt;%</span></a>
@@ -3683,10 +2379,11 @@ Welch t-test
 </tbody>
 </table>
 </div>
+</div>
 <div id="hypothesis-testing-and-confidence-intervals" class="section level2">
 <h2 class="hasAnchor">
 <a href="#hypothesis-testing-and-confidence-intervals" class="anchor"></a>Hypothesis Testing and Confidence Intervals</h2>
-<p>When doing hypothesis tests, we are often interested in whether the Type 1 error rate is adequately controlled and whether the test has enough power to detect the effect of interest. Rejection rate captures the proportion of times the p-value is below a specified <span class="math inline">\(\alpha\)</span> level, the proportion of times we can reject the null hypothesis. When the specified effect size is 0, we can examine Type 1 error rates and when the magnitude of the effect is greater than 0, we can examine power. We are also interested in confidence interval coverage, proportion of intervals that contain the true parameter, and the interval width, which is an indicator of the precision of the estimate.</p>
+<p>When doing hypothesis tests, we are often interested in whether the Type 1 error rate is adequately controlled and whether the test has enough power to detect an effect size of substantive interest. The rejection rate of a hypothesis test captures the proportion of times the p-value is below a specified <span class="math inline">\(\alpha\)</span> level—that is, the proportion of times we reject the null hypothesis. When the specified effect size is 0, we can examine Type 1 error rates and when the magnitude of the effect is greater than 0, we can examine power. We are also interested in confidence interval coverage, the proportion of intervals that contain the true parameter, and the interval width, which is an indicator of the precision of the interval estimator.</p>
 <p>Table 4 below presents the performance criteria used to evaluate hypothesis tests. In the table, let <span class="math inline">\(P_k\)</span> denote the p-value from simulation replication <span class="math inline">\(k\)</span>, for <span class="math inline">\(k = 1,...,K\)</span>. Suppose that the confidence intervals are for the target parameter <span class="math inline">\(\theta\)</span> and have coverage level <span class="math inline">\(\beta\)</span>. Let <span class="math inline">\(A_k\)</span> and <span class="math inline">\(B_k\)</span> denote the lower and upper end-points of the confidence interval from simulation replication <span class="math inline">\(k\)</span>, and let <span class="math inline">\(W_k = B_k − A_k\)</span>, for <span class="math inline">\(k = 1,...,K\)</span>.</p>
 <table class="table table table-striped table-hover">
 <caption>
@@ -3763,10 +2460,10 @@ Precision
 </tr>
 </tbody>
 </table>
-<div id="example-2" class="section level3">
+<div id="example-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#example-2" class="anchor"></a>Example</h3>
-<p>Below we calculate the rejection rates for the hypothesis tests conducted using t-test. The null hypothesis states that the two groups have the same means. The <code><a href="../reference/calc_rejection.html">calc_rejection()</a></code> function requires a data frame or tibble containing simulation results as the first argument. The second argument, <code>p_values</code>, requires the name of the column containing p-values. The third argument, <code>alpha</code>, lets the user specify a value for <span class="math inline">\(\alpha\)</span>. The default value is set to the conventional 0.05.</p>
+<a href="#example-3" class="anchor"></a>Example</h3>
+<p>Below we calculate the rejection rates for the hypothesis tests conducted using the conventional two-sample t-test and the Welch t-test. The null hypothesis is that the two groups have the same means. The <code><a href="../reference/calc_rejection.html">calc_rejection()</a></code> function requires a data frame or tibble containing simulation results as the first argument. The second argument, <code>p_values</code>, requires the name of the column containing p-values. The third argument, <code>alpha</code>, lets the user specify a value for <span class="math inline">\(\alpha\)</span>. The default value is set to the conventional 0.05.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># using group_modify()</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">welch_res <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(n, mean_diff, method) <span class="op">%&gt;%</span></a>
@@ -4793,10 +3490,12 @@ Welch t-test
 <div id="how-to-evaluate-mcse" class="section level1">
 <h1 class="hasAnchor">
 <a href="#how-to-evaluate-mcse" class="anchor"></a>How to evaluate MCSE</h1>
-<p>The associated MCSE should be small compared to the performance measure. Below is an example from Frane (2015) of how to write up MCSE results as part of simulation study results. Frane (2015) compared various methods to control Type 1 error rates when conducting analysis on multiple outcome variables.</p>
-<p>“Only Bonferroni and MP strictly controlled the PFER; the observed maximum PFER was 0.050 for Bonferroni, 0.051 for Sidák, 0.061 for Holm, 0.100 for Hochberg, and 0.050 for MP (estimated SE ≤ 0.0002 for all estimates).”</p>
-<p>The PFER refers to per family error rate, the expected number of Type 1 errors out of <span class="math inline">\(m\)</span> comparisons. MP refers to MANOVA protected tests. The SE refers to the MCSE. The number of replications was 1,000,000 in Frane (2015). We note that the number is quite high and generally 1,000 to 10,000 replications are enough. The resulting MCSEs in Frane (2015), therefore, are way smaller compared to the values for PFER.</p>
-<p>For more information for performance criteria and MCSE, we recommend Morris, White &amp; Crowther (2018).</p>
+<p>Generally, the associated MCSE should be small compared to the performance measure. Below is an example from Frane (2015) of how to write up MCSE results as part of simulation study results. Frane (2015) compared various methods to control Type 1 error rates when conducting analysis on multiple outcome variables. In describing the simulation results, he wrote:</p>
+<blockquote>
+<p>Only Bonferroni and MP strictly controlled the PFER; the observed maximum PFER was 0.050 for Bonferroni, 0.051 for Sidák, 0.061 for Holm, 0.100 for Hochberg, and 0.050 for MP (estimated SE ≤ 0.0002 for all estimates).</p>
+</blockquote>
+<p>The PFER refers to per family error rate, the expected number of Type 1 errors out of <span class="math inline">\(m\)</span> comparisons. MP refers to MANOVA protected tests. The SE refers to the MCSE. The number of replications was 1,000,000 in Frane (2015). We note that the number is quite high and generally 1,000 to 10,000 replications are enough. The resulting MCSEs in Frane (2015), therefore, are exceedingly small compared to the values for PFER.</p>
+<p>For more information for performance criteria and MCSE, we recommend Morris, White, and Crowther (2018).</p>
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
@@ -4813,8 +3512,7 @@ Welch t-test
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#introduction-to-simulation-studies-and-monte-carlo-standard-errors">Introduction to Simulation Studies and Monte Carlo Standard Errors</a></li>
-      <li>
+<li>
 <a href="#performance-criteria-and-mcse">Performance Criteria and MCSE</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#absolute-criteria">Absolute Criteria</a></li>
       <li><a href="#relative-criteria">Relative Criteria</a></li>
