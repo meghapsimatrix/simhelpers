@@ -3,9 +3,9 @@ library(tidyverse)
 
 calc_rejection <- function(res_dat, p_values, alpha = .05){
 
-  env <- list2env(res_dat, parent = parent.frame())
-  p_vals <- eval(res_dat %>% dplyr::pull({{p_values}}), env) # p values
-  K <- eval(nrow(res_dat), env) # number of iterations
+  #env <- list2env(res_dat, parent = parent.frame())
+  p_vals <- res_dat %>% dplyr::pull({{p_values}})
+  K <- nrow(res_dat)
 
   dat <- tibble::tibble(rej_rate = mean(p_vals < alpha),
                         rej_rate_mcse = sqrt((rej_rate * (1 - rej_rate)) / K))
@@ -28,6 +28,9 @@ t_res %>%
 # does not like mutate
 t_res %>%
   mutate(calc_rejection(p_values = pval))
+
+t_res %>%
+  summarize(calc_rejection(p_values = pval))
 
 welch_res %>%
   calc_rejection(p_values = p_val)
