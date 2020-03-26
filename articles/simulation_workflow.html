@@ -137,7 +137,7 @@
 
   <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">dat</span>)
 }</pre></body></html></div>
-<p>Below is an example where we generate random normal data for two groups, where the second group has a standard deviation twice as large as that of the first group. The function takes in three arguments: <code>n1</code>, indicating sample size for Group 1, <code>n2</code> indicating sample size for Group 1, and <code>mean_diff</code>, indicating the mean difference.</p>
+<p>Below is an example where we generate random normal data for two groups, where the second group has a standard deviation twice as large as that of the first group. The function takes in three arguments: <code>n1</code>, indicating sample size for Group 1, <code>n2</code> indicating sample size for Group 2, and <code>mean_diff</code>, indicating the mean difference.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">generate_dat</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">n1</span>, <span class="no">n2</span>, <span class="no">mean_diff</span>){
 
   <span class="no">dat</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(
@@ -320,7 +320,7 @@ Group 2
 
   <span class="no">performance_measures</span> <span class="kw">&lt;-</span> <span class="no">results</span> <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">method</span>) <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/do.html">do</a></span>(<span class="fu"><a href="../reference/calc_rejection.html">calc_rejection</a></span>(<span class="no">.</span>, <span class="kw">p_values</span> <span class="kw">=</span> <span class="no">p_val</span>))
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_map.html">group_modify</a></span>(~ <span class="fu"><a href="../reference/calc_rejection.html">calc_rejection</a></span>(<span class="no">.x</span>, <span class="kw">p_values</span> <span class="kw">=</span> <span class="no">p_val</span>))
 
   <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">performance_measures</span>)
 }</pre></body></html></div>
@@ -425,7 +425,7 @@ Group 2
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="kw">cols</span> <span class="kw">=</span> <span class="no">res</span>)
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   11.29    0.00   11.29</span>
+<span class="co">#&gt;   9.494   0.000   9.499</span>
 
 <span class="no">results</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</pre></body></html></div>
@@ -894,7 +894,7 @@ Welch t-test
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="kw">cols</span> <span class="kw">=</span> <span class="no">res</span>)
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.160   0.012  11.635</span>
+<span class="co">#&gt;   0.106   0.004   9.258</span>
 
 <span class="no">results</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</pre></body></html></div>
@@ -1349,7 +1349,7 @@ Welch t-test
 <span class="fu"><a href="../reference/evaluate_by_row.html">evaluate_by_row</a></span>(<span class="no">params</span>, <span class="no">run_sim</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.151   0.012  11.689</span></pre></body></html></div>
+<span class="co">#&gt;   0.093   0.001   9.155</span></pre></body></html></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">

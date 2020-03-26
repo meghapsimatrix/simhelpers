@@ -1290,7 +1290,7 @@ MCSE\left(rB\right) = \sqrt{\frac{1}{K} \sum_{j=1}^K \left(\frac{\bar{V}_{(j)}}{
 S_{T(j)}^2 &amp;= \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]
 \end{aligned}
 \]</span></p>
-<p>Similarly, we can estimate the MCSE of relative MSE and RMSE using the jack-knife technique. To estimate the MSE we need to estimate <span class="math inline">\(S_{V(j)}^2\)</span> which represents the sample variance of the variance estimates leaving replicate <span class="math inline">\(j\)</span> out. We calculate <span class="math inline">\(S_{V(j)}^2\)</span> as</p>
+<p>Similarly, we can estimate the MCSE of relative MSE and RMSE using the jack-knife technique. To estimate the MSE we need to estimate <span class="math inline">\(S_{V(j)}^2\)</span>, which represents the sample variance of the variance estimates leaving replicate <span class="math inline">\(j\)</span> out. We calculate <span class="math inline">\(S_{V(j)}^2\)</span> as</p>
 <p><span class="math display">\[S_{V(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_V^2 - \frac{K}{K - 1}\left(V_j - \bar{V}\right)^2\right].\]</span></p>
 <p>We can then estimate the jack-knife relative MSE and RMSE following the same logic as we described above and then calculate the MCSE.</p>
 <p>Table 3 below lists relative performance measures for variance estimators.</p>
@@ -1375,7 +1375,6 @@ Accuracy
 <h3 class="hasAnchor">
 <a href="#example-2" class="anchor"></a>Example</h3>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">welch_res</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">params</span> <span class="kw">=</span> <span class="no">mean_diff</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">n1</span>, <span class="no">n2</span>, <span class="no">mean_diff</span>, <span class="no">method</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_map.html">group_modify</a></span>(~ <span class="fu"><a href="../reference/calc_relative_var.html">calc_relative_var</a></span>(<span class="no">.x</span>, <span class="kw">estimates</span> <span class="kw">=</span> <span class="no">est</span>, <span class="kw">var_estimates</span> <span class="kw">=</span> <span class="no">var</span>)) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw">digits</span> <span class="kw">=</span> <span class="fl">5</span>)</pre></body></html></div>
@@ -2820,12 +2819,12 @@ Welch t-test
 </div>
 <div id="how-to-evaluate-mcse" class="section level1">
 <h1 class="hasAnchor">
-<a href="#how-to-evaluate-mcse" class="anchor"></a>How to evaluate MCSE</h1>
+<a href="#how-to-evaluate-mcse" class="anchor"></a>How to Evaluate MCSE</h1>
 <p>Generally, the associated MCSE should be small compared to the performance measure. Below is an example from <span class="citation">Frane (2015)</span> of how to write up MCSE results as part of simulation study results. <span class="citation">Frane (2015)</span> compared various methods to control Type 1 error rates when conducting analysis on multiple outcome variables. In describing the simulation results, he wrote:</p>
 <blockquote>
 <p>Only Bonferroni and MP strictly controlled the PFER; the observed maximum PFER was 0.050 for Bonferroni, 0.051 for Sidák, 0.061 for Holm, 0.100 for Hochberg, and 0.050 for MP (estimated SE ≤ 0.0002 for all estimates).</p>
 </blockquote>
-<p>The PFER refers to per family error rate, the expected number of Type 1 errors out of <span class="math inline">\(m\)</span> comparisons. MP refers to MANOVA protected tests. The SE refers to the MCSE. The number of replications was 1,000,000 in <span class="citation">Frane (2015)</span>. We note that the number is quite high and generally 1,000 to 10,000 replications are enough. The resulting MCSEs in <span class="citation">Frane (2015)</span>, therefore, are exceedingly small compared to the values for PFER.</p>
+<p>The PFER refers to per family error rate, the expected number of Type 1 errors out of <span class="math inline">\(m\)</span> comparisons. MP refers to multivariate analysis of variance (MANOVA) protected tests. The SE refers to the MCSE. The number of replications was 1,000,000 in <span class="citation">Frane (2015)</span>. We note that the number is quite high and generally 1,000 to 10,000 replications are enough. The resulting MCSEs in <span class="citation">Frane (2015)</span>, therefore, are exceedingly small compared to the values for PFER.</p>
 <p>For more information for performance criteria and MCSE, we recommend <span class="citation">Morris et al. (2019)</span>.</p>
 </div>
 <div id="references" class="section level1 unnumbered">
