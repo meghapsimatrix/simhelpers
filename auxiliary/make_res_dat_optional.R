@@ -3,9 +3,17 @@ library(tidyverse)
 
 calc_rejection <- function(res_dat, p_values, alpha = .05){
 
-  #env <- list2env(res_dat, parent = parent.frame())
-  p_vals <- res_dat %>% dplyr::pull({{p_values}})
-  K <- nrow(res_dat)
+  if(missing(res_dat)){
+
+    p_vals <- p_values
+    K <- length(p_values)
+
+  } else{
+
+    p_vals <- res_dat %>% dplyr::pull({{p_values}})
+    K <- nrow(res_dat)
+
+  }
 
   dat <- tibble::tibble(rej_rate = mean(p_vals < alpha),
                         rej_rate_mcse = sqrt((rej_rate * (1 - rej_rate)) / K))
@@ -27,12 +35,13 @@ t_res %>%
 
 # does not like mutate
 t_res %>%
-  mutate(calc_rejection(p_values = pval))
+  mutate(calc_rejection(p_values = p_val))
 
 t_res %>%
-  summarize(calc_rejection(p_values = pval))
+  summarize(calc_rejection(p_values = p_val))
 
 welch_res %>%
+  nest(obs, pred) %>%
   calc_rejection(p_values = p_val)
 
 # runs but doesn't group
@@ -42,4 +51,5 @@ welch_res %>%
 
 welch_res %>%
   group_by(method) %>%
-  mutate(calc_rejection(p_values = p_val))
+  nest() %>%
+  summarize(calc_rejection(p_values = p_val))
