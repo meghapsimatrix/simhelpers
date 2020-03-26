@@ -20,16 +20,22 @@ calc_rejection <- function(res_dat, p_values, alpha = .05){
 load("data/t_res.rda")
 load("data/welch_res.rda")
 
+
+# this way works even without the parent stuff
 t_res %>%
   calc_rejection(p_values = p_val)
 
+# does not like mutate
+t_res %>%
+  mutate(calc_rejection(p_values = pval))
+
 welch_res %>%
   calc_rejection(p_values = p_val)
 
+# runs but doesn't group
 welch_res %>%
   group_by(method) %>%
   calc_rejection(p_values = p_val)
-
 
 welch_res %>%
   group_by(method) %>%
