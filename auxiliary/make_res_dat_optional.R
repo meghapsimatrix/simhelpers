@@ -15,10 +15,12 @@ calc_rejection <- function(res_dat, p_values, alpha = .05){
 
   }
 
+  dat1 <- tibble::tibble(rej_rate = mean(p_vals < alpha))
+
   dat <- tibble::tibble(rej_rate = mean(p_vals < alpha),
                         rej_rate_mcse = sqrt((rej_rate * (1 - rej_rate)) / K))
 
-  return(dat)
+  return(dat1)
 
 }
 
@@ -37,19 +39,26 @@ t_res %>%
 t_res %>%
   mutate(calc_rejection(p_values = p_val))
 
+
+# it doesn't like that it has 2 cols
 t_res %>%
   summarize(calc_rejection(p_values = p_val))
 
-welch_res %>%
-  nest(obs, pred) %>%
-  calc_rejection(p_values = p_val)
+# welch_res %>%
+#   nest(obs, pred) %>%
+#   calc_rejection(p_values = p_val)
 
 # runs but doesn't group
 welch_res %>%
   group_by(method) %>%
   calc_rejection(p_values = p_val)
 
+
+# the output is weird
 welch_res %>%
   group_by(method) %>%
-  nest() %>%
-  summarize(calc_rejection(p_values = p_val))
+  summarize(rmse = calc_rejection(p_values = p_val))
+
+welch_res %>%
+  group_by(method) %>%
+  do(calc_rejection(., p_values = p_val))
