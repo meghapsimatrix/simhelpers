@@ -70,7 +70,7 @@ generate_dat <- function(model_params) {
 }
 ```
 
-Below is an example where we generate random normal data for two groups, where the second group has a standard deviation twice as large as that of the first group. The function takes in three arguments: `n1`, indicating sample size for Group 1, `n2` indicating sample size for Group 1, and `mean_diff`, indicating the mean difference.
+Below is an example where we generate random normal data for two groups, where the second group has a standard deviation twice as large as that of the first group. The function takes in three arguments: `n1`, indicating sample size for Group 1, `n2` indicating sample size for Group 2, and `mean_diff`, indicating the mean difference.
 
 ```{r}
 generate_dat <- function(n1, n2, mean_diff){
@@ -230,7 +230,7 @@ calc_performance <- function(results) {
   
   performance_measures <- results %>%
     group_by(method) %>%
-    do(calc_rejection(., p_values = p_val))
+    group_modify(~ calc_rejection(.x, p_values = p_val))
 
   return(performance_measures)
 }

@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Introduction to Tipton and Pustejovsky (2015)
+## Introduction to Tipton & Pustejovsky (2015)
 
 In this vignette, we provide a brief example of how to present and report results from a simulation study. We replicate Figure 2 of @tipton_2015, which examined several small sample corrections for robust variance estimation methods as used in meta-analysis. 
 
@@ -82,7 +82,7 @@ Tipton_Pusto %>%
   geom_hline(yintercept = .05, linetype = "dashed") + 
   geom_boxplot(alpha = .5) + 
   facet_grid(q_graph ~ m, scales = "free") + 
-  labs(x = "Method", y = "Type 1 Error Rate", caption = "FIGURE 2. Type I error for alpha of .05 of five alternative tests. Solid lines indicate the nominal alpha level") + 
+  labs(x = "Method", y = "Type 1 Error Rate", caption = "FIGURE 2. Type I error for alpha of .05 of five alternative tests. Dashed lines indicate the nominal alpha level") + 
   theme_bw() +
   theme(legend.position = "none",
         plot.caption=element_text(hjust = 0, size = 10))

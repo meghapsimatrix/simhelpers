@@ -198,7 +198,7 @@ S_{T(j)}^2 &= \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \
 \end{aligned}
 $$
 
-Similarly, we can estimate the MCSE of relative MSE and RMSE using the jack-knife technique. To estimate the MSE we need to estimate $S_{V(j)}^2$ which represents the sample variance of the variance estimates leaving replicate $j$ out. We calculate $S_{V(j)}^2$ as 
+Similarly, we can estimate the MCSE of relative MSE and RMSE using the jack-knife technique. To estimate the MSE we need to estimate $S_{V(j)}^2$, which represents the sample variance of the variance estimates leaving replicate $j$ out. We calculate $S_{V(j)}^2$ as 
 
 $$S_{V(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_V^2 - \frac{K}{K - 1}\left(V_j - \bar{V}\right)^2\right].$$
 
@@ -228,7 +228,6 @@ Below we demonstrate the use of the `calc_relative_var()` function. The variance
 
 ```{r}
 welch_res %>%
-  mutate(params = mean_diff) %>%
   group_by(n1, n2, mean_diff, method) %>%
   group_modify(~ calc_relative_var(.x, estimates = est, var_estimates = var)) %>%
   kable(digits = 5)
@@ -280,13 +279,13 @@ welch_res %>%
 
 
 
-# How to evaluate MCSE
+# How to Evaluate MCSE
 
 Generally, the associated MCSE should be small compared to the performance measure. Below is an example from @frane2015power of how to write up MCSE results as part of simulation study results. @frane2015power compared various methods to control Type 1 error rates when conducting analysis on multiple outcome variables. In describing the simulation results, he wrote:
 
 > Only Bonferroni and MP strictly controlled the PFER; the observed maximum PFER was 0.050 for Bonferroni, 0.051 for Sidák, 0.061 for Holm, 0.100 for Hochberg, and 0.050 for MP (estimated SE ≤ 0.0002 for all estimates).
 
-The PFER refers to per family error rate, the expected number of Type 1 errors out of $m$ comparisons. MP refers to MANOVA protected tests. The SE refers to the MCSE. The number of replications was 1,000,000 in @frane2015power. We note that the number is quite high and generally 1,000 to 10,000 replications are enough. The resulting MCSEs in @frane2015power, therefore, are exceedingly small compared to the values for PFER. 
+The PFER refers to per family error rate, the expected number of Type 1 errors out of $m$ comparisons. MP refers to multivariate analysis of variance (MANOVA) protected tests. The SE refers to the MCSE. The number of replications was 1,000,000 in @frane2015power. We note that the number is quite high and generally 1,000 to 10,000 replications are enough. The resulting MCSEs in @frane2015power, therefore, are exceedingly small compared to the values for PFER. 
 
 For more information for performance criteria and MCSE, we recommend @morris2019using.
 
