@@ -44,9 +44,9 @@ function, `evaluate_by_row()`, runs the simulation for each combination
 of conditions row by row. This function uses
 [`future_pmap()`](https://davisvaughan.github.io/furrr/reference/future_map2.html)
 from the [`furrr`](https://davisvaughan.github.io/furrr/) package,
-making it easy to run the simulation in parallel. The package also
-includes several datasets that contain results from example simulation
-studies.
+making it easy to run the simulation in parallel (Vaughan & Dancho,
+2018). The package also includes several datasets that contain results
+from example simulation studies.
 
 <img src="man/figures/workflow.png" />
 
