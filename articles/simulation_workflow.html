@@ -112,7 +112,7 @@
 <li>Repeat step 4 for every set of conditions in the experimental design.</li>
 <li>Evaluate the overall results.</li>
 </ol>
-<p>The flowchart below depicts the workflow. The chart is created using <code>grViz()</code> from <a href="https://rich-iannone.github.io/DiagrammeR/"><code>DiagrammeR</code></a> package <span class="citation">(Iannone, 2020)</span>.</p>
+<p>The flowchart below depicts the workflow. The chart is created using <code>grViz()</code> from the <a href="https://rich-iannone.github.io/DiagrammeR/"><code>DiagrammeR</code></a> package <span class="citation">(Iannone, 2020)</span>.</p>
 <p><img src="../man/figures/workflow.png"></p>
 <p>The explanation of the workflow in this vignette follow notes from Dr. James Pustejovsky’s <a href="https://www.jepusto.com/teaching/daspir/">Data Analysis, Simulation and Programming in R course (Spring, 2019)</a>.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">simhelpers</span>)
@@ -425,7 +425,7 @@ Group 2
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="kw">cols</span> <span class="kw">=</span> <span class="no">res</span>)
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   9.744   0.000   9.745</span>
+<span class="co">#&gt;   9.241   0.000   9.241</span>
 
 <span class="no">results</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</pre></body></html></div>
@@ -894,7 +894,7 @@ Welch t-test
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="kw">cols</span> <span class="kw">=</span> <span class="no">res</span>)
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.114   0.004   9.472</span>
+<span class="co">#&gt;   0.099   0.004   8.926</span>
 
 <span class="no">results</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</pre></body></html></div>
@@ -1349,7 +1349,7 @@ Welch t-test
 <span class="fu"><a href="../reference/evaluate_by_row.html">evaluate_by_row</a></span>(<span class="no">params</span>, <span class="no">run_sim</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.100   0.000   9.593</span></pre></body></html></div>
+<span class="co">#&gt;   0.090   0.000   9.081</span></pre></body></html></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
