@@ -184,10 +184,10 @@ The function also calculates the associated jacknife Monte Carlo standard errors
     <p>A tibble containing the performance criteria estimate(s) and the associated MCSE.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>calc_relative_var</span>(<span class='kw'>res_dat</span> <span class='kw'>=</span> <span class='no'>alpha_res</span>, <span class='kw'>estimates</span> <span class='kw'>=</span> <span class='no'>A</span>, <span class='kw'>var_estimates</span> <span class='kw'>=</span> <span class='no'>Var_A</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 6
-#&gt;   rel_bias_var rel_bias_var_mc… rel_mse_var rel_mse_var_mcse rel_rmse_var
-#&gt;          &lt;dbl&gt;            &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt;
-#&gt; 1        0.440          0.00319       0.726           0.0107        0.852
+    <pre class="examples"><div class='input'><span class='fu'>calc_relative_var</span>(<span class='kw'>res_dat</span> <span class='kw'>=</span> <span class='no'>alpha_res</span>, <span class='kw'>estimates</span> <span class='kw'>=</span> <span class='no'>A</span>, <span class='kw'>var_estimates</span> <span class='kw'>=</span> <span class='no'>Var_A</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 7
+#&gt;       K rel_bias_var rel_bias_var_mc… rel_mse_var rel_mse_var_mcse rel_rmse_var
+#&gt;   &lt;int&gt;        &lt;dbl&gt;            &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt;
+#&gt; 1  1000        0.440          0.00319       0.726           0.0107        0.852
 #&gt; # … with 1 more variable: rel_rmse_var_mcse &lt;dbl&gt;</div><div class='input'>
 </div></pre>
   </div>
