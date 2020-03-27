@@ -82,7 +82,7 @@ Tipton_Pusto %>%
   geom_hline(yintercept = .05, linetype = "dashed") + 
   geom_boxplot(alpha = .5) + 
   facet_grid(q_graph ~ m, scales = "free") + 
-  labs(x = "Method", y = "Type 1 Error Rate", caption = "FIGURE 2. Type I error for alpha of .05 of five alternative tests. Dashed lines indicate the nominal alpha level") + 
+  labs(x = "Method", y = "Type 1 Error Rate", caption = "FIGURE 2. Type I error rate for alpha of .05 of five alternative tests. Dashed lines indicate the nominal alpha level.") + 
   theme_bw() +
   theme(legend.position = "none",
         plot.caption=element_text(hjust = 0, size = 10))

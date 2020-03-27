@@ -33,7 +33,7 @@ Simulation typically involve the following workflow [@morris2019using]:
 5. Repeat step 4 for every set of conditions in the experimental design.
 6. Evaluate the overall results.
 
-The flowchart below depicts the workflow. The chart is created using `grViz()` from [`DiagrammeR`](https://rich-iannone.github.io/DiagrammeR/) package [@diag].
+The flowchart below depicts the workflow. The chart is created using `grViz()` from the  [`DiagrammeR`](https://rich-iannone.github.io/DiagrammeR/) package [@diag].
 
 <img src="../man/figures/workflow.png" />
 
