@@ -242,7 +242,10 @@ Group 2
   <span class="no">p_val</span> <span class="kw">&lt;-</span>  <span class="fl">2</span> * <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">pt</a></span>(-<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="no">t</span>), <span class="kw">df</span> <span class="kw">=</span> <span class="no">df</span>) <span class="co"># p value</span>
   <span class="no">ci</span> <span class="kw">&lt;-</span> <span class="no">est</span> + <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="fl">1</span>, <span class="fl">1</span>) * <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span>(<span class="fl">.975</span>, <span class="kw">df</span> <span class="kw">=</span> <span class="no">df</span>) * <span class="no">se</span> <span class="co"># confidence interval</span>
 
-  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">method</span> <span class="kw">=</span> <span class="no">method</span>, <span class="kw">est</span> <span class="kw">=</span> <span class="no">est</span>, <span class="kw">p_val</span> <span class="kw">=</span> <span class="no">p_val</span>, <span class="kw">lower_bound</span> <span class="kw">=</span> <span class="no">ci</span>[<span class="fl">1</span>], <span class="kw">upper_bound</span> <span class="kw">=</span> <span class="no">ci</span>[<span class="fl">2</span>]))
+  <span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">method</span> <span class="kw">=</span> <span class="no">method</span>, <span class="kw">est</span> <span class="kw">=</span> <span class="no">est</span>, <span class="kw">p_val</span> <span class="kw">=</span> <span class="no">p_val</span>,
+                <span class="kw">lower_bound</span> <span class="kw">=</span> <span class="no">ci</span>[<span class="fl">1</span>], <span class="kw">upper_bound</span> <span class="kw">=</span> <span class="no">ci</span>[<span class="fl">2</span>])
+
+  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">res</span>)
 }
 
 
@@ -306,17 +309,40 @@ Group 2
 <p>The values match.</p>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/all_equal.html">all_equal</a></span>(<span class="no">est_res</span>, <span class="no">t_res</span>)
 <span class="co">#&gt; [1] TRUE</span></pre></body></html></div>
+<div id="convergence-issues" class="section level3">
+<h3 class="hasAnchor">
+<a href="#convergence-issues" class="anchor"></a>Convergence Issues</h3>
+<p>If we were to estimate complicated models, like structural equation modeling or hierarchical linear modeling, we may have convergence issues. In such a case, we can add an <code>if...else</code> statement within the <code>estimate()</code> function that evaluates whether the model converged and if it did not converge, the statement outputs <code>NA</code> values for estimates, p-values etc.</p>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">estimate</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">dat</span>, <span class="no">design_parameters</span>){
+
+  <span class="co"># write estimation models here</span>
+  <span class="co"># e.g., fit_mimic &lt;- lavaan::cfa(...)</span>
+
+
+  <span class="co"># convergence </span>
+  <span class="kw">if</span>(<span class="no">fit_mimic</span>@<span class="kw">optim</span>$<span class="no">converged</span> <span class="kw">==</span> <span class="fl">FALSE</span>){  <span class="co"># this syntax will depend on how the specific model stores convergence</span>
+    <span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">method</span> <span class="kw">=</span> <span class="no">method</span>, <span class="kw">est</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">p_val</span> <span class="kw">=</span> <span class="fl">NA</span>,
+                  <span class="kw">lower_bound</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">upper_bound</span> <span class="kw">=</span> <span class="fl">NA</span>)
+  } <span class="kw">else</span>{
+    <span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">method</span> <span class="kw">=</span> <span class="no">method</span>, <span class="kw">est</span> <span class="kw">=</span> <span class="no">est</span>, <span class="kw">p_val</span> <span class="kw">=</span> <span class="no">p_val</span>,
+                  <span class="kw">lower_bound</span> <span class="kw">=</span> <span class="no">ci</span>[<span class="fl">1</span>], <span class="kw">upper_bound</span> <span class="kw">=</span> <span class="no">ci</span>[<span class="fl">2</span>])
+  }
+
+  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">res</span>)
+
+}</pre></body></html></div>
+</div>
 </div>
 <div id="performance-summaries" class="section level2">
 <h2 class="hasAnchor">
 <a href="#performance-summaries" class="anchor"></a>Performance Summaries</h2>
 <p>In this step, we create a function to calculate performance measures based on results that we extracted from the estimation step, repeated across many replications. As the skeleton below indicates, a performance summary function takes in the results, along with any model parameters, and returns a dataset of performance measures.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">calc_performance</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">results</span>, <span class="no">model_params</span>) {
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">calc_performance</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">results</span>, <span class="no">model_params</span>) {
 
   <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">performance_measures</span>)
 }</pre></body></html></div>
 <p>The function below fills in the <code>calc_performance()</code> function. We use the <code><a href="../reference/calc_rejection.html">calc_rejection()</a></code> function in the <code>simhelpers</code> package to calculate rejection rates.</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">calc_performance</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">results</span>) {
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">calc_performance</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">results</span>) {
 
   <span class="no">performance_measures</span> <span class="kw">&lt;-</span> <span class="no">results</span> <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">method</span>) <span class="kw">%&gt;%</span>
@@ -329,7 +355,7 @@ Group 2
 <h2 class="hasAnchor">
 <a href="#simulation-driver" class="anchor"></a>Simulation Driver</h2>
 <p>The following code chunk sets up the simulation driver. The arguments specify the number of iterations for the simulation and any parameters needed to run the data-generating and estimating functions. The function then generates many sets of results by repeating the data-generating step and estimation step. Finally, the function calculates the performance measures and returns results for this set of parameters.</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">run_sim</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">iterations</span>, <span class="no">model_params</span>, <span class="no">design_params</span>, <span class="no">seed</span> <span class="kw">=</span> <span class="kw">NULL</span>) {
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">run_sim</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">iterations</span>, <span class="no">model_params</span>, <span class="no">design_params</span>, <span class="no">seed</span> <span class="kw">=</span> <span class="kw">NULL</span>) {
   <span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span>(<span class="no">seed</span>)) <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="no">seed</span>)
 
   <span class="no">results</span> <span class="kw">&lt;-</span>
@@ -342,7 +368,7 @@ Group 2
   <span class="fu">calc_performance</span>(<span class="no">results</span>, <span class="no">model_params</span>)
 }</pre></body></html></div>
 <p>Below is the driver for our example simulation study:</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">run_sim</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">iterations</span>, <span class="no">n1</span>, <span class="no">n2</span>, <span class="no">mean_diff</span>, <span class="no">seed</span> <span class="kw">=</span> <span class="kw">NULL</span>) {
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">run_sim</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">iterations</span>, <span class="no">n1</span>, <span class="no">n2</span>, <span class="no">mean_diff</span>, <span class="no">seed</span> <span class="kw">=</span> <span class="kw">NULL</span>) {
   <span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span>(<span class="no">seed</span>)) <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="no">seed</span>)
 
   <span class="no">results</span> <span class="kw">&lt;-</span>
@@ -360,7 +386,7 @@ Group 2
 <h2 class="hasAnchor">
 <a href="#experimental-design-revisit" class="anchor"></a>Experimental Design Revisit</h2>
 <p>Now that we have all our functions in order, we can specify the exact factors we want to manipulate in the study. The following code chunk creates a list of design factors and uses the <a href="https://purrr.tidyverse.org/reference/cross.html"><code><a href="https://purrr.tidyverse.org/reference/cross.html">cross_df()</a></code></a> function from <a href="https://purrr.tidyverse.org/"><code>purrr</code></a> package to create every combination of the factor levels. We also set the number of iterations and the seed that will be used when generating data <span class="citation">(Wickham et al., 2019)</span>.</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">20150316</span>) <span class="co"># change this seed value!</span>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">20150316</span>) <span class="co"># change this seed value!</span>
 
 <span class="co"># now express the simulation parameters as vectors/lists</span>
 
@@ -378,7 +404,7 @@ Group 2
 <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">params</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">params</span>)</pre></body></html></div>
 <p>The code below specifies three design factors: <code>n1</code>, which specifies the sample size for Group 1, <code>n2</code>, which specifies the sample size for Group 2, and <code>mean_diff</code>, which denotes the mean difference between two groups on an outcome. These are the between simulation factors. The within-simulation factor is the t-test method with one assuming equal variance and one not assuming equal variance.</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">20200110</span>)
+<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">20200110</span>)
 
 <span class="co"># now express the simulation parameters as vectors/lists</span>
 
@@ -416,7 +442,7 @@ Group 2
 <h2 class="hasAnchor">
 <a href="#running-the-simulation-in-serial" class="anchor"></a>Running the Simulation in Serial</h2>
 <p>Here we run the simulation using <code>purrr</code> package serial workflow. We use the <a href="https://purrr.tidyverse.org/reference/map2.html"><code><a href="https://purrr.tidyverse.org/reference/map2.html">pmap()</a></code></a> function from <code>purrr</code> to run the <code>run_sim()</code> function on each condition specified in <code>params</code>.</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(
   <span class="no">results</span> <span class="kw">&lt;-</span>
     <span class="no">params</span> <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(
@@ -425,7 +451,7 @@ Group 2
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="kw">cols</span> <span class="kw">=</span> <span class="no">res</span>)
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   9.566   0.000   9.571</span>
+<span class="co">#&gt;   9.450   0.000   9.455</span>
 
 <span class="no">results</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</pre></body></html></div>
@@ -931,9 +957,9 @@ Welch t-test
 <h2 class="hasAnchor">
 <a href="#running-the-simulation-in-parallel" class="anchor"></a>Running the Simulation in Parallel</h2>
 <p>Below we use the <a href="https://rstudio.github.io/promises/articles/futures.html"><code>future</code></a> and the <a href="https://davisvaughan.github.io/furrr/"><code>furrr</code></a> packages to run the simulation in parallel <span class="citation">(Bengtsson, 2020; Vaughan &amp; Dancho, 2018)</span>. These packages are designed to work with functions from the <code>purrr</code> package. The line below gets a cluster set up on your computer or network. For more complicated network setups, please see the <a href="https://cran.r-project.org/web/packages/future/vignettes/future-1-overview.html">documentation for the future package</a>.</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu">plan</span>(<span class="no">multisession</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu">plan</span>(<span class="no">multisession</span>)</pre></body></html></div>
 <p>Once the cluster is configured, we can just replace <a href="https://purrr.tidyverse.org/reference/map2.html"><code><a href="https://purrr.tidyverse.org/reference/map2.html">pmap()</a></code></a> from <code>purrr</code> with <a href="https://davisvaughan.github.io/furrr/reference/future_map2.html"><code><a href="https://rdrr.io/pkg/furrr/man/future_map2.html">future_pmap()</a></code></a> to run the simulation in parallel.</p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">future</span>)
+<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">future</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">furrr</span>)
 
 <span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">multisession</span>) <span class="co"># choose an appropriate plan from the future package</span>
@@ -945,7 +971,7 @@ Welch t-test
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="kw">cols</span> <span class="kw">=</span> <span class="no">res</span>)
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.111   0.000   9.232</span>
+<span class="co">#&gt;   0.110   0.003   9.431</span>
 
 <span class="no">results</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</pre></body></html></div>
@@ -1447,11 +1473,11 @@ Welch t-test
 </tbody>
 </table>
 <p>In the <code>simhelpers</code> package, we have a function, <code><a href="../reference/evaluate_by_row.html">evaluate_by_row()</a></code>, that implements this <code>furrr</code> workflow automatically:</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">multisession</span>)
+<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span>(<span class="no">multisession</span>)
 <span class="fu"><a href="../reference/evaluate_by_row.html">evaluate_by_row</a></span>(<span class="no">params</span>, <span class="no">run_sim</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.094   0.001   9.329</span></pre></body></html></div>
+<span class="co">#&gt;   0.089   0.005   9.184</span></pre></body></html></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
@@ -1954,7 +1980,7 @@ Welch t-test
 <h1 class="hasAnchor">
 <a href="#example-from-simhelpers" class="anchor"></a>Example from simhelpers</h1>
 <p>The <code><a href="../reference/create_skeleton.html">create_skeleton()</a></code> function from our <code>simhelpers</code> package will open an untitled .R file with an outline or skeleton of functions needed to run a simulation study.</p>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu"><a href="../reference/create_skeleton.html">create_skeleton</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="fu"><a href="../reference/create_skeleton.html">create_skeleton</a></span>()</pre></body></html></div>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
