@@ -21,8 +21,11 @@
 
 calc_absolute <- function(res_dat, estimates, true_param, perfm_criteria = c("bias", "variance", "mse", "rmse")){
 
-  estimates <- res_dat %>% dplyr::pull({{estimates}}) # estimates
-  K <- nrow(res_dat) # number of iterations
+  estimates <- res_dat %>%
+    dplyr::filter(!is.na({{estimates}})) %>%
+    dplyr::pull({{estimates}}) # estimates
+
+  K <- length(estimates) # number of iterations
   true_param <- res_dat %>% dplyr::pull({{true_param}}) # true param
   true_param <- true_param[1] # true param
 
@@ -45,7 +48,7 @@ calc_absolute <- function(res_dat, estimates, true_param, perfm_criteria = c("bi
 
 
   # initialize tibble
-  dat <- tibble::as_tibble(data.frame(matrix(ncol = 0, nrow = 1)))
+  dat <- tibble::tibble(K = K)
 
   if("bias" %in% perfm_criteria){
     dat <- dat %>%

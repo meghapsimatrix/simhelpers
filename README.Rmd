@@ -51,7 +51,7 @@ Other packages that have similar aims to `simhelpers` include: [MonteCarlo](http
 
 # Acknowledgments 
 
-We are grateful for the feedback provided by [Sangdon Lim](https://sdlim.com/) and Man Chen.
+We are grateful for the feedback provided by Danny Gonzalez, [Sangdon Lim](https://sdlim.com/) and Man Chen.
 
 # References
 

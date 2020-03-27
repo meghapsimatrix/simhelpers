@@ -110,7 +110,7 @@ and [ezsim](https://cran.r-project.org/web/packages/ezsim/index.html).
 
 # Acknowledgments
 
-We are grateful for the feedback provided by [Sangdon
+We are grateful for the feedback provided by Danny Gonzalez, [Sangdon
 Lim](https://sdlim.com/) and Man Chen.
 
 # References

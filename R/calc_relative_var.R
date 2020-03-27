@@ -21,11 +21,15 @@
 
 calc_relative_var <- function(res_dat, estimates, var_estimates, perfm_criteria = c("relative bias", "relative mse", "relative rmse")){
 
+  estimates <- res_dat %>%
+    dplyr::filter(!is.na({{estimates}})) %>%
+    dplyr::pull({{estimates}}) # point estimates
 
-  estimates <- res_dat %>% dplyr::pull({{estimates}}) # point estimates
-  var_est <- res_dat %>% dplyr::pull({{var_estimates}}) # variance estimates
-  K <- nrow(res_dat) # iterations
+  var_est <- res_dat %>%
+    dplyr::filter(!is.na({{var_estimates}})) %>%
+    dplyr::pull({{var_estimates}}) # point estimates
 
+  K <- length(var_est) # iterations
 
   # calculate sample stats
   v_bar <- mean(var_est) # sample mean of variance estimator
@@ -44,7 +48,7 @@ calc_relative_var <- function(res_dat, estimates, var_estimates, perfm_criteria 
   rel_mse_var_j <- ((v_bar_j - s_sq_t_j)^2 + s_sq_v_j)/(s_sq_t_j)^2 # jacknife relative mse of var estimates
 
   # initialize tibble
-  dat <- tibble::as_tibble(data.frame(matrix(ncol = 0, nrow = 1)))
+  dat <- tibble::tibble(K = K)
 
 
   if("relative bias" %in% perfm_criteria){
