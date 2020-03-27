@@ -115,7 +115,7 @@ Lim](https://sdlim.com/) and Man Chen.
 
 # References
 
-Bengtsson, H. (2020). Future: Unified parallel and distributed
+Bengtsson, H. (2020). future: Unified parallel and distributed
 processing in r for everyone. Retrieved from
 <https://CRAN.R-project.org/package=future>
 
@@ -123,11 +123,11 @@ Blair, G., Cooper, J., Coppock, A., & Humphreys, M. (2019). Declaring
 and diagnosing research designs. American Political Science Review,
 113(3), 838–859. Retrieved from <https://declaredesign.org/paper.pdf>
 
-Chalmers, P. (2019). SimDesign: Structure for organizing monte carlo
+Chalmers, P. (2019). SimDesign: Structure for organizing Monte Carlo
 simulation designs. Retrieved from
 <https://CRAN.R-project.org/package=SimDesign>
 
-Gasparini, A. (2018). Rsimsum: Summarise results from monte carlo
+Gasparini, A. (2018). rsimsum: Summarise results from Monte Carlo
 simulation studies. Journal of Open Source Software, 3(26), 739.
 <https://doi.org/10.21105/joss.00739>
 
@@ -135,7 +135,7 @@ Morris, T. P., White, I. R., & Crowther, M. J. (2019). Using simulation
 studies to evaluate statistical methods. Statistics in Medicine, 38(11),
 2074–2102.
 
-Vaughan, D., & Dancho, M. (2018). Furrr: Apply mapping functions in
+Vaughan, D., & Dancho, M. (2018). furrr: Apply mapping functions in
 parallel using futures. Retrieved from
 <https://CRAN.R-project.org/package=furrr>
 
