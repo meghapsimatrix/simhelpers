@@ -22,17 +22,20 @@
 
 calc_coverage <- function(res_dat, lower_bound, upper_bound, true_param, perfm_criteria = c("coverage", "width")){
 
+  true_param <- res_dat %>% dplyr::pull({{true_param}}) # true parameters
+  true_param <- true_param[1] # true param
+
+  res_dat <- res_dat %>%
+    dplyr::select({{upper_bound}}, {{lower_bound}}) %>%
+    dplyr::filter(stats::complete.cases(.))
+
   lower_bound <- res_dat %>%
-    dplyr::filter(!is.na({{lower_bound}})) %>% # p values
     dplyr::pull({{lower_bound}})  # lower bounds of cis
 
   upper_bound <- res_dat %>%
-    dplyr::filter(!is.na({{upper_bound}})) %>% # p values
     dplyr::pull({{upper_bound}}) # upper bounds of cis
 
   K <- length(lower_bound) # iterations
-  true_param <- res_dat %>% dplyr::pull({{true_param}}) # true parameters
-  true_param <- true_param[1] # true param
 
 
   # initialize tibble

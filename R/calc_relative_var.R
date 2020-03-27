@@ -21,12 +21,14 @@
 
 calc_relative_var <- function(res_dat, estimates, var_estimates, perfm_criteria = c("relative bias", "relative mse", "relative rmse")){
 
+  res_dat <- res_dat %>%
+    dplyr::select({{estimates}}, {{var_estimates}}) %>%
+    dplyr::filter(stats::complete.cases(.))
+
   estimates <- res_dat %>%
-    dplyr::filter(!is.na({{estimates}})) %>%
     dplyr::pull({{estimates}}) # point estimates
 
   var_est <- res_dat %>%
-    dplyr::filter(!is.na({{var_estimates}})) %>%
     dplyr::pull({{var_estimates}}) # point estimates
 
   K <- length(var_est) # iterations
