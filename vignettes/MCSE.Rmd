@@ -226,7 +226,7 @@ The function `calc_relative_var()` calculates the relative performance criteria 
 
 Below we demonstrate the use of the `calc_relative_var()` function. The variance estimates are expected to be different when derived from the conventional t-test as opposed to when they are derived from the Welch t-test. We group by the sample sizes, mean difference, and the t-test method. Note the difference between the conventional t-test and the Welch t-test results, especially when the group sample sizes are unequal.  
 
-If there are any convergence issues with estimation, please again make sure that the estimation function returns `NA` values for the variance estimate and the point estimate. The `calc_relative_var()` will omit the pair of point estimate and variance estimate if either value is `NA` before calculating the performance measure and MCSE. 
+If there are any convergence issues with estimation, please again make sure that the estimation function returns `NA` values for the variance estimate and the point estimate. The `calc_relative_var()` function will omit the pair of point estimate and variance estimate if either value is `NA` before calculating the performance measure and MCSE. 
 
 ### Example
 
