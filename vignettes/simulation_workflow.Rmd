@@ -141,8 +141,11 @@ calc_t <- function(est, vd, df, method){
   t <- est / se # t-test 
   p_val <-  2 * pt(-abs(t), df = df) # p value
   ci <- est + c(-1, 1) * qt(.975, df = df) * se # confidence interval
+  
+  res <- tibble(method = method, est = est, p_val = p_val, 
+                lower_bound = ci[1], upper_bound = ci[2])
 
-  return(tibble(method = method, est = est, p_val = p_val, lower_bound = ci[1], upper_bound = ci[2]))
+  return(res)
 }
 
 
@@ -210,6 +213,31 @@ The values match.
 all_equal(est_res, t_res)
 ```
 
+
+### Convergence Issues
+
+If we were to estimate complicated models, like structural equation modeling or hierarchical linear modeling, we may have convergence issues. In such a case, we can add an `if...else` statement within the `estimate()` function that evaluates whether the model converged and if it did not converge, the statement outputs `NA` values for estimates, p-values etc. 
+
+```{r, eval = FALSE}
+estimate <- function(dat, design_parameters){
+  
+  # write estimation models here
+  # e.g., fit_mimic <- lavaan::cfa(...)
+  
+  
+  # convergence 
+  if(fit_mimic@optim$converged == FALSE){  # this syntax will depend on how the specific model stores convergence
+    res <- tibble(method = method, est = NA, p_val = NA, 
+                  lower_bound = NA, upper_bound = NA)
+  } else{
+    res <- tibble(method = method, est = est, p_val = p_val, 
+                  lower_bound = ci[1], upper_bound = ci[2])
+  }
+  
+  return(res)
+
+}      
+```
 
 
 ## Performance Summaries 

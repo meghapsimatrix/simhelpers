@@ -418,7 +418,7 @@ Group 2
 <a class="sourceLine" id="cb18-7" data-line-number="7"><span class="st">    </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="dt">cols =</span> res)</a>
 <a class="sourceLine" id="cb18-8" data-line-number="8">)</a>
 <a class="sourceLine" id="cb18-9" data-line-number="9"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="co">#&gt;  13.918   0.167  14.832</span></a>
+<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="co">#&gt;  12.229   0.069  12.361</span></a>
 <a class="sourceLine" id="cb18-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb18-12" data-line-number="12">results <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb18-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a></code></pre></div>
@@ -441,6 +441,9 @@ seed
 </th>
 <th style="text-align:left;">
 method
+</th>
+<th style="text-align:right;">
+K
 </th>
 <th style="text-align:right;">
 rej_rate
@@ -470,6 +473,9 @@ rej_rate_mcse
 t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 0.048
 </td>
 <td style="text-align:right;">
@@ -494,6 +500,9 @@ t-test
 </td>
 <td style="text-align:left;">
 Welch t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 0.047
@@ -522,6 +531,9 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 0.022
 </td>
 <td style="text-align:right;">
@@ -546,6 +558,9 @@ t-test
 </td>
 <td style="text-align:left;">
 Welch t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 0.036
@@ -574,6 +589,9 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 0.340
 </td>
 <td style="text-align:right;">
@@ -598,6 +616,9 @@ t-test
 </td>
 <td style="text-align:left;">
 Welch t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 0.335
@@ -626,6 +647,9 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 0.337
 </td>
 <td style="text-align:right;">
@@ -650,6 +674,9 @@ t-test
 </td>
 <td style="text-align:left;">
 Welch t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 0.414
@@ -678,6 +705,9 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 0.876
 </td>
 <td style="text-align:right;">
@@ -702,6 +732,9 @@ t-test
 </td>
 <td style="text-align:left;">
 Welch t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 0.871
@@ -730,6 +763,9 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 0.926
 </td>
 <td style="text-align:right;">
@@ -754,6 +790,9 @@ t-test
 </td>
 <td style="text-align:left;">
 Welch t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 0.953
@@ -782,6 +821,9 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 1.000
 </td>
 <td style="text-align:right;">
@@ -806,6 +848,9 @@ t-test
 </td>
 <td style="text-align:left;">
 Welch t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 1.000
@@ -834,6 +879,9 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 1.000
 </td>
 <td style="text-align:right;">
@@ -858,6 +906,9 @@ t-test
 </td>
 <td style="text-align:left;">
 Welch t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 1.000
@@ -887,7 +938,7 @@ Welch t-test
 <a class="sourceLine" id="cb20-10" data-line-number="10"><span class="st">    </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="dt">cols =</span> res)</a>
 <a class="sourceLine" id="cb20-11" data-line-number="11">)</a>
 <a class="sourceLine" id="cb20-12" data-line-number="12"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb20-13" data-line-number="13"><span class="co">#&gt;   0.281   0.011  18.441</span></a>
+<a class="sourceLine" id="cb20-13" data-line-number="13"><span class="co">#&gt;   0.176   0.006   8.288</span></a>
 <a class="sourceLine" id="cb20-14" data-line-number="14"></a>
 <a class="sourceLine" id="cb20-15" data-line-number="15">results <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb20-16" data-line-number="16"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a></code></pre></div>
@@ -912,6 +963,9 @@ seed
 method
 </th>
 <th style="text-align:right;">
+K
+</th>
+<th style="text-align:right;">
 rej_rate
 </th>
 <th style="text-align:right;">
@@ -937,6 +991,9 @@ rej_rate_mcse
 </td>
 <td style="text-align:left;">
 t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 0.048
@@ -965,6 +1022,9 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 0.047
 </td>
 <td style="text-align:right;">
@@ -989,6 +1049,9 @@ Welch t-test
 </td>
 <td style="text-align:left;">
 t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 0.022
@@ -1017,6 +1080,9 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 0.036
 </td>
 <td style="text-align:right;">
@@ -1041,6 +1107,9 @@ Welch t-test
 </td>
 <td style="text-align:left;">
 t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 0.340
@@ -1069,6 +1138,9 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 0.335
 </td>
 <td style="text-align:right;">
@@ -1093,6 +1165,9 @@ Welch t-test
 </td>
 <td style="text-align:left;">
 t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 0.337
@@ -1121,6 +1196,9 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 0.414
 </td>
 <td style="text-align:right;">
@@ -1145,6 +1223,9 @@ Welch t-test
 </td>
 <td style="text-align:left;">
 t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 0.876
@@ -1173,6 +1254,9 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 0.871
 </td>
 <td style="text-align:right;">
@@ -1197,6 +1281,9 @@ Welch t-test
 </td>
 <td style="text-align:left;">
 t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 0.926
@@ -1225,6 +1312,9 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 0.953
 </td>
 <td style="text-align:right;">
@@ -1251,6 +1341,9 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 1.000
 </td>
 <td style="text-align:right;">
@@ -1275,6 +1368,9 @@ t-test
 </td>
 <td style="text-align:left;">
 Welch t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 1.000
@@ -1303,6 +1399,9 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 1.000
 </td>
 <td style="text-align:right;">
@@ -1329,6 +1428,9 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 1.000
 </td>
 <td style="text-align:right;">
@@ -1342,7 +1444,7 @@ Welch t-test
 <a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw"><a href="../reference/evaluate_by_row.html">evaluate_by_row</a></span>(params, run_sim) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb21-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a>
 <a class="sourceLine" id="cb21-4" data-line-number="4"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb21-5" data-line-number="5"><span class="co">#&gt;   0.189   0.008  12.830</span></a></code></pre></div>
+<a class="sourceLine" id="cb21-5" data-line-number="5"><span class="co">#&gt;   0.206   0.011  10.647</span></a></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
@@ -1364,6 +1466,9 @@ seed
 method
 </th>
 <th style="text-align:right;">
+K
+</th>
+<th style="text-align:right;">
 rej_rate
 </th>
 <th style="text-align:right;">
@@ -1389,6 +1494,9 @@ rej_rate_mcse
 </td>
 <td style="text-align:left;">
 t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 0.048
@@ -1417,6 +1525,9 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 0.047
 </td>
 <td style="text-align:right;">
@@ -1441,6 +1552,9 @@ Welch t-test
 </td>
 <td style="text-align:left;">
 t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 0.022
@@ -1469,6 +1583,9 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 0.036
 </td>
 <td style="text-align:right;">
@@ -1493,6 +1610,9 @@ Welch t-test
 </td>
 <td style="text-align:left;">
 t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 0.340
@@ -1521,6 +1641,9 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 0.335
 </td>
 <td style="text-align:right;">
@@ -1545,6 +1668,9 @@ Welch t-test
 </td>
 <td style="text-align:left;">
 t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 0.337
@@ -1573,6 +1699,9 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 0.414
 </td>
 <td style="text-align:right;">
@@ -1597,6 +1726,9 @@ Welch t-test
 </td>
 <td style="text-align:left;">
 t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 0.876
@@ -1625,6 +1757,9 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 0.871
 </td>
 <td style="text-align:right;">
@@ -1649,6 +1784,9 @@ Welch t-test
 </td>
 <td style="text-align:left;">
 t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 0.926
@@ -1677,6 +1815,9 @@ t-test
 Welch t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 0.953
 </td>
 <td style="text-align:right;">
@@ -1703,6 +1844,9 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 1.000
 </td>
 <td style="text-align:right;">
@@ -1727,6 +1871,9 @@ t-test
 </td>
 <td style="text-align:left;">
 Welch t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 1.000
@@ -1755,6 +1902,9 @@ Welch t-test
 t-test
 </td>
 <td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
 1.000
 </td>
 <td style="text-align:right;">
@@ -1779,6 +1929,9 @@ t-test
 </td>
 <td style="text-align:left;">
 Welch t-test
+</td>
+<td style="text-align:right;">
+1000
 </td>
 <td style="text-align:right;">
 1.000
