@@ -11,7 +11,7 @@ url: https://meghapsimatrix.github.io/simhelpers/index.html
 
 navbar:
   right:
-  -icon: fa-github fa-lg
+  -icon: fa-github
    href: https://github.com/meghapsimatrix/simhelpers
 
 authors:
