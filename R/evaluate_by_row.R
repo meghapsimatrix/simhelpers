@@ -1,7 +1,7 @@
-#' @title Evaluate a simulation function on each row of a data frame
+#' @title Evaluate a simulation function on each row of a data frame or tibble
 #'
-#' @description Evaluates a simulation function on each row of a data frame
-#'   containing parameter values. Returns a single data frame with parameters
+#' @description Evaluates a simulation function on each row of a data frame or tibble
+#'   containing parameter values. Returns a single tibble with parameters
 #'   and simulation results. The function uses \code{furrr::future_pmap}, which
 #'   allows for easy parallelization.
 #'

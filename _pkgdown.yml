@@ -9,6 +9,11 @@ template:
 
 url: https://meghapsimatrix.github.io/simhelpers/index.html
 
+navbar:
+  right:
+  -icon: fa-github fa-lg
+   href: https://github.com/meghapsimatrix/simhelpers
+
 authors:
   Megha Joshi:
     href: https://meghapsimatrix.com
