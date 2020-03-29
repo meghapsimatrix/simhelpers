@@ -15,12 +15,15 @@ calc_rejection <- function(res_dat, p_values, alpha = .05){
 
   }
 
-  dat1 <- tibble::tibble(rej_rate = mean(p_vals < alpha))
+  #dat1 <- tibble::tibble(rej_rate = mean(p_vals < alpha))
+  rej_rate <- mean(p_vals < alpha)
+  rej_rate_mcse <- sqrt((rej_rate * (1 - rej_rate)) / K)
 
-  dat <- tibble::tibble(rej_rate = mean(p_vals < alpha),
-                        rej_rate_mcse = sqrt((rej_rate * (1 - rej_rate)) / K))
 
-  return(dat1)
+  dat <- nest(data.frame(rej_rate =rej_rate,
+              rej_rate_mcse = rej_rate_mcse))
+
+  return(dat)
 
 }
 
@@ -30,23 +33,10 @@ calc_rejection <- function(res_dat, p_values, alpha = .05){
 load("data/t_res.rda")
 load("data/welch_res.rda")
 
+res <- t_res %>%
+  calc_rejection(t_res, p_values = p_val)
 
-# this way works even without the parent stuff
-t_res %>%
-  calc_rejection(p_values = p_val)
-
-# does not like mutate
-t_res %>%
-  mutate(calc_rejection(p_values = p_val))
-
-
-# it doesn't like that it has 2 cols
-t_res %>%
-  summarize(calc_rejection(p_values = p_val))
-
-# welch_res %>%
-#   nest(obs, pred) %>%
-#   calc_rejection(p_values = p_val)
+unnest(res)
 
 # runs but doesn't group
 welch_res %>%
