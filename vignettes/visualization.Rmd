@@ -9,7 +9,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{ggplot2}
   %\VignetteDepends{dplyr}
-  %\VignetteDepends{tidyr}
   %\VignetteDepends{knitr}
   %\VignetteDepends{kableExtra}
 ---
@@ -38,7 +37,6 @@ The `simphelpers` package includes a dataset, `Tipton_Pusto`, containing a subse
 library(simhelpers)
 library(ggplot2)
 library(dplyr)
-library(tidyr)
 library(knitr)
 library(kableExtra)
 ```
