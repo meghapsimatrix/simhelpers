@@ -9,7 +9,7 @@ library(tidyr)
 
 # absolute criteria
 set.seed(54321)
-dat <- tibble(x = rnorm(10000, 2, 1), true_param = rep(2, 10000),
+dat <- data.frame(x = rnorm(10000, 2, 1), true_param = rep(2, 10000),
               p_value = runif(10000))
 
 dat_abs <- dat %>%
@@ -64,7 +64,16 @@ s_sq_t_j_alpha <- (1/(K_alpha - 2)) * ((K_alpha - 1) * s_sq_t - (K_alpha/(K_alph
 s_sq_v_j_alpha <- (1/(K_alpha - 2)) * ((K_alpha - 1) * s_sq_v - (K_alpha/(K_alpha - 1)) * (alpha_res$Var_A - mean(alpha_res$Var_A))^2)
 
 
-calc_rejection(t_res, p_values = p_val)
+
+
+test_that("check K", {
+  expect_equal(calc_absolute(dat_abs, x, true_param) %>% pull(K), K_abs)
+  expect_equal(calc_relative(dat_abs, x, true_param) %>% pull(K), K_abs)
+  expect_equal(calc_rejection(dat_rej, p_values = p_value) %>% pull(K), K_rej)
+  expect_equal(calc_coverage(t_res, lower_bound, upper_bound, true_param,) %>% pull(K), nrow(t_res))
+  expect_equal(calc_relative_var(alpha_res, A, Var_A) %>% pull(K), K_alpha)
+})
+
 
 test_that("check the performance measures", {
   expect_equal(calc_absolute(dat_abs, x, true_param, perfm_criteria = "bias") %>% pull(bias), mean(dat_abs$x) - t_p)
