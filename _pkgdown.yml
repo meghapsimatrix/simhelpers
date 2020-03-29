@@ -10,7 +10,7 @@ template:
 url: https://meghapsimatrix.github.io/simhelpers/index.html
 
 navbar:
-  right:
+right:
   -icon: fa-github
    href: https://github.com/meghapsimatrix/simhelpers
 
