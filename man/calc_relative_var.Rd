@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_relative_var.R
 \name{calc_relative_var}
 \alias{calc_relative_var}
-\title{Calculate jacknife Monte Carlo SE for variance estimators}
+\title{Calculate jack-knife Monte Carlo SE for variance estimators}
 \usage{
 calc_relative_var(
   res_dat,
@@ -27,7 +27,7 @@ and the associated MCSE.
 \description{
 Calculates relative bias, mean squared error (relative mse), and root mean
 squared error (relative rmse)  of variance estimators.
-The function also calculates the associated jacknife Monte Carlo standard errors.
+The function also calculates the associated jack-knife Monte Carlo standard errors.
 }
 \examples{
 calc_relative_var(res_dat = alpha_res, estimates = A, var_estimates = Var_A)

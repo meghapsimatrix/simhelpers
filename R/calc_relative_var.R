@@ -1,8 +1,8 @@
-#' Calculate jacknife Monte Carlo SE for variance estimators
+#' Calculate jack-knife Monte Carlo SE for variance estimators
 #'
 #' @description Calculates relative bias, mean squared error (relative mse), and root mean
 #' squared error (relative rmse)  of variance estimators.
-#' The function also calculates the associated jacknife Monte Carlo standard errors.
+#' The function also calculates the associated jack-knife Monte Carlo standard errors.
 #'
 #' @param res_dat data frame or tibble containing the simulation results.
 #' @param estimates name of the column containing the estimates.
@@ -41,14 +41,14 @@ calc_relative_var <- function(res_dat, estimates, var_estimates, perfm_criteria 
   var_v <- var(var_est) # variance of variance estimates
   var_t <- var(estimates) # sample variance of the estimates
 
-  # jacknife
-  v_bar_j <- (1 / (K - 1)) * (K * v_bar - var_est)  # jacknife mean of var estimates
-  s_sq_t_j <- (1 / (K - 2)) * ((K - 1) * var_t - (K / (K - 1)) * (estimates - t_bar)^2) # jacknife var of point estimates
-  s_sq_v_j <- (1 / (K - 2)) * ((K - 1) * var_v - (K / (K - 1)) * (var_est - v_bar)^2) # jacknife var of var estimates
+  # jack-knife
+  v_bar_j <- (1 / (K - 1)) * (K * v_bar - var_est)  # jack-knife mean of var estimates
+  s_sq_t_j <- (1 / (K - 2)) * ((K - 1) * var_t - (K / (K - 1)) * (estimates - t_bar)^2) # jack-knife var of point estimates
+  s_sq_v_j <- (1 / (K - 2)) * ((K - 1) * var_v - (K / (K - 1)) * (var_est - v_bar)^2) # jack-knife var of var estimates
 
   rb_var <- v_bar/ var_t # reliative bias of variance estimates
   rel_mse_var <- ((v_bar - var_t)^2 + var_v) /  var_t^2
-  rel_mse_var_j <- ((v_bar_j - s_sq_t_j)^2 + s_sq_v_j)/(s_sq_t_j)^2 # jacknife relative mse of var estimates
+  rel_mse_var_j <- ((v_bar_j - s_sq_t_j)^2 + s_sq_v_j)/(s_sq_t_j)^2 # jack-knife relative mse of var estimates
 
   # initialize tibble
   dat <- tibble::tibble(K = K)
