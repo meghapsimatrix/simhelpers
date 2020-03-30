@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 ```
 
 
-Simulation typically involve the following workflow [@morris2019using]: 
+Simulation studies typically involve the following workflow [@morris2019using]: 
 
 1. Create an experimental design.
 2. Generate a dataset.
@@ -216,7 +216,7 @@ all_equal(est_res, t_res)
 
 ### Convergence Issues
 
-If we were to estimate complicated models, like structural equation modeling or hierarchical linear modeling, we may have convergence issues. In such a case, we can add an `if...else` statement within the `estimate()` function that evaluates whether the model converged and if it did not converge, the statement outputs `NA` values for estimates, p-values etc. 
+If we were to estimate complicated models, like structural equation modeling or hierarchical linear modeling, there may be cases where the model does not converge. To handle such cases, we can add an `if...else` statement within the `estimate()` function that evaluates whether the model converged and if it did not converge, the statement outputs `NA` values for estimates, p-values etc. 
 
 ```{r, eval = FALSE}
 estimate <- function(dat, design_parameters){
