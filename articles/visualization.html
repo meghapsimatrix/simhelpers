@@ -6,21 +6,21 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Presenting Results from Simulation Studies • simhelpers</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Presenting Results from Simulation Studies">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="simhelpers">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -96,10 +96,10 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Presenting Results from Simulation Studies</h1>
+      <h1 data-toc-skip>Presenting Results from Simulation Studies</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/meghapsimatrix/simhelpers/blob/master/vignettes/visualization.Rmd"><code>vignettes/visualization.Rmd</code></a></small>
       <div class="hidden name"><code>visualization.Rmd</code></div>
 
     </div>
@@ -117,11 +117,11 @@
 <h2 class="hasAnchor">
 <a href="#the-tipton_pusto-dataset" class="anchor"></a>The Tipton_Pusto Dataset</h2>
 <p>The <code>simphelpers</code> package includes a dataset, <code>Tipton_Pusto</code>, containing a subset of the simulation results from <span class="citation">Tipton &amp; Pustejovsky (2015)</span>. Specifically, the dataset contains results to replicate Figure 2 from the article.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(simhelpers)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(knitr)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(kableExtra)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">simhelpers</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">knitr</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">kableExtra</span>)</pre></body></html></div>
 <p>The dataset contains:</p>
 <ul>
 <li>
@@ -142,39 +142,39 @@
 <code>mcse</code>: The Monte Carlo standard error for the Type 1 error rate.</li>
 </ul>
 <p>Here is a glimpse of the dataset:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(Tipton_Pusto)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; Observations: 15,300</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; Variables: 8</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; $ num_studies &lt;dbl&gt; 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1…</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; $ r           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; $ Isq         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; $ contrast    &lt;chr&gt; "O:2:23", "O:2:23", "O:2:23", "O:2:23", "O:2:23", "O:2:24…</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; $ test        &lt;fct&gt; AHA, AHB, AHZ, EDF, EDT, AHA, AHB, AHZ, EDF, EDT, AHA, AH…</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; $ q           &lt;chr&gt; "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2…</span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; $ rej_rate    &lt;dbl&gt; 0.0000, 0.0000, 0.0036, 0.0750, 0.0323, 0.0000, 0.0000, 0…</span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; $ mcse        &lt;dbl&gt; 0.0000000000, 0.0000000000, 0.0005989190, 0.0026339134, 0…</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(<span class="no">Tipton_Pusto</span>)
+<span class="co">#&gt; Rows: 15,300</span>
+<span class="co">#&gt; Columns: 8</span>
+<span class="co">#&gt; $ num_studies &lt;dbl&gt; 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1…</span>
+<span class="co">#&gt; $ r           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span>
+<span class="co">#&gt; $ Isq         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span>
+<span class="co">#&gt; $ contrast    &lt;chr&gt; "O:2:23", "O:2:23", "O:2:23", "O:2:23", "O:2:23", "O:2:24…</span>
+<span class="co">#&gt; $ test        &lt;fct&gt; AHA, AHB, AHZ, EDF, EDT, AHA, AHB, AHZ, EDF, EDT, AHA, AH…</span>
+<span class="co">#&gt; $ q           &lt;chr&gt; "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2…</span>
+<span class="co">#&gt; $ rej_rate    &lt;dbl&gt; 0.0000, 0.0000, 0.0036, 0.0750, 0.0323, 0.0000, 0.0000, 0…</span>
+<span class="co">#&gt; $ mcse        &lt;dbl&gt; 0.0000000000, 0.0000000000, 0.0005989190, 0.0026339134, 0…</span></pre></body></html></div>
 </div>
 <div id="data-cleaning" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-cleaning" class="anchor"></a>Data Cleaning</h2>
 <p>Below we clean the dataset for visualization. We add <code>q =</code> in front of the value for <span class="math inline">\(q\)</span> and we add <code>m =</code> in front of the value for the number of studies.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">Tipton_Pusto &lt;-<span class="st"> </span>Tipton_Pusto <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">q_graph =</span> <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"q = "</span>, q),</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">         <span class="dt">m =</span> <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"m = "</span>, num_studies))</a></code></pre></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">Tipton_Pusto</span> <span class="kw">&lt;-</span> <span class="no">Tipton_Pusto</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">q_graph</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"q = "</span>, <span class="no">q</span>),
+         <span class="kw">m</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"m = "</span>, <span class="no">num_studies</span>))</pre></body></html></div>
 </div>
 <div id="visualization" class="section level2">
 <h2 class="hasAnchor">
 <a href="#visualization" class="anchor"></a>Visualization</h2>
 <p>Below we graph the Type 1 error rates. The error rate is mapped onto the <code>y axis</code>, the small sample method is mapped onto the <code>x axis</code>, the method is also mapped as <code>color filling</code> so that different methods will have different colors. We add a dashed line on the nominal <span class="math inline">\(\alpha\)</span> level of .05. We create boxplots to capture the range of Type 1 error rates for each method across the conditions examined in the simulation. We facet by number of studies, <code>m</code>, and number of parameters used in the hypothesis test, <code>q</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">Tipton_Pusto <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> test, <span class="dt">y =</span> rej_rate, <span class="dt">fill =</span> test)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span>(<span class="dt">yintercept =</span> <span class="fl">.05</span>, <span class="dt">linetype =</span> <span class="st">"dashed"</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span>(<span class="dt">alpha =</span> <span class="fl">.5</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span>(q_graph <span class="op">~</span><span class="st"> </span>m, <span class="dt">scales =</span> <span class="st">"free"</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">x =</span> <span class="st">"Method"</span>, <span class="dt">y =</span> <span class="st">"Type 1 Error Rate"</span>, <span class="dt">caption =</span> <span class="st">"FIGURE 2. Type I error rate for alpha of .05 of five alternative tests. Dashed lines indicate the nominal alpha level."</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">legend.position =</span> <span class="st">"none"</span>,</a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">        <span class="dt">plot.caption=</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="dt">hjust =</span> <span class="dv">0</span>, <span class="dt">size =</span> <span class="dv">10</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">Tipton_Pusto</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">test</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">rej_rate</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="no">test</span>)) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span>(<span class="kw">yintercept</span> <span class="kw">=</span> <span class="fl">.05</span>, <span class="kw">linetype</span> <span class="kw">=</span> <span class="st">"dashed"</span>) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span>(<span class="kw">alpha</span> <span class="kw">=</span> <span class="fl">.5</span>) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span>(<span class="no">q_graph</span> ~ <span class="no">m</span>, <span class="kw">scales</span> <span class="kw">=</span> <span class="st">"free"</span>) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="st">"Method"</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="st">"Type 1 Error Rate"</span>, <span class="kw">caption</span> <span class="kw">=</span> <span class="st">"FIGURE 2. Type I error rate for alpha of .05 of five alternative tests. Dashed lines indicate the nominal alpha level."</span>) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span>() +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">legend.position</span> <span class="kw">=</span> <span class="st">"none"</span>,
+        <span class="kw">plot.caption</span><span class="kw">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="kw">hjust</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="fl">10</span>))</pre></body></html></div>
 <p><img src="visualization_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
 </div>
 <div id="interpretation-of-results" class="section level2">
@@ -192,10 +192,10 @@
 <h2 class="hasAnchor">
 <a href="#monte-carlo-standard-error" class="anchor"></a>Monte Carlo Standard Error</h2>
 <p>Below we calculate the maximum Monte Carlo standard error (MCSE) for each of the methods presented in the graph above. Ideally, MCSE values should be relatively small compared to the estimated Type 1 error rates. Overall, the maximum MCSEs are small compared to the range of reported rejection rates.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">Tipton_Pusto <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(test) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="dt">mcse =</span> <span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(mcse)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits =</span> <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">Tipton_Pusto</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">test</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="kw">mcse</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">mcse</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw">digits</span> <span class="kw">=</span> <span class="fl">4</span>)</pre></body></html></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:left;">
@@ -260,16 +260,16 @@ AHZ
 <p>Cameron, A. C., Gelbach, J. B., &amp; Miller, D. L. (2008). Bootstrap-Based Improvements for Inference with Clustered Errors. <em>The Review of Economics and Statistics</em>, 47.</p>
 </div>
 <div id="ref-hedges_robust_2010">
-<p>Hedges, L. V., Tipton, E., &amp; Johnson, M. C. (2010). Robust variance estimation in meta-regression with dependent effect size estimates. <em>Research Synthesis Methods</em>, <em>1</em>(1), 39–65. <a href="https://doi.org/10.1002/jrsm.5">https://doi.org/10.1002/jrsm.5</a></p>
+<p>Hedges, L. V., Tipton, E., &amp; Johnson, M. C. (2010). Robust variance estimation in meta-regression with dependent effect size estimates. <em>Research Synthesis Methods</em>, <em>1</em>(1), 39–65. <a href="https://doi.org/10.1002/jrsm.5" class="uri">https://doi.org/10.1002/jrsm.5</a></p>
 </div>
 <div id="ref-olkin2009">
 <p>Olkin, I., &amp; Gleser, L. (2009). Stochastically dependent effect sizes. <em>The Handbook of Research Synthesis and Meta-Analysis</em>, 357–376.</p>
 </div>
 <div id="ref-tipton_small_2015">
-<p>Tipton, E. (2015). Small sample adjustments for robust variance estimation with meta-regression. <em>Psychological Methods</em>, <em>20</em>(3), 375–393. <a href="https://doi.org/10.1037/met0000011">https://doi.org/10.1037/met0000011</a></p>
+<p>Tipton, E. (2015). Small sample adjustments for robust variance estimation with meta-regression. <em>Psychological Methods</em>, <em>20</em>(3), 375–393. <a href="https://doi.org/10.1037/met0000011" class="uri">https://doi.org/10.1037/met0000011</a></p>
 </div>
 <div id="ref-tipton_2015">
-<p>Tipton, E., &amp; Pustejovsky, J. E. (2015). Small-Sample Adjustments for Tests of Moderators and Model Fit Using Robust Variance Estimation in Meta-Regression. <em>Journal of Educational and Behavioral Statistics</em>, <em>40</em>(6), 604–634. <a href="https://doi.org/10.3102/1076998615606099">https://doi.org/10.3102/1076998615606099</a></p>
+<p>Tipton, E., &amp; Pustejovsky, J. E. (2015). Small-Sample Adjustments for Tests of Moderators and Model Fit Using Robust Variance Estimation in Meta-Regression. <em>Journal of Educational and Behavioral Statistics</em>, <em>40</em>(6), 604–634. <a href="https://doi.org/10.3102/1076998615606099" class="uri">https://doi.org/10.3102/1076998615606099</a></p>
 </div>
 <div id="ref-zhang2012approximate">
 <p>Zhang, J.-T. (2012). An approximate hotelling t2-test for heteroscedastic one-way manova. <em>Open Journal of Statistics</em>, <em>2</em>(1), 1–11.</p>
@@ -281,22 +281,11 @@ AHZ
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#introduction-to-tipton-pustejovsky-2015">Introduction to Tipton &amp; Pustejovsky (2015)</a></li>
-      <li><a href="#the-tipton_pusto-dataset">The Tipton_Pusto Dataset</a></li>
-      <li><a href="#data-cleaning">Data Cleaning</a></li>
-      <li><a href="#visualization">Visualization</a></li>
-      <li><a href="#interpretation-of-results">Interpretation of Results</a></li>
-      <li><a href="#monte-carlo-standard-error">Monte Carlo Standard Error</a></li>
-      <li><a href="#references">References</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 
@@ -307,7 +296,7 @@ AHZ
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
 
       </footer>
