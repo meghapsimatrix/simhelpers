@@ -80,14 +80,14 @@ tibbles, which can then easily be used with
 [`dplyr`](https://dplyr.tidyverse.org/index.html),
 [`tidyr`](https://tidyr.tidyverse.org/) and
 [`purrr`](https://purrr.tidyverse.org/) syntax (Wickham et al., 2019).
-The functions that calulate MCSEs are easy to run on grouped data. For
+The functions that calculate MCSEs are easy to run on grouped data. For
 parallel computing, we use the
 [`furrr`](https://davisvaughan.github.io/furrr/) and
 [`future`](https://rstudio.github.io/promises/articles/futures.html)
 packages (Bengtsson, 2020; Vaughan & Dancho, 2018). Moreover, in
 contrast to the `rsimsum` and `SimDesign` packages, `simhelpers`
-provides jacknife MCSE for variance estimators. It also provides
-jacknife MCSE estimates for root mean squared error.
+provides jack-knife MCSE for variance estimators. It also provides
+jack-knife MCSE estimates for root mean squared error.
 
 Another related project is
 [`DeclareDesign`](https://declaredesign.org/), a suite of packages that
