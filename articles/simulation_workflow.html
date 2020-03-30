@@ -103,7 +103,7 @@
 
     
     
-<p>Simulation typically involve the following workflow <span class="citation">(Morris, White, &amp; Crowther, 2019)</span>:</p>
+<p>Simulation studies typically involve the following workflow <span class="citation">(Morris, White, &amp; Crowther, 2019)</span>:</p>
 <ol style="list-style-type: decimal">
 <li>Create an experimental design.</li>
 <li>Generate a dataset.</li>
@@ -312,7 +312,7 @@ Group 2
 <div id="convergence-issues" class="section level3">
 <h3 class="hasAnchor">
 <a href="#convergence-issues" class="anchor"></a>Convergence Issues</h3>
-<p>If we were to estimate complicated models, like structural equation modeling or hierarchical linear modeling, we may have convergence issues. In such a case, we can add an <code>if...else</code> statement within the <code>estimate()</code> function that evaluates whether the model converged and if it did not converge, the statement outputs <code>NA</code> values for estimates, p-values etc.</p>
+<p>If we were to estimate complicated models, like structural equation modeling or hierarchical linear modeling, there may be cases where the model does not converge. To handle such cases, we can add an <code>if...else</code> statement within the <code>estimate()</code> function that evaluates whether the model converged and if it did not converge, the statement outputs <code>NA</code> values for estimates, p-values etc.</p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">estimate</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">dat</span>, <span class="no">design_parameters</span>){
 
   <span class="co"># write estimation models here</span>
@@ -451,7 +451,7 @@ Group 2
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="kw">cols</span> <span class="kw">=</span> <span class="no">res</span>)
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   9.324   0.000   9.324</span>
+<span class="co">#&gt;   9.636   0.000   9.637</span>
 
 <span class="no">results</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</pre></body></html></div>
@@ -971,7 +971,7 @@ Welch t-test
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="kw">cols</span> <span class="kw">=</span> <span class="no">res</span>)
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.100   0.004   9.082</span>
+<span class="co">#&gt;   0.104   0.008   9.349</span>
 
 <span class="no">results</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</pre></body></html></div>
@@ -1477,7 +1477,7 @@ Welch t-test
 <span class="fu"><a href="../reference/evaluate_by_row.html">evaluate_by_row</a></span>(<span class="no">params</span>, <span class="no">run_sim</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.087   0.000   9.059</span></pre></body></html></div>
+<span class="co">#&gt;   0.092   0.004   9.324</span></pre></body></html></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
