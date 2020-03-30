@@ -112,7 +112,7 @@ If there are any convergence issues with estimation, please make sure to [write 
 ```{r}
 # using do()
 welch_res %>%
-  filter(method == "t-test") %>%
+  filter(method == "t-test") %>% # filter just conventional t-test res
   group_by(n1, n2, mean_diff) %>% # grouping 
   do(calc_absolute(., estimates = est, true_param = mean_diff)) %>% # run the function
   kable(digits = 5) # create a kable table 
@@ -122,7 +122,7 @@ welch_res %>%
 ```{r}
 # using group_modify()
 welch_res %>%
-  filter(method == "t-test") %>%
+  filter(method == "t-test") %>% # filter just conventional t-test res
   mutate(params = mean_diff) %>% # group_modify cannot take in a group column as an argument
   group_by(n1, n2, mean_diff) %>% # grouping 
   group_modify(~ calc_absolute(.x, estimates = est, true_param = params)) %>%
