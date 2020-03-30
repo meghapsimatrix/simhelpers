@@ -1,5 +1,5 @@
 ## Resubmission
-This is a resubmission. This resubmission adds a citation for methods used to write the functions in the package to DESCRIPTION.
+This is a resubmission. This resubmission adds a citation for methods used to write the functions in the package to DESCRIPTION. Fixed the title to be upper case. The resubmission also changes the CRAN links to canonical form.
 
 ## Test environments
 * local OS Catalina, R 3.6.3

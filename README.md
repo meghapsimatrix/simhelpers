@@ -66,13 +66,13 @@ Our explanation of MCSE formulas and our general simulation workflow is
 closely aligned with the approach described by Morris et al. (2019). We
 want to recognize several other R packages that offer functionality for
 conducting Monte Carlo simulation studies. In particular, the
-[`rsimsum`](https://cran.r-project.org/web/packages/rsimsum/index.html)
-package (which has a lovely name that makes me hungry) also calculates
-Monte Carlo standard errors (Gasparini, 2018). The
-[`SimDesign`](https://cran.r-project.org/web/packages/SimDesign/index.html)
-package implements a generate-analyze-summarize model for writing
-simulations; it also includes tools for error handling and parallel
-computing (Chalmers, 2019).
+[`rsimsum`](https://cran.r-project.org/package=rsimsum) package (which
+has a lovely name that makes me hungry) also calculates Monte Carlo
+standard errors (Gasparini, 2018). The
+[`SimDesign`](https://cran.r-project.org/package=SimDesign) package
+implements a generate-analyze-summarize model for writing simulations;
+it also includes tools for error handling and parallel computing
+(Chalmers, 2019).
 
 In contrast to the two packages mentioned above, our package uses
 [`tidyeval`](https://tidyeval.tidyverse.org/index.html) and outputs
@@ -99,14 +99,14 @@ simulating certain specific types of research designs. In contrast, our
 package is a simpler set of general-purpose utility functions.
 
 Other packages that have similar aims to `simhelpers` include:
-[MonteCarlo](https://cran.r-project.org/web/packages/MonteCarlo/index.html),
-[parSim](https://cran.r-project.org/web/packages/parSim/index.html),
-[simsalapar](https://cran.r-project.org/web/packages/simsalapar/index.html),
-[simulator](https://cran.r-project.org/web/packages/simulator/index.html),
-[simstudy](https://cran.r-project.org/web/packages/simstudy/index.html),
-[simTool](https://cran.r-project.org/web/packages/simTool/index.html),
-[simSummary](https://cran.r-project.org/web/packages/simSummary/index.html),
-and [ezsim](https://cran.r-project.org/web/packages/ezsim/index.html).
+[MonteCarlo](https://CRAN.R-project.org/package=MonteCarlo),
+[parSim](https://CRAN.R-project.org/package=parSim),
+[simsalapar](https://CRAN.R-project.org/package=simsalapar),
+[simulator](https://CRAN.R-project.org/package=simulator),
+[simstudy](https://CRAN.R-project.org/package=simstudy),
+[simTool](https://CRAN.R-project.org/package=simTool),
+[simSummary](https://CRAN.R-project.org/package=simSummary), and
+[ezsim](https://CRAN.R-project.org/package=ezsim).
 
 # Acknowledgments
 

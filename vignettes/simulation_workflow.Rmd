@@ -377,7 +377,7 @@ results %>%
 
 ## Running the Simulation in Parallel
 
-Below we use the [`future`](https://rstudio.github.io/promises/articles/futures.html) and the [`furrr`](https://davisvaughan.github.io/furrr/) packages to run the simulation in parallel [@future; @furrr]. These packages are designed to work with functions from the `purrr` package. The line below gets a cluster set up on your computer or network. For more complicated network setups, please see the [documentation for the future package](https://cran.r-project.org/web/packages/future/vignettes/future-1-overview.html). 
+Below we use the [`future`](https://rstudio.github.io/promises/articles/futures.html) and the [`furrr`](https://davisvaughan.github.io/furrr/) packages to run the simulation in parallel [@future; @furrr]. These packages are designed to work with functions from the `purrr` package. The line below gets a cluster set up on your computer or network. For more complicated network setups, please see the [documentation for the future package](https://rstudio.github.io/promises/articles/futures.html). 
 
 ```{r, eval = FALSE}
 plan(multisession)
