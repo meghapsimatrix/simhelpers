@@ -25,6 +25,6 @@ A tibble with 16,000 rows and 11 variables:
 welch_res
 }
 \description{
-A dataset containing simulation results from a study comparing Welch t-test to normal t-test.
+A dataset containing simulation results from a study comparing Welch t-test to the conventional t-test.
 }
 \keyword{datasets}

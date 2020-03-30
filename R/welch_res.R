@@ -1,6 +1,6 @@
 #' Welch t-test simulation results
 #'
-#' A dataset containing simulation results from a study comparing Welch t-test to normal t-test.
+#' A dataset containing simulation results from a study comparing Welch t-test to the conventional t-test.
 #'
 #'
 #' @format A tibble with 16,000 rows and 11 variables:
