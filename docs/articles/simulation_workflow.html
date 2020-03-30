@@ -66,6 +66,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -451,7 +454,7 @@ Group 2
 <a class="sourceLine" id="cb19-7" data-line-number="7"><span class="st">    </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="dt">cols =</span> res)</a>
 <a class="sourceLine" id="cb19-8" data-line-number="8">)</a>
 <a class="sourceLine" id="cb19-9" data-line-number="9"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb19-10" data-line-number="10"><span class="co">#&gt;  12.689   0.093  13.075</span></a>
+<a class="sourceLine" id="cb19-10" data-line-number="10"><span class="co">#&gt;  17.123   0.388  19.179</span></a>
 <a class="sourceLine" id="cb19-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb19-12" data-line-number="12">results <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb19-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a></code></pre></div>
@@ -956,7 +959,7 @@ Welch t-test
 <div id="running-the-simulation-in-parallel" class="section level2">
 <h2 class="hasAnchor">
 <a href="#running-the-simulation-in-parallel" class="anchor"></a>Running the Simulation in Parallel</h2>
-<p>Below we use the <a href="https://rstudio.github.io/promises/articles/futures.html"><code>future</code></a> and the <a href="https://davisvaughan.github.io/furrr/"><code>furrr</code></a> packages to run the simulation in parallel <span class="citation">(Bengtsson, 2020; Vaughan &amp; Dancho, 2018)</span>. These packages are designed to work with functions from the <code>purrr</code> package. The line below gets a cluster set up on your computer or network. For more complicated network setups, please see the <a href="https://cran.r-project.org/web/packages/future/vignettes/future-1-overview.html">documentation for the future package</a>.</p>
+<p>Below we use the <a href="https://rstudio.github.io/promises/articles/futures.html"><code>future</code></a> and the <a href="https://davisvaughan.github.io/furrr/"><code>furrr</code></a> packages to run the simulation in parallel <span class="citation">(Bengtsson, 2020; Vaughan &amp; Dancho, 2018)</span>. These packages are designed to work with functions from the <code>purrr</code> package. The line below gets a cluster set up on your computer or network. For more complicated network setups, please see the <a href="https://rstudio.github.io/promises/articles/futures.html">documentation for the future package</a>.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">plan</span>(multisession)</a></code></pre></div>
 <p>Once the cluster is configured, we can just replace <a href="https://purrr.tidyverse.org/reference/map2.html"><code><a href="https://purrr.tidyverse.org/reference/map2.html">pmap()</a></code></a> from <code>purrr</code> with <a href="https://davisvaughan.github.io/furrr/reference/future_map2.html"><code><a href="https://rdrr.io/pkg/furrr/man/future_map2.html">future_pmap()</a></code></a> to run the simulation in parallel.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(future)</a>
@@ -971,7 +974,7 @@ Welch t-test
 <a class="sourceLine" id="cb21-10" data-line-number="10"><span class="st">    </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="dt">cols =</span> res)</a>
 <a class="sourceLine" id="cb21-11" data-line-number="11">)</a>
 <a class="sourceLine" id="cb21-12" data-line-number="12"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb21-13" data-line-number="13"><span class="co">#&gt;   0.173   0.006   8.879</span></a>
+<a class="sourceLine" id="cb21-13" data-line-number="13"><span class="co">#&gt;   0.183   0.009   9.513</span></a>
 <a class="sourceLine" id="cb21-14" data-line-number="14"></a>
 <a class="sourceLine" id="cb21-15" data-line-number="15">results <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb21-16" data-line-number="16"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a></code></pre></div>
@@ -1477,7 +1480,7 @@ Welch t-test
 <a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw"><a href="../reference/evaluate_by_row.html">evaluate_by_row</a></span>(params, run_sim) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb22-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a>
 <a class="sourceLine" id="cb22-4" data-line-number="4"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb22-5" data-line-number="5"><span class="co">#&gt;   0.163   0.007   9.230</span></a></code></pre></div>
+<a class="sourceLine" id="cb22-5" data-line-number="5"><span class="co">#&gt;   0.174   0.008  10.827</span></a></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
@@ -2030,7 +2033,7 @@ Welch t-test
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://meghapsimatrix.com">Megha Joshi</a>, <a href="https://www.jepusto.com/">James E. Pustejovsky</a>.</p>
+  <p>Developed by <a href="https://meghapsimatrix.com">Megha Joshi</a>, James Pustejovsky.</p>
 </div>
 
 <div class="pkgdown">
