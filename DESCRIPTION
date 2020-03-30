@@ -2,7 +2,7 @@ Package: simhelpers
 Type: Package
 Title: Helper Functions for Simulation Studies
 Version: 0.1.0
-Authors@R: person(c(
+Authors@R: as.person(c(
     "Megha Joshi <megha.j456@gmail.com> [aut, cre]", 
     "James E. Pustejovsky <jepusto@gmail.com> [aut]"
   ))
