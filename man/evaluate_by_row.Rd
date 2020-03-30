@@ -2,7 +2,7 @@
 % Please edit documentation in R/evaluate_by_row.R
 \name{evaluate_by_row}
 \alias{evaluate_by_row}
-\title{Evaluate a simulation function on each row of a data frame}
+\title{Evaluate a simulation function on each row of a data frame or tibble}
 \usage{
 evaluate_by_row(
   params,
@@ -36,8 +36,8 @@ be the result from a call to \code{\link[furrr:future_options]{future_options()}
 A tibble containing parameter values and simulation results.
 }
 \description{
-Evaluates a simulation function on each row of a data frame
-  containing parameter values. Returns a single data frame with parameters
+Evaluates a simulation function on each row of a data frame or tibble
+  containing parameter values. Returns a single tibble with parameters
   and simulation results. The function uses \code{furrr::future_pmap}, which
   allows for easy parallelization.
 }
