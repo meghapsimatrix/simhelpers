@@ -24,7 +24,7 @@ calc_coverage(
 \item{perfm_criteria}{character or character vector indicating the performance criteria to be calculated.}
 }
 \value{
-A tibble containing the number of iterations, performance criteria estimate(s)
+A tibble containing the number of simulation iterations, performance criteria estimate(s)
 and the associated MCSE.
 }
 \description{
