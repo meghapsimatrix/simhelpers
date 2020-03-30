@@ -66,10 +66,10 @@ Our explanation of MCSE formulas and our general simulation workflow is
 closely aligned with the approach described by Morris et al. (2019). We
 want to recognize several other R packages that offer functionality for
 conducting Monte Carlo simulation studies. In particular, the
-[`rsimsum`](https://cran.r-project.org/package=rsimsum) package (which
+[`rsimsum`](https://CRAN.R-project.org/package=rsimsum) package (which
 has a lovely name that makes me hungry) also calculates Monte Carlo
 standard errors (Gasparini, 2018). The
-[`SimDesign`](https://cran.r-project.org/package=SimDesign) package
+[`SimDesign`](https://CRAN.R-project.org/package=SimDesign) package
 implements a generate-analyze-summarize model for writing simulations;
 it also includes tools for error handling and parallel computing
 (Chalmers, 2019).
