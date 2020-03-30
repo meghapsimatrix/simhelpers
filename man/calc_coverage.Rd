@@ -24,7 +24,8 @@ calc_coverage(
 \item{perfm_criteria}{character or character vector indicating the performance criteria to be calculated.}
 }
 \value{
-A tibble containing the  performance criteria estimate(s) and the associated MCSE.
+A tibble containing the number of iterations, performance criteria estimate(s)
+and the associated MCSE.
 }
 \description{
 Calculates confidence interval coverage and width. The function also calculates the associated

@@ -14,7 +14,8 @@ calc_rejection(res_dat, p_values, alpha = 0.05)
 \item{alpha}{number indicating the nominal alpha level. Default value is set to the conventional .05.}
 }
 \value{
-A tibble containing the performance criteria estimate and the associated MCSE.
+A tibble containing the number of iterations, performance criteria estimate
+and the associated MCSE.
 }
 \description{
 Calculates rejection rate. The function also calculates the associated
