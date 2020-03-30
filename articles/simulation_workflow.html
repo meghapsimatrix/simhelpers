@@ -454,7 +454,7 @@ Group 2
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="kw">cols</span> <span class="kw">=</span> <span class="no">res</span>)
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;  24.493   0.000  24.494</span>
+<span class="co">#&gt;  24.522   0.000  24.522</span>
 
 <span class="no">results</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</pre></body></html></div>
@@ -959,7 +959,7 @@ Welch t-test
 <div id="running-the-simulation-in-parallel" class="section level2">
 <h2 class="hasAnchor">
 <a href="#running-the-simulation-in-parallel" class="anchor"></a>Running the Simulation in Parallel</h2>
-<p>Below we use the <a href="https://rstudio.github.io/promises/articles/futures.html"><code>future</code></a> and the <a href="https://davisvaughan.github.io/furrr/"><code>furrr</code></a> packages to run the simulation in parallel <span class="citation">(Bengtsson, 2020; Vaughan &amp; Dancho, 2018)</span>. These packages are designed to work with functions from the <code>purrr</code> package. The line below gets a cluster set up on your computer or network. For more complicated network setups, please see the <a href="https://cran.r-project.org/web/packages/future/vignettes/future-1-overview.html">documentation for the future package</a>.</p>
+<p>Below we use the <a href="https://rstudio.github.io/promises/articles/futures.html"><code>future</code></a> and the <a href="https://davisvaughan.github.io/furrr/"><code>furrr</code></a> packages to run the simulation in parallel <span class="citation">(Bengtsson, 2020; Vaughan &amp; Dancho, 2018)</span>. These packages are designed to work with functions from the <code>purrr</code> package. The line below gets a cluster set up on your computer or network. For more complicated network setups, please see the <a href="https://rstudio.github.io/promises/articles/futures.html">documentation for the future package</a>.</p>
 <div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu">plan</span>(<span class="no">multisession</span>)</pre></body></html></div>
 <p>Once the cluster is configured, we can just replace <a href="https://purrr.tidyverse.org/reference/map2.html"><code><a href="https://purrr.tidyverse.org/reference/map2.html">pmap()</a></code></a> from <code>purrr</code> with <a href="https://davisvaughan.github.io/furrr/reference/future_map2.html"><code><a href="https://rdrr.io/pkg/furrr/man/future_map2.html">future_pmap()</a></code></a> to run the simulation in parallel.</p>
 <div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">future</span>)
@@ -974,7 +974,7 @@ Welch t-test
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="kw">cols</span> <span class="kw">=</span> <span class="no">res</span>)
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.169   0.008  21.925</span>
+<span class="co">#&gt;   0.173   0.001  21.863</span>
 
 <span class="no">results</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</pre></body></html></div>
@@ -1480,7 +1480,7 @@ Welch t-test
 <span class="fu"><a href="../reference/evaluate_by_row.html">evaluate_by_row</a></span>(<span class="no">params</span>, <span class="no">run_sim</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.154   0.004  21.859</span></pre></body></html></div>
+<span class="co">#&gt;   0.158   0.000  21.890</span></pre></body></html></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
