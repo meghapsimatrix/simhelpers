@@ -7,7 +7,7 @@ Authors@R: as.person(c(
     "James E. Pustejovsky <jepusto@gmail.com> [aut]"
   ))
 Maintainer: Megha Joshi <megha.j456@gmail.com>
-Description: Calculates performance criteria measures and associated Monte Carlo simulation errors for simulation results. Please see the vignette for more information on the calculations. 
+Description: Calculates performance criteria measures and associated Monte Carlo simulation errors for simulation results. Includes functions to help design and run simulation studies. Our derivation and explanation of MCSE formulas and our general simulation workflow is closely aligned with the approach described by Morris, White, and Crowther (2019)<DOI: 10.1002/sim.8086>. 
 URL: https://meghapsimatrix.github.io/simhelpers/index.html
 BugReports: https://github.com/meghapsimatrix/simhelpers/issues
 Depends: R (>= 2.10)

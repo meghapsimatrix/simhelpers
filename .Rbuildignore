@@ -11,3 +11,4 @@ auxiliary
 cran-comments.md
 .nojekyll.R
 ^revdep$
+^CRAN-RELEASE$
