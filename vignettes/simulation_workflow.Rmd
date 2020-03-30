@@ -184,7 +184,7 @@ Here again, it would be good to check if the function runs as it should. Below w
 ```{r}
 est_res <- 
   estimate(example_dat, n1 = 10000, n2 = 10000) %>%
-   mutate_if(is.numeric, round, 5)
+  mutate_if(is.numeric, round, 5)
 
 est_res
 ```
