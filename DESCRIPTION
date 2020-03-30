@@ -2,10 +2,16 @@ Package: simhelpers
 Type: Package
 Title: Helper Functions for Simulation Studies
 Version: 0.1.0
-Authors@R: as.person(c(
-    "Megha Joshi <megha.j456@gmail.com> [aut, cre]", 
-    "James E. Pustejovsky <jepusto@gmail.com> [aut]"
-  ))
+Authors@R: c(
+    person(given = "Megha", 
+           family = "Joshi", 
+           email = "megha.j456@gmail.com", 
+           role = c("aut", "cre")),
+    person(given = "James", 
+           family = "Pustejovsky", 
+           email = "jepusto@gmail.com", 
+           role = c("aut"), 
+           comment = c(ORCID = "0000-0003-0591-9465")))
 Maintainer: Megha Joshi <megha.j456@gmail.com>
 Description: Calculates performance criteria measures and associated Monte Carlo simulation errors for simulation results. Includes functions to help design and run simulation studies. Our derivation and explanation of MCSE formulas and our general simulation workflow is closely aligned with the approach described by Morris, White, and Crowther (2019)<DOI: 10.1002/sim.8086>. 
 URL: https://meghapsimatrix.github.io/simhelpers/index.html
