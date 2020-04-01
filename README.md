@@ -54,6 +54,12 @@ from example simulation studies.
 
 ## Installation
 
+Install latest release from CRAN:
+
+``` r
+install.packages("simhelpers")
+```
+
 You can install the development version from
 [GitHub](https://github.com/) with:
 
