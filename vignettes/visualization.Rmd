@@ -8,7 +8,7 @@ output:
 bibliography: references.bib
 csl: apa.csl
 vignette: >
-  %\VignetteIndexEntry{visualization}
+  %\VignetteIndexEntry{Presenting Results from Simulation Studies}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{ggplot2}
