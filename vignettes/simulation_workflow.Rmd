@@ -1,6 +1,10 @@
 ---
 title: "Simulation Workflow"
-output: rmarkdown::html_vignette
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    number_sections: true
+    toc: true
 bibliography: references.bib
 csl: apa.csl
 vignette: >
