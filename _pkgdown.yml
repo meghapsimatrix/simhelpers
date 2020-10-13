@@ -43,5 +43,8 @@ reference:
       - t_res
       - welch_res
 
-
+repo:
+  url:
+    home: https://github.com/jepusto/lmeInfo
+    source:
 
