@@ -6,6 +6,7 @@ warnings_are_errors: true
 
 r_packages:
   - covr
+before_install: R -e 'source("https://install-github.me/r-lib/remotes")'
 
 matrix:
     after_success:
