@@ -1,0 +1,5 @@
+exportPattern("^[[:alpha:]]+")
+importFrom(dplyr, "%>%")
+importFrom("stats", "sd", "var")
+importFrom(Rdpack,reprompt)
+
