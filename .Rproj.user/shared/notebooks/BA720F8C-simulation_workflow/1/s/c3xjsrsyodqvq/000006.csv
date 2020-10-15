@@ -1,0 +1,5 @@
+"0","est_res <- "
+"0","  estimate(example_dat, n1 = 10000, n2 = 10000) %>%"
+"0","  mutate_if(is.numeric, round, 5)"
+"0",""
+"0","est_res"
