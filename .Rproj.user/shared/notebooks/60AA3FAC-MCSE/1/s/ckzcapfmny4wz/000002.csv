@@ -1,0 +1,7 @@
+"0","# using group_modify()"
+"0","welch_res %>%"
+"0","  filter(method == ""t-test"") %>%"
+"0","  mutate(params = mean_diff) %>% # group_modify cannot take in a group column as an argument"
+"0","  group_by(n1, n2, mean_diff) %>% # grouping "
+"0","  group_modify(~ calc_absolute(.x, estimates = est, true_param = params)) %>%"
+"0","  kable(digits = 5)"

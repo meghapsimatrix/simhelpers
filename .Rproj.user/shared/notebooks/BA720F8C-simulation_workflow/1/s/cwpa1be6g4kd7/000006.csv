@@ -1,0 +1,6 @@
+"0","example_dat %>%"
+"0","  group_by(group) %>%"
+"0","  summarize(n = n(),"
+"0","            M = mean(y),"
+"0","            SD = sd(y)) %>%"
+"0","  kable(digits = 3)"
