@@ -7,9 +7,8 @@ warnings_are_errors: true
 r_packages:
   - covr
 
-before_install: R -e 'source("https://install-github.me/r-lib/remotes")'
-
 matrix:
+    before_install: R -e 'source("https://install-github.me/r-lib/remotes")'
     after_success:
     - R CMD INSTALL .
     - Rscript -e 'remotes::install_github("rstudio/rmarkdown", upgrade = "never")'
