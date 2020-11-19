@@ -92,7 +92,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Simulation Workflow</h1>
             
-            <h4 class="date">2020-10-15</h4>
+            <h4 class="date">2020-11-19</h4>
       
       
       <div class="hidden name"><code>simulation_workflow.Rmd</code></div>
@@ -113,8 +113,8 @@
 <p>The flowchart below depicts the workflow. The chart is created using <code>grViz()</code> from the <a href="https://rich-iannone.github.io/DiagrammeR/"><code>DiagrammeR</code></a> package <span class="citation">(Iannone, 2020)</span>.</p>
 <p><img src="../man/figures/workflow.png"></p>
 <p>The explanation of the workflow in this vignette follow notes from Dr. James Pustejovsky’s <a href="https://www.jepusto.com/teaching/daspir/">Data Analysis, Simulation and Programming in R course (Spring, 2019)</a>.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://meghapsimatrix.github.io/simhelpers/index.html">simhelpers</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://meghapsimatrix.github.io/simhelpers/index.html">simhelpers</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span>
@@ -122,7 +122,7 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/">kableExtra</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://broom.tidymodels.org/">broom</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></code></pre></div>
 <div id="initial-experimental-design" class="section level2">
 <h2 class="hasAnchor">
 <a href="#initial-experimental-design" class="anchor"></a>Initial Experimental Design</h2>
@@ -132,14 +132,14 @@
 <h2 class="hasAnchor">
 <a href="#data-generating-model" class="anchor"></a>Data Generating Model</h2>
 <p>The data-generating function below takes in model parameters. For example, we can generate data varying the sample size or level of heteroskedasticity or the amount of missingness. Below is a skeleton of the data-generating function. The arguments are any data-generating parameters that we would want to vary.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">generate_dat</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">model_params</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">generate_dat</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">model_params</span><span class="op">)</span> <span class="op">{</span>
 
   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>
-<span class="op">}</span></pre></div>
+<span class="op">}</span></code></pre></div>
 <p>Below is an example where we generate random normal data for two groups, where the second group has a standard deviation twice as large as that of the first group. The function takes in three arguments: <code>n1</code>, indicating sample size for Group 1, <code>n2</code> indicating sample size for Group 2, and <code>mean_diff</code>, indicating the mean difference.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">generate_dat</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n1</span>, <span class="va">n2</span>, <span class="va">mean_diff</span><span class="op">)</span><span class="op">{</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">generate_dat</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n1</span>, <span class="va">n2</span>, <span class="va">mean_diff</span><span class="op">)</span><span class="op">{</span>
 
   <span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
     y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n1</span>, <span class="va">mean_diff</span>, <span class="fl">1</span><span class="op">)</span>, <span class="co"># mean diff as mean, sd 1</span>
@@ -149,10 +149,10 @@
 
   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>
 
-<span class="op">}</span></pre></div>
+<span class="op">}</span></code></pre></div>
 <p>After creating the data-generating function, we should check whether it works. Below, we generate an example dataset with 10,000 people in each group and the <code>mean_diff</code> set to 1.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2020143</span><span class="op">)</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2020143</span><span class="op">)</span>
 <span class="va">example_dat</span> <span class="op">&lt;-</span> <span class="fu">generate_dat</span><span class="op">(</span>n1 <span class="op">=</span> <span class="fl">10000</span>, n2<span class="op">=</span> <span class="fl">10000</span>, mean_diff <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> 
 
 <span class="va">example_dat</span> <span class="op">%&gt;%</span>
@@ -165,16 +165,16 @@
 <span class="co">#&gt; 3  1.02  Group 1</span>
 <span class="co">#&gt; 4  0.754 Group 1</span>
 <span class="co">#&gt; 5  0.762 Group 1</span>
-<span class="co">#&gt; 6  0.979 Group 1</span></pre></div>
+<span class="co">#&gt; 6  0.979 Group 1</span></code></pre></div>
 <p>Below, we create a summary table. The mean of the outcome for Group 1 is close to 1 and the mean for Group 2 is close to 0. The standard deviation of the outcome for Group 1 is close to 1 and the standard deviation for Group 2 is close to 2. The table matches what we specified in the data-generating model.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">example_dat</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">example_dat</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,
             M <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>,
             SD <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
-<span class="co">#&gt; `summarise()` ungrouping output (override with `.groups` argument)</span></pre></div>
+<span class="co">#&gt; `summarise()` ungrouping output (override with `.groups` argument)</span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:left;">
@@ -222,26 +222,26 @@ Group 2
 </tbody>
 </table>
 <p>Below we create a density plot of the values that we generated for each of the groups. The distributions seem normal. The peaks seem to have a difference of 1. And, the variances of the outcome scores are different for each group as we specified.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">example_dat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">example_dat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Outcome Scores"</span>, y <span class="op">=</span> <span class="st">"Density"</span>, fill <span class="op">=</span> <span class="st">"Group"</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span></pre></div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="simulation_workflow_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
 </div>
 <div id="estimation-methods" class="section level2">
 <h2 class="hasAnchor">
 <a href="#estimation-methods" class="anchor"></a>Estimation Methods</h2>
 <p>In this step, we run some statistical methods to calculate test statistics, regression coefficients, p-values, or confidence intervals. The function takes in the data and any design parameters, such as options for how estimation should be carried out (e.g., use HC0 standard errors or HC2 standard errors).</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">estimate</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dat</span>, <span class="va">design_params</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">estimate</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dat</span>, <span class="va">design_params</span><span class="op">)</span> <span class="op">{</span>
 
   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span>
-<span class="op">}</span></pre></div>
+<span class="op">}</span></code></pre></div>
 <p>Below is an example function that runs t-tests on a simulated dataset. The function runs a conventional t-test, which assumes homogeneity of variance, and a Welch t-test, which does not assume that the population variances of the outcome for the two groups are equal. The function returns a tibble containing the names of the two methods, mean difference estimates, p-values, and upper and lower bounds of the confidence intervals. We could use the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function to extract everything we need. This function implements the calculations directly (using sample statistics) mostly just for fun. A further reason is that the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function does a lot of extra stuff to handle contingencies that come up with real data (like missing observations), but which are unnecessary when running calculations with simulated data.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="co"># t and p value</span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># t and p value</span>
 <span class="va">calc_t</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">est</span>, <span class="va">vd</span>, <span class="va">df</span>, <span class="va">method</span><span class="op">)</span><span class="op">{</span>
 
   <span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">vd</span><span class="op">)</span>  <span class="co"># standard error </span>
@@ -282,10 +282,10 @@ Group 2
 
   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span>
 
-<span class="op">}</span></pre></div>
+<span class="op">}</span></code></pre></div>
 <p>Here again, it would be good to check if the function runs as it should. Below we run the <code>estimate()</code> function on the example dataset:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="va">est_res</span> <span class="op">&lt;-</span> 
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">est_res</span> <span class="op">&lt;-</span> 
   <span class="fu">estimate</span><span class="op">(</span><span class="va">example_dat</span>, n1 <span class="op">=</span> <span class="fl">10000</span>, n2 <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_if</a></span><span class="op">(</span><span class="va">is.numeric</span>, <span class="va">round</span>, <span class="fl">5</span><span class="op">)</span>
 
@@ -294,13 +294,13 @@ Group 2
 <span class="co">#&gt;   method         est p_val lower_bound upper_bound</span>
 <span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 t-test        1.01     0       0.967        1.06</span>
-<span class="co">#&gt; 2 Welch t-test  1.01     0       0.967        1.06</span></pre></div>
+<span class="co">#&gt; 2 Welch t-test  1.01     0       0.967        1.06</span></code></pre></div>
 <p>We can compare the results to those from the built-in <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="va">t_res</span> <span class="op">&lt;-</span> 
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">t_res</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">example_dat</span>, var.equal <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, 
-    <span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">example_dat</span><span class="op">)</span><span class="op">)</span>
+    <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">example_dat</span>, var.equal <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, 
+    <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">example_dat</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
     estimate <span class="op">=</span> <span class="va">estimate1</span> <span class="op">-</span> <span class="va">estimate2</span>, 
@@ -314,17 +314,17 @@ Group 2
 <span class="co">#&gt;   method         est p_val lower_bound upper_bound</span>
 <span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 t-test        1.01     0       0.967        1.06</span>
-<span class="co">#&gt; 2 Welch t-test  1.01     0       0.967        1.06</span></pre></div>
+<span class="co">#&gt; 2 Welch t-test  1.01     0       0.967        1.06</span></code></pre></div>
 <p>The values match.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/all_equal.html">all_equal</a></span><span class="op">(</span><span class="va">est_res</span>, <span class="va">t_res</span><span class="op">)</span>
-<span class="co">#&gt; [1] "- Different types for column `est`: double vs double\n- Different types for column `p_val`: double vs double\n"</span></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/all_equal.html">all_equal</a></span><span class="op">(</span><span class="va">est_res</span>, <span class="va">t_res</span><span class="op">)</span>
+<span class="co">#&gt; [1] "- Different types for column `est`: double vs double\n- Different types for column `p_val`: double vs double\n"</span></code></pre></div>
 <div id="convergence-issues" class="section level3">
 <h3 class="hasAnchor">
 <a href="#convergence-issues" class="anchor"></a>Convergence Issues</h3>
 <p>If we were to estimate complicated models, like structural equation modeling or hierarchical linear modeling, there may be cases where the model does not converge. To handle such cases, we can add an <code>if...else</code> statement within the <code>estimate()</code> function that evaluates whether the model converged and if it did not converge, the statement outputs <code>NA</code> values for estimates, p-values etc.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="va">estimate</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dat</span>, <span class="va">design_parameters</span><span class="op">)</span><span class="op">{</span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">estimate</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dat</span>, <span class="va">design_parameters</span><span class="op">)</span><span class="op">{</span>
   
   <span class="co"># write estimation models here</span>
   <span class="co"># e.g., fit_mimic &lt;- lavaan::cfa(...)</span>
@@ -341,35 +341,35 @@ Group 2
   
   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
 
-<span class="op">}</span>      </pre></div>
+<span class="op">}</span>      </code></pre></div>
 </div>
 </div>
 <div id="performance-summaries" class="section level2">
 <h2 class="hasAnchor">
 <a href="#performance-summaries" class="anchor"></a>Performance Summaries</h2>
 <p>In this step, we create a function to calculate performance measures based on results that we extracted from the estimation step, repeated across many replications. As the skeleton below indicates, a performance summary function takes in the results, along with any model parameters, and returns a dataset of performance measures.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="va">calc_performance</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">results</span>, <span class="va">model_params</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">calc_performance</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">results</span>, <span class="va">model_params</span><span class="op">)</span> <span class="op">{</span>
 
   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">performance_measures</span><span class="op">)</span>
-<span class="op">}</span></pre></div>
+<span class="op">}</span></code></pre></div>
 <p>The function below fills in the <code>calc_performance()</code> function. We use the <code><a href="../reference/calc_rejection.html">calc_rejection()</a></code> function in the <code>simhelpers</code> package to calculate rejection rates.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="va">calc_performance</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">calc_performance</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op">{</span>
   
   <span class="va">performance_measures</span> <span class="op">&lt;-</span> <span class="va">results</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">method</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_map.html">group_modify</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="../reference/calc_rejection.html">calc_rejection</a></span><span class="op">(</span><span class="va">.x</span>, p_values <span class="op">=</span> <span class="va">p_val</span><span class="op">)</span><span class="op">)</span>
 
   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">performance_measures</span><span class="op">)</span>
-<span class="op">}</span></pre></div>
+<span class="op">}</span></code></pre></div>
 </div>
 <div id="simulation-driver" class="section level2">
 <h2 class="hasAnchor">
 <a href="#simulation-driver" class="anchor"></a>Simulation Driver</h2>
 <p>The following code chunk sets up the simulation driver. The arguments specify the number of iterations for the simulation and any parameters needed to run the data-generating and estimating functions. The function then generates many sets of results by repeating the data-generating step and estimation step. Finally, the function calculates the performance measures and returns results for this set of parameters.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="va">run_sim</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">iterations</span>, <span class="va">model_params</span>, <span class="va">design_params</span>, <span class="va">seed</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">run_sim</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">iterations</span>, <span class="va">model_params</span>, <span class="va">design_params</span>, <span class="va">seed</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span>
   <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">seed</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="va">seed</span><span class="op">)</span>
 
   <span class="va">results</span> <span class="op">&lt;-</span>
@@ -380,10 +380,10 @@ Group 2
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span>
 
   <span class="fu">calc_performance</span><span class="op">(</span><span class="va">results</span>, <span class="va">model_params</span><span class="op">)</span>
-<span class="op">}</span></pre></div>
+<span class="op">}</span></code></pre></div>
 <p>Below is the driver for our example simulation study:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="va">run_sim</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">iterations</span>, <span class="va">n1</span>, <span class="va">n2</span>, <span class="va">mean_diff</span>, <span class="va">seed</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">run_sim</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">iterations</span>, <span class="va">n1</span>, <span class="va">n2</span>, <span class="va">mean_diff</span>, <span class="va">seed</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span>
   <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">seed</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="va">seed</span><span class="op">)</span>
 
   <span class="va">results</span> <span class="op">&lt;-</span>
@@ -395,14 +395,14 @@ Group 2
   
   <span class="fu">calc_performance</span><span class="op">(</span><span class="va">results</span><span class="op">)</span>
 
-<span class="op">}</span></pre></div>
+<span class="op">}</span></code></pre></div>
 </div>
 <div id="experimental-design-revisit" class="section level2">
 <h2 class="hasAnchor">
 <a href="#experimental-design-revisit" class="anchor"></a>Experimental Design Revisit</h2>
 <p>Now that we have all our functions in order, we can specify the exact factors we want to manipulate in the study. The following code chunk creates a list of design factors and uses the <a href="https://purrr.tidyverse.org/reference/cross.html"><code>cross_df()</code></a> function from <a href="https://purrr.tidyverse.org/"><code>purrr</code></a> package to create every combination of the factor levels. We also set the number of iterations and the seed that will be used when generating data <span class="citation">(Wickham et al., 2019)</span>.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">20150316</span><span class="op">)</span> <span class="co"># change this seed value!</span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">20150316</span><span class="op">)</span> <span class="co"># change this seed value!</span>
 
 <span class="co"># now express the simulation parameters as vectors/lists</span>
 
@@ -418,10 +418,10 @@ Group 2
 <span class="co"># All look right?</span>
 <span class="fu"><a href="https://rdrr.io/r/base/lengths.html">lengths</a></span><span class="op">(</span><span class="va">design_factors</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></code></pre></div>
 <p>The code below specifies three design factors: <code>n1</code>, which specifies the sample size for Group 1, <code>n2</code>, which specifies the sample size for Group 2, and <code>mean_diff</code>, which denotes the mean difference between two groups on an outcome. These are the between simulation factors. The within-simulation factor is the t-test method with one assuming equal variance and one not assuming equal variance.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">20200110</span><span class="op">)</span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">20200110</span><span class="op">)</span>
 
 <span class="co"># now express the simulation parameters as vectors/lists</span>
 
@@ -453,14 +453,14 @@ Group 2
 <span class="co">#&gt; 3    50    50       0.5       1000 204809089</span>
 <span class="co">#&gt; 4    50    70       0.5       1000 204809090</span>
 <span class="co">#&gt; 5    50    50       1         1000 204809091</span>
-<span class="co">#&gt; 6    50    70       1         1000 204809092</span></pre></div>
+<span class="co">#&gt; 6    50    70       1         1000 204809092</span></code></pre></div>
 </div>
 <div id="running-the-simulation-in-serial" class="section level2">
 <h2 class="hasAnchor">
 <a href="#running-the-simulation-in-serial" class="anchor"></a>Running the Simulation in Serial</h2>
 <p>Here we run the simulation using <code>purrr</code> package serial workflow. We use the <a href="https://purrr.tidyverse.org/reference/map2.html"><code>pmap()</code></a> function from <code>purrr</code> to run the <code>run_sim()</code> function on each condition specified in <code>params</code>.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span>
   <span class="va">results</span> <span class="op">&lt;-</span> 
     <span class="va">params</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
@@ -469,10 +469,10 @@ Group 2
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="va">res</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;  38.023   0.200  38.342</span>
+<span class="co">#&gt;  37.835   0.242  38.464</span>
 
 <span class="va">results</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
@@ -975,11 +975,11 @@ Welch t-test
 <h2 class="hasAnchor">
 <a href="#running-the-simulation-in-parallel" class="anchor"></a>Running the Simulation in Parallel</h2>
 <p>Below we use the <a href="https://rstudio.github.io/promises/articles/futures.html"><code>future</code></a> and the <a href="https://davisvaughan.github.io/furrr/"><code>furrr</code></a> packages to run the simulation in parallel <span class="citation">(Bengtsson, 2020; Vaughan &amp; Dancho, 2018)</span>. These packages are designed to work with functions from the <code>purrr</code> package. The line below gets a cluster set up on your computer or network. For more complicated network setups, please see the <a href="https://rstudio.github.io/promises/articles/futures.html">documentation for the future package</a>.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit">
-<span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span><span class="op">)</span></code></pre></div>
 <p>Once the cluster is configured, we can just replace <a href="https://purrr.tidyverse.org/reference/map2.html"><code>pmap()</code></a> from <code>purrr</code> with <a href="https://davisvaughan.github.io/furrr/reference/future_map2.html"><code>future_pmap()</code></a> to run the simulation in parallel.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/HenrikBengtsson/future">future</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/HenrikBengtsson/future">future</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr">furrr</a></span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span><span class="op">(</span><span class="va">multisession</span><span class="op">)</span> <span class="co"># choose an appropriate plan from the future package</span>
@@ -1031,10 +1031,10 @@ Welch t-test
 <span class="co">#&gt; CMRG method. To disable this check, use [future].seed=NULL, or set option</span>
 <span class="co">#&gt; 'future.rng.onMisuse' to "ignore".</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.300   0.008  13.269</span>
+<span class="co">#&gt;   0.292   0.007  12.520</span>
 
 <span class="va">results</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
@@ -1533,8 +1533,8 @@ Welch t-test
 </tbody>
 </table>
 <p>In the <code>simhelpers</code> package, we have a function, <code><a href="../reference/evaluate_by_row.html">evaluate_by_row()</a></code>, that implements this <code>furrr</code> workflow automatically:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span><span class="op">(</span><span class="va">multisession</span><span class="op">)</span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span><span class="op">(</span><span class="va">multisession</span><span class="op">)</span>
 <span class="fu"><a href="../reference/evaluate_by_row.html">evaluate_by_row</a></span><span class="op">(</span><span class="va">params</span>, <span class="va">run_sim</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Warning: `future_options()` is deprecated as of furrr 0.2.0.</span>
@@ -1573,7 +1573,7 @@ Welch t-test
 <span class="co">#&gt; CMRG method. To disable this check, use [future].seed=NULL, or set option</span>
 <span class="co">#&gt; 'future.rng.onMisuse' to "ignore".</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.186   0.017  17.457</span></pre></div>
+<span class="co">#&gt;   0.152   0.008  12.989</span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">
@@ -2076,8 +2076,8 @@ Welch t-test
 <h1 class="hasAnchor">
 <a href="#example-from-simhelpers" class="anchor"></a>Example from simhelpers</h1>
 <p>The <code><a href="../reference/create_skeleton.html">create_skeleton()</a></code> function from our <code>simhelpers</code> package will open an untitled .R file with an outline or skeleton of functions needed to run a simulation study.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit">
-<span class="fu"><a href="../reference/create_skeleton.html">create_skeleton</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/create_skeleton.html">create_skeleton</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
