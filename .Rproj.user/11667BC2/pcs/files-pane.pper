@@ -1,9 +1,9 @@
 {
-    "path" : "~/Desktop/simhelpers",
-    "sortOrder" : [
+    "path": "~/Desktop/simhelpers/.github/workflows",
+    "sortOrder": [
         {
-            "ascending" : true,
-            "columnIndex" : 2
+            "columnIndex": 2,
+            "ascending": true
         }
     ]
 }
