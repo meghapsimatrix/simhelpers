@@ -5,8 +5,6 @@
 
 <!-- badges: start -->
 
-[![Travis build
-status](https://travis-ci.org/meghapsimatrix/simhelpers.svg?branch=master)](https://travis-ci.org/meghapsimatrix/simhelpers)
 [![Codecov test
 coverage](https://codecov.io/gh/meghapsimatrix/simhelpers/branch/master/graph/badge.svg)](https://codecov.io/gh/meghapsimatrix/simhelpers?branch=master)
 [![CRAN
@@ -70,7 +68,7 @@ devtools::install_github("meghapsimatrix/simhelpers")
 ## Related Work
 
 Our explanation of MCSE formulas and our general simulation workflow is
-closely aligned with the approach described by Morris et al. (2019). We
+closely aligned with the approach described by Morris et al. (2019). We
 want to recognize several other R packages that offer functionality for
 conducting Monte Carlo simulation studies. In particular, the
 [`rsimsum`](https://CRAN.R-project.org/package=rsimsum) package (which
