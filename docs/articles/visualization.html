@@ -93,12 +93,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="visualization_files/header-attrs-2.4.6/header-attrs.js"></script><link href="visualization_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="visualization_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Presenting Results from Simulation Studies</h1>
             
-            <h4 class="date">2020-10-15</h4>
+            <h4 class="date">2020-11-19</h4>
       
       
       <div class="hidden name"><code>visualization.Rmd</code></div>
@@ -111,8 +112,8 @@
 <h2 class="hasAnchor">
 <a href="#introduction-to-tipton-pustejovsky-2015" class="anchor"></a>Introduction to Tipton &amp; Pustejovsky (2015)</h2>
 <p>In this vignette, we provide a brief example of how to present and report results from a simulation study. We replicate Figure 2 of <span class="citation">Tipton &amp; Pustejovsky (2015)</span>, which examined several small sample corrections for robust variance estimation methods as used in meta-analysis.</p>
-<p>Meta-analysis is a set of statistical tools for synthesizing results from multiple primary studies on a common topic. Three major goals of meta-analysis include summarizing the results across the studies using some form of an effect size measure, characterizing the amount of variation in effects, and explaining variation in effect sizes <span class="citation">(Hedges, Tipton, &amp; Johnson, 2010)</span>. Primary studies often report multiple estimates of effect sizes resulting from multiple correlated measures of an outcome, repeated measures of outcome data or the comparison of multiple treatment groups to the same control group <span class="citation">(Hedges et al., 2010)</span>. These scenarios result in statistical dependence between effect sizes from the same study. However, typical methods to conduct meta-analysis, such as averaging effect sizes or analyzing moderating effects with meta-regression, involve an assumption that each effect size is independent. Use of such methods that ignore dependence can result in inaccurate standard errors and therefore, hypothesis tests with incorrect Type 1 error rates and confidence intervals with incorrect coverage levels <span class="citation">(Becker, 2000)</span>.</p>
-<p>One alternative, using a multivariate model, explicitly models correlations among effect size estimates <span class="citation">(Hedges et al., 2010; Tipton, 2015)</span>. However, multivariate meta-analysis requires knowledge of correlations or covariances between pairs of effect sizes within each primary study which are often difficult to obtain <span class="citation">(Olkin &amp; Gleser, 2009)</span>. <span class="citation">Hedges et al. (2010)</span> proposed the use of robust variance estimation (RVE) to handle dependent effect sizes. RVE does not require knowledge of the covariance structure between effect sizes like multivariate analyses. Instead, RVE estimates the variances for the meta-regression model’s coefficients using sandwich estimators <span class="citation">(Hedges et al., 2010; Tipton, 2015)</span>. RVE is increasingly being used in applied meta-analyses <span class="citation">(Tipton, 2015)</span>. However, the performance characteristics of RVE are asymptotic in that it requires a large number of clusters (studies) to provide accurate standard errors <span class="citation">(Cameron, Gelbach, &amp; Miller, 2008; Tipton, 2015)</span>. If the number of studies in a meta-analysis is small, basic RVE can result in downwardly biased standard errors and inflation of Type 1 error rates <span class="citation">(Cameron et al., 2008; Hedges et al., 2010; Tipton, 2015)</span>. <span class="citation">Tipton (2015)</span> and <span class="citation">Tipton &amp; Pustejovsky (2015)</span> introduced small sample corrections for RVE for tests of single coefficients and for multiple contrast hypotheses, respectively. <span class="citation">Tipton &amp; Pustejovsky (2015)</span> studied five methods, two based on eigen decomposition and three based on Hotelling’s <span class="math inline">\(T^2\)</span> distribution. The authors recommended a method (AHZ) which approximates the test statistic using Hotelling’s <span class="math inline">\(T^2\)</span> distribution with degrees of freedom proposed by <span class="citation">Zhang (2012)</span> and <span class="citation">Zhang (2013)</span>. This method resulted in Type 1 error rates closest to the nominal rate of .05. However, AHZ was shown to still have below nominal Type 1 error rates for tests of multiple contrast hypotheses.</p>
+<p>Meta-analysis is a set of statistical tools for synthesizing results from multiple primary studies on a common topic. Three major goals of meta-analysis include summarizing the results across the studies using some form of an effect size measure, characterizing the amount of variation in effects, and explaining variation in effect sizes <span class="citation">(Hedges, Tipton, &amp; Johnson, 2010)</span>. Primary studies often report multiple estimates of effect sizes resulting from multiple correlated measures of an outcome, repeated measures of outcome data or the comparison of multiple treatment groups to the same control group <span class="citation">(Hedges, Tipton, &amp; Johnson, 2010)</span>. These scenarios result in statistical dependence between effect sizes from the same study. However, typical methods to conduct meta-analysis, such as averaging effect sizes or analyzing moderating effects with meta-regression, involve an assumption that each effect size is independent. Use of such methods that ignore dependence can result in inaccurate standard errors and therefore, hypothesis tests with incorrect Type 1 error rates and confidence intervals with incorrect coverage levels <span class="citation">(Becker, 2000)</span>.</p>
+<p>One alternative, using a multivariate model, explicitly models correlations among effect size estimates <span class="citation">(Hedges, Tipton, &amp; Johnson, 2010; Tipton, 2015)</span>. However, multivariate meta-analysis requires knowledge of correlations or covariances between pairs of effect sizes within each primary study which are often difficult to obtain <span class="citation">(Olkin &amp; Gleser, 2009)</span>. <span class="citation">Hedges, Tipton, &amp; Johnson (2010)</span> proposed the use of robust variance estimation (RVE) to handle dependent effect sizes. RVE does not require knowledge of the covariance structure between effect sizes like multivariate analyses. Instead, RVE estimates the variances for the meta-regression model’s coefficients using sandwich estimators <span class="citation">(Hedges, Tipton, &amp; Johnson, 2010; Tipton, 2015)</span>. RVE is increasingly being used in applied meta-analyses <span class="citation">(Tipton, 2015)</span>. However, the performance characteristics of RVE are asymptotic in that it requires a large number of clusters (studies) to provide accurate standard errors <span class="citation">(Cameron, Gelbach, &amp; Miller, 2008; Tipton, 2015)</span>. If the number of studies in a meta-analysis is small, basic RVE can result in downwardly biased standard errors and inflation of Type 1 error rates <span class="citation">(Cameron, Gelbach, &amp; Miller, 2008; Hedges, Tipton, &amp; Johnson, 2010; Tipton, 2015)</span>. <span class="citation">Tipton (2015)</span> and <span class="citation">Tipton &amp; Pustejovsky (2015)</span> introduced small sample corrections for RVE for tests of single coefficients and for multiple contrast hypotheses, respectively. <span class="citation">Tipton &amp; Pustejovsky (2015)</span> studied five methods, two based on eigen decomposition and three based on Hotelling’s <span class="math inline">\(T^2\)</span> distribution. The authors recommended a method (AHZ) which approximates the test statistic using Hotelling’s <span class="math inline">\(T^2\)</span> distribution with degrees of freedom proposed by <span class="citation">Zhang (2012)</span> and <span class="citation">Zhang (2013)</span>. This method resulted in Type 1 error rates closest to the nominal rate of .05. However, AHZ was shown to still have below nominal Type 1 error rates for tests of multiple contrast hypotheses.</p>
 </div>
 <div id="the-tipton_pusto-dataset" class="section level2">
 <h2 class="hasAnchor">
@@ -259,30 +260,30 @@ AHZ
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
-<div id="refs" class="references">
-<div id="ref-becker2000">
-<p>Becker, B. J. (2000). Multivariate meta-analysis. In <em>Handbook of applied multivariate statistics and mathematical modeling</em> (pp. 499–525). Elsevier.</p>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-becker2000" class="csl-entry">
+Becker, B. J. (2000). Multivariate meta-analysis. In <em>Handbook of applied multivariate statistics and mathematical modeling</em> (pp. 499–525). Elsevier.
 </div>
-<div id="ref-cameron">
-<p>Cameron, A. C., Gelbach, J. B., &amp; Miller, D. L. (2008). Bootstrap-Based Improvements for Inference with Clustered Errors. <em>The Review of Economics and Statistics</em>, 47.</p>
+<div id="ref-cameron" class="csl-entry">
+Cameron, A. C., Gelbach, J. B., &amp; Miller, D. L. (2008). Bootstrap-<span>Based</span> <span>Improvements</span> for <span>Inference</span> with <span>Clustered</span> <span>Errors</span>. <em>The Review of Economics and Statistics</em>, 47.
 </div>
-<div id="ref-hedges_robust_2010">
-<p>Hedges, L. V., Tipton, E., &amp; Johnson, M. C. (2010). Robust variance estimation in meta-regression with dependent effect size estimates. <em>Research Synthesis Methods</em>, <em>1</em>(1), 39–65. <a href="https://doi.org/10.1002/jrsm.5">https://doi.org/10.1002/jrsm.5</a></p>
+<div id="ref-hedges_robust_2010" class="csl-entry">
+Hedges, L. V., Tipton, E., &amp; Johnson, M. C. (2010). Robust variance estimation in meta-regression with dependent effect size estimates. <em>Research Synthesis Methods</em>, <em>1</em>(1), 39–65. <a href="https://doi.org/10.1002/jrsm.5">https://doi.org/10.1002/jrsm.5</a>
 </div>
-<div id="ref-olkin2009">
-<p>Olkin, I., &amp; Gleser, L. (2009). Stochastically dependent effect sizes. <em>The Handbook of Research Synthesis and Meta-Analysis</em>, 357–376.</p>
+<div id="ref-olkin2009" class="csl-entry">
+Olkin, I., &amp; Gleser, L. (2009). Stochastically dependent effect sizes. <em>The Handbook of Research Synthesis and Meta-Analysis</em>, 357–376.
 </div>
-<div id="ref-tipton_small_2015">
-<p>Tipton, E. (2015). Small sample adjustments for robust variance estimation with meta-regression. <em>Psychological Methods</em>, <em>20</em>(3), 375–393. <a href="https://doi.org/10.1037/met0000011">https://doi.org/10.1037/met0000011</a></p>
+<div id="ref-tipton_small_2015" class="csl-entry">
+Tipton, E. (2015). Small sample adjustments for robust variance estimation with meta-regression. <em>Psychological Methods</em>, <em>20</em>(3), 375–393. <a href="https://doi.org/10.1037/met0000011">https://doi.org/10.1037/met0000011</a>
 </div>
-<div id="ref-tipton_2015">
-<p>Tipton, E., &amp; Pustejovsky, J. E. (2015). Small-Sample Adjustments for Tests of Moderators and Model Fit Using Robust Variance Estimation in Meta-Regression. <em>Journal of Educational and Behavioral Statistics</em>, <em>40</em>(6), 604–634. <a href="https://doi.org/10.3102/1076998615606099">https://doi.org/10.3102/1076998615606099</a></p>
+<div id="ref-tipton_2015" class="csl-entry">
+Tipton, E., &amp; Pustejovsky, J. E. (2015). Small-<span>Sample</span> <span>Adjustments</span> for <span>Tests</span> of <span>Moderators</span> and <span>Model</span> <span>Fit</span> <span>Using</span> <span>Robust</span> <span>Variance</span> <span>Estimation</span> in <span>Meta</span>-<span>Regression</span>. <em>Journal of Educational and Behavioral Statistics</em>, <em>40</em>(6), 604–634. <a href="https://doi.org/10.3102/1076998615606099">https://doi.org/10.3102/1076998615606099</a>
 </div>
-<div id="ref-zhang2012approximate">
-<p>Zhang, J.-T. (2012). An approximate hotelling t2-test for heteroscedastic one-way manova. <em>Open Journal of Statistics</em>, <em>2</em>(1), 1–11.</p>
+<div id="ref-zhang2012approximate" class="csl-entry">
+Zhang, J.-T. (2012). An approximate hotelling T2-test for heteroscedastic one-way MANOVA. <em>Open Journal of Statistics</em>, <em>2</em>(1), 1–11.
 </div>
-<div id="ref-zhang2013tests">
-<p>Zhang, J.-T. (2013). Tests of linear hypotheses in the anova under heteroscedasticity. <em>International Journal of Advanced Statistics and Probability</em>, <em>1</em>(2), 9–24.</p>
+<div id="ref-zhang2013tests" class="csl-entry">
+Zhang, J.-T. (2013). Tests of linear hypotheses in the ANOVA under heteroscedasticity. <em>International Journal of Advanced Statistics and Probability</em>, <em>1</em>(2), 9–24.
 </div>
 </div>
 </div>

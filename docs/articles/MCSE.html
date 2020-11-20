@@ -93,12 +93,14 @@
 
       
 
-      </header><script src="MCSE_files/kePrint-0.0.1/kePrint.js"></script><div class="row">
+      </header><script src="MCSE_files/header-attrs-2.4.6/header-attrs.js"></script><link href="MCSE_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="MCSE_files/anchor-sections-1.0/anchor-sections.js"></script><script src="MCSE_files/kePrint-0.0.1/kePrint.js"></script><link href="MCSE_files/lightable-0.0.1/lightable.css" rel="stylesheet">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Simulation Performance Criteria and MCSE</h1>
             
-            <h4 class="date">2020-10-15</h4>
+            <h4 class="date">2020-11-19</h4>
       
       
       <div class="hidden name"><code>MCSE.Rmd</code></div>
@@ -107,7 +109,7 @@
 
     
     
-<p>Monte Carlo simulations are computer experiments designed to study the performance of statistical methods under known data-generating conditions <span class="citation">(Morris, White, &amp; Crowther, 2019)</span>. Methodologists use simulations to examine questions such as: (1) how does ordinary least squares (OLS) regression perform if errors are heteroskedastic? (2) how does the presence of missing data affect treatment effect estimates from a propensity score analysis? (3) how does cluster robust variance estimation perform when the number of clusters is small? To answer such questions, we conduct experiments by simulating thousands of datasets based on pseudo-random sampling <span class="citation">(Morris et al., 2019)</span>. We generate datasets under known conditions. For example, we can generate data where the errors are heteroskedastic or there is missing data present following Missing at Random (MAR) mechanism. Then, we apply statistical methods, like OLS or propensity score estimation using logistic regression, to each of the datasets and extract results like regression coefficients, p-values, and confidence intervals. We then analyze the performance of these estimation methods using criteria such as bias, Type 1 error rate, or root mean squared error. Performance measures from simulation studies are estimates, based on a finite number of repeated samples from a data-generating process, and thus include some random error. When interpreting performance measures, it is important to consider how large the estimation error is. This is typically quantified as Monte Carlo standard error (MCSE).</p>
+<p>Monte Carlo simulations are computer experiments designed to study the performance of statistical methods under known data-generating conditions <span class="citation">(Morris, White, &amp; Crowther, 2019)</span>. Methodologists use simulations to examine questions such as: (1) how does ordinary least squares (OLS) regression perform if errors are heteroskedastic? (2) how does the presence of missing data affect treatment effect estimates from a propensity score analysis? (3) how does cluster robust variance estimation perform when the number of clusters is small? To answer such questions, we conduct experiments by simulating thousands of datasets based on pseudo-random sampling <span class="citation">(Morris, White, &amp; Crowther, 2019)</span>. We generate datasets under known conditions. For example, we can generate data where the errors are heteroskedastic or there is missing data present following Missing at Random (MAR) mechanism. Then, we apply statistical methods, like OLS or propensity score estimation using logistic regression, to each of the datasets and extract results like regression coefficients, p-values, and confidence intervals. We then analyze the performance of these estimation methods using criteria such as bias, Type 1 error rate, or root mean squared error. Performance measures from simulation studies are estimates, based on a finite number of repeated samples from a data-generating process, and thus include some random error. When interpreting performance measures, it is important to consider how large the estimation error is. This is typically quantified as Monte Carlo standard error (MCSE).</p>
 <p>The goal of <code>simhelpers</code> is to assist in running simulation studies. This package provides a set of functions that calculate various performance measures and associated MCSE. This vignette focuses on the set of functions for calculating performance measures. Below, we explain three major categories of performance criteria: (1) absolute criteria, (2) relative criteria, and (3) criteria to evaluate hypothesis testing. We provide formulas used to calculate the performance measures and MCSE and demonstrate how to use the functions in the <code>simhelpers</code> package.</p>
 <p>The notation and explanations of the performance measures largely follow notes from Dr. James Pustejovsky’s <a href="https://www.jepusto.com/teaching/daspir/">Data Analysis, Simulation and Programming in R course (Spring, 2019)</a>.</p>
 <div id="performance-criteria-and-mcse" class="section level1">
@@ -974,7 +976,7 @@ rmse_mcse
 <div id="relative-criteria" class="section level2">
 <h2 class="hasAnchor">
 <a href="#relative-criteria" class="anchor"></a>Relative Criteria</h2>
-<p>Relative criteria can be useful for describing an estimator’s performance, especially if the performance varies in proportion to the true value of the target parameter. It can be only used when <span class="math inline">\(|\theta| &gt; 0\)</span> as we cannot divide by <span class="math inline">\(0\)</span> <span class="citation">(Morris et al., 2019)</span>.</p>
+<p>Relative criteria can be useful for describing an estimator’s performance, especially if the performance varies in proportion to the true value of the target parameter. It can be only used when <span class="math inline">\(|\theta| &gt; 0\)</span> as we cannot divide by <span class="math inline">\(0\)</span> <span class="citation">(Morris, White, &amp; Crowther, 2019)</span>.</p>
 <p>To derive the MCSE for relative RMSE, we again used the jack-knife technique. The formula to calculate relative RMSE is:</p>
 <p><span class="math display">\[rRMSE = \sqrt{\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}}\]</span></p>
 <p>The jack-knife RMSE will be calculated as:</p>
@@ -3072,20 +3074,20 @@ Welch t-test
 <p>Only Bonferroni and MP strictly controlled the PFER; the observed maximum PFER was 0.050 for Bonferroni, 0.051 for Sidák, 0.061 for Holm, 0.100 for Hochberg, and 0.050 for MP (estimated SE ≤ 0.0002 for all estimates).</p>
 </blockquote>
 <p>The PFER refers to per family error rate, the expected number of Type 1 errors out of <span class="math inline">\(m\)</span> comparisons. MP refers to multivariate analysis of variance (MANOVA) protected tests. The SE refers to the MCSE. The number of replications was 1,000,000 in <span class="citation">Frane (2015)</span>. We note that the number is quite high and generally 1,000 to 10,000 replications are enough. The resulting MCSEs in <span class="citation">Frane (2015)</span>, therefore, are exceedingly small compared to the values for PFER.</p>
-<p>For more information for performance criteria and MCSE, we recommend <span class="citation">Morris et al. (2019)</span>.</p>
+<p>For more information for performance criteria and MCSE, we recommend <span class="citation">Morris, White, &amp; Crowther (2019)</span>.</p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
-<div id="refs" class="references">
-<div id="ref-frane2015power">
-<p>Frane, A. V. (2015). Power and type i error control for univariate comparisons in multivariate two-group designs. <em>Multivariate Behavioral Research</em>, <em>50</em>(2), 233–247.</p>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-frane2015power" class="csl-entry">
+Frane, A. V. (2015). Power and type i error control for univariate comparisons in multivariate two-group designs. <em>Multivariate Behavioral Research</em>, <em>50</em>(2), 233–247.
 </div>
-<div id="ref-morris2019using">
-<p>Morris, T. P., White, I. R., &amp; Crowther, M. J. (2019). Using simulation studies to evaluate statistical methods. <em>Statistics in Medicine</em>, <em>38</em>(11), 2074–2102.</p>
+<div id="ref-morris2019using" class="csl-entry">
+Morris, T. P., White, I. R., &amp; Crowther, M. J. (2019). Using simulation studies to evaluate statistical methods. <em>Statistics in Medicine</em>, <em>38</em>(11), 2074–2102.
 </div>
-<div id="ref-tidyverse">
-<p>Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., … Yutani, H. (2019). Welcome to the tidyverse. <em>Journal of Open Source Software</em>, <em>4</em>(43), 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a></p>
+<div id="ref-tidyverse" class="csl-entry">
+Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., … Yutani, H. (2019). Welcome to the <span class="nocase">tidyverse</span>. <em>Journal of Open Source Software</em>, <em>4</em>(43), 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>
 </div>
 </div>
 </div>
