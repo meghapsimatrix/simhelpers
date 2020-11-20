@@ -476,7 +476,7 @@ Group 2
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="va">res</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;  42.276   0.365  43.969</span>
+<span class="co">#&gt;  46.336   0.654  51.515</span>
 
 <span class="va">results</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></pre></div>
@@ -997,48 +997,8 @@ Welch t-test
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>res <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/future_map2.html">future_pmap</a></span><span class="op">(</span><span class="va">.</span>, .f <span class="op">=</span> <span class="va">run_sim</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="va">res</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; Warning: Problem with `mutate()` input `res`.</span>
-<span class="co">#&gt; ℹ UNRELIABLE VALUE: Future ('&lt;none&gt;') unexpectedly generated random numbers without specifying argument '[future.]seed'. There is a risk that those random numbers are not statistically sound and the overall results might be invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-CMRG method. To disable this check, use [future].seed=NULL, or set option 'future.rng.onMisuse' to "ignore".</span>
-<span class="co">#&gt; ℹ Input `res` is `future_pmap(., .f = run_sim)`.</span>
-<span class="co">#&gt; Warning: UNRELIABLE VALUE: Future ('&lt;none&gt;') unexpectedly generated random</span>
-<span class="co">#&gt; numbers without specifying argument '[future.]seed'. There is a risk that those</span>
-<span class="co">#&gt; random numbers are not statistically sound and the overall results might be</span>
-<span class="co">#&gt; invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This</span>
-<span class="co">#&gt; ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-</span>
-<span class="co">#&gt; CMRG method. To disable this check, use [future].seed=NULL, or set option</span>
-<span class="co">#&gt; 'future.rng.onMisuse' to "ignore".</span>
-<span class="co">#&gt; Warning: Problem with `mutate()` input `res`.</span>
-<span class="co">#&gt; ℹ UNRELIABLE VALUE: Future ('&lt;none&gt;') unexpectedly generated random numbers without specifying argument '[future.]seed'. There is a risk that those random numbers are not statistically sound and the overall results might be invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-CMRG method. To disable this check, use [future].seed=NULL, or set option 'future.rng.onMisuse' to "ignore".</span>
-<span class="co">#&gt; ℹ Input `res` is `future_pmap(., .f = run_sim)`.</span>
-<span class="co">#&gt; Warning: UNRELIABLE VALUE: Future ('&lt;none&gt;') unexpectedly generated random</span>
-<span class="co">#&gt; numbers without specifying argument '[future.]seed'. There is a risk that those</span>
-<span class="co">#&gt; random numbers are not statistically sound and the overall results might be</span>
-<span class="co">#&gt; invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This</span>
-<span class="co">#&gt; ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-</span>
-<span class="co">#&gt; CMRG method. To disable this check, use [future].seed=NULL, or set option</span>
-<span class="co">#&gt; 'future.rng.onMisuse' to "ignore".</span>
-<span class="co">#&gt; Warning: Problem with `mutate()` input `res`.</span>
-<span class="co">#&gt; ℹ UNRELIABLE VALUE: Future ('&lt;none&gt;') unexpectedly generated random numbers without specifying argument '[future.]seed'. There is a risk that those random numbers are not statistically sound and the overall results might be invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-CMRG method. To disable this check, use [future].seed=NULL, or set option 'future.rng.onMisuse' to "ignore".</span>
-<span class="co">#&gt; ℹ Input `res` is `future_pmap(., .f = run_sim)`.</span>
-<span class="co">#&gt; Warning: UNRELIABLE VALUE: Future ('&lt;none&gt;') unexpectedly generated random</span>
-<span class="co">#&gt; numbers without specifying argument '[future.]seed'. There is a risk that those</span>
-<span class="co">#&gt; random numbers are not statistically sound and the overall results might be</span>
-<span class="co">#&gt; invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This</span>
-<span class="co">#&gt; ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-</span>
-<span class="co">#&gt; CMRG method. To disable this check, use [future].seed=NULL, or set option</span>
-<span class="co">#&gt; 'future.rng.onMisuse' to "ignore".</span>
-<span class="co">#&gt; Warning: Problem with `mutate()` input `res`.</span>
-<span class="co">#&gt; ℹ UNRELIABLE VALUE: Future ('&lt;none&gt;') unexpectedly generated random numbers without specifying argument '[future.]seed'. There is a risk that those random numbers are not statistically sound and the overall results might be invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-CMRG method. To disable this check, use [future].seed=NULL, or set option 'future.rng.onMisuse' to "ignore".</span>
-<span class="co">#&gt; ℹ Input `res` is `future_pmap(., .f = run_sim)`.</span>
-<span class="co">#&gt; Warning: UNRELIABLE VALUE: Future ('&lt;none&gt;') unexpectedly generated random</span>
-<span class="co">#&gt; numbers without specifying argument '[future.]seed'. There is a risk that those</span>
-<span class="co">#&gt; random numbers are not statistically sound and the overall results might be</span>
-<span class="co">#&gt; invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This</span>
-<span class="co">#&gt; ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-</span>
-<span class="co">#&gt; CMRG method. To disable this check, use [future].seed=NULL, or set option</span>
-<span class="co">#&gt; 'future.rng.onMisuse' to "ignore".</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.488   0.029  27.943</span>
+<span class="co">#&gt;   0.449   0.012  24.719</span>
 
 <span class="va">results</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></pre></div>
@@ -1544,43 +1504,8 @@ Welch t-test
 <span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span><span class="op">(</span><span class="va">multisession</span><span class="op">)</span>
 <span class="fu"><a href="../reference/evaluate_by_row.html">evaluate_by_row</a></span><span class="op">(</span><span class="va">params</span>, <span class="va">run_sim</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; Warning: `future_options()` is deprecated as of furrr 0.2.0.</span>
-<span class="co">#&gt; Please use `furrr_options()` instead.</span>
-<span class="co">#&gt; This warning is displayed once every 8 hours.</span>
-<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span>
-<span class="co">#&gt; Warning: UNRELIABLE VALUE: Future ('&lt;none&gt;') unexpectedly generated random</span>
-<span class="co">#&gt; numbers without specifying argument '[future.]seed'. There is a risk that those</span>
-<span class="co">#&gt; random numbers are not statistically sound and the overall results might be</span>
-<span class="co">#&gt; invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This</span>
-<span class="co">#&gt; ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-</span>
-<span class="co">#&gt; CMRG method. To disable this check, use [future].seed=NULL, or set option</span>
-<span class="co">#&gt; 'future.rng.onMisuse' to "ignore".</span>
-
-<span class="co">#&gt; Warning: UNRELIABLE VALUE: Future ('&lt;none&gt;') unexpectedly generated random</span>
-<span class="co">#&gt; numbers without specifying argument '[future.]seed'. There is a risk that those</span>
-<span class="co">#&gt; random numbers are not statistically sound and the overall results might be</span>
-<span class="co">#&gt; invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This</span>
-<span class="co">#&gt; ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-</span>
-<span class="co">#&gt; CMRG method. To disable this check, use [future].seed=NULL, or set option</span>
-<span class="co">#&gt; 'future.rng.onMisuse' to "ignore".</span>
-
-<span class="co">#&gt; Warning: UNRELIABLE VALUE: Future ('&lt;none&gt;') unexpectedly generated random</span>
-<span class="co">#&gt; numbers without specifying argument '[future.]seed'. There is a risk that those</span>
-<span class="co">#&gt; random numbers are not statistically sound and the overall results might be</span>
-<span class="co">#&gt; invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This</span>
-<span class="co">#&gt; ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-</span>
-<span class="co">#&gt; CMRG method. To disable this check, use [future].seed=NULL, or set option</span>
-<span class="co">#&gt; 'future.rng.onMisuse' to "ignore".</span>
-
-<span class="co">#&gt; Warning: UNRELIABLE VALUE: Future ('&lt;none&gt;') unexpectedly generated random</span>
-<span class="co">#&gt; numbers without specifying argument '[future.]seed'. There is a risk that those</span>
-<span class="co">#&gt; random numbers are not statistically sound and the overall results might be</span>
-<span class="co">#&gt; invalid. To fix this, specify argument '[future.]seed', e.g. 'seed=TRUE'. This</span>
-<span class="co">#&gt; ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-</span>
-<span class="co">#&gt; CMRG method. To disable this check, use [future].seed=NULL, or set option</span>
-<span class="co">#&gt; 'future.rng.onMisuse' to "ignore".</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.404   0.018  39.389</span></pre></div>
+<span class="co">#&gt;   0.316   0.013  22.908</span></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:right;">

@@ -389,7 +389,7 @@ plan(multisession)
 
 Once the cluster is configured, we can just replace [`pmap()`](https://purrr.tidyverse.org/reference/map2.html) from `purrr` with [`future_pmap()`](https://davisvaughan.github.io/furrr/reference/future_map2.html) to run the simulation in parallel. 
 
-```{r}
+```{r, warning = F, message = F}
 library(future)
 library(furrr)
 
@@ -410,7 +410,7 @@ results %>%
 
 In the `simhelpers` package, we have a function, `evaluate_by_row()`, that implements this `furrr` workflow automatically: 
 
-```{r}
+```{r, warning = F, message = F}
 plan(multisession)
 evaluate_by_row(params, run_sim) %>%
   kable()
