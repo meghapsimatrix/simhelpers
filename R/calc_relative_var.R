@@ -57,7 +57,7 @@ calc_relative_var <- function(res_dat, estimates, var_estimates, perfm_criteria 
   if("relative bias" %in% perfm_criteria){
     dat <- dat %>%
       dplyr::mutate(rel_bias_var = rb_var,
-                    rel_bias_var_mcse = sqrt((1/K) * sum((v_bar_j/s_sq_t_j - rb_var)^2)),
+                    rel_bias_var_mcse = sqrt(((K - 1)/K) * sum((v_bar_j/s_sq_t_j - rb_var)^2)),
                     rel_bias_var = dplyr::if_else(var_t == 0, as.numeric(NA), rel_bias_var),
                     rel_bias_var_mcse = dplyr::if_else(var_t== 0, as.numeric(NA), rel_bias_var_mcse))
   }
@@ -65,7 +65,7 @@ calc_relative_var <- function(res_dat, estimates, var_estimates, perfm_criteria 
   if("relative mse" %in% perfm_criteria){
     dat <- dat %>%
       dplyr::mutate(rel_mse_var = rel_mse_var,
-                    rel_mse_var_mcse = sqrt((1/K) * sum((rel_mse_var_j - rel_mse_var)^2)),
+                    rel_mse_var_mcse = sqrt(((K - 1)/K) * sum((rel_mse_var_j - rel_mse_var)^2)),
                     rel_mse_var = dplyr::if_else(var_t == 0, as.numeric(NA), rel_mse_var),
                     rel_mse_var_mcse = dplyr::if_else(var_t == 0, as.numeric(NA), rel_mse_var_mcse))
   }
