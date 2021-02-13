@@ -8,7 +8,7 @@ library(tidyr)
 
 
 # absolute criteria
-set.seed(54321)
+set.seed(02122020)
 dat <- data.frame(x = rnorm(10000, 2, 1), true_param = rep(2, 10000),
               p_value = runif(10000))
 

@@ -23,11 +23,18 @@ the variable names in \code{params}. The function must return a
 
 \item{...}{additional arguments passed to \code{sim_function}.}
 
-\item{.progress}{A logical, for whether or not to print a progress bar for
-multiprocess, multisession, and multicore plans.}
+\item{.progress}{A single logical. Should a progress bar be displayed?
+Only works with multisession, multicore, and multiprocess futures. Note
+that if a multicore/multisession future falls back to sequential, then
+a progress bar will not be displayed.
 
-\item{.options}{The \code{future} specific options to use with the workers. This must
-be the result from a call to \code{\link[furrr:future_options]{future_options()}}.}
+\strong{Warning:} The \code{.progress} argument will be deprecated and removed
+in a future version of furrr in favor of using the more robust
+\href{https://CRAN.R-project.org/package=progressr}{progressr}
+package.}
+
+\item{.options}{The \code{future} specific options to use with the workers. This
+must be the result from a call to \code{\link[furrr:furrr_options]{furrr_options()}}.}
 
 \item{system_time}{logical indicating whether to print computation time.
 \code{TRUE} by default.}

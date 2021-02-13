@@ -8,7 +8,7 @@ library(tidyr)
 
 
 # absolute criteria
-set.seed(54321)
+set.seed(20200221)
 dat <- data.frame(x = rnorm(10000, 2, 1), true_param = rep(2, 10000),
               p_value = runif(10000))
 
@@ -95,7 +95,7 @@ test_that("check the mcse", {
   expect_equal(calc_absolute(dat_abs, x, true_param, perfm_criteria = "bias") %>% pull(bias_mcse), sqrt(var(dat_abs$x)/nrow(dat_abs)))
   expect_equal(calc_absolute(dat_abs, x, true_param, perfm_criteria = "variance") %>% pull(var_mcse), (var(dat_abs$x) * sqrt((k_t - 1)/K_abs)))
   expect_equal(calc_absolute(dat_abs, x, true_param, perfm_criteria = "mse") %>% pull(mse_mcse), sqrt((1/K_abs) * (s_t^4 * (k_t - 1) + 4 * s_t^3 * g_t * (mean(dat_abs$x) - t_p) + 4 * s_t^2 * (mean(dat_abs$x - t_p)^2))))
-  expect_equal(calc_absolute(dat_abs, x, true_param, perfm_criteria = "rmse") %>% pull(rmse_mcse), sqrt((1/K_abs) * sum((rmse_j - rmse)^2)))
+  expect_equal(calc_absolute(dat_abs, x, true_param, perfm_criteria = "rmse") %>% pull(rmse_mcse), sqrt(((K_abs - 1)/K_abs) * sum((rmse_j - rmse)^2)))
   expect_equal(calc_relative(dat_abs, x, true_param, perfm_criteria = "relative bias") %>% pull(rel_bias_mcse), sqrt(var(dat_abs$x)/(nrow(dat_abs) * t_p^2)))
   expect_equal(calc_relative(dat_abs, x, true_param, perfm_criteria = "relative mse") %>% pull(rel_mse_mcse), sqrt((1/(K_abs * t_p^2)) * (s_t^4 * (k_t  - 1) + 4 * s_t^3 * g_t * (mean(dat_abs$x) - t_p) + 4 * s_t^2 * (mean(dat_abs$x) - t_p)^2)))
   expect_equal(calc_rejection(dat_rej, p_values = p_value) %>% pull(rej_rate_mcse), sqrt((mean(dat_rej$p_value < .05) * (1 - mean(dat_rej$p_value < .05)))/K_rej))
@@ -111,8 +111,8 @@ test_that("check perfm var jk", {
 
 
 test_that("check mcse var jk", {
-  expect_equal(calc_relative_var(alpha_res, A, Var_A, perfm_criteria = "relative bias") %>% pull(rel_bias_var_mcse), sqrt((1/K_alpha)  * sum((v_bar_j/s_sq_t_j_alpha - v_bar/s_sq_t)^2)))
-  expect_equal(calc_relative_var(alpha_res, A, Var_A, perfm_criteria = "relative mse") %>% pull(rel_mse_var_mcse), sqrt((1/(K_alpha)) * sum((((v_bar_j - s_sq_t_j_alpha)^2 + s_sq_v_j_alpha)/ s_sq_t_j_alpha^2 - ((v_bar - s_sq_t)^2 + s_sq_v)/ s_sq_t^2)^2)))
-  expect_equal(calc_relative_var(alpha_res, A, Var_A, perfm_criteria = "relative rmse") %>% pull(rel_rmse_var_mcse), sqrt((1/(K_alpha)) * sum((sqrt(((v_bar_j - s_sq_t_j_alpha)^2 + s_sq_v_j_alpha)/ s_sq_t_j_alpha^2) - sqrt(((v_bar - s_sq_t)^2 + s_sq_v)/ s_sq_t^2))^2)))
+  expect_equal(calc_relative_var(alpha_res, A, Var_A, perfm_criteria = "relative bias") %>% pull(rel_bias_var_mcse), sqrt(((K_alpha - 1)/K_alpha)  * sum((v_bar_j/s_sq_t_j_alpha - v_bar/s_sq_t)^2)))
+  expect_equal(calc_relative_var(alpha_res, A, Var_A, perfm_criteria = "relative mse") %>% pull(rel_mse_var_mcse), sqrt(((K_alpha - 1)/(K_alpha)) * sum((((v_bar_j - s_sq_t_j_alpha)^2 + s_sq_v_j_alpha)/ s_sq_t_j_alpha^2 - ((v_bar - s_sq_t)^2 + s_sq_v)/ s_sq_t^2)^2)))
+  expect_equal(calc_relative_var(alpha_res, A, Var_A, perfm_criteria = "relative rmse") %>% pull(rel_rmse_var_mcse), sqrt(((K_alpha - 1)/(K_alpha)) * sum((sqrt(((v_bar_j - s_sq_t_j_alpha)^2 + s_sq_v_j_alpha)/ s_sq_t_j_alpha^2) - sqrt(((v_bar - s_sq_t)^2 + s_sq_v)/ s_sq_t^2))^2)))
 })
 
