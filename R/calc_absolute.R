@@ -73,7 +73,7 @@ calc_absolute <- function(res_dat, estimates, true_param, perfm_criteria = c("bi
   if("rmse" %in% perfm_criteria){
     dat <- dat %>%
       dplyr::mutate(rmse = sqrt(mse),
-                    rmse_mcse = sqrt((1/(K)) * sum((rmse_j - rmse)^2)))
+                    rmse_mcse = sqrt(((K-1)/(K)) * sum((rmse_j - rmse)^2)))
   }
 
   return(dat)

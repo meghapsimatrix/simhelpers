@@ -73,7 +73,7 @@ calc_relative_var <- function(res_dat, estimates, var_estimates, perfm_criteria 
   if("relative rmse" %in% perfm_criteria){
     dat <- dat %>%
       dplyr::mutate(rel_rmse_var = sqrt(rel_mse_var),
-                    rel_rmse_var_mcse = sqrt((1/K) * sum((sqrt(rel_mse_var_j) - rel_rmse_var)^2)),
+                    rel_rmse_var_mcse = sqrt(((K - 1)/K) * sum((sqrt(rel_mse_var_j) - rel_rmse_var)^2)),
                     rel_rmse_var = dplyr::if_else(var_t == 0, as.numeric(NA), rel_rmse_var),
                     rel_rmse_var_mcse = dplyr::if_else(var_t == 0, as.numeric(NA), rel_rmse_var_mcse))
   }
