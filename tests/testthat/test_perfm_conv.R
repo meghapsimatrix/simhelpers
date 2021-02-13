@@ -38,6 +38,11 @@ s_sq_t_j <- (1/(K_abs - 2)) * ((K_abs - 1) * var(dat_abs$x, na.rm = TRUE) - (K_a
 rmse <- sqrt(mean((dat_abs$x - t_p)^2))
 rmse_j <- sqrt((t_bar_j - t_p)^2 + s_sq_t_j)
 
+rel_rmse <- sqrt((mean(dat_abs$x - t_p)^2 + var(dat_abs$x))/ t_p^2)
+rel_mse_j <- ((t_bar_j - t_p)^2 + s_sq_t_j)/(t_p)^2 #
+rel_rmse_j <- sqrt(rel_mse_j)
+
+
 
 # coverage
 t_res <- t_res %>%
@@ -98,6 +103,7 @@ test_that("check the mcse", {
   expect_equal(calc_absolute(dat_abs, x, true_param, perfm_criteria = "rmse") %>% pull(rmse_mcse), sqrt(((K_abs - 1)/K_abs) * sum((rmse_j - rmse)^2)))
   expect_equal(calc_relative(dat_abs, x, true_param, perfm_criteria = "relative bias") %>% pull(rel_bias_mcse), sqrt(var(dat_abs$x)/(nrow(dat_abs) * t_p^2)))
   expect_equal(calc_relative(dat_abs, x, true_param, perfm_criteria = "relative mse") %>% pull(rel_mse_mcse), sqrt((1/(K_abs * t_p^2)) * (s_t^4 * (k_t  - 1) + 4 * s_t^3 * g_t * (mean(dat_abs$x) - t_p) + 4 * s_t^2 * (mean(dat_abs$x) - t_p)^2)))
+  expect_equal(calc_relative(dat_abs, x, true_param, perfm_criteria = "relative rmse") %>% pull(rel_rmse_mcse), sqrt(((K_abs - 1)/K_abs) * sum((rel_rmse_j - rel_rmse)^2)))
   expect_equal(calc_rejection(dat_rej, p_values = p_value) %>% pull(rej_rate_mcse), sqrt((mean(dat_rej$p_value < .05) * (1 - mean(dat_rej$p_value < .05)))/K_rej))
   expect_equal(calc_coverage(t_res, lower_bound, upper_bound, true_param, perfm_criteria = "coverage") %>% pull(coverage_mcse), sqrt((cov * (1 - cov))/nrow(t_res)))
   expect_equal(calc_coverage(t_res, lower_bound, upper_bound, true_param, perfm_criteria = "width") %>% pull(width_mcse), sqrt(var(t_res$upper_bound - t_res$lower_bound)/nrow(t_res)))

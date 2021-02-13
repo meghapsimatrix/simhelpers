@@ -117,7 +117,8 @@ Other packages that have similar aims to `simhelpers` include:
 # Acknowledgments
 
 We are grateful for the feedback provided by Danny Gonzalez, [Sangdon
-Lim](https://sdlim.com/) and Man Chen.
+Lim](https://sdlim.com/), Man Chen, and [Edouard
+Bonneville](https://github.com/edbonneville).
 
 # References
 

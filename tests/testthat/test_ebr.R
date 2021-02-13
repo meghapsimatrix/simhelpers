@@ -14,3 +14,4 @@ df <- data.frame(
 test_that("evaluate_by_row works", {
   expect_equal(evaluate_by_row(df, function(a, b) a * b) %>% rename(res = .results), df %>% mutate(res = future_pmap(., .f = function(a, b) a * b)) %>% unnest(cols = res))
 })
+
