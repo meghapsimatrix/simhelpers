@@ -67,7 +67,7 @@ knitr::kable(abs_dat, escape = FALSE, caption = "Table 1. Absolute Performance C
 ```
 
 
-The equation for the MCSE of RMSE is derived using the jack-knife technique, which involves excluding a replicate $j$ and calculating RMSE. The formula for RMSE is:
+The equation for the MCSE of RMSE is derived using the jack-knife technique, which involves excluding a replicate $j$ and calculating RMSE [@efron1981jackknife]. The formula for RMSE is:
 
 $$\sqrt{\frac{1}{K}\sum_{k=1}^{K}\left(T_k - \theta\right)^2}$$
 
