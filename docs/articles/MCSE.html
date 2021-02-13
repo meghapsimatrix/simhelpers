@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simhelpers</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -73,7 +73,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/meghapsimatrix/simhelpers">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -93,14 +93,13 @@
 
       
 
-      </header><script src="MCSE_files/header-attrs-2.4.6/header-attrs.js"></script><link href="MCSE_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="MCSE_files/anchor-sections-1.0/anchor-sections.js"></script><script src="MCSE_files/kePrint-0.0.1/kePrint.js"></script><link href="MCSE_files/lightable-0.0.1/lightable.css" rel="stylesheet">
+      </header><script src="MCSE_files/header-attrs-2.6/header-attrs.js"></script><script src="MCSE_files/kePrint-0.0.1/kePrint.js"></script><link href="MCSE_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Simulation Performance Criteria and MCSE</h1>
             
-            <h4 class="date">2020-11-19</h4>
+            <h4 class="date">2021-02-12</h4>
       
       
       <div class="hidden name"><code>MCSE.Rmd</code></div>
@@ -218,12 +217,12 @@ Accuracy
 <span class="math inline">\(\sqrt{\frac{1}{K}\sum_{k=1}^{K}\left(T_k - \theta\right)^2}\)</span>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\frac{1}{K} \sum_{j=1}^K \left(RMSE_{(j)} - RMSE\right)^2}\)</span>
+<span class="math inline">\(\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(RMSE_{(j)} - RMSE\right)^2}\)</span>
 </td>
 </tr>
 </tbody>
 </table>
-<p>The equation for the MCSE of RMSE is derived using the jack-knife technique, which involves excluding a replicate <span class="math inline">\(j\)</span> and calculating RMSE. The formula for RMSE is:</p>
+<p>The equation for the MCSE of RMSE is derived using the jack-knife technique, which involves excluding a replicate <span class="math inline">\(j\)</span> and calculating RMSE <span class="citation">(Efron &amp; Stein, 1981)</span>. The formula for RMSE is:</p>
 <p><span class="math display">\[\sqrt{\frac{1}{K}\sum_{k=1}^{K}\left(T_k - \theta\right)^2}\]</span></p>
 <p>This is approximately equivalent to:</p>
 <p><span class="math display">\[RMSE = \sqrt{(\bar{T} - \theta)^2 + S^2_T}\]</span></p>
@@ -233,7 +232,7 @@ Accuracy
 <p><span class="math display">\[\bar{T}_{(j)} = \frac{1}{K-1} \left(K \bar{T} - T_j\right)\]</span></p>
 <p><span class="math display">\[S_{T(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]\]</span></p>
 <p>Then, the jack-knife MCSE of RMSE will be calculated as:</p>
-<p><span class="math display">\[MCSE_{RMSE(JK)}  = \sqrt{\frac{1}{K}\sum_{j=1}^K  \left(RMSE_{(j)} - RMSE\right)^2}\]</span></p>
+<p><span class="math display">\[MCSE_{RMSE(JK)}  = \sqrt{\frac{K -1}{K}\sum_{j=1}^K  \left(RMSE_{(j)} - RMSE\right)^2}\]</span></p>
 <div id="example" class="section level3">
 <h3 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h3>
@@ -346,7 +345,7 @@ rmse_mcse
 0.31618
 </td>
 <td style="text-align:right;">
-0.00027
+0.00839
 </td>
 </tr>
 <tr>
@@ -384,7 +383,7 @@ rmse_mcse
 0.32696
 </td>
 <td style="text-align:right;">
-0.00028
+0.00891
 </td>
 </tr>
 <tr>
@@ -422,7 +421,7 @@ rmse_mcse
 0.31243
 </td>
 <td style="text-align:right;">
-0.00027
+0.00840
 </td>
 </tr>
 <tr>
@@ -460,7 +459,7 @@ rmse_mcse
 0.31028
 </td>
 <td style="text-align:right;">
-0.00027
+0.00862
 </td>
 </tr>
 <tr>
@@ -498,7 +497,7 @@ rmse_mcse
 0.27411
 </td>
 <td style="text-align:right;">
-0.00024
+0.00744
 </td>
 </tr>
 <tr>
@@ -536,7 +535,7 @@ rmse_mcse
 0.28278
 </td>
 <td style="text-align:right;">
-0.00026
+0.00826
 </td>
 </tr>
 <tr>
@@ -574,7 +573,7 @@ rmse_mcse
 0.28435
 </td>
 <td style="text-align:right;">
-0.00025
+0.00775
 </td>
 </tr>
 <tr>
@@ -612,7 +611,7 @@ rmse_mcse
 0.27924
 </td>
 <td style="text-align:right;">
-0.00024
+0.00760
 </td>
 </tr>
 </tbody>
@@ -700,7 +699,7 @@ rmse_mcse
 0.31618
 </td>
 <td style="text-align:right;">
-0.00027
+0.00839
 </td>
 </tr>
 <tr>
@@ -738,7 +737,7 @@ rmse_mcse
 0.32696
 </td>
 <td style="text-align:right;">
-0.00028
+0.00891
 </td>
 </tr>
 <tr>
@@ -776,7 +775,7 @@ rmse_mcse
 0.31243
 </td>
 <td style="text-align:right;">
-0.00027
+0.00840
 </td>
 </tr>
 <tr>
@@ -814,7 +813,7 @@ rmse_mcse
 0.31028
 </td>
 <td style="text-align:right;">
-0.00027
+0.00862
 </td>
 </tr>
 <tr>
@@ -852,7 +851,7 @@ rmse_mcse
 0.27411
 </td>
 <td style="text-align:right;">
-0.00024
+0.00744
 </td>
 </tr>
 <tr>
@@ -890,7 +889,7 @@ rmse_mcse
 0.28278
 </td>
 <td style="text-align:right;">
-0.00026
+0.00826
 </td>
 </tr>
 <tr>
@@ -928,7 +927,7 @@ rmse_mcse
 0.28435
 </td>
 <td style="text-align:right;">
-0.00025
+0.00775
 </td>
 </tr>
 <tr>
@@ -966,7 +965,7 @@ rmse_mcse
 0.27924
 </td>
 <td style="text-align:right;">
-0.00024
+0.00760
 </td>
 </tr>
 </tbody>
@@ -1053,7 +1052,7 @@ Accuracy
 <span class="math inline">\(\sqrt{\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}}\)</span>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\frac{1}{K} \sum_{j=1}^K \left(rRMSE_{(j)} - rRMSE)^2\right)}\)</span>
+<span class="math inline">\(\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rRMSE_{(j)} - rRMSE)^2\right)}\)</span>
 </td>
 </tr>
 </tbody>
@@ -1165,7 +1164,7 @@ NA
 0.65424
 </td>
 <td style="text-align:right;">
-0.00046
+0.01451
 </td>
 </tr>
 <tr>
@@ -1197,7 +1196,7 @@ NA
 0.31259
 </td>
 <td style="text-align:right;">
-0.00021
+0.00679
 </td>
 </tr>
 <tr>
@@ -1229,7 +1228,7 @@ NA
 0.15522
 </td>
 <td style="text-align:right;">
-0.00011
+0.00355
 </td>
 </tr>
 <tr>
@@ -1293,7 +1292,7 @@ NA
 0.56585
 </td>
 <td style="text-align:right;">
-0.00044
+0.01388
 </td>
 </tr>
 <tr>
@@ -1325,7 +1324,7 @@ NA
 0.28449
 </td>
 <td style="text-align:right;">
-0.00020
+0.00631
 </td>
 </tr>
 <tr>
@@ -1357,7 +1356,7 @@ NA
 0.13969
 </td>
 <td style="text-align:right;">
-0.00010
+0.00309
 </td>
 </tr>
 </tbody>
@@ -1370,10 +1369,10 @@ NA
 <p>Variance estimators are always positive, and so relative criteria are often used to characterize their performance. For variance estimators, we have <span class="math inline">\(V\)</span> denoting the sampling variance of a point estimator <span class="math inline">\(T\)</span>. To assess the relative criteria for <span class="math inline">\(V\)</span>, we need to divide it by the true value of the sampling variance of <span class="math inline">\(T\)</span>, <span class="math inline">\(\lambda = \text{Var}(T)\)</span>, which we may not be able to calculate directly. In such scenario, we can use the sample variance of <span class="math inline">\(T\)</span> across the replications, <span class="math inline">\(S_T^2\)</span>, to estimate the true sampling variance.</p>
 <p>The relative bias would then be estimated by <span class="math inline">\(rB = \bar{V} / S_T^2\)</span>, the average of the variance estimates divided by the sample variance of the point estimates. To estimate MCSE of the relative bias of the variance estimator, we need to account for the uncertainty in the estimation of the true sampling variance. One way to do so is to use the jack-knife technique that we described above, which entails excluding a replicate <span class="math inline">\(j\)</span> and calculating relative bias <span class="math inline">\(\bar{V}_{(j)}/ S_{T(j)}^2\)</span>. The Monte Carlo standard error can then be calculated as:</p>
 <p><span class="math display">\[
-MCSE\left(rB\right) = \sqrt{\frac{1}{K} \sum_{j=1}^K \left(rB_{(j)} - rB\right)^2}
+MCSE\left(rB\right) = \sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rB_{(j)} - rB\right)^2}
 \]</span> which can be written as:</p>
 <p><span class="math display">\[
-MCSE\left(rB\right) = \sqrt{\frac{1}{K} \sum_{j=1}^K \left(\frac{\bar{V}_{(j)}}{S_{T(j)}^2} - \frac{\bar{V}}{S_T^2}\right)^2}
+MCSE\left(rB\right) = \sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(\frac{\bar{V}_{(j)}}{S_{T(j)}^2} - \frac{\bar{V}}{S_T^2}\right)^2}
 \]</span></p>
 <p>We reformulate the MCSE using some algebra tricks similar to how we reformulated them for the RMSE MCSE formulas above.</p>
 <p><span class="math display">\[
@@ -1422,7 +1421,7 @@ Relative difference from true parameter
 <span class="math inline">\(\bar{V} / S_T^2\)</span>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\frac{1}{K} \sum_{j=1}^K \left(rB_{(j)} - rB\right)^2}\)</span>
+<span class="math inline">\(\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rB_{(j)} - rB\right)^2}\)</span>
 </td>
 </tr>
 <tr>
@@ -1439,7 +1438,7 @@ Accuracy
 <span class="math inline">\(\frac{(\bar{V} - S_T^2)^2 + S_V^2}{S_T^4}\)</span>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\frac{1}{K} \sum_{j=1}^K \left(rMSE_{(j)} - rMSE\right)^2}\)</span>
+<span class="math inline">\(\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rMSE_{(j)} - rMSE\right)^2}\)</span>
 </td>
 </tr>
 <tr>
@@ -1456,7 +1455,7 @@ Accuracy
 <span class="math inline">\(\sqrt{\frac{(\bar{V} - S_T^2)^2 + S_V^2}{S_T^4}}\)</span>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\frac{1}{K} \sum_{j=1}^K \left(rRMSE_{(j)} - rRMSE\right)^2}\)</span>
+<span class="math inline">\(\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rRMSE_{(j)} - rRMSE\right)^2}\)</span>
 </td>
 </tr>
 </tbody>
@@ -1529,19 +1528,19 @@ t-test
 0.99449
 </td>
 <td style="text-align:right;">
-0.00135
+0.04264
 </td>
 <td style="text-align:right;">
 0.02941
 </td>
 <td style="text-align:right;">
-0.00008
+0.00259
 </td>
 <td style="text-align:right;">
 0.17148
 </td>
 <td style="text-align:right;">
-0.00024
+0.00756
 </td>
 </tr>
 <tr>
@@ -1564,19 +1563,19 @@ Welch t-test
 0.99449
 </td>
 <td style="text-align:right;">
-0.00135
+0.04264
 </td>
 <td style="text-align:right;">
 0.02941
 </td>
 <td style="text-align:right;">
-0.00008
+0.00259
 </td>
 <td style="text-align:right;">
 0.17148
 </td>
 <td style="text-align:right;">
-0.00024
+0.00756
 </td>
 </tr>
 <tr>
@@ -1599,19 +1598,19 @@ t-test
 0.93705
 </td>
 <td style="text-align:right;">
-0.00133
+0.04202
 </td>
 <td style="text-align:right;">
 0.02839
 </td>
 <td style="text-align:right;">
-0.00010
+0.00313
 </td>
 <td style="text-align:right;">
 0.16849
 </td>
 <td style="text-align:right;">
-0.00029
+0.00929
 </td>
 </tr>
 <tr>
@@ -1634,19 +1633,19 @@ Welch t-test
 0.93705
 </td>
 <td style="text-align:right;">
-0.00133
+0.04202
 </td>
 <td style="text-align:right;">
 0.02839
 </td>
 <td style="text-align:right;">
-0.00010
+0.00313
 </td>
 <td style="text-align:right;">
 0.16849
 </td>
 <td style="text-align:right;">
-0.00029
+0.00929
 </td>
 </tr>
 <tr>
@@ -1669,19 +1668,19 @@ t-test
 1.02571
 </td>
 <td style="text-align:right;">
-0.00143
+0.04508
 </td>
 <td style="text-align:right;">
 0.03103
 </td>
 <td style="text-align:right;">
-0.00017
+0.00534
 </td>
 <td style="text-align:right;">
 0.17616
 </td>
 <td style="text-align:right;">
-0.00048
+0.01512
 </td>
 </tr>
 <tr>
@@ -1704,19 +1703,19 @@ Welch t-test
 1.02571
 </td>
 <td style="text-align:right;">
-0.00143
+0.04508
 </td>
 <td style="text-align:right;">
 0.03103
 </td>
 <td style="text-align:right;">
-0.00017
+0.00534
 </td>
 <td style="text-align:right;">
 0.17616
 </td>
 <td style="text-align:right;">
-0.00048
+0.01512
 </td>
 </tr>
 <tr>
@@ -1739,19 +1738,19 @@ t-test
 1.04180
 </td>
 <td style="text-align:right;">
-0.00151
+0.04785
 </td>
 <td style="text-align:right;">
 0.03211
 </td>
 <td style="text-align:right;">
-0.00023
+0.00717
 </td>
 <td style="text-align:right;">
 0.17918
 </td>
 <td style="text-align:right;">
-0.00063
+0.01990
 </td>
 </tr>
 <tr>
@@ -1774,19 +1773,19 @@ Welch t-test
 1.04180
 </td>
 <td style="text-align:right;">
-0.00151
+0.04785
 </td>
 <td style="text-align:right;">
 0.03211
 </td>
 <td style="text-align:right;">
-0.00023
+0.00717
 </td>
 <td style="text-align:right;">
 0.17918
 </td>
 <td style="text-align:right;">
-0.00063
+0.01990
 </td>
 </tr>
 <tr>
@@ -1809,19 +1808,19 @@ t-test
 1.25701
 </td>
 <td style="text-align:right;">
-0.00177
+0.05583
 </td>
 <td style="text-align:right;">
 0.10150
 </td>
 <td style="text-align:right;">
-0.00102
+0.03217
 </td>
 <td style="text-align:right;">
 0.31859
 </td>
 <td style="text-align:right;">
-0.00159
+0.05013
 </td>
 </tr>
 <tr>
@@ -1844,19 +1843,19 @@ Welch t-test
 1.02720
 </td>
 <td style="text-align:right;">
-0.00144
+0.04555
 </td>
 <td style="text-align:right;">
 0.02079
 </td>
 <td style="text-align:right;">
-0.00014
+0.00452
 </td>
 <td style="text-align:right;">
 0.14420
 </td>
 <td style="text-align:right;">
-0.00049
+0.01561
 </td>
 </tr>
 <tr>
@@ -1879,19 +1878,19 @@ t-test
 1.18047
 </td>
 <td style="text-align:right;">
-0.00184
+0.05831
 </td>
 <td style="text-align:right;">
 0.06131
 </td>
 <td style="text-align:right;">
-0.00077
+0.02440
 </td>
 <td style="text-align:right;">
 0.24760
 </td>
 <td style="text-align:right;">
-0.00154
+0.04864
 </td>
 </tr>
 <tr>
@@ -1914,19 +1913,19 @@ Welch t-test
 0.96512
 </td>
 <td style="text-align:right;">
-0.00151
+0.04765
 </td>
 <td style="text-align:right;">
 0.01795
 </td>
 <td style="text-align:right;">
-0.00005
+0.00157
 </td>
 <td style="text-align:right;">
 0.13398
 </td>
 <td style="text-align:right;">
-0.00019
+0.00586
 </td>
 </tr>
 <tr>
@@ -1949,19 +1948,19 @@ t-test
 1.16667
 </td>
 <td style="text-align:right;">
-0.00165
+0.05225
 </td>
 <td style="text-align:right;">
 0.05714
 </td>
 <td style="text-align:right;">
-0.00064
+0.02032
 </td>
 <td style="text-align:right;">
 0.23905
 </td>
 <td style="text-align:right;">
-0.00134
+0.04221
 </td>
 </tr>
 <tr>
@@ -1984,19 +1983,19 @@ Welch t-test
 0.95326
 </td>
 <td style="text-align:right;">
-0.00135
+0.04270
 </td>
 <td style="text-align:right;">
 0.01921
 </td>
 <td style="text-align:right;">
-0.00008
+0.00245
 </td>
 <td style="text-align:right;">
 0.13859
 </td>
 <td style="text-align:right;">
-0.00028
+0.00885
 </td>
 </tr>
 <tr>
@@ -2019,19 +2018,19 @@ t-test
 1.21007
 </td>
 <td style="text-align:right;">
-0.00171
+0.05409
 </td>
 <td style="text-align:right;">
 0.07709
 </td>
 <td style="text-align:right;">
-0.00082
+0.02594
 </td>
 <td style="text-align:right;">
 0.27765
 </td>
 <td style="text-align:right;">
-0.00147
+0.04640
 </td>
 </tr>
 <tr>
@@ -2054,19 +2053,19 @@ Welch t-test
 0.98888
 </td>
 <td style="text-align:right;">
-0.00140
+0.04413
 </td>
 <td style="text-align:right;">
 0.01938
 </td>
 <td style="text-align:right;">
-0.00004
+0.00126
 </td>
 <td style="text-align:right;">
 0.13919
 </td>
 <td style="text-align:right;">
-0.00014
+0.00451
 </td>
 </tr>
 </tbody>
@@ -3080,6 +3079,9 @@ Welch t-test
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-efron1981jackknife" class="csl-entry">
+Efron, B., &amp; Stein, C. (1981). The jackknife estimate of variance. <em>The Annals of Statistics</em>, 586–596.
+</div>
 <div id="ref-frane2015power" class="csl-entry">
 Frane, A. V. (2015). Power and type i error control for univariate comparisons in multivariate two-group designs. <em>Multivariate Behavioral Research</em>, <em>50</em>(2), 233–247.
 </div>

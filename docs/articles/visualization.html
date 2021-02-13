@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simhelpers</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -73,7 +73,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/meghapsimatrix/simhelpers">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -93,13 +93,12 @@
 
       
 
-      </header><script src="visualization_files/header-attrs-2.4.6/header-attrs.js"></script><link href="visualization_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="visualization_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="visualization_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Presenting Results from Simulation Studies</h1>
             
-            <h4 class="date">2020-11-19</h4>
+            <h4 class="date">2021-02-12</h4>
       
       
       <div class="hidden name"><code>visualization.Rmd</code></div>
@@ -121,7 +120,7 @@
 <p>The <code>simphelpers</code> package includes a dataset, <code>Tipton_Pusto</code>, containing a subset of the simulation results from <span class="citation">Tipton &amp; Pustejovsky (2015)</span>. Specifically, the dataset contains results to replicate Figure 2 from the article.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://meghapsimatrix.github.io/simhelpers/index.html">simhelpers</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/">kableExtra</a></span><span class="op">)</span></pre></div>
@@ -202,8 +201,7 @@
 <span class="va">Tipton_Pusto</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">test</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mcse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">mcse</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="co">#&gt; `summarise()` ungrouping output (override with `.groups` argument)</span></pre></div>
+  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:left;">
