@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 ![build](https://github.com/meghapsimatrix/simhelpers/workflows/build/badge.svg)
 [![Codecov test coverage](https://codecov.io/gh/meghapsimatrix/simhelpers/branch/master/graph/badge.svg)](https://codecov.io/gh/meghapsimatrix/simhelpers?branch=master)
-[![CRAN Status](https://www.r-pkg.org/badges/version/simhelpers)](https://cran.r-project.org/package=simhelpers)
+[![CRAN Status](https://www.r-pkg.org/badges/version/simhelpers?color=orange)](https://cran.r-project.org/package=simhelpers)
 
 
 Monte Carlo simulations are computer experiments designed to study the performance of statistical methods under known data-generating conditions (Morris, White, & Crowther, 2019). Methodologists use simulations to examine questions such as: (1) how does ordinary least squares regression perform if errors are heteroskedastic? (2) how does the presence of missing data affect treatment effect estimates from a propensity score analysis? (3) how does cluster robust variance estimation perform when the number of clusters is small? To answer such questions, we conduct experiments by simulating thousands of datasets based on pseudo-random sampling, applying statistical methods, and evaluating how well those statistical methods recover the true data-generating conditions (Morris et al., 2019).
