@@ -213,10 +213,6 @@ t_res
 
 The values match. 
 
-```{r}
-all_equal(est_res, t_res)
-```
-
 
 ### Convergence Issues
 
