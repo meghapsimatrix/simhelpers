@@ -158,14 +158,14 @@
   allows for easy parallelization.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>evaluate_by_row</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>evaluate_by_row</span><span class='op'>(</span>
   <span class='va'>params</span>,
   <span class='va'>sim_function</span>,
   <span class='va'>...</span>,
   .progress <span class='op'>=</span> <span class='cn'>FALSE</span>,
   .options <span class='op'>=</span> <span class='fu'>furrr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/furrr/man/future_options.html'>future_options</a></span><span class='op'>(</span><span class='op'>)</span>,
   system_time <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -213,32 +213,32 @@ must be the result from a call to <code><a href='https://rdrr.io/pkg/furrr/man/f
     <p>A tibble containing parameter values and simulation results.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-  n <span class='op'>=</span> <span class='fl'>3</span><span class='op'>:</span><span class='fl'>5</span>,
-  lambda <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>8</span>, <span class='fl'>16</span>, <span class='fl'>4</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='fu'>evaluate_by_row</span><span class='op'>(</span><span class='va'>df</span>, <span class='va'>rpois</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: `future_options()` is deprecated as of furrr 0.2.0.</span>
-#&gt; <span class='warning'>Please use `furrr_options()` instead.</span>
-#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='output co'>#&gt; <span class='warning'>Warning: UNRELIABLE VALUE: Future (‘&lt;none&gt;’) unexpectedly generated random numbers without specifying argument 'seed'. There is a risk that those random numbers are not statistically sound and the overall results might be invalid. To fix this, specify 'seed=TRUE'. This ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-CMRG method. To disable this check, use 'seed=NULL', or set option 'future.rng.onMisuse' to "ignore".</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.158   0.042   0.221 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 3</span><span>
-#&gt;        n lambda .results
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>     3      8        4
-#&gt; </span><span style='color: #555555;'> 2</span><span>     3      8       11
-#&gt; </span><span style='color: #555555;'> 3</span><span>     3      8        9
-#&gt; </span><span style='color: #555555;'> 4</span><span>     4     12        8
-#&gt; </span><span style='color: #555555;'> 5</span><span>     4     12       11
-#&gt; </span><span style='color: #555555;'> 6</span><span>     4     12       14
-#&gt; </span><span style='color: #555555;'> 7</span><span>     4     12       15
-#&gt; </span><span style='color: #555555;'> 8</span><span>     5     16        8
-#&gt; </span><span style='color: #555555;'> 9</span><span>     5     16       12
-#&gt; </span><span style='color: #555555;'>10</span><span>     5     16       14
-#&gt; </span><span style='color: #555555;'>11</span><span>     5     16       13
-#&gt; </span><span style='color: #555555;'>12</span><span>     5     16       12</div><div class='input'>
-</div></span></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span class='r-in'>  n <span class='op'>=</span> <span class='fl'>3</span><span class='op'>:</span><span class='fl'>5</span>,</span>
+<span class='r-in'>  lambda <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>8</span>, <span class='fl'>16</span>, <span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>evaluate_by_row</span><span class='op'>(</span><span class='va'>df</span>, <span class='va'>rpois</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>UNRELIABLE VALUE: Future (‘&lt;none&gt;’) unexpectedly generated random numbers without specifying argument 'seed'. There is a risk that those random numbers are not statistically sound and the overall results might be invalid. To fix this, specify 'seed=TRUE'. This ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-CMRG method. To disable this check, use 'seed=NULL', or set option 'future.rng.onMisuse' to "ignore".</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    user  system elapsed </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0.139   0.021   0.189 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 12 x 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        n lambda .results</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span>     3      8        4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span>     3      8       11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span>     3      8        9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span>     4     12        8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span>     4     12       11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span>     4     12       14</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span>     4     12       15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span>     5     16        8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span>     5     16       12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span>     5     16       14</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>11</span>     5     16       13</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>12</span>     5     16       12</span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -250,11 +250,11 @@ must be the result from a call to <code><a href='https://rdrr.io/pkg/furrr/man/f
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://meghapsimatrix.com'>Megha Joshi</a>, <a href='https://www.jepusto.com/'>James Pustejovsky</a>.</p>
+  <p><p>Developed by <a href="https://meghapsimatrix.com" class="external-link">Megha Joshi</a>, <a href="https://www.jepusto.com/" class="external-link">James Pustejovsky</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
