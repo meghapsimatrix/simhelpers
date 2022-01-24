@@ -1,0 +1,11 @@
+url: https://pkgdown.r-lib.org/index.html
+template:
+  bootstrap: 5
+  bootswatch: litera
+
+authors:
+  Megha Joshi:
+    href: "https://meghapsimatrix.com/"
+  James Pustejovsky:
+    href: "https://www.jepusto.com/"
+
