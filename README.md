@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-![build](https://github.com/meghapsimatrix/simhelpers/workflows/build/badge.svg)
+[![R-CMD-check](https://github.com/meghapsimatrix/simphelpers/workflows/R-CMD-check/badge.svg)](https://github.com/meghapsimatrix/simhelpers/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/meghapsimatrix/simhelpers/branch/master/graph/badge.svg)](https://codecov.io/gh/meghapsimatrix/simhelpers?branch=master)
 [![CRAN

@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 # simhelpers
 
 <!-- badges: start -->
-![build](https://github.com/meghapsimatrix/simhelpers/workflows/build/badge.svg)
+
 [![Codecov test coverage](https://codecov.io/gh/meghapsimatrix/simhelpers/branch/master/graph/badge.svg)](https://codecov.io/gh/meghapsimatrix/simhelpers?branch=master)
 [![CRAN Status](https://www.r-pkg.org/badges/version/simhelpers?color=orange)](https://cran.r-project.org/package=simhelpers)
 
