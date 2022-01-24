@@ -1,7 +1,9 @@
 url: https://pkgdown.r-lib.org/index.html
 template:
   bootstrap: 5
-  bootswatch: litera
+  bootswatch: lux
+  bslib:
+    pkgdown-nav-height: 100px
 
 authors:
   Megha Joshi:
