@@ -11,3 +11,27 @@ authors:
   James Pustejovsky:
     href: "https://www.jepusto.com/"
 
+
+reference:
+  - title: "Performance Criteria and MCSE"
+    desc: "Functions for calculating performance critieria and MCSE"
+    contents:
+      - calc_absolute
+      - calc_relative
+      - calc_relative_var
+      - calc_rejection
+      - calc_coverage
+  - title: "Simulation Workflow"
+    desc: "Functions for setting up simulation workflow"
+    contents:
+      - create_skeleton
+      - evaluate_by_row
+  - title: "Example Datasets"
+    desc: "Example datasets from simulation studies"
+    contents:
+      - Tipton_Pusto
+      - alpha_res
+      - t_res
+      - welch_res
+
+
