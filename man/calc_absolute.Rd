@@ -32,5 +32,4 @@ Monte Carlo standard errors.
 \examples{
 calc_absolute(res_dat = t_res, estimates = est, true_param = true_param)
 
-
 }

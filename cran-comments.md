@@ -1,14 +1,17 @@
 ## Resubmission
-This is a resubmission. In this version I have:
 
-* fixed URL for the citation in man/Tipton_Pusto.Rd
+This is a resubmission. This is a maintenance release which removes import of a defunct function from the furrr package. 
 
 ## Test environments
-* local OS Big Sur, R 4.0.3
-* ubuntu 20.04, macOS (on GitHub Actions), R 4.0.3
-* win-builder (devel and release)
+
+* local Windows 11 Pro, R 4.2.0
+* ubuntu 20.04.3 LTS (on Github), R devel, release, oldrelease
+* macOS-latest (on Github), R release
+* windows-latest (on Github), R release
+* win-builder (devel, release, oldrelease)
 
 ## R CMD check results
+
 There were no ERRORs, WARNINGs or NOTEs. 
 
 

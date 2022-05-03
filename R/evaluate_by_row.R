@@ -29,7 +29,6 @@
 #'
 #' @importFrom rlang .data
 #' @importFrom magrittr "%>%"
-#' @importFrom furrr "future_options"
 
 evaluate_by_row <- function(params, sim_function, ...,
                             .progress = FALSE, .options = furrr::furrr_options(),

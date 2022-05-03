@@ -18,7 +18,8 @@
 #' @examples
 #' calc_absolute(res_dat = t_res, estimates = est, true_param = true_param)
 #'
-#'
+#' @importFrom stats sd
+#' @importFrom stats var
 
 calc_absolute <- function(res_dat, estimates, true_param, perfm_criteria = c("bias", "variance", "mse", "rmse")){
 

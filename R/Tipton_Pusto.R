@@ -17,7 +17,9 @@
 #'
 #' }
 #'
-#'@source
-#'\insertRef{tipton_small-sample_2015}{simhelpers}
+#' @source
+#' \insertRef{tipton_small-sample_2015}{simhelpers}
+#'
+#' @importFrom Rdpack reprompt
 #'
 "Tipton_Pusto"

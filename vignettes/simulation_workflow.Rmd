@@ -361,7 +361,7 @@ head(params)
 
 Here we run the simulation using `purrr` package serial workflow. We use the [`pmap()`](https://purrr.tidyverse.org/reference/map2.html) function from `purrr` to run the `run_sim()` function on each condition specified in `params`. 
 
-```{r}
+```{r serial}
 system.time(
   results <- 
     params %>%
@@ -385,7 +385,7 @@ plan(multisession)
 
 Once the cluster is configured, we can just replace [`pmap()`](https://purrr.tidyverse.org/reference/map2.html) from `purrr` with [`future_pmap()`](https://davisvaughan.github.io/furrr/reference/future_map2.html) to run the simulation in parallel. 
 
-```{r, warning = F, message = F}
+```{r furrr, warning = F, message = F, eval = FALSE}
 library(future)
 library(furrr)
 
@@ -398,18 +398,14 @@ system.time(
     unnest(cols = res)
 )
 
-results %>%
-  kable()
-
 ```
 
 
 In the `simhelpers` package, we have a function, `evaluate_by_row()`, that implements this `furrr` workflow automatically: 
 
-```{r, warning = F, message = F}
+```{r evaluate-by-row, warning = F, message = F, eval = FALSE}
 plan(multisession)
-evaluate_by_row(params, run_sim) %>%
-  kable()
+results <- evaluate_by_row(params, run_sim)
 ```
 
 # Example from simhelpers
