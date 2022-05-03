@@ -377,13 +377,13 @@ results %>%
 
 ## Running the Simulation in Parallel
 
-Below we use the [`future`](https://rstudio.github.io/promises/articles/futures.html) and the [`furrr`](https://davisvaughan.github.io/furrr/) packages to run the simulation in parallel [@future; @furrr]. These packages are designed to work with functions from the `purrr` package. The line below gets a cluster set up on your computer or network. For more complicated network setups, please see the [documentation for the future package](https://rstudio.github.io/promises/articles/futures.html). 
+Below we use the [`future`](https://rstudio.github.io/promises/articles/futures.html) and the [`furrr`](https://furrr.futureverse.org/) packages to run the simulation in parallel [@future; @furrr]. These packages are designed to work with functions from the `purrr` package. The line below gets a cluster set up on your computer or network. For more complicated network setups, please see the [documentation for the future package](https://rstudio.github.io/promises/articles/futures.html). 
 
 ```{r, eval = FALSE}
 plan(multisession)
 ```
 
-Once the cluster is configured, we can just replace [`pmap()`](https://purrr.tidyverse.org/reference/map2.html) from `purrr` with [`future_pmap()`](https://davisvaughan.github.io/furrr/reference/future_map2.html) to run the simulation in parallel. 
+Once the cluster is configured, we can just replace [`pmap()`](https://purrr.tidyverse.org/reference/map2.html) from `purrr` with [`future_pmap()`](https://furrr.futureverse.org/reference/future_map2.html) to run the simulation in parallel. 
 
 ```{r furrr, warning = F, message = F, eval = FALSE}
 library(future)

@@ -13,7 +13,24 @@ This is a resubmission. This is a maintenance release which removes import of a 
 
 ## R CMD check results
 
-There were no ERRORs, WARNINGs or NOTEs. 
+There were no ERRORs or WARNINGs. There was one NOTE:
 
+* Found the following (possibly) invalid URLs:
+  URL: https://doi.org/10.1002/jrsm.5
+    From: inst/doc/visualization.html
+    Status: 503
+    Message: Service Unavailable
+  URL: https://doi.org/10.1037/met0000011
+    From: inst/doc/visualization.html
+    Status: 400
+    Message: Bad Request
+  URL: https://doi.org/10.3102/1076998615606099
+    From: inst/doc/visualization.html
+    Status: 503
+    Message: Service Unavailable
+  URL: https://journals.sagepub.com/doi/10.3102/1076998615606099
+    From: man/Tipton_Pusto.Rd
+    Status: 503
+    Message: Service Unavailable
 
-
+  The flagged URLs are correct.
