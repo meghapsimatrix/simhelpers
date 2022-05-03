@@ -8,7 +8,7 @@
 [![Codecov test
 coverage](https://codecov.io/gh/meghapsimatrix/simhelpers/branch/master/graph/badge.svg)](https://codecov.io/gh/meghapsimatrix/simhelpers?branch=master)
 [![CRAN
-Status](https://www.r-pkg.org/badges/version/simhelpers?color=orange)](https://cran.r-project.org/package=simhelpers)
+Status](https://www.r-pkg.org/badges/version/simhelpers)](https://cran.r-project.org/package=simhelpers)
 
 Monte Carlo simulations are computer experiments designed to study the
 performance of statistical methods under known data-generating
