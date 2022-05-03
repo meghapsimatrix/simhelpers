@@ -1,5 +1,0 @@
-"0","set.seed(2020143)"
-"0","example_dat <- generate_dat(n1 = 10000, n2= 10000, mean_diff = 1) "
-"0",""
-"0","example_dat %>%"
-"0","  head()"

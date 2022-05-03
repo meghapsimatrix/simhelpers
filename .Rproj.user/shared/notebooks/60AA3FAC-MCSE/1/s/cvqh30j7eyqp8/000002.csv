@@ -1,6 +1,0 @@
-"0","welch_res %>%"
-"0","  group_by(n1, n2, mean_diff, method) %>%"
-"0","  group_modify(~ calc_relative_var(.x, estimates = est, var_estimates = var)) %>%"
-"0","  kable(digits = 5)"
-"2","Error in .::tidyr : unused argument (drop_na)
-"

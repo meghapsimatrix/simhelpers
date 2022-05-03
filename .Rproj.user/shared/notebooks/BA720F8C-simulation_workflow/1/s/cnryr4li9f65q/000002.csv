@@ -1,7 +1,0 @@
-"0","set.seed(20150316) # change this seed value!"
-"0",""
-"0","# now express the simulation parameters as vectors/lists"
-"0",""
-"0","design_factors <- list(factor1 = , factor2 = , ...) # combine into a design set"
-"2","Error in list(factor1 = , factor2 = , ...) : argument 1 is empty
-"
