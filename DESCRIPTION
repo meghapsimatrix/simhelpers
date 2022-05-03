@@ -44,6 +44,7 @@ Suggests:
     testthat,
     kableExtra,
     ggplot2,
-    broom
+    broom,
+    pkgdown
 RdMacros: Rdpack
 VignetteBuilder: knitr
