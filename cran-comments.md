@@ -5,6 +5,7 @@ This is a resubmission. This is a maintenance release which removes import of a 
 ## Test environments
 
 * local Windows 11 Pro, R 4.2.0
+* local OS Big Sur, R 4.1.2
 * ubuntu 20.04.3 LTS (on Github), R devel, release, oldrelease
 * macOS-latest (on Github), R release
 * windows-latest (on Github), R release
