@@ -1,12 +1,12 @@
-pandoc: 2.7.3
-pkgdown: 1.6.1.9001
-pkgdown_sha: 900ef5471576f8f29508a7e7d94fae51390f2d96
+pandoc: 2.14.2
+pkgdown: 2.0.4
+pkgdown_sha: ~
 articles:
   MCSE: MCSE.html
   simulation_workflow: simulation_workflow.html
   visualization: visualization.html
-last_built: 2021-06-06T23:33Z
+last_built: 2022-06-16T15:12Z
 urls:
-  reference: https://meghapsimatrix.github.io/simhelpers/index.html/reference
-  article: https://meghapsimatrix.github.io/simhelpers/index.html/articles
+  reference: https://pkgdown.r-lib.org/index.html/reference
+  article: https://pkgdown.r-lib.org/index.html/articles
 

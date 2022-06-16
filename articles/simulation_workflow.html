@@ -4,101 +4,81 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="simhelpers">
 <title>Simulation Workflow • simhelpers</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
-<link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Simulation Workflow">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Simulation Workflow">
 <meta property="og:description" content="simhelpers">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body data-spy="scroll" data-target="#toc">
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">simhelpers</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
-      </span>
-    </div>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../index.html">simhelpers</a>
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../reference/index.html">Reference</a>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/MCSE.html">Simulation Performance Criteria and MCSE</a>
-    </li>
-    <li>
-      <a href="../articles/simulation_workflow.html">Simulation Workflow</a>
-    </li>
-    <li>
-      <a href="../articles/visualization.html">Presenting Results from Simulation Studies</a>
-    </li>
-  </ul>
-</li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/meghapsimatrix/simhelpers" class="external-link">
-    <span class="fab fa-github"></span>
-     
-  </a>
-</li>
-      </ul>
-<form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
-        <div class="form-group">
-          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
-</div>
-      </form>
-      
-    </div>
-<!--/.nav-collapse -->
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/MCSE.html">Simulation Performance Criteria and MCSE</a>
+    <a class="dropdown-item" href="../articles/simulation_workflow.html">Simulation Workflow</a>
+    <a class="dropdown-item" href="../articles/visualization.html">Presenting Results from Simulation Studies</a>
   </div>
-<!--/.container -->
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/meghapsimatrix/simhelpers/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
-<!--/.navbar -->
 
-      
+    
+  </div>
+</nav><div class="container template-article">
 
-      </header><script src="simulation_workflow_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Simulation Workflow</h1>
+
+
+
+<div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+      <img src="" class="logo" alt=""><h1>Simulation Workflow</h1>
             
-            <h4 data-toc-skip class="date">2021-06-06</h4>
+            <h4 data-toc-skip class="date">2022-06-16</h4>
       
-      
-      <div class="hidden name"><code>simulation_workflow.Rmd</code></div>
-
+      <small class="dont-index">Source: <a href="https://github.com/meghapsimatrix/simhelpers/blob/HEAD/vignettes/simulation_workflow.Rmd" class="external-link"><code>vignettes/simulation_workflow.Rmd</code></a></small>
+      <div class="d-none name"><code>simulation_workflow.Rmd</code></div>
     </div>
 
     
@@ -113,10 +93,10 @@
 <li>Evaluate the overall results.</li>
 </ol>
 <p>The flowchart below depicts the workflow. The chart is created using <code>grViz()</code> from the <a href="https://rich-iannone.github.io/DiagrammeR/" class="external-link"><code>DiagrammeR</code></a> package <span class="citation">(Iannone, 2020)</span>.</p>
-<p><img src="../man/figures/workflow.png"></p>
+<p><img src="../reference/figures/workflow.png"></p>
 <p>The explanation of the workflow in this vignette follow notes from Dr. James Pustejovsky’s <a href="https://www.jepusto.com/teaching/daspir/" class="external-link">Data Analysis, Simulation and Programming in R course (Spring, 2019)</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://meghapsimatrix.github.io/simhelpers/index.html">simhelpers</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://meghapsimatrix.github.io/simhelpers/index.html" class="external-link">simhelpers</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/" class="external-link">tibble</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org" class="external-link">purrr</a></span><span class="op">)</span>
@@ -125,14 +105,14 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/" class="external-link">kableExtra</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://broom.tidymodels.org/" class="external-link">broom</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></code></pre></div>
-<div id="initial-experimental-design" class="section level2">
-<h2 class="hasAnchor">
-<a href="#initial-experimental-design" class="anchor" aria-hidden="true"></a>Initial Experimental Design</h2>
+<div class="section level3">
+<h3 id="initial-experimental-design">Initial Experimental Design<a class="anchor" aria-label="anchor" href="#initial-experimental-design"></a>
+</h3>
 <p>Before we begin working on the simulation study, we should decide what model and design parameters we want to vary. Parameters can include sample size, proportion of missing data etc.</p>
 </div>
-<div id="data-generating-model" class="section level2">
-<h2 class="hasAnchor">
-<a href="#data-generating-model" class="anchor" aria-hidden="true"></a>Data Generating Model</h2>
+<div class="section level3">
+<h3 id="data-generating-model">Data Generating Model<a class="anchor" aria-label="anchor" href="#data-generating-model"></a>
+</h3>
 <p>The data-generating function below takes in model parameters. For example, we can generate data varying the sample size or level of heteroskedasticity or the amount of missingness. Below is a skeleton of the data-generating function. The arguments are any data-generating parameters that we would want to vary.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">generate_dat</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">model_params</span><span class="op">)</span> <span class="op">{</span>
@@ -159,15 +139,15 @@
 
 <span class="va">example_dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 6 x 2</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span>
 <span class="co">#&gt;        y group  </span>
-<span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;  </span>
-<span class="co">#&gt; 1  0.491 Group 1</span>
-<span class="co">#&gt; 2 -0.534 Group 1</span>
-<span class="co">#&gt; 3  1.02  Group 1</span>
-<span class="co">#&gt; 4  0.754 Group 1</span>
-<span class="co">#&gt; 5  0.762 Group 1</span>
-<span class="co">#&gt; 6  0.979 Group 1</span></code></pre></div>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>  0.491 Group 1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> -<span style="color: #BB0000;">0.534</span> Group 1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>  1.02  Group 1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>  0.754 Group 1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>  0.762 Group 1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span>  0.979 Group 1</span></code></pre></div>
 <p>Below, we create a summary table. The mean of the outcome for Group 1 is close to 1 and the mean for Group 2 is close to 0. The standard deviation of the outcome for Group 1 is close to 1 and the standard deviation for Group 2 is close to 2. The table matches what we specified in the data-generating model.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">example_dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
@@ -231,9 +211,9 @@ Group 2
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="simulation_workflow_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
 </div>
-<div id="estimation-methods" class="section level2">
-<h2 class="hasAnchor">
-<a href="#estimation-methods" class="anchor" aria-hidden="true"></a>Estimation Methods</h2>
+<div class="section level3">
+<h3 id="estimation-methods">Estimation Methods<a class="anchor" aria-label="anchor" href="#estimation-methods"></a>
+</h3>
 <p>In this step, we run some statistical methods to calculate test statistics, regression coefficients, p-values, or confidence intervals. The function takes in the data and any design parameters, such as options for how estimation should be carried out (e.g., use HC0 standard errors or HC2 standard errors).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">estimate</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dat</span>, <span class="va">design_params</span><span class="op">)</span> <span class="op">{</span>
@@ -291,11 +271,11 @@ Group 2
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html" class="external-link">mutate_if</a></span><span class="op">(</span><span class="va">is.numeric</span>, <span class="va">round</span>, <span class="fl">5</span><span class="op">)</span>
 
 <span class="va">est_res</span>
-<span class="co">#&gt; # A tibble: 2 x 5</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 5</span></span>
 <span class="co">#&gt;   method         est p_val lower_bound upper_bound</span>
-<span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 t-test        1.01     0       0.967        1.06</span>
-<span class="co">#&gt; 2 Welch t-test  1.01     0       0.967        1.06</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> t-test        1.01     0       0.967        1.06</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Welch t-test  1.01     0       0.967        1.06</span></code></pre></div>
 <p>We can compare the results to those from the built-in <code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test()</a></code> function:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">t_res</span> <span class="op">&lt;-</span> 
@@ -311,15 +291,15 @@ Group 2
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html" class="external-link">mutate_if</a></span><span class="op">(</span><span class="va">is.numeric</span>, <span class="va">round</span>, <span class="fl">5</span><span class="op">)</span>
 
 <span class="va">t_res</span>
-<span class="co">#&gt; # A tibble: 2 x 5</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 5</span></span>
 <span class="co">#&gt;   method         est p_val lower_bound upper_bound</span>
-<span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 t-test        1.01     0       0.967        1.06</span>
-<span class="co">#&gt; 2 Welch t-test  1.01     0       0.967        1.06</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> t-test        1.01     0       0.967        1.06</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Welch t-test  1.01     0       0.967        1.06</span></code></pre></div>
 <p>The values match.</p>
-<div id="convergence-issues" class="section level3">
-<h3 class="hasAnchor">
-<a href="#convergence-issues" class="anchor" aria-hidden="true"></a>Convergence Issues</h3>
+<div class="section level4">
+<h4 id="convergence-issues">Convergence Issues<a class="anchor" aria-label="anchor" href="#convergence-issues"></a>
+</h4>
 <p>If we were to estimate complicated models, like structural equation modeling or hierarchical linear modeling, there may be cases where the model does not converge. To handle such cases, we can add an <code>if...else</code> statement within the <code>estimate()</code> function that evaluates whether the model converged and if it did not converge, the statement outputs <code>NA</code> values for estimates, p-values etc.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">estimate</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dat</span>, <span class="va">design_parameters</span><span class="op">)</span><span class="op">{</span>
@@ -342,9 +322,9 @@ Group 2
 <span class="op">}</span>      </code></pre></div>
 </div>
 </div>
-<div id="performance-summaries" class="section level2">
-<h2 class="hasAnchor">
-<a href="#performance-summaries" class="anchor" aria-hidden="true"></a>Performance Summaries</h2>
+<div class="section level3">
+<h3 id="performance-summaries">Performance Summaries<a class="anchor" aria-label="anchor" href="#performance-summaries"></a>
+</h3>
 <p>In this step, we create a function to calculate performance measures based on results that we extracted from the estimation step, repeated across many replications. As the skeleton below indicates, a performance summary function takes in the results, along with any model parameters, and returns a dataset of performance measures.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">calc_performance</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">results</span>, <span class="va">model_params</span><span class="op">)</span> <span class="op">{</span>
@@ -362,9 +342,9 @@ Group 2
   <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">performance_measures</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 </div>
-<div id="simulation-driver" class="section level2">
-<h2 class="hasAnchor">
-<a href="#simulation-driver" class="anchor" aria-hidden="true"></a>Simulation Driver</h2>
+<div class="section level3">
+<h3 id="simulation-driver">Simulation Driver<a class="anchor" aria-label="anchor" href="#simulation-driver"></a>
+</h3>
 <p>The following code chunk sets up the simulation driver. The arguments specify the number of iterations for the simulation and any parameters needed to run the data-generating and estimating functions. The function then generates many sets of results by repeating the data-generating step and estimation step. Finally, the function calculates the performance measures and returns results for this set of parameters.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">run_sim</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">iterations</span>, <span class="va">model_params</span>, <span class="va">design_params</span>, <span class="va">seed</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span>
@@ -395,9 +375,9 @@ Group 2
 
 <span class="op">}</span></code></pre></div>
 </div>
-<div id="experimental-design-revisit" class="section level2">
-<h2 class="hasAnchor">
-<a href="#experimental-design-revisit" class="anchor" aria-hidden="true"></a>Experimental Design Revisit</h2>
+<div class="section level3">
+<h3 id="experimental-design-revisit">Experimental Design Revisit<a class="anchor" aria-label="anchor" href="#experimental-design-revisit"></a>
+</h3>
 <p>Now that we have all our functions in order, we can specify the exact factors we want to manipulate in the study. The following code chunk creates a list of design factors and uses the <a href="https://purrr.tidyverse.org/reference/cross.html" class="external-link"><code>cross_df()</code></a> function from <a href="https://purrr.tidyverse.org/" class="external-link"><code>purrr</code></a> package to create every combination of the factor levels. We also set the number of iterations and the seed that will be used when generating data <span class="citation">(Wickham et al., 2019)</span>.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20150316</span><span class="op">)</span> <span class="co"># change this seed value!</span>
@@ -443,19 +423,19 @@ Group 2
 <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span>
 <span class="co">#&gt; [1] 8</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 6 x 5</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span>
 <span class="co">#&gt;      n1    n2 mean_diff iterations      seed</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt; 1    50    50       0         1000 204809087</span>
-<span class="co">#&gt; 2    50    70       0         1000 204809088</span>
-<span class="co">#&gt; 3    50    50       0.5       1000 204809089</span>
-<span class="co">#&gt; 4    50    70       0.5       1000 204809090</span>
-<span class="co">#&gt; 5    50    50       1         1000 204809091</span>
-<span class="co">#&gt; 6    50    70       1         1000 204809092</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    50    50       0         <span style="text-decoration: underline;">1</span>000 204<span style="text-decoration: underline;">809</span>087</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>    50    70       0         <span style="text-decoration: underline;">1</span>000 204<span style="text-decoration: underline;">809</span>088</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>    50    50       0.5       <span style="text-decoration: underline;">1</span>000 204<span style="text-decoration: underline;">809</span>089</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>    50    70       0.5       <span style="text-decoration: underline;">1</span>000 204<span style="text-decoration: underline;">809</span>090</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>    50    50       1         <span style="text-decoration: underline;">1</span>000 204<span style="text-decoration: underline;">809</span>091</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span>    50    70       1         <span style="text-decoration: underline;">1</span>000 204<span style="text-decoration: underline;">809</span>092</span></code></pre></div>
 </div>
-<div id="running-the-simulation-in-serial" class="section level2">
-<h2 class="hasAnchor">
-<a href="#running-the-simulation-in-serial" class="anchor" aria-hidden="true"></a>Running the Simulation in Serial</h2>
+<div class="section level3">
+<h3 id="running-the-simulation-in-serial">Running the Simulation in Serial<a class="anchor" aria-label="anchor" href="#running-the-simulation-in-serial"></a>
+</h3>
 <p>Here we run the simulation using <code>purrr</code> package serial workflow. We use the <a href="https://purrr.tidyverse.org/reference/map2.html" class="external-link"><code>pmap()</code></a> function from <code>purrr</code> to run the <code>run_sim()</code> function on each condition specified in <code>params</code>.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span>
@@ -467,7 +447,7 @@ Group 2
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html" class="external-link">unnest</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="va">res</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;  35.746   0.117  35.914</span>
+<span class="co">#&gt;  34.111   0.019  34.139</span>
 
 <span class="va">results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -969,1100 +949,80 @@ Welch t-test
 </tbody>
 </table>
 </div>
-<div id="running-the-simulation-in-parallel" class="section level2">
-<h2 class="hasAnchor">
-<a href="#running-the-simulation-in-parallel" class="anchor" aria-hidden="true"></a>Running the Simulation in Parallel</h2>
-<p>Below we use the <a href="https://rstudio.github.io/promises/articles/futures.html" class="external-link"><code>future</code></a> and the <a href="https://davisvaughan.github.io/furrr/" class="external-link"><code>furrr</code></a> packages to run the simulation in parallel <span class="citation">(Bengtsson, 2020; Vaughan &amp; Dancho, 2018)</span>. These packages are designed to work with functions from the <code>purrr</code> package. The line below gets a cluster set up on your computer or network. For more complicated network setups, please see the <a href="https://rstudio.github.io/promises/articles/futures.html" class="external-link">documentation for the future package</a>.</p>
+<div class="section level3">
+<h3 id="running-the-simulation-in-parallel">Running the Simulation in Parallel<a class="anchor" aria-label="anchor" href="#running-the-simulation-in-parallel"></a>
+</h3>
+<p>Below we use the <a href="https://rstudio.github.io/promises/articles/futures.html" class="external-link"><code>future</code></a> and the <a href="https://furrr.futureverse.org/" class="external-link"><code>furrr</code></a> packages to run the simulation in parallel <span class="citation">(Bengtsson, 2020; Vaughan &amp; Dancho, 2018)</span>. These packages are designed to work with functions from the <code>purrr</code> package. The line below gets a cluster set up on your computer or network. For more complicated network setups, please see the <a href="https://rstudio.github.io/promises/articles/futures.html" class="external-link">documentation for the future package</a>.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span><span class="op">)</span></code></pre></div>
-<p>Once the cluster is configured, we can just replace <a href="https://purrr.tidyverse.org/reference/map2.html" class="external-link"><code>pmap()</code></a> from <code>purrr</code> with <a href="https://davisvaughan.github.io/furrr/reference/future_map2.html" class="external-link"><code>future_pmap()</code></a> to run the simulation in parallel.</p>
+<p>Once the cluster is configured, we can just replace <a href="https://purrr.tidyverse.org/reference/map2.html" class="external-link"><code>pmap()</code></a> from <code>purrr</code> with <a href="https://furrr.futureverse.org/reference/future_map2.html" class="external-link"><code>future_pmap()</code></a> to run the simulation in parallel.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/HenrikBengtsson/future" class="external-link">future</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://future.futureverse.org" class="external-link">future</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a></span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span><span class="op">)</span> <span class="co"># choose an appropriate plan from the future package</span>
+<span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span><span class="op">)</span> <span class="co"># choose an appropriate plan from the future package</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span>
   <span class="va">results</span> <span class="op">&lt;-</span>
     <span class="va">params</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>res <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/future_map2.html" class="external-link">future_pmap</a></span><span class="op">(</span><span class="va">.</span>, .f <span class="op">=</span> <span class="va">run_sim</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>res <span class="op">=</span> <span class="fu"><a href="https://furrr.futureverse.org/reference/future_map2.html" class="external-link">future_pmap</a></span><span class="op">(</span><span class="va">.</span>, .f <span class="op">=</span> <span class="va">run_sim</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html" class="external-link">unnest</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="va">res</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.284   0.006  15.103</span>
-
-<span class="va">results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<table class="table">
-<thead><tr>
-<th style="text-align:right;">
-n1
-</th>
-<th style="text-align:right;">
-n2
-</th>
-<th style="text-align:right;">
-mean_diff
-</th>
-<th style="text-align:right;">
-iterations
-</th>
-<th style="text-align:right;">
-seed
-</th>
-<th style="text-align:left;">
-method
-</th>
-<th style="text-align:right;">
-K
-</th>
-<th style="text-align:right;">
-rej_rate
-</th>
-<th style="text-align:right;">
-rej_rate_mcse
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809087
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.048
-</td>
-<td style="text-align:right;">
-0.0067599
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809087
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.047
-</td>
-<td style="text-align:right;">
-0.0066926
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809088
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.027
-</td>
-<td style="text-align:right;">
-0.0051255
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809088
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.039
-</td>
-<td style="text-align:right;">
-0.0061220
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809089
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.340
-</td>
-<td style="text-align:right;">
-0.0149800
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809089
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.335
-</td>
-<td style="text-align:right;">
-0.0149256
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809090
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.341
-</td>
-<td style="text-align:right;">
-0.0149906
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809090
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.426
-</td>
-<td style="text-align:right;">
-0.0156373
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809091
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.876
-</td>
-<td style="text-align:right;">
-0.0104223
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809091
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.871
-</td>
-<td style="text-align:right;">
-0.0106000
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809092
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.904
-</td>
-<td style="text-align:right;">
-0.0093158
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809092
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.937
-</td>
-<td style="text-align:right;">
-0.0076832
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809093
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-1.000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809093
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-1.000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809094
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-1.000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809094
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-1.000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-</tr>
-</tbody>
-</table>
+<span class="op">)</span></code></pre></div>
 <p>In the <code>simhelpers</code> package, we have a function, <code><a href="../reference/evaluate_by_row.html">evaluate_by_row()</a></code>, that implements this <code>furrr</code> workflow automatically:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span><span class="op">)</span>
-<span class="fu"><a href="../reference/evaluate_by_row.html">evaluate_by_row</a></span><span class="op">(</span><span class="va">params</span>, <span class="va">run_sim</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.132   0.005  14.984</span></code></pre></div>
-<table class="table">
-<thead><tr>
-<th style="text-align:right;">
-n1
-</th>
-<th style="text-align:right;">
-n2
-</th>
-<th style="text-align:right;">
-mean_diff
-</th>
-<th style="text-align:right;">
-iterations
-</th>
-<th style="text-align:right;">
-seed
-</th>
-<th style="text-align:left;">
-method
-</th>
-<th style="text-align:right;">
-K
-</th>
-<th style="text-align:right;">
-rej_rate
-</th>
-<th style="text-align:right;">
-rej_rate_mcse
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809087
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.048
-</td>
-<td style="text-align:right;">
-0.0067599
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809087
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.047
-</td>
-<td style="text-align:right;">
-0.0066926
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809088
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.027
-</td>
-<td style="text-align:right;">
-0.0051255
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809088
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.039
-</td>
-<td style="text-align:right;">
-0.0061220
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809089
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.340
-</td>
-<td style="text-align:right;">
-0.0149800
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809089
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.335
-</td>
-<td style="text-align:right;">
-0.0149256
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809090
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.341
-</td>
-<td style="text-align:right;">
-0.0149906
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809090
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.426
-</td>
-<td style="text-align:right;">
-0.0156373
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809091
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.876
-</td>
-<td style="text-align:right;">
-0.0104223
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809091
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.871
-</td>
-<td style="text-align:right;">
-0.0106000
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809092
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.904
-</td>
-<td style="text-align:right;">
-0.0093158
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809092
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-0.937
-</td>
-<td style="text-align:right;">
-0.0076832
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809093
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-1.000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809093
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-1.000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809094
-</td>
-<td style="text-align:left;">
-t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-1.000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-204809094
-</td>
-<td style="text-align:left;">
-Welch t-test
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-1.000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-</tr>
-</tbody>
-</table>
+<code class="sourceCode R"><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span><span class="op">)</span>
+<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/evaluate_by_row.html">evaluate_by_row</a></span><span class="op">(</span><span class="va">params</span>, <span class="va">run_sim</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="example-from-simhelpers" class="section level1">
-<h1 class="hasAnchor">
-<a href="#example-from-simhelpers" class="anchor" aria-hidden="true"></a>Example from simhelpers</h1>
+<div class="section level2">
+<h2 id="example-from-simhelpers">Example from simhelpers<a class="anchor" aria-label="anchor" href="#example-from-simhelpers"></a>
+</h2>
 <p>The <code><a href="../reference/create_skeleton.html">create_skeleton()</a></code> function from our <code>simhelpers</code> package will open an untitled .R file with an outline or skeleton of functions needed to run a simulation study.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/create_skeleton.html">create_skeleton</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor" aria-hidden="true"></a>References</h1>
-<div id="refs" class="references">
-<div id="ref-future">
-<p>Bengtsson, H. (2020). <em>Future: Unified parallel and distributed processing in r for everyone</em>. Retrieved from <a href="https://CRAN.R-project.org/package=future" class="external-link">https://CRAN.R-project.org/package=future</a></p>
+<div class="section level2">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-future" class="csl-entry">
+Bengtsson, H. (2020). <em>Future: Unified parallel and distributed processing in r for everyone</em>. Retrieved from <a href="https://CRAN.R-project.org/package=future" class="external-link">https://CRAN.R-project.org/package=future</a>
 </div>
-<div id="ref-diag">
-<p>Iannone, R. (2020). <em>DiagrammeR: Graph/network visualization</em>. Retrieved from <a href="https://CRAN.R-project.org/package=DiagrammeR" class="external-link">https://CRAN.R-project.org/package=DiagrammeR</a></p>
+<div id="ref-diag" class="csl-entry">
+Iannone, R. (2020). <em>DiagrammeR: Graph/network visualization</em>. Retrieved from <a href="https://CRAN.R-project.org/package=DiagrammeR" class="external-link">https://CRAN.R-project.org/package=DiagrammeR</a>
 </div>
-<div id="ref-morris2019using">
-<p>Morris, T. P., White, I. R., &amp; Crowther, M. J. (2019). Using simulation studies to evaluate statistical methods. <em>Statistics in Medicine</em>, <em>38</em>(11), 2074–2102.</p>
+<div id="ref-morris2019using" class="csl-entry">
+Morris, T. P., White, I. R., &amp; Crowther, M. J. (2019). Using simulation studies to evaluate statistical methods. <em>Statistics in Medicine</em>, <em>38</em>(11), 2074–2102.
 </div>
-<div id="ref-furrr">
-<p>Vaughan, D., &amp; Dancho, M. (2018). <em>Furrr: Apply mapping functions in parallel using futures</em>. Retrieved from <a href="https://CRAN.R-project.org/package=furrr" class="external-link">https://CRAN.R-project.org/package=furrr</a></p>
+<div id="ref-furrr" class="csl-entry">
+Vaughan, D., &amp; Dancho, M. (2018). <em>Furrr: Apply mapping functions in parallel using futures</em>. Retrieved from <a href="https://CRAN.R-project.org/package=furrr" class="external-link">https://CRAN.R-project.org/package=furrr</a>
 </div>
-<div id="ref-tidyverse">
-<p>Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., … Yutani, H. (2019). Welcome to the tidyverse. <em>Journal of Open Source Software</em>, <em>4</em>(43), 1686. <a href="https://doi.org/10.21105/joss.01686" class="external-link">https://doi.org/10.21105/joss.01686</a></p>
+<div id="ref-tidyverse" class="csl-entry">
+Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., … Yutani, H. (2019). Welcome to the <span class="nocase">tidyverse</span>. <em>Journal of Open Source Software</em>, <em>4</em>(43), 1686. <a href="https://doi.org/10.21105/joss.01686" class="external-link">https://doi.org/10.21105/joss.01686</a>
 </div>
 </div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
+    <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by <a href="https://meghapsimatrix.com" class="external-link external-link">Megha Joshi</a>, <a href="https://www.jepusto.com/" class="external-link external-link">James Pustejovsky</a>.</p>
+<p>Developed by <a href="https://meghapsimatrix.com/" class="external-link">Megha Joshi</a>, <a href="https://www.jepusto.com/" class="external-link">James Pustejovsky</a>.</p>
 </div>
 
-<div class="pkgdown">
+<div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9001.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
-  docsearch({
-    
-    
-    apiKey: 'f4d0d6658ae25a0f79f8db12ee660be0',
-    indexName: 'simhelpers',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
-    }
-  });
-</script>
-</body>
+
+  
+
+  </body>
 </html>
