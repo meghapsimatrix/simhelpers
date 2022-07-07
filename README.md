@@ -5,10 +5,14 @@
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/meghapsimatrix/simhelpers/workflows/R-CMD-check/badge.svg)](https://github.com/meghapsimatrix/simhelpers/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/meghapsimatrix/simhelpers/branch/master/graph/badge.svg)](https://codecov.io/gh/meghapsimatrix/simhelpers?branch=master)
 [![CRAN
 Status](https://www.r-pkg.org/badges/version/simhelpers)](https://cran.r-project.org/package=simhelpers)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/simhelpers)](https://CRAN.R-project.org/package=simhelpers)
+[![](http://cranlogs.r-pkg.org/badges/last-month/simhelpers)](https://CRAN.R-project.org/package=simhelpers)
+<!-- badges: end -->
 
 Monte Carlo simulations are computer experiments designed to study the
 performance of statistical methods under known data-generating
