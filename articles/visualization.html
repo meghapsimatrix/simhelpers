@@ -8,8 +8,8 @@
 <meta name="description" content="simhelpers">
 <title>Presenting Results from Simulation Studies • simhelpers</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Presenting Results from Simulation Studies">
 <meta property="og:description" content="simhelpers">
@@ -75,7 +75,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Presenting Results from Simulation Studies</h1>
             
-            <h4 data-toc-skip class="date">2022-07-07</h4>
+            <h4 data-toc-skip class="date">2022-11-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/meghapsimatrix/simhelpers/blob/HEAD/vignettes/visualization.Rmd" class="external-link"><code>vignettes/visualization.Rmd</code></a></small>
       <div class="d-none name"><code>visualization.Rmd</code></div>
@@ -86,14 +86,66 @@
 <div class="section level3">
 <h3 id="introduction-to-tipton-pustejovsky-2015">Introduction to Tipton &amp; Pustejovsky (2015)<a class="anchor" aria-label="anchor" href="#introduction-to-tipton-pustejovsky-2015"></a>
 </h3>
-<p>In this vignette, we provide a brief example of how to present and report results from a simulation study. We replicate Figure 2 of <span class="citation">Tipton &amp; Pustejovsky (2015)</span>, which examined several small sample corrections for robust variance estimation methods as used in meta-analysis.</p>
-<p>Meta-analysis is a set of statistical tools for synthesizing results from multiple primary studies on a common topic. Three major goals of meta-analysis include summarizing the results across the studies using some form of an effect size measure, characterizing the amount of variation in effects, and explaining variation in effect sizes <span class="citation">(Hedges, Tipton, &amp; Johnson, 2010)</span>. Primary studies often report multiple estimates of effect sizes resulting from multiple correlated measures of an outcome, repeated measures of outcome data or the comparison of multiple treatment groups to the same control group <span class="citation">(Hedges et al., 2010)</span>. These scenarios result in statistical dependence between effect sizes from the same study. However, typical methods to conduct meta-analysis, such as averaging effect sizes or analyzing moderating effects with meta-regression, involve an assumption that each effect size is independent. Use of such methods that ignore dependence can result in inaccurate standard errors and therefore, hypothesis tests with incorrect Type 1 error rates and confidence intervals with incorrect coverage levels <span class="citation">(Becker, 2000)</span>.</p>
-<p>One alternative, using a multivariate model, explicitly models correlations among effect size estimates <span class="citation">(Hedges et al., 2010; Tipton, 2015)</span>. However, multivariate meta-analysis requires knowledge of correlations or covariances between pairs of effect sizes within each primary study which are often difficult to obtain <span class="citation">(Olkin &amp; Gleser, 2009)</span>. <span class="citation">Hedges et al. (2010)</span> proposed the use of robust variance estimation (RVE) to handle dependent effect sizes. RVE does not require knowledge of the covariance structure between effect sizes like multivariate analyses. Instead, RVE estimates the variances for the meta-regression model’s coefficients using sandwich estimators <span class="citation">(Hedges et al., 2010; Tipton, 2015)</span>. RVE is increasingly being used in applied meta-analyses <span class="citation">(Tipton, 2015)</span>. However, the performance characteristics of RVE are asymptotic in that it requires a large number of clusters (studies) to provide accurate standard errors <span class="citation">(Cameron, Gelbach, &amp; Miller, 2008; Tipton, 2015)</span>. If the number of studies in a meta-analysis is small, basic RVE can result in downwardly biased standard errors and inflation of Type 1 error rates <span class="citation">(Cameron et al., 2008; Hedges et al., 2010; Tipton, 2015)</span>. <span class="citation">Tipton (2015)</span> and <span class="citation">Tipton &amp; Pustejovsky (2015)</span> introduced small sample corrections for RVE for tests of single coefficients and for multiple contrast hypotheses, respectively. <span class="citation">Tipton &amp; Pustejovsky (2015)</span> studied five methods, two based on eigen decomposition and three based on Hotelling’s <span class="math inline">\(T^2\)</span> distribution. The authors recommended a method (AHZ) which approximates the test statistic using Hotelling’s <span class="math inline">\(T^2\)</span> distribution with degrees of freedom proposed by <span class="citation">Zhang (2012)</span> and <span class="citation">Zhang (2013)</span>. This method resulted in Type 1 error rates closest to the nominal rate of .05. However, AHZ was shown to still have below nominal Type 1 error rates for tests of multiple contrast hypotheses.</p>
+<p>In this vignette, we provide a brief example of how to present and
+report results from a simulation study. We replicate Figure 2 of <span class="citation">Tipton &amp; Pustejovsky (2015)</span>, which examined
+several small sample corrections for robust variance estimation methods
+as used in meta-analysis.</p>
+<p>Meta-analysis is a set of statistical tools for synthesizing results
+from multiple primary studies on a common topic. Three major goals of
+meta-analysis include summarizing the results across the studies using
+some form of an effect size measure, characterizing the amount of
+variation in effects, and explaining variation in effect sizes <span class="citation">(Hedges, Tipton, &amp; Johnson, 2010)</span>. Primary
+studies often report multiple estimates of effect sizes resulting from
+multiple correlated measures of an outcome, repeated measures of outcome
+data or the comparison of multiple treatment groups to the same control
+group <span class="citation">(Hedges et al., 2010)</span>. These
+scenarios result in statistical dependence between effect sizes from the
+same study. However, typical methods to conduct meta-analysis, such as
+averaging effect sizes or analyzing moderating effects with
+meta-regression, involve an assumption that each effect size is
+independent. Use of such methods that ignore dependence can result in
+inaccurate standard errors and therefore, hypothesis tests with
+incorrect Type 1 error rates and confidence intervals with incorrect
+coverage levels <span class="citation">(Becker, 2000)</span>.</p>
+<p>One alternative, using a multivariate model, explicitly models
+correlations among effect size estimates <span class="citation">(Hedges
+et al., 2010; Tipton, 2015)</span>. However, multivariate meta-analysis
+requires knowledge of correlations or covariances between pairs of
+effect sizes within each primary study which are often difficult to
+obtain <span class="citation">(Olkin &amp; Gleser, 2009)</span>. <span class="citation">Hedges et al. (2010)</span> proposed the use of robust
+variance estimation (RVE) to handle dependent effect sizes. RVE does not
+require knowledge of the covariance structure between effect sizes like
+multivariate analyses. Instead, RVE estimates the variances for the
+meta-regression model’s coefficients using sandwich estimators <span class="citation">(Hedges et al., 2010; Tipton, 2015)</span>. RVE is
+increasingly being used in applied meta-analyses <span class="citation">(Tipton, 2015)</span>. However, the performance
+characteristics of RVE are asymptotic in that it requires a large number
+of clusters (studies) to provide accurate standard errors <span class="citation">(Cameron, Gelbach, &amp; Miller, 2008; Tipton,
+2015)</span>. If the number of studies in a meta-analysis is small,
+basic RVE can result in downwardly biased standard errors and inflation
+of Type 1 error rates <span class="citation">(Cameron et al., 2008;
+Hedges et al., 2010; Tipton, 2015)</span>. <span class="citation">Tipton
+(2015)</span> and <span class="citation">Tipton &amp; Pustejovsky
+(2015)</span> introduced small sample corrections for RVE for tests of
+single coefficients and for multiple contrast hypotheses, respectively.
+<span class="citation">Tipton &amp; Pustejovsky (2015)</span> studied
+five methods, two based on eigen decomposition and three based on
+Hotelling’s <span class="math inline">\(T^2\)</span> distribution. The
+authors recommended a method (AHZ) which approximates the test statistic
+using Hotelling’s <span class="math inline">\(T^2\)</span> distribution
+with degrees of freedom proposed by <span class="citation">Zhang
+(2012)</span> and <span class="citation">Zhang (2013)</span>. This
+method resulted in Type 1 error rates closest to the nominal rate of
+.05. However, AHZ was shown to still have below nominal Type 1 error
+rates for tests of multiple contrast hypotheses.</p>
 </div>
 <div class="section level3">
 <h3 id="the-tipton_pusto-dataset">The Tipton_Pusto Dataset<a class="anchor" aria-label="anchor" href="#the-tipton_pusto-dataset"></a>
 </h3>
-<p>The <code>simphelpers</code> package includes a dataset, <code>Tipton_Pusto</code>, containing a subset of the simulation results from <span class="citation">Tipton &amp; Pustejovsky (2015)</span>. Specifically, the dataset contains results to replicate Figure 2 from the article.</p>
+<p>The <code>simphelpers</code> package includes a dataset,
+<code>Tipton_Pusto</code>, containing a subset of the simulation results
+from <span class="citation">Tipton &amp; Pustejovsky (2015)</span>.
+Specifically, the dataset contains results to replicate Figure 2 from
+the article.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://meghapsimatrix.github.io/simhelpers/index.html" class="external-link">simhelpers</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
@@ -103,21 +155,29 @@
 <p>The dataset contains:</p>
 <ul>
 <li>
-<code>num_studies</code>: number of studies contained in each meta-analysis used to generate the data.</li>
+<code>num_studies</code>: number of studies contained in each
+meta-analysis used to generate the data.</li>
 <li>
-<code>r</code>: the correlation between outcomes that result in dependence.</li>
+<code>r</code>: the correlation between outcomes that result in
+dependence.</li>
 <li>
 <code>Isq</code>: a measure of heterogeneity of true effects.</li>
 <li>
 <code>contrast</code>: type of contrast that was tested.</li>
 <li>
-<code>test</code>: small sample method used. EDF and EDT are the two methods using eigen decomposition and AHA, AHB and AHZ are the three methods based on Hotelling’s <span class="math inline">\(T^2\)</span> distribution.</li>
+<code>test</code>: small sample method used. EDF and EDT are the two
+methods using eigen decomposition and AHA, AHB and AHZ are the three
+methods based on Hotelling’s <span class="math inline">\(T^2\)</span>
+distribution.</li>
 <li>
-<code>q</code>: the number of parameters in the hypothesis test.</li>
+<code>q</code>: the number of parameters in the hypothesis
+test.</li>
 <li>
-<code>rej_rate</code>: Type 1 error rate with the value for nominal <span class="math inline">\(\alpha\)</span> set to .05.</li>
+<code>rej_rate</code>: Type 1 error rate with the value for nominal
+<span class="math inline">\(\alpha\)</span> set to .05.</li>
 <li>
-<code>mcse</code>: The Monte Carlo standard error for the Type 1 error rate.</li>
+<code>mcse</code>: The Monte Carlo standard error for the Type 1
+error rate.</li>
 </ul>
 <p>Here is a glimpse of the dataset:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -136,7 +196,10 @@
 <div class="section level3">
 <h3 id="data-cleaning">Data Cleaning<a class="anchor" aria-label="anchor" href="#data-cleaning"></a>
 </h3>
-<p>Below we clean the dataset for visualization. We add <code>q =</code> in front of the value for <span class="math inline">\(q\)</span> and we add <code>m =</code> in front of the value for the number of studies.</p>
+<p>Below we clean the dataset for visualization. We add <code>q =</code>
+in front of the value for <span class="math inline">\(q\)</span> and we
+add <code>m =</code> in front of the value for the number of
+studies.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Tipton_Pusto</span> <span class="op">&lt;-</span> <span class="va">Tipton_Pusto</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>q_graph <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"q = "</span>, <span class="va">q</span><span class="op">)</span>,</span>
@@ -145,7 +208,15 @@
 <div class="section level3">
 <h3 id="visualization">Visualization<a class="anchor" aria-label="anchor" href="#visualization"></a>
 </h3>
-<p>Below we graph the Type 1 error rates. The error rate is mapped onto the <code>y axis</code>, the small sample method is mapped onto the <code>x axis</code>, the method is also mapped as <code>color filling</code> so that different methods will have different colors. We add a dashed line on the nominal <span class="math inline">\(\alpha\)</span> level of .05. We create boxplots to capture the range of Type 1 error rates for each method across the conditions examined in the simulation. We facet by number of studies, <code>m</code>, and number of parameters used in the hypothesis test, <code>q</code>.</p>
+<p>Below we graph the Type 1 error rates. The error rate is mapped onto
+the <code>y axis</code>, the small sample method is mapped onto the
+<code>x axis</code>, the method is also mapped as
+<code>color filling</code> so that different methods will have different
+colors. We add a dashed line on the nominal <span class="math inline">\(\alpha\)</span> level of .05. We create boxplots
+to capture the range of Type 1 error rates for each method across the
+conditions examined in the simulation. We facet by number of studies,
+<code>m</code>, and number of parameters used in the hypothesis test,
+<code>q</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Tipton_Pusto</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">test</span>, y <span class="op">=</span> <span class="va">rej_rate</span>, fill <span class="op">=</span> <span class="va">test</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -163,16 +234,42 @@
 </h3>
 <p>Here is the write-up of the results from <span class="citation">Tipton &amp; Pustejovsky (2015)</span>:</p>
 <blockquote>
-<p>Figure 2 reveals several trends. First, Type I error for the EDF and EDT tests typically approach the nominal values from above, whereas the AHA, AHB, and AHZ tests approach the nominal values from below. This trend holds in relation to both <span class="math inline">\(m\)</span> and <span class="math inline">\(q\)</span>. For example, when there are 20 studies, as <span class="math inline">\(q\)</span> increases, the Type I error rates of the EDF and EDT tests increase to values far above nominal (close to .10), while the error rates decrease toward 0 for the AHA, AHB, and AHZ tests. For each value of <span class="math inline">\(q\)</span>, the error rates of all five tests converge toward the nominal values as the number of studies increases.</p>
+<p>Figure 2 reveals several trends. First, Type I error for the EDF and
+EDT tests typically approach the nominal values from above, whereas the
+AHA, AHB, and AHZ tests approach the nominal values from below. This
+trend holds in relation to both <span class="math inline">\(m\)</span>
+and <span class="math inline">\(q\)</span>. For example, when there are
+20 studies, as <span class="math inline">\(q\)</span> increases, the
+Type I error rates of the EDF and EDT tests increase to values far above
+nominal (close to .10), while the error rates decrease toward 0 for the
+AHA, AHB, and AHZ tests. For each value of <span class="math inline">\(q\)</span>, the error rates of all five tests
+converge toward the nominal values as the number of studies
+increases.</p>
 </blockquote>
 <blockquote>
-<p>Second, the EDF and EDT tests have Type I error rates that cover a wide range of values across the parameters and hypothesis specifications under study (as indicated by the long whiskers on each box). Because it is not possible to know a priori in which design condition a particular analysis will fall, it makes more sense to compare the maximum Type I error observed across tests. While the EDT and EDF tests have Type I error rates that are closest to nominal on average, they also exhibit error rates that are far above nominal under a large number of design conditions that cannot be identified a priori. In comparison, the AHA, AHB, and AHZ tests are typically more conservative and are also nearly always level-<span class="math inline">\(\alpha\)</span>, with a maximum error rate of 0.059 across all conditions studied. In describing further trends, we therefore focus only on the three AH tests.</p>
+<p>Second, the EDF and EDT tests have Type I error rates that cover a
+wide range of values across the parameters and hypothesis specifications
+under study (as indicated by the long whiskers on each box). Because it
+is not possible to know a priori in which design condition a particular
+analysis will fall, it makes more sense to compare the maximum Type I
+error observed across tests. While the EDT and EDF tests have Type I
+error rates that are closest to nominal on average, they also exhibit
+error rates that are far above nominal under a large number of design
+conditions that cannot be identified a priori. In comparison, the AHA,
+AHB, and AHZ tests are typically more conservative and are also nearly
+always level-<span class="math inline">\(\alpha\)</span>, with a maximum
+error rate of 0.059 across all conditions studied. In describing further
+trends, we therefore focus only on the three AH tests.</p>
 </blockquote>
 </div>
 <div class="section level3">
 <h3 id="monte-carlo-standard-error">Monte Carlo Standard Error<a class="anchor" aria-label="anchor" href="#monte-carlo-standard-error"></a>
 </h3>
-<p>Below we calculate the maximum Monte Carlo standard error (MCSE) for each of the methods presented in the graph above. Ideally, MCSE values should be relatively small compared to the estimated Type 1 error rates. Overall, the maximum MCSEs are small compared to the range of reported rejection rates.</p>
+<p>Below we calculate the maximum Monte Carlo standard error (MCSE) for
+each of the methods presented in the graph above. Ideally, MCSE values
+should be relatively small compared to the estimated Type 1 error rates.
+Overall, the maximum MCSEs are small compared to the range of reported
+rejection rates.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Tipton_Pusto</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">test</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -236,28 +333,49 @@ AHZ
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 <div id="ref-becker2000" class="csl-entry">
-Becker, B. J. (2000). Multivariate meta-analysis. In <em>Handbook of applied multivariate statistics and mathematical modeling</em> (pp. 499–525). Elsevier.
+Becker, B. J. (2000). Multivariate meta-analysis. In <em>Handbook of
+applied multivariate statistics and mathematical modeling</em> (pp.
+499–525). Elsevier.
 </div>
 <div id="ref-cameron" class="csl-entry">
-Cameron, A. C., Gelbach, J. B., &amp; Miller, D. L. (2008). Bootstrap-<span>Based</span> <span>Improvements</span> for <span>Inference</span> with <span>Clustered</span> <span>Errors</span>. <em>The Review of Economics and Statistics</em>, 47.
+Cameron, A. C., Gelbach, J. B., &amp; Miller, D. L. (2008).
+Bootstrap-<span>Based</span> <span>Improvements</span> for
+<span>Inference</span> with <span>Clustered</span> <span>Errors</span>.
+<em>The Review of Economics and Statistics</em>, 47.
 </div>
 <div id="ref-hedges_robust_2010" class="csl-entry">
-Hedges, L. V., Tipton, E., &amp; Johnson, M. C. (2010). Robust variance estimation in meta-regression with dependent effect size estimates. <em>Research Synthesis Methods</em>, <em>1</em>(1), 39–65. <a href="https://doi.org/10.1002/jrsm.5" class="external-link">https://doi.org/10.1002/jrsm.5</a>
+Hedges, L. V., Tipton, E., &amp; Johnson, M. C. (2010). Robust variance
+estimation in meta-regression with dependent effect size estimates.
+<em>Research Synthesis Methods</em>, <em>1</em>(1), 39–65. <a href="https://doi.org/10.1002/jrsm.5" class="external-link">https://doi.org/10.1002/jrsm.5</a>
 </div>
 <div id="ref-olkin2009" class="csl-entry">
-Olkin, I., &amp; Gleser, L. (2009). Stochastically dependent effect sizes. <em>The Handbook of Research Synthesis and Meta-Analysis</em>, 357–376.
+Olkin, I., &amp; Gleser, L. (2009). Stochastically dependent effect
+sizes. <em>The Handbook of Research Synthesis and Meta-Analysis</em>,
+357–376.
 </div>
 <div id="ref-tipton_small_2015" class="csl-entry">
-Tipton, E. (2015). Small sample adjustments for robust variance estimation with meta-regression. <em>Psychological Methods</em>, <em>20</em>(3), 375–393. <a href="https://doi.org/10.1037/met0000011" class="external-link">https://doi.org/10.1037/met0000011</a>
+Tipton, E. (2015). Small sample adjustments for robust variance
+estimation with meta-regression. <em>Psychological Methods</em>,
+<em>20</em>(3), 375–393. <a href="https://doi.org/10.1037/met0000011" class="external-link">https://doi.org/10.1037/met0000011</a>
 </div>
 <div id="ref-tipton_2015" class="csl-entry">
-Tipton, E., &amp; Pustejovsky, J. E. (2015). Small-<span>Sample</span> <span>Adjustments</span> for <span>Tests</span> of <span>Moderators</span> and <span>Model</span> <span>Fit</span> <span>Using</span> <span>Robust</span> <span>Variance</span> <span>Estimation</span> in <span>Meta</span>-<span>Regression</span>. <em>Journal of Educational and Behavioral Statistics</em>, <em>40</em>(6), 604–634. <a href="https://doi.org/10.3102/1076998615606099" class="external-link">https://doi.org/10.3102/1076998615606099</a>
+Tipton, E., &amp; Pustejovsky, J. E. (2015). Small-<span>Sample</span>
+<span>Adjustments</span> for <span>Tests</span> of
+<span>Moderators</span> and <span>Model</span> <span>Fit</span>
+<span>Using</span> <span>Robust</span> <span>Variance</span>
+<span>Estimation</span> in <span>Meta</span>-<span>Regression</span>.
+<em>Journal of Educational and Behavioral Statistics</em>,
+<em>40</em>(6), 604–634. <a href="https://doi.org/10.3102/1076998615606099" class="external-link">https://doi.org/10.3102/1076998615606099</a>
 </div>
 <div id="ref-zhang2012approximate" class="csl-entry">
-Zhang, J.-T. (2012). An approximate hotelling T2-test for heteroscedastic one-way MANOVA. <em>Open Journal of Statistics</em>, <em>2</em>(1), 1–11.
+Zhang, J.-T. (2012). An approximate hotelling T2-test for
+heteroscedastic one-way MANOVA. <em>Open Journal of Statistics</em>,
+<em>2</em>(1), 1–11.
 </div>
 <div id="ref-zhang2013tests" class="csl-entry">
-Zhang, J.-T. (2013). Tests of linear hypotheses in the ANOVA under heteroscedasticity. <em>International Journal of Advanced Statistics and Probability</em>, <em>1</em>(2), 9–24.
+Zhang, J.-T. (2013). Tests of linear hypotheses in the ANOVA under
+heteroscedasticity. <em>International Journal of Advanced Statistics and
+Probability</em>, <em>1</em>(2), 9–24.
 </div>
 </div>
 </div>
@@ -274,7 +392,7 @@ Zhang, J.-T. (2013). Tests of linear hypotheses in the ANOVA under heteroscedast
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>
