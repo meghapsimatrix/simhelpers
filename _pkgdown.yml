@@ -1,4 +1,5 @@
-url: https://pkgdown.r-lib.org/index.html
+url: https://meghapsimatrix.github.io/simhelpers/
+
 template:
   bootstrap: 5
   bootswatch: lux
