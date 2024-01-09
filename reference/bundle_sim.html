@@ -68,7 +68,8 @@
 <span>  f_summarize <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  reps_name <span class="op">=</span> <span class="st">"reps"</span>,</span>
 <span>  seed_name <span class="op">=</span> <span class="st">"seed"</span>,</span>
-<span>  summarize_opt_name <span class="op">=</span> <span class="st">"summarize"</span></span>
+<span>  summarize_opt_name <span class="op">=</span> <span class="st">"summarize"</span>,</span>
+<span>  row_bind_reps <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -107,6 +108,14 @@ default value of <code>TRUE</code>. Ignored if no <code>f_summarize</code> funct
 specified. Set to <code>NULL</code> to remove the argument from the simulation
 driver.</p></dd>
 
+
+<dt>row_bind_reps</dt>
+<dd><p>logical indicating whether to combine the simulation
+results into a data frame using <code><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind()</a></code>, with a default value of
+<code>TRUE</code>. If <code>FALSE</code>, then the function will return replications in
+a list and so <code>f_summarize</code> must be able to take a list as its first
+argument.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -136,25 +145,13 @@ driver.</p></dd>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/args.html" class="external-link">args</a></span><span class="op">(</span><span class="va">sim1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (reps, n, mean = 0, sd = 1, trim = 0, seed = NA_real_) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/body.html" class="external-link">body</a></span><span class="op">(</span><span class="va">sim1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     cl &lt;- match.call()</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     gen_cl &lt;- cl[c(1L, match(gen_arg_names, names(cl), 0L))]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     gen_cl[[1L]] &lt;- quote(f_generate)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     ana_cl &lt;- cl[c(1L, match(ana_arg_names[-1], names(cl), 0L))]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     ana_cl[[1L]] &lt;- quote(f_analyze)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     if (!is.na(seed)) {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         set.seed(seed)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     res &lt;- lapply(1:reps, function(x) {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         dat &lt;- eval(gen_cl)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         ana_cl[[ana_arg_names[1]]] &lt;- as.symbol("dat")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         eval(ana_cl)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     })</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     res &lt;- do.call(rbind, res)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     return(res)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-in"><span><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu">sim1</span><span class="op">(</span><span class="fl">24</span>, n <span class="op">=</span> <span class="fl">7</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span>, trim <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu">sim1</span><span class="op">(</span><span class="fl">4</span>, n <span class="op">=</span> <span class="fl">70</span>, mean <span class="op">=</span> <span class="fl">0.5</span>, sd <span class="op">=</span> <span class="fl">1</span>, trim <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">res1</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       y_bar</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.2677925</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.4822526</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.4946132</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.4975667</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># bundle data-generation, data-analysis, and performance summary functions</span></span></span>
 <span class="r-in"><span><span class="va">sim2</span> <span class="op">&lt;-</span> <span class="fu">bundle_sim</span><span class="op">(</span>f_generate <span class="op">=</span> <span class="va">f_G</span>, f_analyze <span class="op">=</span> <span class="va">f_A</span>, f_summarize <span class="op">=</span> <span class="va">f_S</span><span class="op">)</span></span></span>
@@ -162,32 +159,34 @@ driver.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (reps, n, mean = 0, sd = 1, trim = 0, calc_sd = FALSE, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     seed = NA_real_, summarize = TRUE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/body.html" class="external-link">body</a></span><span class="op">(</span><span class="va">sim2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     cl &lt;- match.call()</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     gen_cl &lt;- cl[c(1L, match(gen_arg_names, names(cl), 0L))]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     gen_cl[[1L]] &lt;- quote(f_generate)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     ana_cl &lt;- cl[c(1L, match(ana_arg_names[-1], names(cl), 0L))]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     ana_cl[[1L]] &lt;- quote(f_analyze)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     if (!is.na(seed)) {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         set.seed(seed)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     res &lt;- lapply(1:reps, function(x) {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         dat &lt;- eval(gen_cl)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         ana_cl[[ana_arg_names[1]]] &lt;- as.symbol("dat")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         eval(ana_cl)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     })</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     res &lt;- do.call(rbind, res)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     if (summarize) {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         sum_cl &lt;- cl[c(1L, match(sum_arg_names[-1], names(cl), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             0L))]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         sum_cl[[1L]] &lt;- quote(f_summarize)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         sum_cl[[sum_arg_names[1]]] &lt;- res</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         res &lt;- eval(sum_cl)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     return(res)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-in"><span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu">sim2</span><span class="op">(</span><span class="fl">24</span>, n <span class="op">=</span> <span class="fl">7</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span>, trim <span class="op">=</span> <span class="fl">0.2</span>, calc_sd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">res2</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 M        SD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y_bar -0.04388338 0.3842784</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># bundle data-generation and data-analysis functions, returning results as a list</span></span></span>
+<span class="r-in"><span><span class="va">sim3</span> <span class="op">&lt;-</span> <span class="fu">bundle_sim</span><span class="op">(</span>f_generate <span class="op">=</span> <span class="va">f_G</span>, f_analyze <span class="op">=</span> <span class="va">f_A</span>, row_bind_reps <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/args.html" class="external-link">args</a></span><span class="op">(</span><span class="va">sim3</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function (reps, n, mean = 0, sd = 1, trim = 0, seed = NA_real_) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-in"><span><span class="va">res3</span> <span class="op">&lt;-</span> <span class="fu">sim3</span><span class="op">(</span><span class="fl">4</span>, n <span class="op">=</span> <span class="fl">70</span>, mean <span class="op">=</span> <span class="fl">0.5</span>, sd <span class="op">=</span> <span class="fl">3</span>, trim <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">res3</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       y_bar</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.9563125</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       y_bar</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.1568702</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       y_bar</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.2537723</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       y_bar</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.8357041</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
