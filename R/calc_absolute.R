@@ -20,6 +20,8 @@
 #'
 #' @importFrom stats sd
 #' @importFrom stats var
+#' @importFrom magrittr "%>%"
+
 
 calc_absolute <- function(res_dat, estimates, true_param, perfm_criteria = c("bias", "variance", "mse", "rmse")){
 

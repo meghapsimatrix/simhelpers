@@ -27,8 +27,6 @@
 #'
 #' evaluate_by_row(df, rpois)
 #'
-#' @importFrom rlang .data
-#' @importFrom magrittr "%>%"
 
 evaluate_by_row <- function(params, sim_function, ...,
                             .progress = FALSE, .options = furrr::furrr_options(),
@@ -46,8 +44,7 @@ evaluate_by_row <- function(params, sim_function, ...,
 
   if (system_time) print(sys_tm, "\n")
 
-  params %>%
-    dplyr::mutate(.results = results_list) %>%
-    tidyr::unnest(.data$.results)
+  params$.results <- results_list
+  tidyr::unnest(params, cols = .results)
 
 }

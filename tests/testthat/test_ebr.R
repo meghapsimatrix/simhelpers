@@ -1,11 +1,3 @@
-library(testthat)
-library(simhelpers)
-library(dplyr)
-library(tibble)
-library(future)
-library(furrr)
-library(tidyr)
-
 df <- data.frame(
   a = 3:5,
   b= seq(8, 16, 4)
