@@ -75,7 +75,7 @@ test_that("bundle_sim() works with identity functions.", {
                      reps_name = "n_reps", seed_name = NULL)
   expect_identical(
     as.list(formals(sim3)),
-    c(n_reps = 1L, as.list(formals(f_G2)))
+    c(alist(n_reps = ), as.list(formals(f_G2)))
   )
 
   set.seed(20240108)
@@ -89,7 +89,7 @@ test_that("bundle_sim() works with identity functions.", {
                      reps_name = "n_reps", seed_name = ".s", summarize_opt_name = "evaluate")
   expect_identical(
     as.list(formals(sim4)),
-    c(n_reps = 1L, as.list(formals(f_G2)), .s = NA_real_, evaluate = TRUE)
+    c(alist(n_reps = ), as.list(formals(f_G2)), .s = NA_real_, evaluate = TRUE)
   )
 
   arg_list <- list(
