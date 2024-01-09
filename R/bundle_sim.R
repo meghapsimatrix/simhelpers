@@ -133,6 +133,8 @@ bundle_sim <- function(
     body(bundled_sim)[[10]] <- NULL
   } else if (is.null(summarize_opt_name)) {
     body(bundled_sim)[[10]] <- body(bundled_sim)[[8]][[3]]
+  } else {
+    body(bundled_sim)[[10]][[2]] <- as.symbol(summarize_opt_name)
   }
 
   # adjust seed_name
