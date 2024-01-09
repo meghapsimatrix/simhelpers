@@ -148,10 +148,10 @@ argument.</p></dd>
 <span class="r-in"><span><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu">sim1</span><span class="op">(</span><span class="fl">4</span>, n <span class="op">=</span> <span class="fl">70</span>, mean <span class="op">=</span> <span class="fl">0.5</span>, sd <span class="op">=</span> <span class="fl">1</span>, trim <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">res1</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       y_bar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.5945838</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.4254984</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.5678344</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.6264203</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.4015201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.2476903</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.4990847</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.6499656</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># bundle data-generation, data-analysis, and performance summary functions</span></span></span>
 <span class="r-in"><span><span class="va">sim2</span> <span class="op">&lt;-</span> <span class="fu">bundle_sim</span><span class="op">(</span>f_generate <span class="op">=</span> <span class="va">f_G</span>, f_analyze <span class="op">=</span> <span class="va">f_A</span>, f_summarize <span class="op">=</span> <span class="va">f_S</span><span class="op">)</span></span></span>
@@ -161,8 +161,8 @@ argument.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu">sim2</span><span class="op">(</span><span class="fl">24</span>, n <span class="op">=</span> <span class="fl">7</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span>, trim <span class="op">=</span> <span class="fl">0.2</span>, calc_sd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">res2</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                M        SD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y_bar 0.07314343 0.4063947</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               M        SD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y_bar 0.1275911 0.4796688</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># bundle data-generation and data-analysis functions, returning results as a list</span></span></span>
 <span class="r-in"><span><span class="va">sim3</span> <span class="op">&lt;-</span> <span class="fu">bundle_sim</span><span class="op">(</span>f_generate <span class="op">=</span> <span class="va">f_G</span>, f_analyze <span class="op">=</span> <span class="va">f_A</span>, row_bind_reps <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
@@ -172,20 +172,20 @@ argument.</p></dd>
 <span class="r-in"><span><span class="va">res3</span> <span class="op">&lt;-</span> <span class="fu">sim3</span><span class="op">(</span><span class="fl">4</span>, n <span class="op">=</span> <span class="fl">70</span>, mean <span class="op">=</span> <span class="fl">0.5</span>, sd <span class="op">=</span> <span class="fl">3</span>, trim <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">res3</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       y_bar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.1754143</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      y_bar</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.043123</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      y_bar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.822984</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       y_bar</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.2288586</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       y_bar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.3615843</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        y_bar</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -0.6775042</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[4]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      y_bar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.930027</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.580009</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
