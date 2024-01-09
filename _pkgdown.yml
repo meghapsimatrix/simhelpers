@@ -25,6 +25,7 @@ reference:
     desc: "Functions for setting up simulation workflow"
     contents:
       - create_skeleton
+      - bundle_sim
       - evaluate_by_row
   - title: "Example Datasets"
     desc: "Example datasets from simulation studies"
