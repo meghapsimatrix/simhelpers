@@ -1,66 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/404.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/404.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/articles/MCSE.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/articles/MCSE.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/articles/index.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/articles/simulation_workflow.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/articles/simulation_workflow.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/articles/visualization.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/articles/visualization.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/authors.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/authors.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/index.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/index.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/news/index.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/news/index.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/reference/Tipton_Pusto.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/reference/Tipton_Pusto.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/reference/alpha_res.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/reference/alpha_res.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/reference/bundle_sim.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/reference/bundle_sim.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/reference/calc_absolute.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/reference/calc_absolute.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/reference/calc_coverage.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/reference/calc_coverage.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/reference/calc_rejection.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/reference/calc_rejection.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/reference/calc_relative.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/reference/calc_relative.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/reference/calc_relative_var.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/reference/calc_relative_var.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/reference/create_skeleton.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/reference/create_skeleton.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/reference/evaluate_by_row.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/reference/evaluate_by_row.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/reference/index.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/reference/t_res.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/reference/t_res.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html/reference/welch_res.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/reference/welch_res.html</loc>
   </url>
 </urlset>
