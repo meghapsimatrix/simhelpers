@@ -19,6 +19,11 @@
 #'   default value of \code{TRUE}. Ignored if no \code{f_summarize} function is
 #'   specified. Set to \code{NULL} to remove the argument from the simulation
 #'   driver.
+#' @param row_bind_reps logical indicating whether to combine the simulation
+#'   results into a data frame using \code{rbind()}, with a default value of
+#'   \code{TRUE}. If \code{FALSE}, then the function will return replications in
+#'   a list and so \code{f_summarize} must be able to take a list as its first
+#'   argument.
 #'
 #' @return A function to repeatedly run the `f_generate` and `f_analyze`
 #'   functions and (optionally) apply `f_summarize` to the resulting
@@ -42,14 +47,20 @@
 #' # bundle data-generation and data-analysis functions
 #' sim1 <- bundle_sim(f_generate = f_G, f_analyze = f_A)
 #' args(sim1)
-#' body(sim1)
-#' res1 <- sim1(24, n = 7, mean = 0, sd = 1, trim = 0.2)
+#' res1 <- sim1(4, n = 70, mean = 0.5, sd = 1, trim = 0.2)
+#' res1
 #'
 #' # bundle data-generation, data-analysis, and performance summary functions
 #' sim2 <- bundle_sim(f_generate = f_G, f_analyze = f_A, f_summarize = f_S)
 #' args(sim2)
-#' body(sim2)
 #' res2 <- sim2(24, n = 7, mean = 0, sd = 1, trim = 0.2, calc_sd = TRUE)
+#' res2
+#'
+#' # bundle data-generation and data-analysis functions, returning results as a list
+#' sim3 <- bundle_sim(f_generate = f_G, f_analyze = f_A, row_bind_reps = FALSE)
+#' args(sim3)
+#' res3 <- sim3(4, n = 70, mean = 0.5, sd = 3, trim = 0.2)
+#' res3
 #'
 
 bundle_sim <- function(
@@ -58,7 +69,8 @@ bundle_sim <- function(
     f_summarize = NULL,         # optional performance summary function
     reps_name = "reps",         # argument name for number of replications
     seed_name = "seed",               # name for seed argument
-    summarize_opt_name = "summarize"  # name for optional summarize argument
+    summarize_opt_name = "summarize", # name for optional summarize argument
+    row_bind_reps = TRUE              # whether to combine replications using rbind
 ) {
 
   # Get component arguments and argument names
@@ -153,6 +165,7 @@ bundle_sim <- function(
     gen_cl[[1L]] <- quote(f_generate)
     ana_cl <- cl[c(1L, match(ana_arg_names[-1], names(cl), 0L))]
     ana_cl[[1L]] <- quote(f_analyze)
+    ana_cl[[ana_arg_names[1]]] <- as.symbol("dat")
 
     if (!is.na(seed)) {
       set.seed(seed)
@@ -160,7 +173,6 @@ bundle_sim <- function(
 
     res <- lapply(1:reps, function(x) {
       dat <- eval(gen_cl)
-      ana_cl[[ana_arg_names[1]]] <- as.symbol("dat")
       eval(ana_cl)
     })
 
@@ -179,23 +191,28 @@ bundle_sim <- function(
   formals(bundled_sim) <- full_args
 
   # adjust reps_name
-  body(bundled_sim)[[8]][[3]][[2]][[3]] <- as.symbol(reps_name)
+  body(bundled_sim)[[9]][[3]][[2]][[3]] <- as.symbol(reps_name)
 
   # adjust summarize_opt_name
   if (is.null(f_summarize)) {
-    body(bundled_sim)[[10]] <- NULL
+    body(bundled_sim)[[11]] <- NULL
   } else if (is.null(summarize_opt_name)) {
-    body(bundled_sim)[[10]] <- body(bundled_sim)[[8]][[3]]
+    body(bundled_sim)[[11]] <- body(bundled_sim)[[11]][[3]]
   } else {
-    body(bundled_sim)[[10]][[2]] <- as.symbol(summarize_opt_name)
+    body(bundled_sim)[[11]][[2]] <- as.symbol(summarize_opt_name)
+  }
+
+  # adjust row binding
+  if (!row_bind_reps) {
+    body(bundled_sim)[[10]] <- NULL
   }
 
   # adjust seed_name
   if (is.null(seed_name)) {
-    body(bundled_sim)[[7]] <- NULL
+    body(bundled_sim)[[8]] <- NULL
   } else {
-    body(bundled_sim)[[7]][[2]][[2]][[2]] <- as.symbol(seed_name)
-    body(bundled_sim)[[7]][[3]][[2]][[2]] <- as.symbol(seed_name)
+    body(bundled_sim)[[8]][[2]][[2]][[2]] <- as.symbol(seed_name)
+    body(bundled_sim)[[8]][[3]][[2]][[2]] <- as.symbol(seed_name)
   }
 
   return(bundled_sim)

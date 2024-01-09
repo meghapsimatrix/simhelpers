@@ -10,7 +10,8 @@ bundle_sim(
   f_summarize = NULL,
   reps_name = "reps",
   seed_name = "seed",
-  summarize_opt_name = "summarize"
+  summarize_opt_name = "summarize",
+  row_bind_reps = TRUE
 )
 }
 \arguments{
@@ -35,6 +36,12 @@ for where to apply \code{f_summarize} to the simulation results, with a
 default value of \code{TRUE}. Ignored if no \code{f_summarize} function is
 specified. Set to \code{NULL} to remove the argument from the simulation
 driver.}
+
+\item{row_bind_reps}{logical indicating whether to combine the simulation
+results into a data frame using \code{rbind()}, with a default value of
+\code{TRUE}. If \code{FALSE}, then the function will return replications in
+a list and so \code{f_summarize} must be able to take a list as its first
+argument.}
 }
 \value{
 A function to repeatedly run the `f_generate` and `f_analyze`
@@ -61,13 +68,19 @@ f_S <- function(x, calc_sd = FALSE) {
 # bundle data-generation and data-analysis functions
 sim1 <- bundle_sim(f_generate = f_G, f_analyze = f_A)
 args(sim1)
-body(sim1)
-res1 <- sim1(24, n = 7, mean = 0, sd = 1, trim = 0.2)
+res1 <- sim1(4, n = 70, mean = 0.5, sd = 1, trim = 0.2)
+res1
 
 # bundle data-generation, data-analysis, and performance summary functions
 sim2 <- bundle_sim(f_generate = f_G, f_analyze = f_A, f_summarize = f_S)
 args(sim2)
-body(sim2)
 res2 <- sim2(24, n = 7, mean = 0, sd = 1, trim = 0.2, calc_sd = TRUE)
+res2
+
+# bundle data-generation and data-analysis functions, returning results as a list
+sim3 <- bundle_sim(f_generate = f_G, f_analyze = f_A, row_bind_reps = FALSE)
+args(sim3)
+res3 <- sim3(4, n = 70, mean = 0.5, sd = 3, trim = 0.2)
+res3
 
 }
