@@ -8,6 +8,7 @@ evaluate_by_row(
   params,
   sim_function,
   ...,
+  results_name = ".results",
   .progress = FALSE,
   .options = furrr::furrr_options(),
   system_time = TRUE
@@ -22,6 +23,8 @@ the variable names in \code{params}. The function must return a
 \code{data.frame}, \code{tibble}, or vector.}
 
 \item{...}{additional arguments passed to \code{sim_function}.}
+
+\item{results_name}{character string to set the name of the column storing the results of the simulation. Default is \code{".results"}.}
 
 \item{.progress}{A single logical. Should a progress bar be displayed?
 Only works with multisession, multicore, and multiprocess futures. Note
