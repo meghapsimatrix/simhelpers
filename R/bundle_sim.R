@@ -136,26 +136,42 @@ bundle_sim <- function(
   }
 
   # compile all arguments
-  full_args <- stats::setNames(alist(reps = ), reps_name)
-  for (i in gen_arg_names) {
-    full_args[[i]] <- gen_args[[i]]
-  }
+  # full_args <- stats::setNames(alist(reps = ), reps_name)
+  # for (i in gen_arg_names) {
+  #   full_args[[i]] <- gen_args[[i]]
+  # }
+  # extra_ana_args <- setdiff(ana_arg_names[-1], gen_arg_names)
+  # for (i in extra_ana_args) {
+  #   full_args[[i]] <- ana_args[[i]]
+  # }
+  # if (!is.null(f_summarize)) {
+  #   extra_sum_args <- setdiff(sum_arg_names[-1], names(full_args))
+  #   for (i in extra_sum_args) {
+  #     full_args[[i]] <- sum_args[[i]]
+  #   }
+  # }
+  # if (!is.null(seed_name)) {
+  #   full_args[[seed_name]] <- NA_integer_
+  # }
+  # if (!is.null(f_summarize) && !is.null(summarize_opt_name)) {
+  #   full_args[[summarize_opt_name]] <- TRUE
+  # }
+
+  front_arg <- stats::setNames(alist(reps = ), reps_name)
   extra_ana_args <- setdiff(ana_arg_names[-1], gen_arg_names)
-  for (i in extra_ana_args) {
-    full_args[[i]] <- ana_args[[i]]
-  }
-  if (!is.null(f_summarize)) {
-    extra_sum_args <- setdiff(sum_arg_names[-1], names(full_args))
-    for (i in extra_sum_args) {
-      full_args[[i]] <- sum_args[[i]]
-    }
+  if (is.null(f_summarize)) {
+    full_args <- c(front_arg, gen_args, ana_args[extra_ana_args])
+  } else {
+    extra_sum_args <- setdiff(sum_arg_names[-1], c(names(front_arg), names(gen_args), extra_ana_args))
+    full_args <- c(front_arg, gen_args, ana_args[extra_ana_args], sum_args[extra_sum_args])
   }
   if (!is.null(seed_name)) {
-    full_args[[seed_name]] <- NA_real_
+    full_args[[seed_name]] <- NA_integer_
   }
   if (!is.null(f_summarize) && !is.null(summarize_opt_name)) {
     full_args[[summarize_opt_name]] <- TRUE
   }
+  full_args <- as.pairlist(full_args)
 
   # Build iteration function
 

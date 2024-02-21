@@ -178,6 +178,7 @@ test_that("bundle_sim() works with identity functions.", {
 
 })
 
+
 f_A2 <- function(x, trim) data.frame(y_bar = mean(x, trim = trim))
 
 f_S2 <- function(x, calc_sd) {
@@ -322,5 +323,100 @@ test_that("bundle_sim throws errors as expected.", {
     bundle_sim(f_generate = f_G1, f_analyze = f_A1, f_summarize = f_S1, summarize_opt_name = "calc_sd"),
     "cannot be used as an argument name in `f_generate`, `f_analyze`, or `f_summarize`"
   )
+
+})
+
+
+f_G3 <- function(N, p, df, rho, Rsq = NULL) {
+  X <- matrix(rnorm(N*p), N, p)
+  dat <- as.data.frame(X)
+  y_var <- if (!is.null(Rsq)) var(rowSums(X)) * (1 - Rsq) / Rsq else 1L
+  dat$Y <- rowSums(X) + sqrt(y_var) * rt(N, df = df)
+  dat
+}
+
+f_A3 <- function(x, trim = 0, show = NULL) if (!is.null(show)) data.frame(y_bar = mean(x, trim = trim)) else "peekaboo!"
+
+f_A4 <- f_A3
+formals(f_A4)$show <- NA
+
+f_S4 <- function(x, calc_sd = FALSE, f = NULL) {
+  if (calc_sd) {
+    res_SD <- apply(x, 2, sd)
+    res <- data.frame(M = colMeans(x), SD = res_SD)
+  } else {
+    res <- data.frame(M = colMeans(x))
+  }
+  if (!is.null(f)) {
+    res$f <- apply(x, 2, f)
+  }
+  res
+}
+
+test_that("bundle_sim() works with functions that have defaults of NULL.", {
+
+  sim11 <- bundle_sim(f_generate = f_G1, f_analyze = f_A3, seed_name = NULL)
+  args_A <- formals(sim11)
+  args_B <- c(alist(reps = ), formals(f_G1), formals(f_A3)[-1])
+  expect_identical(as.list(args_A), args_B)
+  setdiff(names(args_B), names(args_A))
+
+  sim12 <- bundle_sim(f_generate = f_G1, f_analyze = f_A4, seed_name = NULL)
+  args_A <- formals(sim12)
+  args_B <- c(alist(reps = ), formals(f_G1), formals(f_A4)[-1])
+  expect_identical(as.list(args_A), args_B)
+  setdiff(names(args_B), names(args_A))
+
+  sim13 <- bundle_sim(f_generate = f_G3, f_analyze = f_A3, seed_name = NULL)
+  args_A <- formals(sim13)
+  args_B <- c(alist(reps = ), formals(f_G3), formals(f_A3)[-1])
+  expect_identical(as.list(args_A), args_B)
+  setdiff(names(args_B), names(args_A))
+
+  sim14 <- bundle_sim(f_generate = f_G3, f_analyze = f_A4, seed_name = NULL)
+  args_A <- formals(sim14)
+  args_B <- c(alist(reps = ), formals(f_G3), formals(f_A4)[-1])
+  expect_identical(as.list(args_A), args_B)
+  setdiff(names(args_B), names(args_A))
+
+  args_A <- bundle_sim(f_generate = f_G1, f_analyze = f_A3, f_summarize = f_S4) |> formals()
+  args_B <- c(alist(reps = ), formals(f_G1), formals(f_A3)[-1], formals(f_S4)[-1], alist(seed = NA, summarize = TRUE))
+  expect_identical(as.list(args_A), args_B)
+  setdiff(names(args_B), names(args_A))
+
+  args_A <- bundle_sim(f_generate = f_G1, f_analyze = f_A3, f_summarize = f_S1) |> formals()
+  args_B <- c(alist(reps = ), formals(f_G1), formals(f_A3)[-1], formals(f_S1)[-1], alist(seed = NA_integer_, summarize = TRUE))
+  expect_identical(as.list(args_A), args_B)
+  setdiff(names(args_B), names(args_A))
+
+  args_A <- bundle_sim(f_generate = f_G3, f_analyze = f_A3, f_summarize = f_S4) |> formals()
+  args_B <- c(alist(reps = ), formals(f_G3), formals(f_A3)[-1], formals(f_S4)[-1], alist(seed = NA, summarize = TRUE))
+  expect_identical(as.list(args_A), args_B)
+  setdiff(names(args_B), names(args_A))
+
+  args_A <- bundle_sim(f_generate = f_G3, f_analyze = f_A3, f_summarize = f_S1) |> formals()
+  args_B <- c(alist(reps = ), formals(f_G3), formals(f_A3)[-1], formals(f_S1)[-1], alist(seed = NA_integer_, summarize = TRUE))
+  expect_identical(as.list(args_A), args_B)
+  setdiff(names(args_B), names(args_A))
+
+  args_A <- bundle_sim(f_generate = f_G1, f_analyze = f_A4, f_summarize = f_S4) |> formals()
+  args_B <- c(alist(reps = ), formals(f_G1), formals(f_A4)[-1], formals(f_S4)[-1], alist(seed = NA, summarize = TRUE))
+  expect_identical(as.list(args_A), args_B)
+  setdiff(names(args_B), names(args_A))
+
+  args_A <- bundle_sim(f_generate = f_G1, f_analyze = f_A4, f_summarize = f_S1) |> formals()
+  args_B <- c(alist(reps = ), formals(f_G1), formals(f_A4)[-1], formals(f_S1)[-1], alist(seed = NA_integer_, summarize = TRUE))
+  expect_identical(as.list(args_A), args_B)
+  setdiff(names(args_B), names(args_A))
+
+  args_A <- bundle_sim(f_generate = f_G3, f_analyze = f_A4, f_summarize = f_S4) |> formals()
+  args_B <- c(alist(reps = ), formals(f_G3), formals(f_A4)[-1], formals(f_S4)[-1], alist(seed = NA, summarize = TRUE))
+  expect_identical(as.list(args_A), args_B)
+  setdiff(names(args_B), names(args_A))
+
+  args_A <- bundle_sim(f_generate = f_G3, f_analyze = f_A4, f_summarize = f_S1) |> formals()
+  args_B <- c(alist(reps = ), formals(f_G3), formals(f_A4)[-1], formals(f_S1)[-1], alist(seed = NA_integer_, summarize = TRUE))
+  expect_identical(as.list(args_A), args_B)
+  setdiff(names(args_B), names(args_A))
 
 })
