@@ -81,10 +81,13 @@ test_that("check K", {
 
 
 test_that("check the performance measures", {
-  expect_equal(calc_absolute(dat_abs, x, true_param, perfm_criteria = "bias") %>% pull(bias), mean(dat_abs$x) - t_p)
-  expect_equal(calc_absolute(dat_abs, x, true_param, perfm_criteria = "variance") %>% pull(var), var(dat_abs$x))
-  expect_equal(calc_absolute(dat_abs, x, true_param, perfm_criteria = "mse") %>% pull(mse), mean((dat_abs$x - t_p)^2))
-  expect_equal(calc_absolute(dat_abs, x, true_param, perfm_criteria = "rmse") %>% pull(rmse), sqrt(mean((dat_abs$x - t_p)^2)))
+
+  abs_res <- calc_absolute(dat_abs, x, true_param, criteria = "bias")
+  expect_equal(abs_res %>% pull(bias), mean(dat_abs$x) - t_p)
+  expect_equal(abs_res %>% pull(var), var(dat_abs$x))
+  expect_equal(abs_res %>% pull(mse), mean((dat_abs$x - t_p)^2))
+  expect_equal(abs_res %>% pull(rmse), sqrt(mean((dat_abs$x - t_p)^2)))
+
   expect_equal(calc_relative(dat_abs, x, true_param, perfm_criteria = "relative bias") %>% pull(rel_bias), mean(dat_abs$x)/t_p)
   expect_equal(calc_relative(dat_abs, x, true_param, perfm_criteria = "relative mse") %>% pull(rel_mse), (mean(dat_abs$x - t_p)^2 + var(dat_abs$x))/ t_p^2)
   expect_equal(calc_relative(dat_abs, x, true_param, perfm_criteria = "relative rmse") %>% pull(rel_rmse), sqrt((mean(dat_abs$x - t_p)^2 + var(dat_abs$x))/ t_p^2))
@@ -114,7 +117,6 @@ test_that("check perfm var jk", {
   expect_equal(calc_relative_var(alpha_res, A, Var_A, perfm_criteria = "relative mse") %>% pull(rel_mse_var), ((v_bar - s_sq_t)^2 + s_sq_v)/ s_sq_t^2)
   expect_equal(calc_relative_var(alpha_res, A, Var_A, perfm_criteria = "relative rmse") %>% pull(rel_rmse_var), sqrt(((v_bar - s_sq_t)^2 + s_sq_v)/ s_sq_t^2))
 })
-
 
 test_that("check mcse var jk", {
   expect_equal(calc_relative_var(alpha_res, A, Var_A, perfm_criteria = "relative bias") %>% pull(rel_bias_var_mcse), sqrt(((K_alpha - 1)/K_alpha)  * sum((v_bar_j/s_sq_t_j_alpha - v_bar/s_sq_t)^2)))
