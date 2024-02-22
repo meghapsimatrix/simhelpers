@@ -1,3 +1,6 @@
+skip_if_not_installed("dplyr")
+skip_if_not_installed("tidyr")
+
 library(dplyr)
 library(tidyr)
 

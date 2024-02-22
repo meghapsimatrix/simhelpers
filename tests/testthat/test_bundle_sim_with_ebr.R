@@ -1,5 +1,10 @@
+skip_if_not_installed("dplyr")
+skip_if_not_installed("tidyr")
+skip_if_not_installed("purrr")
+
 library(dplyr)
 library(tidyr)
+library(purrr)
 
 generate_chisq_samples <- function(nA, nB, mu_A, mu_B) {
 
@@ -87,7 +92,7 @@ params <-
   expand_grid(!!!design_factors) %>%
   mutate(
     mu_B = mu_A,
-    reps = 5,
+    reps = 15,
   )
 
 test_that("bundle_sim functions work with pmap().", {
@@ -96,37 +101,49 @@ test_that("bundle_sim functions work with pmap().", {
   res_run_sim <- pmap_dfr(params, run_sim)
 
   set.seed(20240221)
-  pmap_dfr(params, .f = simmer_A)
-  expect_identical(res_run_sim, res_simmer_A)
+  res_simmer_A <-
+    params %>%
+    mutate(
+      res = pmap(., .f = simmer_A),
+      res = map(res, eval_t_tests)
+    ) %>%
+    unnest(res)
+
+  expect_identical(
+    res_run_sim,
+    select(res_simmer_A, transform, rate_05, rate_10)
+  )
 
   set.seed(20240221)
-  pmap_dfr(params, .f = simmer_B)
+  res_simmer_B <- pmap_dfr(params, .f = simmer_B)
   expect_identical(res_run_sim, res_simmer_B)
 
 })
 
 test_that("bundle_sim functions work with evaluate_by_row().", {
 
-  set.seed(20240223)
+  params$seed <- 20240222 + 1:nrow(params)
+
   res_run_sim <-
     evaluate_by_row(
       params, run_sim,
-      .options = furrr::furrr_options(seed = TRUE)
+      .options = furrr::furrr_options(seed = NULL)
     )
 
-  set.seed(20240223)
   res_simmer_A <-
     evaluate_by_row(
       params, simmer_A,
-      .options = furrr::furrr_options(seed = TRUE)
-    )
+      .options = furrr::furrr_options(seed = NULL)
+    ) %>%
+    group_by(mu_A, nA, nB, mu_B, reps, seed) %>%
+    group_modify(~ eval_t_tests(.)) %>%
+    ungroup()
   expect_identical(res_run_sim, res_simmer_A)
 
-  set.seed(20240223)
   res_simmer_B <-
     evaluate_by_row(
       params, simmer_B,
-      .options = furrr::furrr_options(seed = TRUE)
+      .options = furrr::furrr_options(seed = NULL)
     )
   expect_identical(res_run_sim, res_simmer_B)
 

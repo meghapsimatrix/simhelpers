@@ -1,9 +1,6 @@
-library(testthat)
-library(simhelpers)
+skip_if_not_installed("dplyr")
+skip_if_not_installed("tidyr")
 library(dplyr)
-library(tibble)
-library(future)
-library(furrr)
 library(tidyr)
 
 
