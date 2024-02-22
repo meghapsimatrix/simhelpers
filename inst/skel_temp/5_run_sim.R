@@ -1,3 +1,4 @@
+library(tidyverse)
 library(simhelpers)
 # ...
 
@@ -20,7 +21,7 @@ set.seed(20150316) # change this seed value!
 design_factors <- list(factor1 = , factor2 = , ...) # combine into a design set
 
 params <-
-  cross_df(design_factors) %>%
+  expand_grid(!!!design_factors) %>%
   mutate(
     iterations = 1000, # change this to how many ever iterations
     seed = round(runif(1) * 2^30) + 1:n()

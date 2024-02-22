@@ -275,11 +275,10 @@ run_sim <- function(iterations, model_params, design_params, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
 
   results <-
-    rerun(iterations, {
+    map_dfr(1:iterations, ~ {
       dat <- generate_dat(model_params)
       estimate(dat, design_params)
-    }) %>%
-    bind_rows()
+    })
 
   calc_performance(results, model_params)
 }
@@ -292,11 +291,10 @@ run_sim <- function(iterations, n1, n2, mean_diff, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
 
   results <-
-    rerun(iterations, {
+    map_dfr(1:iterations, ~ {
       dat <- generate_dat(n1 = n1, n2 = n2, mean_diff = mean_diff)
       estimate(dat = dat, n1 = n1, n2 = n2)
-    }) %>%
-    bind_rows()
+    })
   
   calc_performance(results)
 
@@ -307,7 +305,7 @@ run_sim <- function(iterations, n1, n2, mean_diff, seed = NULL) {
 
 ## Experimental Design Revisit
 
-Now that we have all our functions in order, we can specify the exact factors we want to manipulate in the study. The following code chunk creates a list of design factors and uses the [`cross_df()`](https://purrr.tidyverse.org/reference/cross.html) function from [`purrr`](https://purrr.tidyverse.org/) package to create every combination of the factor levels. We also set the number of iterations and the seed that will be used when generating data [@tidyverse].  
+Now that we have all our functions in order, we can specify the exact factors we want to manipulate in the study. The following code chunk creates a list of design factors and uses the [`expand_grid()`](https://tidyr.tidyverse.org/reference/expand_grid.html) function from [`tidyr`](https://tidyr.tidyverse.org/) package to create every combination of the factor levels. We also set the number of iterations and the seed that will be used when generating data [@tidyverse].  
 
 
 ```{r, eval = FALSE}
@@ -318,7 +316,7 @@ set.seed(20150316) # change this seed value!
 design_factors <- list(factor1 = , factor2 = , ...) # combine into a design set
 
 params <-
-  cross_df(design_factors) %>%
+  tidyr::expand_grid(!!!design_factors) %>%
   mutate(
     iterations = 1000,  # change this to how many ever iterations  
     seed = round(runif(1) * 2^30) + 1:n()
@@ -343,7 +341,7 @@ design_factors <- list(
   mean_diff = c(0, .5, 1, 2)
 )
 params <-
-  cross_df(design_factors) %>%
+  tidyr::expand_grid(!!!design_factors) %>%
   mutate(
     iterations = 1000,
     seed = round(runif(1) * 2^30) + 1:n()
@@ -399,7 +397,6 @@ system.time(
 )
 
 ```
-
 
 In the `simhelpers` package, we have a function, `evaluate_by_row()`, that implements this `furrr` workflow automatically: 
 

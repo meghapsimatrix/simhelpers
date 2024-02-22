@@ -51,11 +51,10 @@ run_sim <- function(iterations, model_params, design_params, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
 
   results <-
-    rerun(iterations, {
+    map_dfr(1:iterations, ~ {
       dat <- generate_dat(model_params)
       estimate(dat, design_params)
-    }) %>%
-    bind_rows()
+    })
 
   calc_performance(results, model_params)
 }
@@ -65,6 +64,7 @@ run_sim <- function(iterations, model_params, design_params, seed = NULL) {
 #-------------------------------------
 # Experimental Design
 #-------------------------------------
+library(tidyverse)
 set.seed(20150316) # change this seed value!
 
 # now express the simulation parameters as vectors/lists
@@ -72,7 +72,7 @@ set.seed(20150316) # change this seed value!
 design_factors <- list(factor1 = , factor2 = , ...) # combine into a design set
 
 params <-
-  cross_df(design_factors) %>%
+  expand_grid(!!!design_factors) %>%
   mutate(
     iterations = 1000, # change this to how many ever iterations
     seed = round(runif(1) * 2^30) + 1:n()

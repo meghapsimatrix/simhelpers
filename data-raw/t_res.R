@@ -34,10 +34,9 @@ estimate_t <- function(sim_dat, effect_x){
 # generating 1000 iterations
 
 t_res <-
-  rerun(1000, {
+  map_dfr(1:1000, ~ {
     dat <- generate_dat(effect_x = .5)
     estimate_t(dat, effect_x = .5)
-  }) %>%
-  bind_rows()
+  })
 
 usethis::use_data(t_res, overwrite = TRUE)

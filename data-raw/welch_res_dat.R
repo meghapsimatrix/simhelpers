@@ -72,11 +72,10 @@ run_sim <- function(iterations, n1, n2, mean_diff, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
 
   results <-
-    rerun(iterations, {
+    map_dfr(1:iterations, ~ {
       dat <- generate_dat(n1, n2, mean_diff)
       estimate(dat, n1, n2)
-    }) %>%
-    bind_rows()
+    })
 
 }
 
@@ -96,7 +95,7 @@ design_factors <- list(
 )
 
 params <-
-  cross_df(design_factors) %>%
+  expand_grid(!!!design_factors) %>%
   mutate(
     iterations = 1000,
     seed = round(runif(1) * 2^30) + 1:n()
