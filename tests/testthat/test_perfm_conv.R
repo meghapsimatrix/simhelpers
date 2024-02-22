@@ -92,7 +92,8 @@ test_that("check K", {
 
 abs_res <- calc_absolute(dat_abs, x, true_param, criteria = c("bias","variance","mse"))
 rel_res <- calc_relative(dat_abs, x, true_param, criteria = c("relative bias","relative rmse"))
-rej_res <- calc_rejection(dat_rej, p_values = p_value, alpha = c(.05, .01, .10))
+rej_res <- calc_rejection(dat_rej, p_values = p_value, alpha = c(.05, .015, .10))
+rej_res_long <- calc_rejection(dat_rej, p_values = p_value, alpha = c(.015, .05, .10), format = "long")
 cov_res <- calc_coverage(t_res, lower_bound, upper_bound, true_param, criteria = c("coverage", "width"))
 
 test_that("check the performance measures", {
@@ -110,9 +111,12 @@ test_that("check the performance measures", {
   expect_equal(calc_rejection(dat_rej, p_values = p_value, alpha = .10)$rej_rate, mean(dat_rej$p_value < .10))
   expect_equal(calc_rejection(dat_rej, p_values = p_value, alpha = .01)$rej_rate, mean(dat_rej$p_value < .01))
 
-  expect_equal(rej_res$rej_rate, mean(dat_rej$p_value < .05))
-  expect_equal(rej_res$rej_rate, mean(dat_rej$p_value < .10))
-  expect_equal(rej_res$rej_rate, mean(dat_rej$p_value < .01))
+  expect_equal(rej_res$rej_rate_050, mean(dat_rej$p_value < .05))
+  expect_equal(rej_res$rej_rate_100, mean(dat_rej$p_value < .10))
+  expect_equal(rej_res$rej_rate_015, mean(dat_rej$p_value < .015))
+
+  rej <- sapply(c(.015, .050, .100), \(x) mean(dat_rej$p_value < x))
+  expect_equal(rej_res_long$rej_rate, rej)
 
   expect_equal(cov_res$coverage, cov)
   expect_equal(cov_res$width, mean(t_res$upper_bound) - mean(t_res$lower_bound))
@@ -133,7 +137,10 @@ test_that("check the mcse", {
   expect_equal(rel_res$rel_mse_mcse, sqrt((1/(K_abs * t_p^2)) * (s_t^4 * (k_t  - 1) + 4 * s_t^3 * g_t * (mean(dat_abs$x) - t_p) + 4 * s_t^2 * (mean(dat_abs$x) - t_p)^2)))
   expect_equal(rel_res$rel_rmse_mcse, sqrt(((K_abs - 1)/K_abs) * sum((rel_rmse_j - rel_rmse)^2)))
 
-  expect_equal(rej_res$rej_rate_mcse, sqrt((mean(dat_rej$p_value < .05) * (1 - mean(dat_rej$p_value < .05))) / K_rej))
+  rej <- sapply(c(.015, .050, .100), \(x) mean(dat_rej$p_value < x))
+  rej_mcse <- sqrt(rej * (1 - rej) / K_rej)
+  expect_equal(rej_res$rej_rate_mcse_050, rej_mcse[2])
+  expect_equal(rej_res_long$rej_rate_mcse, rej_mcse)
 
   expect_equal(cov_res$coverage_mcse, sqrt((cov * (1 - cov))/nrow(t_res)))
   expect_equal(cov_res$width_mcse, sqrt(var(t_res$upper_bound - t_res$lower_bound)/nrow(t_res)))
