@@ -4,22 +4,29 @@
 \alias{calc_rejection}
 \title{Calculate rejection rate and MCSE}
 \usage{
-calc_rejection(data, p_values, alpha = 0.05)
+calc_rejection(data, p_values, alpha = 0.05, format = "wide")
 }
 \arguments{
 \item{data}{data frame or tibble containing the simulation results.}
 
-\item{p_values}{Vector or name of column from \code{data} containing p-values.}
+\item{p_values}{Vector or name of column from \code{data} containing
+p-values.}
 
-\item{alpha}{Scalar indicating the nominal alpha level. Default value is set to the conventional .05.}
+\item{alpha}{Scalar or vector indicating the nominal alpha level(s). Default
+value is set to the conventional .05.}
+
+\item{format}{Option \code{"wide"} (the default) will produce a tibble with
+one row, with separate variables for each specified \code{alpha}. Option
+\code{"long"} will produce a tibble with one row per specified
+\code{alpha}.}
 }
 \value{
-A tibble containing the number of simulation iterations, performance criteria estimate
-and the associated MCSE.
+A tibble containing the number of simulation iterations, performance
+  criteria estimate and the associated MCSE.
 }
 \description{
-Calculates rejection rate. The function also calculates the associated
-Monte Carlo standard error.
+Calculates rejection rate. The function also calculates the
+  associated Monte Carlo standard error.
 }
 \examples{
 calc_rejection(data = t_res, p_values = p_val)

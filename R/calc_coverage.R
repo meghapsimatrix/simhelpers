@@ -6,6 +6,7 @@
 #'
 #' @param lower_bound Vector or name of column from \code{data} containing lower bounds of confidence intervals.
 #' @param upper_bound Vector or name of column from \code{data} containing upper bounds of confidence intervals.
+#' @inheritParams calc_absolute
 #'
 #' @return A tibble containing the number of simulation iterations, performance criteria estimate(s)
 #' and the associated MCSE.

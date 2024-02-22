@@ -5,7 +5,7 @@
 #' The function also calculates the associated jack-knife Monte Carlo standard errors.
 #'
 #' @param var_estimates Vector or name of column from \code{data} containing variance estimates for point estimator in \code{estimates}.
-#' @inherit calc_absolute params
+#' @inheritParams calc_absolute
 #'
 #' @return A tibble containing the number of simulation iterations, performance criteria estimate(s)
 #' and the associated MCSE.

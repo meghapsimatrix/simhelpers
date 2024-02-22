@@ -19,7 +19,6 @@
 #' calc_absolute(data = t_res, estimates = est, true_param = true_param)
 #'
 #' @importFrom stats sd
-#' @importFrom magrittr "%>%"
 
 
 calc_absolute <- function(

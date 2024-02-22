@@ -13,9 +13,15 @@ calc_coverage(
 )
 }
 \arguments{
+\item{data}{data frame or tibble containing the simulation results.}
+
 \item{lower_bound}{Vector or name of column from \code{data} containing lower bounds of confidence intervals.}
 
 \item{upper_bound}{Vector or name of column from \code{data} containing upper bounds of confidence intervals.}
+
+\item{true_param}{Vector or name of column from \code{data} containing corresponding true parameters.}
+
+\item{criteria}{character or character vector indicating the performance criteria to be calculated.}
 }
 \value{
 A tibble containing the number of simulation iterations, performance criteria estimate(s)

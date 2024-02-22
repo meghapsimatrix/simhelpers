@@ -25,14 +25,13 @@ RoxygenNote: 7.2.3
 SystemRequirements: RStudio
 Imports:
     stats,
-    dplyr,
     furrr,
-    magrittr,
+    tidyr,
     tibble,
     rstudioapi,
-    tidyr,
     Rdpack
 Suggests:
+    dplyr,
     plyr,
     purrr,
     future,

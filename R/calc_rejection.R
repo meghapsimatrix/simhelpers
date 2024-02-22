@@ -11,7 +11,7 @@
 #'   one row, with separate variables for each specified \code{alpha}. Option
 #'   \code{"long"} will produce a tibble with one row per specified
 #'   \code{alpha}.
-#' @inherit calc_absolute params
+#' @inheritParams calc_absolute
 #'
 #' @return A tibble containing the number of simulation iterations, performance
 #'   criteria estimate and the associated MCSE.

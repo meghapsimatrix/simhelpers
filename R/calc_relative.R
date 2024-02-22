@@ -4,7 +4,7 @@
 #' The function also calculates the associated
 #' Monte Carlo standard errors.
 #'
-#' @inherit calc_absolute params
+#' @inheritParams calc_absolute
 #'
 #' @return A tibble containing the number of simulation iterations, performance criteria estimate(s)
 #' and the associated MCSE.
