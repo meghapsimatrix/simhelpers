@@ -7,7 +7,7 @@ library(broom)
 
 # function to create normally distributed data for each group to run t test
 
-generate_dat <- function(n1, n2, mean_diff){
+generate_dat <- function(n1, n2, mean_diff) {
 
   dat <- tibble(
     y = c(rnorm(n = n1, mean_diff, 1), # mean diff as mean, sd 1
@@ -17,7 +17,6 @@ generate_dat <- function(n1, n2, mean_diff){
 
   return(dat)
 
-}
 }
 
 
