@@ -6,7 +6,7 @@ df <- data.frame(
   b= seq(8, 16, 4)
 )
 
-test_that("evaluate_by_row works", {
+test_that("evaluate_by_row() works with generic functions.", {
   f <- function(a, b) a * b
   expect_equal(
     evaluate_by_row(df, f, results_name = "res"),
@@ -24,4 +24,5 @@ test_that("evaluate_by_row works", {
   )
 
 })
+
 
