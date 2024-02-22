@@ -56,7 +56,7 @@ calc_absolute <- function(
   rmse_j <- sqrt(bias_j_sq + s_sq_t_j) # jacknife rmse
 
   # initialize tibble
-  dat <- tibble::tibble(K = K)
+  dat <- tibble::tibble(K_absolute = K)
 
   if ("bias" %in% criteria) {
     dat$bias <- bias

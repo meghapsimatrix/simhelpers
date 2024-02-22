@@ -50,15 +50,15 @@ calc_rejection <- function(
     if (length(alpha) > 1L) {
       alpha_digits <- max(nchar(as.character(alpha))) - 2L
       alpha_lab <- substr(formatC(alpha, format = "f", digits = alpha_digits), 3, 2 + alpha_digits)
-      var_names <- c("K", paste("rej_rate", alpha_lab, sep = "_"), paste("rej_rate_mcse", alpha_lab, sep = "_"))
+      var_names <- c("K_rejection", paste("rej_rate", alpha_lab, sep = "_"), paste("rej_rate_mcse", alpha_lab, sep = "_"))
     } else {
-      var_names <- c("K","rej_rate","rej_rate_mcse")
+      var_names <- c("K_rejection","rej_rate","rej_rate_mcse")
     }
     dat <- as.data.frame(c(list(K = K), rej_rate = rej_rate, rej_rate_mcse = rej_rate_mcse))
     names(dat) <- var_names
   } else if (format == "long") {
     dat <- tibble::tibble(
-      K = K,
+      K_rejection = K,
       alpha = alpha,
       rej_rate = rej_rate,
       rej_rate_mcse = rej_rate_mcse

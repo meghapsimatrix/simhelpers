@@ -50,7 +50,7 @@ calc_relative <- function(
   rel_mse_j <- ((t_bar_j - true_param)^2 + s_sq_t_j) / true_param^2 # jacknife relative mse
 
   # initialize tibble
-  dat <- tibble::tibble(K = K)
+  dat <- tibble::tibble(K_relative = K)
 
   if ("relative bias" %in% criteria) {
     dat$rel_bias <- ifelse(true_param == 0, NA_real_, t_bar / true_param)

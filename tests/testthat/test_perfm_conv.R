@@ -82,11 +82,11 @@ s_sq_v_j_alpha <- (1/(K_alpha - 2)) * ((K_alpha - 1) * s_sq_v - (K_alpha/(K_alph
 
 
 test_that("check K", {
-  expect_equal(calc_absolute(dat_abs, x, true_param) %>% pull(K), K_abs)
-  expect_equal(calc_relative(dat_abs, x, true_param) %>% pull(K), K_abs)
-  expect_equal(calc_rejection(dat_rej, p_values = p_value) %>% pull(K), K_rej)
-  expect_equal(calc_coverage(t_res, lower_bound, upper_bound, true_param) %>% pull(K), nrow(t_res))
-  expect_equal(calc_relative_var(alpha_res, A, Var_A) %>% pull(K), K_alpha)
+  expect_equal(calc_absolute(dat_abs, x, true_param) %>% pull(K_absolute), K_abs)
+  expect_equal(calc_relative(dat_abs, x, true_param) %>% pull(K_relative), K_abs)
+  expect_equal(calc_rejection(dat_rej, p_values = p_value) %>% pull(K_rejection), K_rej)
+  expect_equal(calc_coverage(t_res, lower_bound, upper_bound, true_param) %>% pull(K_coverage), nrow(t_res))
+  expect_equal(calc_relative_var(alpha_res, A, Var_A) %>% pull(K_relvar), K_alpha)
 })
 
 abs_res <- calc_absolute(dat_abs, x, true_param, criteria = c("bias","variance","mse"))

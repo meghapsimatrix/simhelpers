@@ -42,7 +42,7 @@ calc_coverage <- function(
   K <- length(lower_bound) # iterations
 
   # initialize tibble
-  dat <- tibble::tibble(K = K)
+  dat <- tibble::tibble(K_coverage = K)
 
   if ("coverage" %in% criteria) {
     coverage <- mean(lower_bound <= true_param & true_param <= upper_bound)

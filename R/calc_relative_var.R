@@ -53,7 +53,7 @@ calc_relative_var <- function(
   rel_mse_var_j <- ((v_bar_j - s_sq_t_j)^2 + s_sq_v_j) / (s_sq_t_j)^2 # jack-knife relative mse of var estimates
 
   # initialize tibble
-  dat <- tibble::tibble(K = K)
+  dat <- tibble::tibble(K_relvar = K)
 
   if ("relative bias" %in% criteria) {
     dat$rel_bias_var <- ifelse(var_t == 0, NA_real_, rb_var)
