@@ -3,9 +3,9 @@
 #' @description Calculates rejection rate. The function also calculates the associated
 #' Monte Carlo standard error.
 #'
-#' @param res_dat data frame or tibble containing the simulation results.
-#' @param p_values name of the column containing the p-values.
-#' @param alpha number indicating the nominal alpha level. Default value is set to the conventional .05.
+#' @param p_values Vector or name of column from \code{data} containing p-values.
+#' @param alpha Scalar indicating the nominal alpha level. Default value is set to the conventional .05.
+#' @inherit calc_absolute params
 #'
 #' @return A tibble containing the number of simulation iterations, performance criteria estimate
 #' and the associated MCSE.
@@ -13,22 +13,31 @@
 #' @export
 #'
 #' @examples
-#' calc_rejection(res_dat = t_res, p_values = p_val)
+#' calc_rejection(data = t_res, p_values = p_val)
 #'
 #'
 
 
-calc_rejection <- function(res_dat, p_values, alpha = .05){
+calc_rejection <- function(
+  data,
+  p_values,
+  alpha = .05
+) {
 
-  p_vals <- res_dat %>%
-    dplyr::filter(!is.na({{p_values}})) %>% # p values
-    dplyr::pull({{p_values}}) # p values
+  if (!missing(data)) {
+    cl <- match.call()
+    p_values <- eval(cl$p_values, envir = data)
+  }
+
+  p_values <- p_values[!is.na(p_values)]
 
   K <- length(p_vals) # number of iterations
 
-  dat <- tibble::tibble(K = K,
-                        rej_rate = mean(p_vals < alpha),
-                        rej_rate_mcse = sqrt((rej_rate * (1 - rej_rate)) / K))
+  dat <- tibble::tibble(
+    K = K,
+    rej_rate = mean(p_values < alpha),
+    rej_rate_mcse = sqrt(rej_rate * (1 - rej_rate) / K)
+  )
 
   return(dat)
 

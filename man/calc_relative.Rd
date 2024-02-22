@@ -5,20 +5,20 @@
 \title{Calculate relative performance criteria and MCSE}
 \usage{
 calc_relative(
-  res_dat,
+  data,
   estimates,
   true_param,
-  perfm_criteria = c("relative bias", "relative mse", "relative rmse")
+  criteria = c("relative bias", "relative mse", "relative rmse")
 )
 }
 \arguments{
-\item{res_dat}{data frame or tibble containing the simulation results.}
+\item{data}{data frame or tibble containing the simulation results.}
 
-\item{estimates}{name of the column containing the estimates.}
+\item{estimates}{Vector or name of column from \code{data} containing point estimates.}
 
-\item{true_param}{name of the column containing the true parameters.}
+\item{true_param}{Vector or name of column from \code{data} containing corresponding true parameters.}
 
-\item{perfm_criteria}{character or character vector indicating the performance criteria to be calculated.}
+\item{criteria}{character or character vector indicating the performance criteria to be calculated.}
 }
 \value{
 A tibble containing the number of simulation iterations, performance criteria estimate(s)
@@ -30,7 +30,7 @@ The function also calculates the associated
 Monte Carlo standard errors.
 }
 \examples{
-calc_relative(res_dat = t_res, estimates = est, true_param = true_param)
+calc_relative(data = t_res, estimates = est, true_param = true_param)
 
 
 }

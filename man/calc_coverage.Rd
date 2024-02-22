@@ -5,23 +5,17 @@
 \title{Calculate confidence interval coverage, width and MCSE}
 \usage{
 calc_coverage(
-  res_dat,
+  data,
   lower_bound,
   upper_bound,
   true_param,
-  perfm_criteria = c("coverage", "width")
+  criteria = c("coverage", "width")
 )
 }
 \arguments{
-\item{res_dat}{data frame or tibble containing the simulation results.}
+\item{lower_bound}{Vector or name of column from \code{data} containing lower bounds of confidence intervals.}
 
-\item{lower_bound}{name of the column containing the lower bound estimates of the confidence intervals.}
-
-\item{upper_bound}{name of the column containing the upper bound estimates of the confidence intervals.}
-
-\item{true_param}{name of the column containing the true parameters.}
-
-\item{perfm_criteria}{character or character vector indicating the performance criteria to be calculated.}
+\item{upper_bound}{Vector or name of column from \code{data} containing upper bounds of confidence intervals.}
 }
 \value{
 A tibble containing the number of simulation iterations, performance criteria estimate(s)
@@ -33,7 +27,7 @@ Monte Carlo standard errors. The confidence interval percentage is based on how 
 and upper bounds.
 }
 \examples{
-calc_coverage(res_dat = t_res, lower_bound = lower_bound,
+calc_coverage(data = t_res, lower_bound = lower_bound,
               upper_bound = upper_bound, true_param = true_param)
 
 

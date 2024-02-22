@@ -5,8 +5,8 @@
 #' Monte Carlo standard errors.
 #'
 #' @param data data frame or tibble containing the simulation results.
-#' @param estimates Vector or name of column from \code{data} containing the estimates.
-#' @param true_param Vector or name of column from \code{data} containing the true parameters.
+#' @param estimates Vector or name of column from \code{data} containing point estimates.
+#' @param true_param Vector or name of column from \code{data} containing corresponding true parameters.
 #' @param criteria character or character vector indicating the performance criteria to be calculated.
 #'
 #' @return A tibble containing the number of simulation iterations, performance criteria estimate(s)
@@ -19,38 +19,40 @@
 #' calc_absolute(data = t_res, estimates = est, true_param = true_param)
 #'
 #' @importFrom stats sd
-#' @importFrom stats var
 #' @importFrom magrittr "%>%"
 
 
-calc_absolute <- function(data, estimates, true_param, criteria = c("bias", "variance", "mse", "rmse")) {
+calc_absolute <- function(
+  data,
+  estimates, true_param,
+  criteria = c("bias", "variance", "mse", "rmse")
+) {
 
   if (!missing(data)) {
     cl <- match.call()
     estimates <- eval(cl$estimates, envir = data)
     true_param <- eval(cl$true_param, envir = data)
-
   }
 
   estimates <- estimates[!is.na(estimates)]
   true_param <- unique(true_param) # true param
   if (length(true_param) > 1L) stop("`true_param` must have a single unique value.")
 
-  K <- length(estimates) # number of iterations
 
   # calculate sample stats
+  K <- length(estimates) # number of iterations
   t_bar <- mean(estimates) # mean of estimates
   bias <- t_bar - true_param # bias
   s_t <- sd(estimates) # standard deviation
-  g_t <- (1/(K * s_t^3)) * sum((estimates - t_bar)^3) # skewness
-  k_t <- (1/(K * s_t^4)) * sum((estimates - t_bar)^4) # kurtosis
+  g_t <- sum((estimates - t_bar)^3) / (K * s_t^3) # skewness
+  k_t <- sum((estimates - t_bar)^4) / (K * s_t^4) # kurtosis
 
   mse <- mean((estimates - true_param)^2) # calculate mse
 
-  #jacknife
-  t_bar_j <- (1/(K - 1)) * (K * t_bar - estimates) # jacknife t bar
+  # jacknife
+  t_bar_j <- (K * t_bar - estimates) / (K - 1) # jacknife t bar
   bias_j_sq <- (t_bar_j - true_param)^2 # jacknife bias
-  s_sq_t_j <- (1 / (K - 2)) * ((K - 1) * s_t^2 - (K / (K - 1)) * (estimates - t_bar)^2) # jacknife var
+  s_sq_t_j <- ((K - 1) * s_t^2 - (estimates - t_bar)^2 * K / (K - 1)) / (K - 2) # jacknife var
 
   rmse_j <- sqrt(bias_j_sq + s_sq_t_j) # jacknife rmse
 

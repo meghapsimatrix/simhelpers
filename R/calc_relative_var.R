@@ -4,11 +4,8 @@
 #' squared error (relative rmse)  of variance estimators.
 #' The function also calculates the associated jack-knife Monte Carlo standard errors.
 #'
-#' @param res_dat data frame or tibble containing the simulation results.
-#' @param estimates name of the column containing the estimates.
-#' @param var_estimates name of the column containing the variance estimates.
-#' @param perfm_criteria character or character vector indicating the performance criteria to be calculated.
-#'
+#' @param var_estimates Vector or name of column from \code{data} containing variance estimates for point estimator in \code{estimates}.
+#' @inherit calc_absolute params
 #'
 #' @return A tibble containing the number of simulation iterations, performance criteria estimate(s)
 #' and the associated MCSE.
@@ -17,24 +14,29 @@
 #' @export
 #'
 #' @examples
-#' calc_relative_var(res_dat = alpha_res, estimates = A, var_estimates = Var_A)
+#' calc_relative_var(data = alpha_res, estimates = A, var_estimates = Var_A)
 #'
+#' @importFrom stats var
 
-calc_relative_var <- function(res_dat, estimates, var_estimates, perfm_criteria = c("relative bias", "relative mse", "relative rmse")){
 
-  res_dat <- res_dat %>%
-    dplyr::select({{estimates}}, {{var_estimates}}) %>%
-    dplyr::filter(stats::complete.cases(.))
+calc_relative_var <- function(
+  data,
+  estimates, var_estimates,
+  criteria = c("relative bias", "relative mse", "relative rmse")
+) {
 
-  estimates <- res_dat %>%
-    dplyr::pull({{estimates}}) # point estimates
+  if (!missing(data)) {
+    cl <- match.call()
+    estimates <- eval(cl$estimates, envir = data)
+    var_estimates <- eval(cl$var_estimates, envir = data)
+  }
+  not_miss <- !is.na(estimates) & !is.na(var_estimates)
+  estimates <- estimates[not_miss]
+  var_est <- var_estimates[not_miss]
 
-  var_est <- res_dat %>%
-    dplyr::pull({{var_estimates}}) # point estimates
-
-  K <- length(var_est) # iterations
 
   # calculate sample stats
+  K <- length(var_est) # iterations
   v_bar <- mean(var_est) # sample mean of variance estimator
   t_bar <- mean(estimates) # sample mean of the estimates
 
@@ -42,44 +44,43 @@ calc_relative_var <- function(res_dat, estimates, var_estimates, perfm_criteria 
   var_t <- var(estimates) # sample variance of the estimates
 
   # jack-knife
-  v_bar_j <- (1 / (K - 1)) * (K * v_bar - var_est)  # jack-knife mean of var estimates
-  s_sq_t_j <- (1 / (K - 2)) * ((K - 1) * var_t - (K / (K - 1)) * (estimates - t_bar)^2) # jack-knife var of point estimates
-  s_sq_v_j <- (1 / (K - 2)) * ((K - 1) * var_v - (K / (K - 1)) * (var_est - v_bar)^2) # jack-knife var of var estimates
+  v_bar_j <- (K * v_bar - var_est) / (K - 1)  # jack-knife mean of var estimates
+  s_sq_t_j <- ((K - 1) * var_t - (estimates - t_bar)^2 * K / (K - 1)) / (K - 2) # jack-knife var of point estimates
+  s_sq_v_j <- ((K - 1) * var_v - (var_est - v_bar)^2 * K / (K - 1)) / (K - 2) # jack-knife var of var estimates
 
   rb_var <- v_bar/ var_t # reliative bias of variance estimates
   rel_mse_var <- ((v_bar - var_t)^2 + var_v) /  var_t^2
-  rel_mse_var_j <- ((v_bar_j - s_sq_t_j)^2 + s_sq_v_j)/(s_sq_t_j)^2 # jack-knife relative mse of var estimates
+  rel_mse_var_j <- ((v_bar_j - s_sq_t_j)^2 + s_sq_v_j) / (s_sq_t_j)^2 # jack-knife relative mse of var estimates
 
   # initialize tibble
   dat <- tibble::tibble(K = K)
 
-
-  if("relative bias" %in% perfm_criteria){
-    dat <- dat %>%
-      dplyr::mutate(rel_bias_var = rb_var,
-                    rel_bias_var_mcse = sqrt(((K - 1)/K) * sum((v_bar_j/s_sq_t_j - rb_var)^2)),
-                    rel_bias_var = dplyr::if_else(var_t == 0, as.numeric(NA), rel_bias_var),
-                    rel_bias_var_mcse = dplyr::if_else(var_t== 0, as.numeric(NA), rel_bias_var_mcse))
+  if ("relative bias" %in% criteria) {
+    dat$rel_bias_var <- ifelse(var_t == 0, NA_real_, rb_var)
+    dat$rel_bias_var_mcse <- ifelse(
+      var_t == 0,
+      NA_real_,
+      sqrt(sum((v_bar_j / s_sq_t_j - rb_var)^2) * (K - 1) / K)
+    )
   }
 
-  if("relative mse" %in% perfm_criteria){
-    dat <- dat %>%
-      dplyr::mutate(rel_mse_var = rel_mse_var,
-                    rel_mse_var_mcse = sqrt(((K - 1)/K) * sum((rel_mse_var_j - rel_mse_var)^2)),
-                    rel_mse_var = dplyr::if_else(var_t == 0, as.numeric(NA), rel_mse_var),
-                    rel_mse_var_mcse = dplyr::if_else(var_t == 0, as.numeric(NA), rel_mse_var_mcse))
+  if ("relative mse" %in% criteria) {
+    dat$rel_mse_var <- ifelse(var_t == 0, NA_real_, rel_mse_var)
+    dat$rel_mse_var_mcse <- ifelse(
+      var_t == 0,
+      NA_real_,
+      sqrt(sum((rel_mse_var_j - rel_mse_var)^2) * (K - 1) / K)
+    )
   }
 
-  if("relative rmse" %in% perfm_criteria){
-    dat <- dat %>%
-      dplyr::mutate(rel_rmse_var = sqrt(rel_mse_var),
-                    rel_rmse_var_mcse = sqrt(((K - 1)/K) * sum((sqrt(rel_mse_var_j) - rel_rmse_var)^2)),
-                    rel_rmse_var = dplyr::if_else(var_t == 0, as.numeric(NA), rel_rmse_var),
-                    rel_rmse_var_mcse = dplyr::if_else(var_t == 0, as.numeric(NA), rel_rmse_var_mcse))
+  if ("relative rmse" %in% criteria) {
+    dat$rel_rmse_var <- ifelse(var_t == 0, NA_real_, sqrt(rel_mse_var))
+    dat$rel_rmse_var_mcse <- ifelse(
+      var_t == 0,
+      NA_real_,
+      sqrt(sum((sqrt(rel_mse_var_j) - rel_rmse_var)^2) * (K - 1) / K)
+    )
   }
-
-
 
   return(dat)
-
 }

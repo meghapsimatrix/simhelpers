@@ -5,20 +5,20 @@
 \title{Calculate jack-knife Monte Carlo SE for variance estimators}
 \usage{
 calc_relative_var(
-  res_dat,
+  data,
   estimates,
   var_estimates,
-  perfm_criteria = c("relative bias", "relative mse", "relative rmse")
+  criteria = c("relative bias", "relative mse", "relative rmse")
 )
 }
 \arguments{
-\item{res_dat}{data frame or tibble containing the simulation results.}
+\item{data}{data frame or tibble containing the simulation results.}
 
-\item{estimates}{name of the column containing the estimates.}
+\item{estimates}{Vector or name of column from \code{data} containing point estimates.}
 
-\item{var_estimates}{name of the column containing the variance estimates.}
+\item{var_estimates}{Vector or name of column from \code{data} containing variance estimates for point estimator in \code{estimates}.}
 
-\item{perfm_criteria}{character or character vector indicating the performance criteria to be calculated.}
+\item{criteria}{character or character vector indicating the performance criteria to be calculated.}
 }
 \value{
 A tibble containing the number of simulation iterations, performance criteria estimate(s)
@@ -30,6 +30,6 @@ squared error (relative rmse)  of variance estimators.
 The function also calculates the associated jack-knife Monte Carlo standard errors.
 }
 \examples{
-calc_relative_var(res_dat = alpha_res, estimates = A, var_estimates = Var_A)
+calc_relative_var(data = alpha_res, estimates = A, var_estimates = Var_A)
 
 }
