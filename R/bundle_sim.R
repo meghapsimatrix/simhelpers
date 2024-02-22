@@ -135,28 +135,6 @@ bundle_sim <- function(
     }
   }
 
-  # compile all arguments
-  # full_args <- stats::setNames(alist(reps = ), reps_name)
-  # for (i in gen_arg_names) {
-  #   full_args[[i]] <- gen_args[[i]]
-  # }
-  # extra_ana_args <- setdiff(ana_arg_names[-1], gen_arg_names)
-  # for (i in extra_ana_args) {
-  #   full_args[[i]] <- ana_args[[i]]
-  # }
-  # if (!is.null(f_summarize)) {
-  #   extra_sum_args <- setdiff(sum_arg_names[-1], names(full_args))
-  #   for (i in extra_sum_args) {
-  #     full_args[[i]] <- sum_args[[i]]
-  #   }
-  # }
-  # if (!is.null(seed_name)) {
-  #   full_args[[seed_name]] <- NA_integer_
-  # }
-  # if (!is.null(f_summarize) && !is.null(summarize_opt_name)) {
-  #   full_args[[summarize_opt_name]] <- TRUE
-  # }
-
   front_arg <- stats::setNames(alist(reps = ), reps_name)
   extra_ana_args <- setdiff(ana_arg_names[-1], gen_arg_names)
   if (is.null(f_summarize)) {
@@ -173,15 +151,22 @@ bundle_sim <- function(
   }
   full_args <- as.pairlist(full_args)
 
+  # Build generate call
+  gen_cl <- as.call(c(quote(f_generate), lapply(stats::setNames(gen_arg_names, gen_arg_names), as.symbol)))
+
+  # Build analyze call
+  ana_arg_vals <- c("dat", ana_arg_names[-1])
+  ana_cl <- as.call(c(quote(f_analyze), lapply(stats::setNames(ana_arg_vals, ana_arg_names), as.symbol)))
+
+  # Build summarize call
+  if (!is.null(f_summarize)) {
+    sum_arg_vals <- c("res", sum_arg_names[-1])
+    sum_cl <- as.call(c(quote(f_summarize), lapply(stats::setNames(sum_arg_vals, sum_arg_names), as.symbol)))
+  }
+
   # Build iteration function
 
   bundled_sim <- function(reps, seed, summarize) {
-    cl <- match.call()
-    gen_cl <- cl[c(1L, match(gen_arg_names, names(cl), 0L))]
-    gen_cl[[1L]] <- quote(f_generate)
-    ana_cl <- cl[c(1L, match(ana_arg_names[-1], names(cl), 0L))]
-    ana_cl[[1L]] <- quote(f_analyze)
-    ana_cl[[ana_arg_names[1]]] <- as.symbol("dat")
 
     if (!is.na(seed)) {
       set.seed(seed)
@@ -195,9 +180,6 @@ bundle_sim <- function(
     res <- do.call(rbind, res)
 
     if (summarize) {
-      sum_cl <- cl[c(1L, match(sum_arg_names[-1], names(cl), 0L))]
-      sum_cl[[1L]] <- quote(f_summarize)
-      sum_cl[[sum_arg_names[1]]] <- res
       res <- eval(sum_cl)
     }
 
@@ -207,28 +189,28 @@ bundle_sim <- function(
   formals(bundled_sim) <- full_args
 
   # adjust reps_name
-  body(bundled_sim)[[9]][[3]][[2]][[3]] <- as.symbol(reps_name)
+  body(bundled_sim)[[3]][[3]][[2]][[3]] <- as.symbol(reps_name)
 
   # adjust summarize_opt_name
   if (is.null(f_summarize)) {
-    body(bundled_sim)[[11]] <- NULL
+    body(bundled_sim)[[5]] <- NULL
   } else if (is.null(summarize_opt_name)) {
-    body(bundled_sim)[[11]] <- body(bundled_sim)[[11]][[3]]
+    body(bundled_sim)[[5]] <- body(bundled_sim)[[5]][[3]]
   } else {
-    body(bundled_sim)[[11]][[2]] <- as.symbol(summarize_opt_name)
+    body(bundled_sim)[[5]][[2]] <- as.symbol(summarize_opt_name)
   }
 
   # adjust row binding
   if (!row_bind_reps) {
-    body(bundled_sim)[[10]] <- NULL
+    body(bundled_sim)[[4]] <- NULL
   }
 
   # adjust seed_name
   if (is.null(seed_name)) {
-    body(bundled_sim)[[8]] <- NULL
+    body(bundled_sim)[[2]] <- NULL
   } else {
-    body(bundled_sim)[[8]][[2]][[2]][[2]] <- as.symbol(seed_name)
-    body(bundled_sim)[[8]][[3]][[2]][[2]] <- as.symbol(seed_name)
+    body(bundled_sim)[[2]][[2]][[2]][[2]] <- as.symbol(seed_name)
+    body(bundled_sim)[[2]][[3]][[2]][[2]] <- as.symbol(seed_name)
   }
 
   return(bundled_sim)
