@@ -6,6 +6,9 @@ template:
   bslib:
     pkgdown-nav-height: 100px
 
+development:
+  mode: release
+
 authors:
   Megha Joshi:
     href: "https://meghapsimatrix.com/"
@@ -35,5 +38,3 @@ reference:
       - alpha_res
       - t_res
       - welch_res
-
-
