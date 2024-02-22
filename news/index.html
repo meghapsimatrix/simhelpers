@@ -56,6 +56,11 @@
 <h2 class="pkg-version" data-toc-text="0.2.0" id="simhelpers-020">simhelpers 0.2.0<a class="anchor" aria-label="anchor" href="#simhelpers-020"></a></h2>
 <ul><li>Added new, experimental function <code><a href="../reference/bundle_sim.html">bundle_sim()</a></code> to compose a set of functions into a simulation driver.</li>
 <li>Added an argument to <code><a href="../reference/evaluate_by_row.html">evaluate_by_row()</a></code> to control the name of the variable where simulation results are stored.</li>
+<li>Revised the <code>calc_*()</code> functions so that they can take vectors or variable names from a specified dataset.</li>
+<li>
+<code><a href="../reference/calc_rejection.html">calc_rejection()</a></code> can now compute rejection rates for multiple <code>alpha</code> levels.</li>
+<li>Renamed the <code>K</code> variable computed in the <code>calc_*()</code> functions to avoid over-writing variables when using multiple performance calculations inside of <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">dplyr::summarize()</a></code>.</li>
+<li>Updated syntax in vignettes and examples to use current tidyverse conventions.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.2" id="simhelpers-012">simhelpers 0.1.2<a class="anchor" aria-label="anchor" href="#simhelpers-012"></a></h2><p class="text-muted">CRAN release: 2022-05-03</p>

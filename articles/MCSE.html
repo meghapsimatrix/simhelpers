@@ -370,7 +370,7 @@ Note that <code>K</code> may differ by condition.</p>
 <col width="3%">
 <col width="3%">
 <col width="10%">
-<col width="5%">
+<col width="11%">
 <col width="9%">
 <col width="10%">
 <col width="8%">
@@ -384,7 +384,7 @@ Note that <code>K</code> may differ by condition.</p>
 <th align="right">n1</th>
 <th align="right">n2</th>
 <th align="right">mean_diff</th>
-<th align="right">K</th>
+<th align="right">K_absolute</th>
 <th align="right">bias</th>
 <th align="right">bias_mcse</th>
 <th align="right">var</th>
@@ -522,7 +522,7 @@ Note that <code>K</code> may differ by condition.</p>
 <col width="3%">
 <col width="3%">
 <col width="10%">
-<col width="5%">
+<col width="11%">
 <col width="9%">
 <col width="10%">
 <col width="8%">
@@ -536,7 +536,7 @@ Note that <code>K</code> may differ by condition.</p>
 <th align="right">n1</th>
 <th align="right">n2</th>
 <th align="right">mean_diff</th>
-<th align="right">K</th>
+<th align="right">K_absolute</th>
 <th align="right">bias</th>
 <th align="right">bias_mcse</th>
 <th align="right">var</th>
@@ -790,20 +790,20 @@ criteria to evaluate:
 <colgroup>
 <col width="3%">
 <col width="3%">
-<col width="11%">
-<col width="5%">
 <col width="10%">
-<col width="15%">
+<col width="11%">
 <col width="9%">
 <col width="14%">
-<col width="10%">
-<col width="15%">
+<col width="8%">
+<col width="13%">
+<col width="9%">
+<col width="14%">
 </colgroup>
 <thead><tr class="header">
 <th align="right">n1</th>
 <th align="right">n2</th>
 <th align="right">mean_diff</th>
-<th align="right">K</th>
+<th align="right">K_relative</th>
 <th align="right">rel_bias</th>
 <th align="right">rel_bias_mcse</th>
 <th align="right">rel_mse</th>
@@ -1072,26 +1072,26 @@ calculating the performance measure and MCSE.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">n1</span>, <span class="va">n2</span>, <span class="va">mean_diff</span>, <span class="va">method</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_map.html" class="external-link">group_modify</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="../reference/calc_relative_var.html">calc_relative_var</a></span><span class="op">(</span><span class="va">.x</span>, estimates <span class="op">=</span> <span class="va">est</span>, var_estimates <span class="op">=</span> <span class="va">var</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
-<table style="width:100%;" class="table">
+<table class="table">
 <colgroup>
 <col width="2%">
 <col width="2%">
-<col width="8%">
+<col width="7%">
 <col width="10%">
-<col width="4%">
+<col width="6%">
 <col width="10%">
-<col width="14%">
+<col width="13%">
 <col width="9%">
 <col width="13%">
 <col width="10%">
-<col width="14%">
+<col width="13%">
 </colgroup>
 <thead><tr class="header">
 <th align="right">n1</th>
 <th align="right">n2</th>
 <th align="right">mean_diff</th>
 <th align="left">method</th>
-<th align="right">K</th>
+<th align="right">K_relvar</th>
 <th align="right">rel_bias_var</th>
 <th align="right">rel_bias_var_mcse</th>
 <th align="right">rel_mse_var</th>
@@ -1436,7 +1436,7 @@ The default value is set to the conventional 0.05.</p>
 <th align="right">n2</th>
 <th align="right">mean_diff</th>
 <th align="left">method</th>
-<th align="right">K</th>
+<th align="right">K_rejection</th>
 <th align="right">rej_rate</th>
 <th align="right">rej_rate_mcse</th>
 </tr></thead>
@@ -1611,20 +1611,20 @@ which criteria to evaluate:
 <colgroup>
 <col width="3%">
 <col width="3%">
+<col width="12%">
+<col width="15%">
 <col width="13%">
-<col width="17%">
-<col width="6%">
-<col width="11%">
-<col width="18%">
 <col width="10%">
-<col width="14%">
+<col width="17%">
+<col width="9%">
+<col width="13%">
 </colgroup>
 <thead><tr class="header">
 <th align="right">n1</th>
 <th align="right">n2</th>
 <th align="right">mean_diff</th>
 <th align="left">method</th>
-<th align="right">K</th>
+<th align="right">K_coverage</th>
 <th align="right">coverage</th>
 <th align="right">coverage_mcse</th>
 <th align="right">width</th>

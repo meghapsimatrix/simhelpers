@@ -76,12 +76,24 @@ and upper bounds.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>lower_bound</dt>
+    <dl><dt>data</dt>
+<dd><p>data frame or tibble containing the simulation results.</p></dd>
+
+
+<dt>lower_bound</dt>
 <dd><p>Vector or name of column from <code>data</code> containing lower bounds of confidence intervals.</p></dd>
 
 
 <dt>upper_bound</dt>
 <dd><p>Vector or name of column from <code>data</code> containing upper bounds of confidence intervals.</p></dd>
+
+
+<dt>true_param</dt>
+<dd><p>Vector or name of column from <code>data</code> containing corresponding true parameters.</p></dd>
+
+
+<dt>criteria</dt>
+<dd><p>character or character vector indicating the performance criteria to be calculated.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -97,9 +109,9 @@ and the associated MCSE.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">calc_coverage</span><span class="op">(</span>data <span class="op">=</span> <span class="va">t_res</span>, lower_bound <span class="op">=</span> <span class="va">lower_bound</span>,</span></span>
 <span class="r-in"><span>              upper_bound <span class="op">=</span> <span class="va">upper_bound</span>, true_param <span class="op">=</span> <span class="va">true_param</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       K coverage coverage_mcse width width_mcse</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">1</span>000    0.951       0.006<span style="text-decoration: underline;">83</span> 0.791    0.001<span style="text-decoration: underline;">79</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   K_coverage coverage coverage_mcse width width_mcse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>       <span style="text-decoration: underline;">1</span>000    0.951       0.006<span style="text-decoration: underline;">83</span> 0.791    0.001<span style="text-decoration: underline;">79</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
