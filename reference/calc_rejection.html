@@ -62,21 +62,21 @@ Monte Carlo standard error.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calc_rejection</span><span class="op">(</span><span class="va">res_dat</span>, <span class="va">p_values</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calc_rejection</span><span class="op">(</span><span class="va">data</span>, <span class="va">p_values</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>res_dat</dt>
+    <dl><dt>data</dt>
 <dd><p>data frame or tibble containing the simulation results.</p></dd>
 
 
 <dt>p_values</dt>
-<dd><p>name of the column containing the p-values.</p></dd>
+<dd><p>Vector or name of column from <code>data</code> containing p-values.</p></dd>
 
 
 <dt>alpha</dt>
-<dd><p>number indicating the nominal alpha level. Default value is set to the conventional .05.</p></dd>
+<dd><p>Scalar indicating the nominal alpha level. Default value is set to the conventional .05.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -89,7 +89,7 @@ and the associated MCSE.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">calc_rejection</span><span class="op">(</span>res_dat <span class="op">=</span> <span class="va">t_res</span>, p_values <span class="op">=</span> <span class="va">p_val</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">calc_rejection</span><span class="op">(</span>data <span class="op">=</span> <span class="va">t_res</span>, p_values <span class="op">=</span> <span class="va">p_val</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       K rej_rate rej_rate_mcse</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
