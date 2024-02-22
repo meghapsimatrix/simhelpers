@@ -64,7 +64,7 @@ calc_absolute <- function(
     dat$bias_mcse <- s_t / sqrt(K)
   }
 
-  if ("variance" %in% criteria){
+  if ("variance" %in% criteria) {
     dat$var <- s_t^2
     dat$var_mcse <- s_t^2 * sqrt(((k_t - 1) / K))
   }
@@ -76,7 +76,8 @@ calc_absolute <- function(
   }
 
   if ("rmse" %in% criteria) {
-    dat$rmse <- sqrt(mse)
+    rmse <- sqrt(mse)
+    dat$rmse <- rmse
     dat$rmse_mcse <- sqrt(((K - 1)/(K)) * sum((rmse_j - rmse)^2))
   }
 

@@ -67,7 +67,8 @@ calc_relative <- function(
   }
 
   if ("relative rmse" %in% criteria) {
-    dat$rel_rmse <- ifelse(true_param == 0, NA_real_, sqrt(rel_mse))
+    rel_rmse <- sqrt(rel_mse)
+    dat$rel_rmse <- ifelse(true_param == 0, NA_real_, rel_rmse)
     dat$rel_rmse_mcse <- ifelse(
       true_param == 0,
       NA_real_,

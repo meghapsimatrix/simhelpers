@@ -31,7 +31,7 @@ calc_rejection <- function(
 
   p_values <- p_values[!is.na(p_values)]
 
-  K <- length(p_vals) # number of iterations
+  K <- length(p_values) # number of iterations
 
   dat <- tibble::tibble(
     K = K,

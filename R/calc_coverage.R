@@ -44,7 +44,8 @@ calc_coverage <- function(
   dat <- tibble::tibble(K = K)
 
   if ("coverage" %in% criteria) {
-    dat$coverage <- mean(lower_bound <= true_param & true_param <= upper_bound)
+    coverage <- mean(lower_bound <= true_param & true_param <= upper_bound)
+    dat$coverage <- coverage
     dat$coverage_mcse = sqrt(coverage * (1 - coverage) / K)
   }
 
