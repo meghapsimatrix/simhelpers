@@ -1,5 +1,7 @@
 f_G1 <- rnorm
+
 f_A1 <- function(x, trim = 0) data.frame(y_bar = mean(x, trim = trim))
+
 f_S1 <- function(x, calc_sd = FALSE) {
   if (calc_sd) {
     res_SD <- apply(x, 2, sd)
@@ -127,7 +129,7 @@ test_that("bundle_sim() works with identity functions.", {
                      reps_name = "n_reps", seed_name = ".s", summarize_opt_name = "evaluate")
   expect_identical(
     as.list(formals(sim4)),
-    c(alist(n_reps = ), as.list(formals(f_G2)), .s = NA_real_, evaluate = TRUE)
+    c(alist(n_reps = ), as.list(formals(f_G2)), .s = NA_integer_, evaluate = TRUE)
   )
 
   arg_list <- list(
@@ -380,7 +382,7 @@ test_that("bundle_sim() works with functions that have defaults of NULL.", {
   setdiff(names(args_B), names(args_A))
 
   args_A <- bundle_sim(f_generate = f_G1, f_analyze = f_A3, f_summarize = f_S4) |> formals()
-  args_B <- c(alist(reps = ), formals(f_G1), formals(f_A3)[-1], formals(f_S4)[-1], alist(seed = NA, summarize = TRUE))
+  args_B <- c(alist(reps = ), formals(f_G1), formals(f_A3)[-1], formals(f_S4)[-1], alist(seed = NA_integer_, summarize = TRUE))
   expect_identical(as.list(args_A), args_B)
   setdiff(names(args_B), names(args_A))
 
@@ -390,7 +392,7 @@ test_that("bundle_sim() works with functions that have defaults of NULL.", {
   setdiff(names(args_B), names(args_A))
 
   args_A <- bundle_sim(f_generate = f_G3, f_analyze = f_A3, f_summarize = f_S4) |> formals()
-  args_B <- c(alist(reps = ), formals(f_G3), formals(f_A3)[-1], formals(f_S4)[-1], alist(seed = NA, summarize = TRUE))
+  args_B <- c(alist(reps = ), formals(f_G3), formals(f_A3)[-1], formals(f_S4)[-1], alist(seed = NA_integer_, summarize = TRUE))
   expect_identical(as.list(args_A), args_B)
   setdiff(names(args_B), names(args_A))
 
@@ -400,7 +402,7 @@ test_that("bundle_sim() works with functions that have defaults of NULL.", {
   setdiff(names(args_B), names(args_A))
 
   args_A <- bundle_sim(f_generate = f_G1, f_analyze = f_A4, f_summarize = f_S4) |> formals()
-  args_B <- c(alist(reps = ), formals(f_G1), formals(f_A4)[-1], formals(f_S4)[-1], alist(seed = NA, summarize = TRUE))
+  args_B <- c(alist(reps = ), formals(f_G1), formals(f_A4)[-1], formals(f_S4)[-1], alist(seed = NA_integer_, summarize = TRUE))
   expect_identical(as.list(args_A), args_B)
   setdiff(names(args_B), names(args_A))
 
@@ -410,7 +412,7 @@ test_that("bundle_sim() works with functions that have defaults of NULL.", {
   setdiff(names(args_B), names(args_A))
 
   args_A <- bundle_sim(f_generate = f_G3, f_analyze = f_A4, f_summarize = f_S4) |> formals()
-  args_B <- c(alist(reps = ), formals(f_G3), formals(f_A4)[-1], formals(f_S4)[-1], alist(seed = NA, summarize = TRUE))
+  args_B <- c(alist(reps = ), formals(f_G3), formals(f_A4)[-1], formals(f_S4)[-1], alist(seed = NA_integer_, summarize = TRUE))
   expect_identical(as.list(args_A), args_B)
   setdiff(names(args_B), names(args_A))
 
