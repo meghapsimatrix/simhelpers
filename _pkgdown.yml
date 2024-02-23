@@ -7,7 +7,8 @@ template:
     pkgdown-nav-height: 100px
 
 development:
-  mode: release
+  mode: devel
+
 
 authors:
   Megha Joshi:
