@@ -12,7 +12,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">simhelpers</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -143,49 +143,49 @@ argument.</p></dd>
 <span class="r-in"><span><span class="co"># bundle data-generation and data-analysis functions</span></span></span>
 <span class="r-in"><span><span class="va">sim1</span> <span class="op">&lt;-</span> <span class="fu">bundle_sim</span><span class="op">(</span>f_generate <span class="op">=</span> <span class="va">f_G</span>, f_analyze <span class="op">=</span> <span class="va">f_A</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/args.html" class="external-link">args</a></span><span class="op">(</span><span class="va">sim1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> function (reps, n, mean = 0, sd = 1, trim = 0, seed = NA_real_) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function (reps, n, mean = 0, sd = 1, trim = 0, seed = NA_integer_) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu">sim1</span><span class="op">(</span><span class="fl">4</span>, n <span class="op">=</span> <span class="fl">70</span>, mean <span class="op">=</span> <span class="fl">0.5</span>, sd <span class="op">=</span> <span class="fl">1</span>, trim <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">res1</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       y_bar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.3446887</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.3379036</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.4629103</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.6115305</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.6452644</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.6874491</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.2052848</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.5775816</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># bundle data-generation, data-analysis, and performance summary functions</span></span></span>
 <span class="r-in"><span><span class="va">sim2</span> <span class="op">&lt;-</span> <span class="fu">bundle_sim</span><span class="op">(</span>f_generate <span class="op">=</span> <span class="va">f_G</span>, f_analyze <span class="op">=</span> <span class="va">f_A</span>, f_summarize <span class="op">=</span> <span class="va">f_S</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/args.html" class="external-link">args</a></span><span class="op">(</span><span class="va">sim2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (reps, n, mean = 0, sd = 1, trim = 0, calc_sd = FALSE, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     seed = NA_real_, summarize = TRUE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     seed = NA_integer_, summarize = TRUE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu">sim2</span><span class="op">(</span><span class="fl">24</span>, n <span class="op">=</span> <span class="fl">7</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span>, trim <span class="op">=</span> <span class="fl">0.2</span>, calc_sd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">res2</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  M        SD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y_bar -0.002187053 0.5209722</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 M       SD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y_bar -0.06870148 0.427031</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># bundle data-generation and data-analysis functions, returning results as a list</span></span></span>
 <span class="r-in"><span><span class="va">sim3</span> <span class="op">&lt;-</span> <span class="fu">bundle_sim</span><span class="op">(</span>f_generate <span class="op">=</span> <span class="va">f_G</span>, f_analyze <span class="op">=</span> <span class="va">f_A</span>, row_bind_reps <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/args.html" class="external-link">args</a></span><span class="op">(</span><span class="va">sim3</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> function (reps, n, mean = 0, sd = 1, trim = 0, seed = NA_real_) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function (reps, n, mean = 0, sd = 1, trim = 0, seed = NA_integer_) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span><span class="va">res3</span> <span class="op">&lt;-</span> <span class="fu">sim3</span><span class="op">(</span><span class="fl">4</span>, n <span class="op">=</span> <span class="fl">70</span>, mean <span class="op">=</span> <span class="fl">0.5</span>, sd <span class="op">=</span> <span class="fl">3</span>, trim <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">res3</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       y_bar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.4360896</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      y_bar</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.826796</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      y_bar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.209349</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.024805</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       y_bar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.5547735</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.1259141</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[4]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       y_bar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.5369524</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.4401875</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
