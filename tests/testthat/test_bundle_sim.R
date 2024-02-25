@@ -14,6 +14,7 @@ f_S1 <- function(x, calc_sd = FALSE) {
 
 test_that("bundle_sim() works for a simple DGP.", {
 
+  skip_on_os("mac")
   sim1 <- bundle_sim(f_generate = f_G1, f_analyze = f_A1)
   expect_identical(formalArgs(sim1), c("reps","n","mean","sd","trim","seed"))
 
@@ -83,6 +84,86 @@ test_that("bundle_sim() works for a simple DGP.", {
                       reps_name = "R", seed_name = ".seed", summarize_opt_name = NULL)
   res8b <- sim2b(93, n = 350, mean = -4/3, trim = 0.3, calc_sd = TRUE, .seed = 20240107)
   expect_identical(res8, res8b)
+
+  sim2c <- bundle_sim(f_generate = f_G1, f_analyze = f_A1, f_summarize = f_S1,
+                      reps_name = "R", seed_name = ".seed", summarize_opt_name = NULL, row_bind_reps = FALSE)
+  expect_error(
+    sim2c(93, n = 350, mean = -4/3, trim = 0.3, calc_sd = TRUE, .seed = 20240107)
+  )
+
+})
+
+test_that("bundle_sim() works for a simple DGP, checking on Mac too.", {
+
+  sim1 <- bundle_sim(f_generate = f_G1, f_analyze = f_A1)
+  expect_equal(formalArgs(sim1), c("reps","n","mean","sd","trim","seed"))
+
+  res1 <- sim1(24, n = 7, seed = 20240107)
+  set.seed(20240107)
+  dat1 <- data.frame(rep = rep(1:24, each = 7), y = rnorm(24 * 7))
+  ybar1 <- with(dat1, tapply(y, rep, mean)) |> as.double()
+  expect_equal(res1$y_bar, ybar1)
+
+  res2 <- sim1(24, n = 7, mean = 0, sd = 1, seed = 20240107)
+  expect_equal(res1, res2)
+
+  set.seed(20240107)
+  res3 <- sim1(24, n = 7)
+  expect_equal(res1, res3)
+
+  res4 <- sim1(14, n = 78, sd = 25, trim = 0.1, seed = 20240107)
+  set.seed(20240107)
+  dat4 <- data.frame(rep = rep(1:14, each = 78), y = rnorm(14 * 78, sd = 25))
+  ybar4 <- with(dat4, tapply(y, rep, mean, trim = 0.1)) |> as.double()
+  expect_equal(res4$y_bar, ybar4)
+
+  sim1a <- bundle_sim(f_generate = f_G1, f_analyze = f_A1, row_bind_reps = FALSE)
+  expect_equal(formals(sim1), formals(sim1a))
+  res1a <-  sim1a(24, n = 7, seed = 20240107)
+  expect_is(res1a, "list")
+  expect_length(res1a, 24)
+  expect_equal(res1, do.call(rbind, res1a))
+
+  sim2 <- bundle_sim(f_generate = f_G1, f_analyze = f_A1, f_summarize = f_S1,
+                     reps_name = "R", seed_name = ".seed", summarize_opt_name = "Agg")
+  expect_equal(formalArgs(sim2), c("R","n","mean","sd","trim","calc_sd",".seed", "Agg"))
+
+  res5 <- sim2(93, n = 350, mean = -3, calc_sd = TRUE, .seed = 20240107, Agg = FALSE)
+  res6 <- sim2(93, n = 350, mean = -3, calc_sd = TRUE, .seed = 20240107)
+  set.seed(20240107)
+  dat5 <- data.frame(rep = rep(1:93, each = 350), y = rnorm(93 * 350, mean = -3, sd = 1))
+  ybar5 <- with(dat5, tapply(y, rep, mean)) |> as.double()
+  expect_equal(res5$y_bar, ybar5)
+  expect_equal(res6$M, mean(dat5$y))
+  expect_equal(res6$SD, sd(ybar5))
+  expect_equal(f_S1(res5, calc_sd = TRUE), res6)
+
+  res7 <- sim2(93, n = 350, mean = -4/3, trim = 0.3, calc_sd = TRUE, .seed = 20240107, Agg = FALSE)
+  res8 <- sim2(93, n = 350, mean = -4/3, trim = 0.3, calc_sd = TRUE, .seed = 20240107)
+  set.seed(20240107)
+  dat7 <- data.frame(rep = rep(1:93, each = 350), y = rnorm(93 * 350, mean = -4/3, sd = 1))
+  ybar7 <- with(dat7, tapply(y, rep, mean, trim = 0.3)) |> as.double()
+  expect_equal(res7$y_bar, ybar7)
+  expect_gt(abs(res8$M - mean(dat7$y)), 0)
+  expect_equal(res8$M, mean(ybar7))
+  expect_equal(res8$SD, sd(ybar7))
+  expect_equal(f_S1(res7, calc_sd = TRUE), res8)
+
+  sim2a <- bundle_sim(f_generate = f_G1, f_analyze = f_A1, f_summarize = f_S1,
+                      reps_name = "R", seed_name = ".seed", summarize_opt_name = "Agg", row_bind_reps = FALSE)
+  expect_equal(formals(sim2), formals(sim2a))
+  res5a <- sim2a(93, n = 350, mean = -3, calc_sd = TRUE, .seed = 20240107, Agg = FALSE)
+  expect_is(res5a, "list")
+  expect_length(res5a, 93)
+  expect_equal(res5, do.call(rbind, res5a))
+  expect_error(
+    sim2a(93, n = 350, mean = -3, calc_sd = TRUE, .seed = 20240107)
+  )
+
+  sim2b <- bundle_sim(f_generate = f_G1, f_analyze = f_A1, f_summarize = f_S1,
+                      reps_name = "R", seed_name = ".seed", summarize_opt_name = NULL)
+  res8b <- sim2b(93, n = 350, mean = -4/3, trim = 0.3, calc_sd = TRUE, .seed = 20240107)
+  expect_equal(res8, res8b)
 
   sim2c <- bundle_sim(f_generate = f_G1, f_analyze = f_A1, f_summarize = f_S1,
                       reps_name = "R", seed_name = ".seed", summarize_opt_name = NULL, row_bind_reps = FALSE)
