@@ -16,22 +16,7 @@ This is a resubmission. This is a maintenance release which corrects issues in t
 
 There were no ERRORs or WARNINGs. There was one NOTE:
 
-* Found the following (possibly) invalid URLs:
-  URL: https://doi.org/10.1002/jrsm.5
-    From: inst/doc/visualization.html
-    Status: 503
-    Message: Service Unavailable
-  URL: https://doi.org/10.1037/met0000011
-    From: inst/doc/visualization.html
-    Status: 400
-    Message: Bad Request
-  URL: https://doi.org/10.3102/1076998615606099
-    From: inst/doc/visualization.html
-    Status: 503
-    Message: Service Unavailable
-  URL: https://journals.sagepub.com/doi/10.3102/1076998615606099
-    From: man/Tipton_Pusto.Rd
-    Status: 503
-    Message: Service Unavailable
+  Days since last update: 5
 
-  The flagged URLs are correct.
+We are resubmitting the package to correct errors in the CRAN checks of version 0.2.0.
+
