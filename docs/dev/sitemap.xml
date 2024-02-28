@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/articles/index.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/dev/articles/MCSE.html</loc>
   </url>
   <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/articles/MCSE.html</loc>
+    <loc>https://meghapsimatrix.github.io/simhelpers/dev/articles/index.html</loc>
   </url>
   <url>
     <loc>https://meghapsimatrix.github.io/simhelpers/dev/articles/simulation_workflow.html</loc>
@@ -20,6 +20,9 @@
   </url>
   <url>
     <loc>https://meghapsimatrix.github.io/simhelpers/dev/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/Tipton_Pusto.html</loc>
   </url>
   <url>
     <loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/alpha_res.html</loc>
@@ -50,9 +53,6 @@
   </url>
   <url>
     <loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/Tipton_Pusto.html</loc>
   </url>
   <url>
     <loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/t_res.html</loc>
