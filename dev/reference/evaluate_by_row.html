@@ -138,7 +138,7 @@ must be the result from a call to <code><a href="https://furrr.futureverse.org/r
 <span class="r-in"><span><span class="fu">evaluate_by_row</span><span class="op">(</span><span class="va">df</span>, <span class="va">rpois</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>UNRELIABLE VALUE: Future (‘&lt;none&gt;’) unexpectedly generated random numbers without specifying argument 'seed'. There is a risk that those random numbers are not statistically sound and the overall results might be invalid. To fix this, specify 'seed=TRUE'. This ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-CMRG method. To disable this check, use 'seed=NULL', or set option 'future.rng.onMisuse' to "ignore".</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.040   0.000   0.041 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0.038   0.004   0.042 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        n lambda .results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
