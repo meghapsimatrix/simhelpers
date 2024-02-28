@@ -1,6 +1,6 @@
 ## Resubmission
 
-This is a resubmission. This is a maintenance release which removes import of a defunct function from the furrr package. 
+This is a resubmission. This is a maintenance release which corrects issues in the unit tests on MacOS.
 
 ## Test environments
 
