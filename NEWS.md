@@ -1,6 +1,6 @@
 simhelpers 0.2.1
 =======================
-* Fixed issues in unit tests on Mac OS.
+* Fixed issues in unit tests on Mac OS, M1Mac, and NoLD.
 
 simhelpers 0.2.0
 =======================

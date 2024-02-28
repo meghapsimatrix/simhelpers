@@ -14,7 +14,7 @@ f_S1 <- function(x, calc_sd = FALSE) {
 
 test_that("bundle_sim() works for a simple DGP.", {
 
-  skip_on_os("mac")
+  skip_on_cran()
   sim1 <- bundle_sim(f_generate = f_G1, f_analyze = f_A1)
   expect_identical(formalArgs(sim1), c("reps","n","mean","sd","trim","seed"))
 
@@ -93,7 +93,7 @@ test_that("bundle_sim() works for a simple DGP.", {
 
 })
 
-test_that("bundle_sim() works for a simple DGP, checking on Mac too.", {
+test_that("bundle_sim() works for a simple DGP, tests for CRAN.", {
 
   sim1 <- bundle_sim(f_generate = f_G1, f_analyze = f_A1)
   expect_equal(formalArgs(sim1), c("reps","n","mean","sd","trim","seed"))

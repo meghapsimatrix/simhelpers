@@ -1,6 +1,6 @@
 ## Resubmission
 
-This is a resubmission. This is a maintenance release which corrects issues in the unit tests on MacOS.
+This is a resubmission. This is a maintenance release which corrects issues in the unit tests on MacOS, M1Mac, and NoLD.
 
 ## Test environments
 
