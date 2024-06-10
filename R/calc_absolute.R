@@ -7,7 +7,9 @@
 #' @param data data frame or tibble containing the simulation results.
 #' @param estimates Vector or name of column from \code{data} containing point estimates.
 #' @param true_param Vector or name of column from \code{data} containing corresponding true parameters.
-#' @param criteria character or character vector indicating the performance criteria to be calculated.
+#' @param criteria character or character vector indicating the performance
+#'   criteria to be calculated, with possible options \code{"bias"},
+#'   \code{"variance"}, \code{"stddev"}, \code{"mse"}, and \code{"rmse"}.
 #'
 #' @return A tibble containing the number of simulation iterations, performance criteria estimate(s)
 #' and the associated MCSE.
@@ -24,7 +26,7 @@
 calc_absolute <- function(
   data,
   estimates, true_param,
-  criteria = c("bias", "variance", "mse", "rmse")
+  criteria = c("bias", "variance", "stddev","mse", "rmse")
 ) {
 
   if (!missing(data)) {
@@ -37,6 +39,7 @@ calc_absolute <- function(
   true_param <- unique(true_param) # true param
   if (length(true_param) > 1L) stop("`true_param` must have a single unique value.")
 
+  criteria <- match.arg(criteria, choices = c("bias", "variance", "stddev","mse", "rmse"), several.ok = TRUE)
 
   # calculate sample stats
   K <- length(estimates) # number of iterations
@@ -65,9 +68,13 @@ calc_absolute <- function(
 
   if ("variance" %in% criteria) {
     dat$var <- s_t^2
-    dat$var_mcse <- s_t^2 * sqrt(((k_t - 1) / K))
+    dat$var_mcse <- s_t^2 * sqrt((k_t - 1) / K)
   }
 
+  if ("stddev" %in% criteria) {
+    dat$stddev <- s_t
+    dat$stddev_mcse <- sqrt(((K - 1)/K) * sum((sqrt(s_sq_t_j) - s_t)^2))
+  }
 
   if ("mse" %in% criteria) {
     dat$mse <- mse
@@ -77,7 +84,7 @@ calc_absolute <- function(
   if ("rmse" %in% criteria) {
     rmse <- sqrt(mse)
     dat$rmse <- rmse
-    dat$rmse_mcse <- sqrt(((K - 1)/(K)) * sum((rmse_j - rmse)^2))
+    dat$rmse_mcse <- sqrt(((K - 1)/K) * sum((rmse_j - rmse)^2))
   }
 
   return(dat)
