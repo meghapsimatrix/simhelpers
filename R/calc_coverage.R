@@ -6,6 +6,8 @@
 #'
 #' @param lower_bound Vector or name of column from \code{data} containing lower bounds of confidence intervals.
 #' @param upper_bound Vector or name of column from \code{data} containing upper bounds of confidence intervals.
+#' @param criteria character or character vector indicating the performance
+#'   criteria to be calculated, with possible options \code{"coverage"} and \code{"width"}.
 #' @inheritParams calc_absolute
 #'
 #' @return A tibble containing the number of simulation iterations, performance criteria estimate(s)
@@ -38,6 +40,8 @@ calc_coverage <- function(
 
   true_param <- unique(true_param) # true param
   if (length(true_param) > 1L) stop("`true_param` must have a single unique value.")
+
+  criteria <- match.arg(criteria, choices = c("coverage", "width"), several.ok = TRUE)
 
   K <- length(lower_bound) # iterations
 

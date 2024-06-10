@@ -8,7 +8,7 @@ calc_absolute(
   data,
   estimates,
   true_param,
-  criteria = c("bias", "variance", "mse", "rmse")
+  criteria = c("bias", "variance", "stddev", "mse", "rmse")
 )
 }
 \arguments{
@@ -18,7 +18,9 @@ calc_absolute(
 
 \item{true_param}{Vector or name of column from \code{data} containing corresponding true parameters.}
 
-\item{criteria}{character or character vector indicating the performance criteria to be calculated.}
+\item{criteria}{character or character vector indicating the performance
+criteria to be calculated, with possible options \code{"bias"},
+\code{"variance"}, \code{"stddev"}, \code{"mse"}, and \code{"rmse"}.}
 }
 \value{
 A tibble containing the number of simulation iterations, performance criteria estimate(s)

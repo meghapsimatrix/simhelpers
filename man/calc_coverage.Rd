@@ -21,7 +21,8 @@ calc_coverage(
 
 \item{true_param}{Vector or name of column from \code{data} containing corresponding true parameters.}
 
-\item{criteria}{character or character vector indicating the performance criteria to be calculated.}
+\item{criteria}{character or character vector indicating the performance
+criteria to be calculated, with possible options \code{"coverage"} and \code{"width"}.}
 }
 \value{
 A tibble containing the number of simulation iterations, performance criteria estimate(s)

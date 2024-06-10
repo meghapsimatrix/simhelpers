@@ -4,6 +4,9 @@
 #' The function also calculates the associated
 #' Monte Carlo standard errors.
 #'
+#' @param criteria character or character vector indicating the performance
+#'   criteria to be calculated, with possible options \code{"relative bias"},
+#'   \code{"relative mse"}, and \code{"relative rmse"}.
 #' @inheritParams calc_absolute
 #'
 #' @return A tibble containing the number of simulation iterations, performance criteria estimate(s)
@@ -31,6 +34,8 @@ calc_relative <- function(
   estimates <- estimates[!is.na(estimates)]
   true_param <- unique(true_param) # true param
   if (length(true_param) > 1L) stop("`true_param` must have a single unique value.")
+
+  criteria <- match.arg(criteria, choices = c("relative bias", "relative mse", "relative rmse"), several.ok = TRUE)
 
   # calculate sample stats
   K <- length(estimates) # number of iterations

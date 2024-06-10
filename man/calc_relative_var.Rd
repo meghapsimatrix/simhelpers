@@ -18,7 +18,9 @@ calc_relative_var(
 
 \item{var_estimates}{Vector or name of column from \code{data} containing variance estimates for point estimator in \code{estimates}.}
 
-\item{criteria}{character or character vector indicating the performance criteria to be calculated.}
+\item{criteria}{character or character vector indicating the performance
+criteria to be calculated, with possible options \code{"relative bias"},
+\code{"relative mse"}, and \code{"relative rmse"}.}
 }
 \value{
 A tibble containing the number of simulation iterations, performance criteria estimate(s)

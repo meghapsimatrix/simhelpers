@@ -5,7 +5,7 @@
 #' The function also calculates the associated jack-knife Monte Carlo standard errors.
 #'
 #' @param var_estimates Vector or name of column from \code{data} containing variance estimates for point estimator in \code{estimates}.
-#' @inheritParams calc_absolute
+#' @inheritParams calc_relative
 #'
 #' @return A tibble containing the number of simulation iterations, performance criteria estimate(s)
 #' and the associated MCSE.
@@ -34,6 +34,7 @@ calc_relative_var <- function(
   estimates <- estimates[not_miss]
   var_est <- var_estimates[not_miss]
 
+  criteria <- match.arg(criteria, choices = c("relative bias", "relative mse", "relative rmse"), several.ok = TRUE)
 
   # calculate sample stats
   K <- length(var_est) # iterations
