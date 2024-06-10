@@ -19,7 +19,8 @@ calc_coverage(
 
 \item{upper_bound}{Vector or name of column from \code{data} containing upper bounds of confidence intervals.}
 
-\item{true_param}{Vector or name of column from \code{data} containing corresponding true parameters.}
+\item{true_param}{Vector or name of column from \code{data} containing
+corresponding true parameters.}
 
 \item{criteria}{character or character vector indicating the performance
 criteria to be calculated, with possible options \code{"coverage"} and \code{"width"}.}

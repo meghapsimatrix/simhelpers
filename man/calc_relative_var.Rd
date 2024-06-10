@@ -14,7 +14,8 @@ calc_relative_var(
 \arguments{
 \item{data}{data frame or tibble containing the simulation results.}
 
-\item{estimates}{Vector or name of column from \code{data} containing point estimates.}
+\item{estimates}{Vector or name of column from \code{data} containing point
+estimates.}
 
 \item{var_estimates}{Vector or name of column from \code{data} containing variance estimates for point estimator in \code{estimates}.}
 

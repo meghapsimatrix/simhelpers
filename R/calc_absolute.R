@@ -80,8 +80,8 @@ calc_absolute <- function(
   dat <- tibble::tibble(K_absolute = K)
 
   if (winsorize < Inf) {
-    dat$winsorization_pct <- winsorization_pct
-    dat$winsorization_pct_mcse <- sqrt(winsorization_pct * (1 - winsorization_pct) / K)
+    dat$winsor_pct <- winsorization_pct
+    dat$winsor_pct_mcse <- sqrt(winsorization_pct * (1 - winsorization_pct) / K)
   }
 
   if ("bias" %in% criteria) {
