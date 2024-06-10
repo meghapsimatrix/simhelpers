@@ -1,18 +1,25 @@
 #' @title Calculate absolute performance criteria and MCSE
 #'
-#' @description Calculates absolute bias, variance, mean squared error (mse)
-#' and root mean squared error (rmse). The function also calculates the associated
-#' Monte Carlo standard errors.
+#' @description Calculates absolute bias, variance, mean squared error (mse) and
+#'   root mean squared error (rmse). The function also calculates the associated
+#'   Monte Carlo standard errors.
 #'
 #' @param data data frame or tibble containing the simulation results.
-#' @param estimates Vector or name of column from \code{data} containing point estimates.
-#' @param true_param Vector or name of column from \code{data} containing corresponding true parameters.
+#' @param estimates Vector or name of column from \code{data} containing point
+#'   estimates.
+#' @param true_param Vector or name of column from \code{data} containing
+#'   corresponding true parameters.
 #' @param criteria character or character vector indicating the performance
 #'   criteria to be calculated, with possible options \code{"bias"},
 #'   \code{"variance"}, \code{"stddev"}, \code{"mse"}, and \code{"rmse"}.
+#' @param winsorize Numeric value for winsorization constant. If set to a finite
+#'   value, estimates will be winsorized at the constant multiple of the
+#'   inter-quartile range below the 25th percentile or above the 75th percentile
+#'   of the distribution. For instance, setting \code{winsorize = 3} will
+#'   truncate estimates that fall below P25 - 3 * IQR or above P75 + 3 * IQR.
 #'
-#' @return A tibble containing the number of simulation iterations, performance criteria estimate(s)
-#' and the associated MCSE.
+#' @return A tibble containing the number of simulation iterations, performance
+#'   criteria estimate(s) and the associated MCSE.
 #'
 #'
 #' @export
@@ -26,20 +33,31 @@
 calc_absolute <- function(
   data,
   estimates, true_param,
-  criteria = c("bias", "variance", "stddev","mse", "rmse")
+  criteria = c("bias", "variance", "stddev","mse", "rmse"),
+  winsorize = Inf
 ) {
+
+  criteria <- match.arg(criteria, choices = c("bias", "variance", "stddev","mse", "rmse"), several.ok = TRUE)
 
   if (!missing(data)) {
     cl <- match.call()
-    estimates <- eval(cl$estimates, envir = data)
     true_param <- eval(cl$true_param, envir = data)
+    estimates <- eval(cl$estimates, envir = data)
   }
 
-  estimates <- estimates[!is.na(estimates)]
   true_param <- unique(true_param) # true param
   if (length(true_param) > 1L) stop("`true_param` must have a single unique value.")
 
-  criteria <- match.arg(criteria, choices = c("bias", "variance", "stddev","mse", "rmse"), several.ok = TRUE)
+  estimates <- estimates[!is.na(estimates)]
+
+  if (winsorize < Inf) {
+    quartiles <- quantile(estimates, c(.25, .75))
+    IQR <- diff(quartiles)
+    trunc_points <- quartiles + c(-1, 1) * winsorize * IQR
+    winsorization_pct <- mean((estimates < trunc_points[1]) | (estimates > trunc_points[2]))
+    estimates <- pmax(pmin(estimates, trunc_points[2]), trunc_points[1])
+  }
+
 
   # calculate sample stats
   K <- length(estimates) # number of iterations
@@ -60,6 +78,11 @@ calc_absolute <- function(
 
   # initialize tibble
   dat <- tibble::tibble(K_absolute = K)
+
+  if (winsorize < Inf) {
+    dat$winsorization_pct <- winsorization_pct
+    dat$winsorization_pct_mcse <- sqrt(winsorization_pct * (1 - winsorization_pct) / K)
+  }
 
   if ("bias" %in% criteria) {
     dat$bias <- bias
