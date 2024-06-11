@@ -9,7 +9,7 @@ calc_absolute(
   estimates,
   true_param,
   criteria = c("bias", "variance", "stddev", "mse", "rmse"),
-  winsorize = Inf
+  winz = Inf
 )
 }
 \arguments{
@@ -25,10 +25,10 @@ corresponding true parameters.}
 criteria to be calculated, with possible options \code{"bias"},
 \code{"variance"}, \code{"stddev"}, \code{"mse"}, and \code{"rmse"}.}
 
-\item{winsorize}{Numeric value for winsorization constant. If set to a finite
+\item{winz}{Numeric value for winsorization constant. If set to a finite
 value, estimates will be winsorized at the constant multiple of the
 inter-quartile range below the 25th percentile or above the 75th percentile
-of the distribution. For instance, setting \code{winsorize = 3} will
+of the distribution. For instance, setting \code{winz = 3} will
 truncate estimates that fall below P25 - 3 * IQR or above P75 + 3 * IQR.}
 }
 \value{

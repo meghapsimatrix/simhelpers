@@ -9,8 +9,8 @@ calc_relative_var(
   estimates,
   var_estimates,
   criteria = c("relative bias", "relative mse", "relative rmse"),
-  winsorize = Inf,
-  var_winsorize = winsorize
+  winz = Inf,
+  var_winz = winz
 )
 }
 \arguments{
@@ -26,19 +26,19 @@ variance estimates for point estimator in \code{estimates}.}
 criteria to be calculated, with possible options \code{"relative bias"},
 \code{"relative mse"}, and \code{"relative rmse"}.}
 
-\item{winsorize}{Numeric value for winsorization constant. If set to a finite
+\item{winz}{Numeric value for winsorization constant. If set to a finite
 value, estimates will be winsorized at the constant multiple of the
 inter-quartile range below the 25th percentile or above the 75th percentile
-of the distribution. For instance, setting \code{winsorize = 3} will
+of the distribution. For instance, setting \code{winz = 3} will
 truncate estimates that fall below P25 - 3 * IQR or above P75 + 3 * IQR.}
 
-\item{var_winsorize}{Numeric value for winsorization constant for the
+\item{var_winz}{Numeric value for winsorization constant for the
 variance estimates. If set to a finite value, variance estimates will be
 winsorized at the constant multiple of the inter-quartile range below the
 25th percentile or above the 75th percentile of the distribution. For
-instance, setting \code{var_winsorize = 3} will truncate variance estimates
+instance, setting \code{var_winz = 3} will truncate variance estimates
 that fall below P25 - 3 * IQR or above P75 + 3 * IQR. By default
-\code{var_winsorize} is set to the same constant as \code{winsorize}.}
+\code{var_winz} is set to the same constant as \code{winsorize}.}
 }
 \value{
 A tibble containing the number of simulation iterations, performance
