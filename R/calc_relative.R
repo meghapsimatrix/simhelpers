@@ -46,7 +46,7 @@ calc_relative <- function(
   dat <- tibble::tibble(K_relative = abs_dat$K_absolute)
 
   if (winsorize < Inf) {
-    dat$winsor_pct <- abs_dat$winsorization_pct
+    dat$winsor_pct <- abs_dat$winsor_pct
     dat$winsor_pct_mcse <- abs_dat$winsor_pct_mcse
   }
 
