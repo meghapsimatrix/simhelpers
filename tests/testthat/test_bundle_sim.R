@@ -357,6 +357,8 @@ f_S4 <- function(x, calc_sd = FALSE, f = NULL) {
 
 test_that("bundle_sim() works with functions that have defaults of NULL.", {
 
+  skip_on_covr()
+
   sim11 <- bundle_sim(f_generate = f_G1, f_analyze = f_A3, seed_name = NULL)
   args_A <- formals(sim11)
   args_B <- c(alist(reps = ), formals(f_G1), formals(f_A3)[-1])
