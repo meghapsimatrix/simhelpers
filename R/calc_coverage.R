@@ -26,16 +26,16 @@ calc_coverage <- function(
   lower_bound, upper_bound,
   true_param,
   criteria = c("coverage", "width"),
-  winsorize = Inf
+  winz = Inf
 ) {
 
   criteria <- match.arg(criteria, choices = c("coverage", "width"), several.ok = TRUE)
 
   if (!missing(data)) {
     cl <- match.call()
-    true_param <- eval(cl$true_param, envir = data)
-    lower_bound <- eval(cl$lower_bound, envir = data)
-    upper_bound <- eval(cl$upper_bound, envir = data)
+    true_param <- eval(cl$true_param, envir = data, enclos = parent.frame())
+    lower_bound <- eval(cl$lower_bound, envir = data, enclos = parent.frame())
+    upper_bound <- eval(cl$upper_bound, envir = data, enclos = parent.frame())
   }
 
   true_param <- unique(true_param) # true param
@@ -48,20 +48,14 @@ calc_coverage <- function(
   K <- length(lower_bound) # iterations
   width <- upper_bound - lower_bound
 
-  if (winsorize < Inf) {
-    quartiles <- quantile(width, c(.25, .75))
-    IQR <- diff(quartiles)
-    trunc_points <- quartiles + c(-1, 1) * winsorize * IQR
-    winsorization_pct <- mean((width < trunc_points[1]) | (width > trunc_points[2]))
-    width <- pmax(pmin(width, trunc_points[2]), trunc_points[1])
-  }
+  if (winz < Inf) width <- winsorize(width, winz)
 
   # initialize tibble
   dat <- tibble::tibble(K_coverage = K)
 
-  if (winsorize < Inf) {
-    dat$width_winsor_pct <- winsorization_pct
-    dat$width_winsor_pct_mcse <- sqrt(winsorization_pct * (1 - winsorization_pct) / K)
+  if (winz < Inf) {
+    dat$width_winsor_pct <- attr(width, "winsor_pct")
+    dat$width_winsor_pct_mcse <- sqrt(dat$width_winsor_pct * (1 - dat$width_winsor_pct) / K)
   }
 
   if ("coverage" %in% criteria) {

@@ -12,10 +12,10 @@
 #' @param criteria character or character vector indicating the performance
 #'   criteria to be calculated, with possible options \code{"bias"},
 #'   \code{"variance"}, \code{"stddev"}, \code{"mse"}, and \code{"rmse"}.
-#' @param winsorize Numeric value for winsorization constant. If set to a finite
+#' @param winz Numeric value for winsorization constant. If set to a finite
 #'   value, estimates will be winsorized at the constant multiple of the
 #'   inter-quartile range below the 25th percentile or above the 75th percentile
-#'   of the distribution. For instance, setting \code{winsorize = 3} will
+#'   of the distribution. For instance, setting \code{winz = 3} will
 #'   truncate estimates that fall below P25 - 3 * IQR or above P75 + 3 * IQR.
 #'
 #' @return A tibble containing the number of simulation iterations, performance
@@ -34,15 +34,15 @@ calc_absolute <- function(
   data,
   estimates, true_param,
   criteria = c("bias", "variance", "stddev","mse", "rmse"),
-  winsorize = Inf
+  winz = Inf
 ) {
 
   criteria <- match.arg(criteria, choices = c("bias", "variance", "stddev","mse", "rmse"), several.ok = TRUE)
 
   if (!missing(data)) {
     cl <- match.call()
-    true_param <- eval(cl$true_param, envir = data)
-    estimates <- eval(cl$estimates, envir = data)
+    true_param <- eval(cl$true_param, envir = data, enclos = parent.frame())
+    estimates <- eval(cl$estimates, envir = data, enclos = parent.frame())
   }
 
   true_param <- unique(true_param) # true param
@@ -50,14 +50,7 @@ calc_absolute <- function(
 
   estimates <- estimates[!is.na(estimates)]
 
-  if (winsorize < Inf) {
-    quartiles <- quantile(estimates, c(.25, .75))
-    IQR <- diff(quartiles)
-    trunc_points <- quartiles + c(-1, 1) * winsorize * IQR
-    winsorization_pct <- mean((estimates < trunc_points[1]) | (estimates > trunc_points[2]))
-    estimates <- pmax(pmin(estimates, trunc_points[2]), trunc_points[1])
-  }
-
+  if (winz < Inf) estimates <- winsorize(estimates, winz)
 
   # calculate sample stats
   K <- length(estimates) # number of iterations
@@ -79,9 +72,9 @@ calc_absolute <- function(
   # initialize tibble
   dat <- tibble::tibble(K_absolute = K)
 
-  if (winsorize < Inf) {
-    dat$winsor_pct <- winsorization_pct
-    dat$winsor_pct_mcse <- sqrt(winsorization_pct * (1 - winsorization_pct) / K)
+  if (winz < Inf) {
+    dat$winsor_pct <- attr(estimates, "winsor_pct")
+    dat$winsor_pct_mcse <- sqrt(dat$winsor_pct * (1 - dat$winsor_pct) / K)
   }
 
   if ("bias" %in% criteria) {

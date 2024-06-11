@@ -23,7 +23,7 @@ calc_relative <- function(
   data,
   estimates, true_param,
   criteria = c("relative bias", "relative mse", "relative rmse"),
-  winsorize = Inf
+  winz = Inf
 ) {
 
   criteria <- match.arg(criteria, choices = c("relative bias", "relative mse", "relative rmse"), several.ok = TRUE)
@@ -36,7 +36,7 @@ calc_relative <- function(
 
   if (!missing(data)) {
     cl <- match.call()
-    true_param <- eval(cl$true_param, envir = data)
+    true_param <- eval(cl$true_param, envir = data, enclos = parent.frame())
   }
 
   true_param <- unique(true_param) # true param
@@ -45,7 +45,7 @@ calc_relative <- function(
   # initialize tibble
   dat <- tibble::tibble(K_relative = abs_dat$K_absolute)
 
-  if (winsorize < Inf) {
+  if (winz < Inf) {
     dat$winsor_pct <- abs_dat$winsor_pct
     dat$winsor_pct_mcse <- abs_dat$winsor_pct_mcse
   }
