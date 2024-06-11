@@ -1,3 +1,8 @@
+simhelpers 0.2.1.9999
+=======================
+* Added `"stddev"` as a performance criterion in `calc_absolute()`.
+* Added `winsorize` options in `calc_absolute()`, `calc_relative()`, `calc_relative_var()`, and `calc_coverage()`.
+
 simhelpers 0.2.1
 =======================
 * Fixed issues in unit tests on Mac OS, M1Mac, and NoLD.
