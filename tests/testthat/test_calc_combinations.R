@@ -1,8 +1,10 @@
 skip_if_not_installed("dplyr")
 skip_if_not_installed("tidyr")
+skip_if_not_installed("purrr")
 
 library(dplyr)
 library(tidyr)
+library(purrr)
 
 data("welch_res")
 data("Tipton_Pusto")
@@ -94,7 +96,8 @@ test_that("calc_*() functions can be used in combination inside of dplyr::summar
     pivot_wider(names_from = "test", values_from = pval) %>%
     group_by(num_studies, Isq, q) %>%
     summarise(
-      across(all_of(test_names), ~ calc_rejection(p_values = .))
+      across(all_of(test_names), ~ calc_rejection(p_values = .)),
+      .groups = "drop"
     ) %>%
     unnest(cols = all_of(test_names), names_sep = "_")
 

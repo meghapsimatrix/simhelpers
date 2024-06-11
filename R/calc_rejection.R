@@ -36,7 +36,7 @@ calc_rejection <- function(
 
   if (!missing(data)) {
     cl <- match.call()
-    p_values <- eval(cl$p_values, envir = data)
+    p_values <- eval(cl$p_values, envir = data, enclos = parent.frame())
   }
 
   p_values <- p_values[!is.na(p_values)]

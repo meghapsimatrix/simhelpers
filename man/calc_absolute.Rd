@@ -8,26 +8,37 @@ calc_absolute(
   data,
   estimates,
   true_param,
-  criteria = c("bias", "variance", "mse", "rmse")
+  criteria = c("bias", "variance", "stddev", "mse", "rmse"),
+  winz = Inf
 )
 }
 \arguments{
 \item{data}{data frame or tibble containing the simulation results.}
 
-\item{estimates}{Vector or name of column from \code{data} containing point estimates.}
+\item{estimates}{Vector or name of column from \code{data} containing point
+estimates.}
 
-\item{true_param}{Vector or name of column from \code{data} containing corresponding true parameters.}
+\item{true_param}{Vector or name of column from \code{data} containing
+corresponding true parameters.}
 
-\item{criteria}{character or character vector indicating the performance criteria to be calculated.}
+\item{criteria}{character or character vector indicating the performance
+criteria to be calculated, with possible options \code{"bias"},
+\code{"variance"}, \code{"stddev"}, \code{"mse"}, and \code{"rmse"}.}
+
+\item{winz}{Numeric value for winsorization constant. If set to a finite
+value, estimates will be winsorized at the constant multiple of the
+inter-quartile range below the 25th percentile or above the 75th percentile
+of the distribution. For instance, setting \code{winz = 3} will
+truncate estimates that fall below P25 - 3 * IQR or above P75 + 3 * IQR.}
 }
 \value{
-A tibble containing the number of simulation iterations, performance criteria estimate(s)
-and the associated MCSE.
+A tibble containing the number of simulation iterations, performance
+  criteria estimate(s) and the associated MCSE.
 }
 \description{
-Calculates absolute bias, variance, mean squared error (mse)
-and root mean squared error (rmse). The function also calculates the associated
-Monte Carlo standard errors.
+Calculates absolute bias, variance, mean squared error (mse) and
+  root mean squared error (rmse). The function also calculates the associated
+  Monte Carlo standard errors.
 }
 \examples{
 calc_absolute(data = t_res, estimates = est, true_param = true_param)
