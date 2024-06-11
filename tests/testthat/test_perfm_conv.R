@@ -44,9 +44,8 @@ s_sq_t_j <- (1/(K_abs - 2)) * ((K_abs - 1) * var(dat_abs$x, na.rm = TRUE) - (K_a
 rmse <- sqrt(mean((dat_abs$x - t_p)^2))
 rmse_j <- sqrt((t_bar_j - t_p)^2 + s_sq_t_j)
 
-rel_rmse <- sqrt((mean(dat_abs$x - t_p)^2 + var(dat_abs$x))/ t_p^2)
-rel_mse_j <- ((t_bar_j - t_p)^2 + s_sq_t_j)/(t_p)^2 #
-rel_rmse_j <- sqrt(rel_mse_j)
+rel_rmse <- rmse / t_p
+rel_rmse_j <- rmse_j / t_p
 
 
 
@@ -102,9 +101,8 @@ test_that("check the performance measures", {
   expect_equal(abs_res$mse, mean((dat_abs$x - t_p)^2))
   expect_equal(sqrt(abs_res$mse), sqrt(mean((dat_abs$x - t_p)^2)))
 
-  expect_equal(rel_res$rel_bias, mean(dat_abs$x)/t_p)
-  expect_equal(rel_res$rel_rmse^2, (mean(dat_abs$x - t_p)^2 + var(dat_abs$x))/ t_p^2)
-  expect_equal(rel_res$rel_rmse, sqrt((mean(dat_abs$x - t_p)^2 + var(dat_abs$x))/ t_p^2))
+  expect_equal(rel_res$rel_bias, mean(dat_abs$x) / t_p)
+  expect_equal(rel_res$rel_rmse, sqrt(mean((dat_abs$x - t_p)^2)) / t_p)
 
   expect_equal(calc_rejection(dat_rej, p_values = p_value)$rej_rate, mean(dat_rej$p_value < .05))
   expect_equal(calc_rejection(dat_rej, p_values = p_value, alpha = .10)$rej_rate, mean(dat_rej$p_value < .10))
@@ -132,9 +130,18 @@ test_that("check the mcse", {
   expect_equal(abs_res$mse_mcse, sqrt((1/K_abs) * (s_t^4 * (k_t - 1) + 4 * s_t^3 * g_t * (mean(dat_abs$x) - t_p) + 4 * s_t^2 * (mean(dat_abs$x - t_p)^2))))
   expect_equal(abs_res$rmse_mcse, sqrt(((K_abs - 1)/K_abs) * sum((rmse_j - rmse)^2)))
 
-  expect_equal(rel_res$rel_bias_mcse, sqrt(var(dat_abs$x)/(nrow(dat_abs) * t_p^2)))
-  expect_equal(rel_res$rel_mse_mcse, sqrt((1/(K_abs * t_p^2)) * (s_t^4 * (k_t  - 1) + 4 * s_t^3 * g_t * (mean(dat_abs$x) - t_p) + 4 * s_t^2 * (mean(dat_abs$x) - t_p)^2)))
-  expect_equal(rel_res$rel_rmse_mcse, sqrt(((K_abs - 1)/K_abs) * sum((rel_rmse_j - rel_rmse)^2)))
+  expect_equal(
+    rel_res$rel_bias_mcse,
+    sqrt(var(dat_abs$x)/(nrow(dat_abs) * t_p^2))
+  )
+  expect_equal(
+    rel_res$rel_mse_mcse,
+    sqrt((1/(K_abs)) * (s_t^4 * (k_t  - 1) + 4 * s_t^3 * g_t * (t_bar - t_p) + 4 * s_t^2 * (t_bar - t_p)^2)) / t_p^2
+  )
+  expect_equal(
+    rel_res$rel_rmse_mcse,
+    sqrt(((K_abs - 1)/K_abs) * sum((rel_rmse_j - rel_rmse)^2))
+  )
 
   rej <- sapply(c(.015, .050, .100), \(x) mean(dat_rej$p_value < x))
   rej_mcse <- sqrt(rej * (1 - rej) / K_rej)

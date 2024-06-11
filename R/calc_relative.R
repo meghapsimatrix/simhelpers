@@ -34,8 +34,16 @@ calc_relative <- function(
   cl[[1]] <- quote(calc_absolute)
   abs_dat <- eval(cl, parent.frame())
 
+  if (!missing(data)) {
+    cl <- match.call()
+    true_param <- eval(cl$true_param, envir = data)
+  }
+
+  true_param <- unique(true_param) # true param
+  if (length(true_param) > 1L) stop("`true_param` must have a single unique value.")
+
   # initialize tibble
-  dat <- tibble::tibble(K_relative = abs_dat$K)
+  dat <- tibble::tibble(K_relative = abs_dat$K_absolute)
 
   if (winsorize < Inf) {
     dat$winsor_pct <- abs_dat$winsorization_pct
@@ -43,7 +51,7 @@ calc_relative <- function(
   }
 
   if ("relative bias" %in% criteria) {
-    dat$rel_bias <- ifelse(true_param == 0, NA_real_, abs_dat$bias / true_param)
+    dat$rel_bias <- ifelse(true_param == 0, NA_real_, 1 + abs_dat$bias / true_param)
     dat$rel_bias_mcse <- ifelse(true_param == 0, NA_real_, abs_dat$bias_mcse / true_param)
   }
 
