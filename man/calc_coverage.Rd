@@ -9,7 +9,8 @@ calc_coverage(
   lower_bound,
   upper_bound,
   true_param,
-  criteria = c("coverage", "width")
+  criteria = c("coverage", "width"),
+  winsorize = Inf
 )
 }
 \arguments{
@@ -24,6 +25,12 @@ corresponding true parameters.}
 
 \item{criteria}{character or character vector indicating the performance
 criteria to be calculated, with possible options \code{"coverage"} and \code{"width"}.}
+
+\item{winsorize}{Numeric value for winsorization constant. If set to a finite
+value, estimates will be winsorized at the constant multiple of the
+inter-quartile range below the 25th percentile or above the 75th percentile
+of the distribution. For instance, setting \code{winsorize = 3} will
+truncate estimates that fall below P25 - 3 * IQR or above P75 + 3 * IQR.}
 }
 \value{
 A tibble containing the number of simulation iterations, performance criteria estimate(s)
