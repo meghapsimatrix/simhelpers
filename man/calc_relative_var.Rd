@@ -8,7 +8,9 @@ calc_relative_var(
   data,
   estimates,
   var_estimates,
-  criteria = c("relative bias", "relative mse", "relative rmse")
+  criteria = c("relative bias", "relative mse", "relative rmse"),
+  winsorize = Inf,
+  var_winsorize = winsorize
 )
 }
 \arguments{
@@ -17,20 +19,36 @@ calc_relative_var(
 \item{estimates}{Vector or name of column from \code{data} containing point
 estimates.}
 
-\item{var_estimates}{Vector or name of column from \code{data} containing variance estimates for point estimator in \code{estimates}.}
+\item{var_estimates}{Vector or name of column from \code{data} containing
+variance estimates for point estimator in \code{estimates}.}
 
 \item{criteria}{character or character vector indicating the performance
 criteria to be calculated, with possible options \code{"relative bias"},
 \code{"relative mse"}, and \code{"relative rmse"}.}
+
+\item{winsorize}{Numeric value for winsorization constant. If set to a finite
+value, estimates will be winsorized at the constant multiple of the
+inter-quartile range below the 25th percentile or above the 75th percentile
+of the distribution. For instance, setting \code{winsorize = 3} will
+truncate estimates that fall below P25 - 3 * IQR or above P75 + 3 * IQR.}
+
+\item{var_winsorize}{Numeric value for winsorization constant for the
+variance estimates. If set to a finite value, variance estimates will be
+winsorized at the constant multiple of the inter-quartile range below the
+25th percentile or above the 75th percentile of the distribution. For
+instance, setting \code{var_winsorize = 3} will truncate variance estimates
+that fall below P25 - 3 * IQR or above P75 + 3 * IQR. By default
+\code{var_winsorize} is set to the same constant as \code{winsorize}.}
 }
 \value{
-A tibble containing the number of simulation iterations, performance criteria estimate(s)
-and the associated MCSE.
+A tibble containing the number of simulation iterations, performance
+  criteria estimate(s) and the associated MCSE.
 }
 \description{
-Calculates relative bias, mean squared error (relative mse), and root mean
-squared error (relative rmse)  of variance estimators.
-The function also calculates the associated jack-knife Monte Carlo standard errors.
+Calculates relative bias, mean squared error (relative mse), and
+  root mean squared error (relative rmse)  of variance estimators. The
+  function also calculates the associated jack-knife Monte Carlo standard
+  errors.
 }
 \examples{
 calc_relative_var(data = alpha_res, estimates = A, var_estimates = Var_A)

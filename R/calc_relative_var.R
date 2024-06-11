@@ -1,14 +1,23 @@
 #' Calculate jack-knife Monte Carlo SE for variance estimators
 #'
-#' @description Calculates relative bias, mean squared error (relative mse), and root mean
-#' squared error (relative rmse)  of variance estimators.
-#' The function also calculates the associated jack-knife Monte Carlo standard errors.
+#' @description Calculates relative bias, mean squared error (relative mse), and
+#'   root mean squared error (relative rmse)  of variance estimators. The
+#'   function also calculates the associated jack-knife Monte Carlo standard
+#'   errors.
 #'
-#' @param var_estimates Vector or name of column from \code{data} containing variance estimates for point estimator in \code{estimates}.
+#' @param var_estimates Vector or name of column from \code{data} containing
+#'   variance estimates for point estimator in \code{estimates}.
+#' @param var_winsorize Numeric value for winsorization constant for the
+#'   variance estimates. If set to a finite value, variance estimates will be
+#'   winsorized at the constant multiple of the inter-quartile range below the
+#'   25th percentile or above the 75th percentile of the distribution. For
+#'   instance, setting \code{var_winsorize = 3} will truncate variance estimates
+#'   that fall below P25 - 3 * IQR or above P75 + 3 * IQR. By default
+#'   \code{var_winsorize} is set to the same constant as \code{winsorize}.
 #' @inheritParams calc_relative
 #'
-#' @return A tibble containing the number of simulation iterations, performance criteria estimate(s)
-#' and the associated MCSE.
+#' @return A tibble containing the number of simulation iterations, performance
+#'   criteria estimate(s) and the associated MCSE.
 #'
 #'
 #' @export
@@ -22,19 +31,40 @@
 calc_relative_var <- function(
   data,
   estimates, var_estimates,
-  criteria = c("relative bias", "relative mse", "relative rmse")
+  criteria = c("relative bias", "relative mse", "relative rmse"),
+  winsorize = Inf,
+  var_winsorize = winsorize
 ) {
+
+  criteria <- match.arg(criteria, choices = c("relative bias", "relative mse", "relative rmse"), several.ok = TRUE)
 
   if (!missing(data)) {
     cl <- match.call()
     estimates <- eval(cl$estimates, envir = data)
     var_estimates <- eval(cl$var_estimates, envir = data)
   }
+
   not_miss <- !is.na(estimates) & !is.na(var_estimates)
   estimates <- estimates[not_miss]
   var_est <- var_estimates[not_miss]
 
-  criteria <- match.arg(criteria, choices = c("relative bias", "relative mse", "relative rmse"), several.ok = TRUE)
+  # point estimate winsorization
+  if (winsorize < Inf) {
+    est_quartiles <- quantile(estimates, c(.25, .75))
+    est_IQR <- diff(est_quartiles)
+    est_trunc_points <- est_quartiles + c(-1, 1) * winsorize * est_IQR
+    est_winsorization_pct <- mean((estimates < est_trunc_points[1]) | (estimates > est_trunc_points[2]))
+    estimates <- pmax(pmin(estimates, est_trunc_points[2]), est_trunc_points[1])
+  }
+
+  # variance estimate winsorization
+  if (var_winsorize < Inf) {
+    var_quartiles <- quantile(var_est, c(.25, .75))
+    var_IQR <- diff(var_quartiles)
+    var_trunc_points <- var_quartiles + c(-1, 1) * winsorize * var_IQR
+    var_winsorization_pct <- mean((var_est < var_trunc_points[1]) | (var_est > var_trunc_points[2]))
+    var_est <- pmax(pmin(var_est, var_trunc_points[2]), var_trunc_points[1])
+  }
 
   # calculate sample stats
   K <- length(var_est) # iterations
@@ -55,6 +85,15 @@ calc_relative_var <- function(
 
   # initialize tibble
   dat <- tibble::tibble(K_relvar = K)
+
+  if (winsorize < Inf) {
+    dat$est_winsor_pct <- est_winsorization_pct
+    dat$est_winsor_pct_mcse <- sqrt(est_winsorization_pct * (1 - est_winsorization_pct) / K)
+  }
+  if (var_winsorize < Inf) {
+    dat$var_winsor_pct <- var_winsorization_pct
+    dat$var_winsor_pct_mcse <- sqrt(var_winsorization_pct * (1 - var_winsorization_pct) / K)
+  }
 
   if ("relative bias" %in% criteria) {
     dat$rel_bias_var <- ifelse(var_t == 0, NA_real_, rb_var)
