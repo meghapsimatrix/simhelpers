@@ -32,7 +32,6 @@ Imports:
     Rdpack
 Suggests:
     dplyr,
-    plyr,
     purrr,
     future,
     knitr,
