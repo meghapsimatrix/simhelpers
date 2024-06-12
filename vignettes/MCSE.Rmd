@@ -53,20 +53,15 @@ library(dplyr)
 library(tibble)
 library(kableExtra)
 
-abs_dat <- tibble(Criterion = c("Bias","Variance", "Standard Error", "MSE", "RMSE"),
-              Measure = c("Difference from true parameter", "Precision", "Precision", "Accuracy", "Accuracy"),
-              Definition = c("$\\text{E}(T) - \\theta$", 
-                             "$\\text{E}\\left[(T - \\text{E}(T))^2\\right]$",
-                             "$\\text{E}\\left[(T - \\text{E}(T))\\right]$",
-                             "$\\text{E}\\left[(T - \\theta)^2\\right]$",    "$\\sqrt{\\text{E}\\left[(T - \\theta)^2\\right]}$"),
-              Estimate = c("$\\bar{T} - \\theta$", 
-                           "$S_T^2$", 
-                           "$S_T$", 
-                           "$\\frac{1}{K}\\sum_{k=1}^{K}\\left(T_k - \\theta\\right)^2$", "$\\sqrt{\\frac{1}{K}\\sum_{k=1}^{K}\\left(T_k - \\theta\\right)^2}$"),
-              MCSE = c("$\\sqrt{S_T^2/ K}$",
-                       "$S_T^2 \\sqrt{\\frac{k_T - 1}{K}}$",  
-                       "$\\sqrt{\\frac{K - 1}{K} \\sum_{j=1}^K (\\sqrt{S_{T(j)}^2} - S_T)^2 }$",
-                       "$\\sqrt{\\frac{1}{K}\\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_T^2 (\\bar{T} - \\theta)^2\\right]}$ ", "$\\sqrt{\\frac{K - 1}{K} \\sum_{j=1}^K \\left(RMSE_{(j)} - RMSE\\right)^2}$"))
+abs_dat <- tribble(
+  ~ Criterion,       ~ Measure,                        ~ Definition,                                               ~ Estimate,                                                            ~ MCSE,
+  "Bias",            "Difference from true parameter", "$\\text{E}(T) - \\theta$",                                 "$\\bar{T} - \\theta$",                                                "$\\sqrt{S_T^2/ K}$",
+  "Variance",        "Precision",                      "$\\text{E}\\left[(T - \\text{E}(T))^2\\right]$",           "$S_T^2$",                                                             "$S_T^2 \\sqrt{\\frac{k_T - 1}{K}}$", 
+  "Standard Error",  "Precision",                      "$\\sqrt{\\text{E}\\left[(T - \\text{E}(T))^2\\right]}$",   "$S_T$",                                                               "$\\sqrt{\\frac{K - 1}{K} \\sum_{j=1}^K (\\sqrt{S_{T(j)}^2} - S_T)^2 }$",
+  "MSE",             "Accuracy",                       "$\\text{E}\\left[(T - \\theta)^2\\right]$",                "$\\frac{1}{K}\\sum_{k=1}^{K}\\left(T_k - \\theta\\right)^2$",         "$\\sqrt{\\frac{1}{K}\\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_T^2 (\\bar{T} - \\theta)^2\\right]}$ ",
+  "RMSE",            "Accuracy",                       "$\\sqrt{\\text{E}\\left[(T - \\theta)^2\\right]}$",        "$\\sqrt{\\frac{1}{K}\\sum_{k=1}^{K}\\left(T_k - \\theta\\right)^2}$", "$\\sqrt{\\frac{K - 1}{K} \\sum_{j=1}^K \\left(RMSE_{(j)} - RMSE\\right)^2}$"
+)
+
 
 knitr::kable(abs_dat, escape = FALSE, caption = "Table 1. Absolute Performance Criteria") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
