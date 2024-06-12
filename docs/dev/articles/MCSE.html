@@ -27,7 +27,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">simhelpers</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.1</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.1.9999</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,7 +76,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Simulation Performance Criteria and MCSE</h1>
             
-            <h4 data-toc-skip class="date">2024-02-28</h4>
+            <h4 data-toc-skip class="date">2024-06-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/meghapsimatrix/simhelpers/blob/HEAD/vignettes/MCSE.Rmd" class="external-link"><code>vignettes/MCSE.Rmd</code></a></small>
       <div class="d-none name"><code>MCSE.Rmd</code></div>
@@ -129,12 +129,13 @@ Simulation and Programming in R course (Spring, 2019)</a>.</p>
 the true parameter, on average. Variance characterizes the precision of
 an estimator, as the average squared deviation of the estimator from its
 average. Note that variance is the inverse of precision. Therefore, the
-higher the variance, the lower the precision. Mean squared error (MSE)
-and root mean squared error (RMSE) characterize the accuracy of the
-estimates. MSE and RMSE measure how far off, on average, an estimator is
-from the true parameter. Absolute criteria are in the same scale as the
-estimate. MSE is in squared deviation scale and RMSE is in the scale of
-the estimates.</p>
+higher the variance, the lower the precision. Standard error, also
+characterizing precision, is the square root of variance. Mean squared
+error (MSE) and root mean squared error (RMSE) characterize the accuracy
+of the estimates. MSE and RMSE measure how far off, on average, an
+estimator is from the true parameter. Absolute criteria are in the same
+scale as the estimate. MSE is in squared deviation scale and RMSE is in
+the scale of the estimates.</p>
 <p>Let <span class="math inline">\(T\)</span> denote an estimator for a
 parameter <span class="math inline">\(\theta\)</span>. By running a
 simulation study, we obtain <span class="math inline">\(K\)</span>
@@ -219,6 +220,25 @@ Precision
 </tr>
 <tr>
 <td style="text-align:left;">
+Standard Error
+</td>
+<td style="text-align:left;">
+Precision
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\text{E}\left[(T -
+\text{E}(T))\right]\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(S_T\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\sqrt{\frac{K - 1}{K} \sum_{j=1}^K
+(\sqrt{S_{T(j)}^2} - S_T)^2 }\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 MSE
 </td>
 <td style="text-align:left;">
@@ -259,8 +279,19 @@ Accuracy
 </tr>
 </tbody>
 </table>
-<p>The equation for the MCSE of RMSE is derived using the jack-knife
-technique, which involves excluding a replicate <span class="math inline">\(j\)</span> and calculating RMSE <span class="citation">(Efron &amp; Stein, 1981)</span>. The formula for RMSE
+<p>The equation for the MCSE of the standard deviation is derived using
+the jack-knife technique <span class="citation">(Efron &amp; Stein,
+1981)</span>. First we calculate variance of the estimates leaving out
+replicate <span class="math inline">\(j\)</span>. Instead of calculating
+each jack-knife estimate, we use algebraic tricks to calculate <span class="math inline">\(S^2_{T(j)}\)</span> as follows:</p>
+<p><span class="math display">\[S_{T(j)}^2 = \frac{1}{K - 2} \left[(K -
+1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]\]</span>
+Then, the jack-knife MCSE of standard deviation will be calculated
+as:</p>
+<p><span class="math display">\[\sqrt{\frac{K - 1}{K} \sum_{j=1}^K
+(\sqrt{S_{T(j)}^2} - S_T)^2 }\]</span></p>
+<p>The equation for the MCSE of RMSE is also derived using the
+jack-knife technique, which involves excluding a replicate <span class="math inline">\(j\)</span> and calculating RMSE <span class="citation">(Efron &amp; Stein, 1981)</span>. The formula for RMSE
 is:</p>
 <p><span class="math display">\[\sqrt{\frac{1}{K}\sum_{k=1}^{K}\left(T_k
 - \theta\right)^2}\]</span></p>
@@ -338,10 +369,10 @@ vector. If the user only wants bias, they can specify
 <code>perfm_criteria = "bias"</code>. If the user wants bias and root
 mean squared error, they can specify
 <code>perfm_criteria = c("bias", "rmse")</code>. By default, the
-function returns bias, variance, mean squared error (mse), and root mean
-squared error (rmse),
-<code>perfm_criteria = c("bias", "variance", "mse", "rmse")</code>. In
-the example below, we ask for all the available criteria.</p>
+function returns bias, variance, standard error, mean squared error
+(mse), and root mean squared error (rmse),
+<code>perfm_criteria = c("bias", "variance", "stddev", "mse", "rmse")</code>.
+In the example below, we ask for all the available criteria.</p>
 <p>We calculate the absolute performance measures only for the
 conventional t-test results because the mean difference is identical for
 the Welch t-test. We use <a href="https://dplyr.tidyverse.org/index.html" class="external-link"><code>dplyr</code></a>
@@ -393,6 +424,12 @@ var
 var_mcse
 </th>
 <th style="text-align:right;">
+stddev
+</th>
+<th style="text-align:right;">
+stddev_mcse
+</th>
+<th style="text-align:right;">
 mse
 </th>
 <th style="text-align:right;">
@@ -430,6 +467,12 @@ rmse_mcse
 </td>
 <td style="text-align:right;">
 0.00425
+</td>
+<td style="text-align:right;">
+0.31621
+</td>
+<td style="text-align:right;">
+0.00674
 </td>
 <td style="text-align:right;">
 0.09997
@@ -470,6 +513,12 @@ rmse_mcse
 0.00473
 </td>
 <td style="text-align:right;">
+0.32707
+</td>
+<td style="text-align:right;">
+0.00726
+</td>
+<td style="text-align:right;">
 0.10690
 </td>
 <td style="text-align:right;">
@@ -506,6 +555,12 @@ rmse_mcse
 </td>
 <td style="text-align:right;">
 0.00423
+</td>
+<td style="text-align:right;">
+0.31250
+</td>
+<td style="text-align:right;">
+0.00680
 </td>
 <td style="text-align:right;">
 0.09761
@@ -546,6 +601,12 @@ rmse_mcse
 0.00440
 </td>
 <td style="text-align:right;">
+0.31035
+</td>
+<td style="text-align:right;">
+0.00712
+</td>
+<td style="text-align:right;">
 0.09627
 </td>
 <td style="text-align:right;">
@@ -582,6 +643,12 @@ rmse_mcse
 </td>
 <td style="text-align:right;">
 0.00330
+</td>
+<td style="text-align:right;">
+0.27424
+</td>
+<td style="text-align:right;">
+0.00605
 </td>
 <td style="text-align:right;">
 0.07514
@@ -622,6 +689,12 @@ rmse_mcse
 0.00391
 </td>
 <td style="text-align:right;">
+0.28288
+</td>
+<td style="text-align:right;">
+0.00694
+</td>
+<td style="text-align:right;">
 0.07997
 </td>
 <td style="text-align:right;">
@@ -660,6 +733,12 @@ rmse_mcse
 0.00358
 </td>
 <td style="text-align:right;">
+0.28427
+</td>
+<td style="text-align:right;">
+0.00632
+</td>
+<td style="text-align:right;">
 0.08086
 </td>
 <td style="text-align:right;">
@@ -696,6 +775,12 @@ rmse_mcse
 </td>
 <td style="text-align:right;">
 0.00345
+</td>
+<td style="text-align:right;">
+0.27938
+</td>
+<td style="text-align:right;">
+0.00619
 </td>
 <td style="text-align:right;">
 0.07798
@@ -747,6 +832,12 @@ var
 var_mcse
 </th>
 <th style="text-align:right;">
+stddev
+</th>
+<th style="text-align:right;">
+stddev_mcse
+</th>
+<th style="text-align:right;">
 mse
 </th>
 <th style="text-align:right;">
@@ -784,6 +875,12 @@ rmse_mcse
 </td>
 <td style="text-align:right;">
 0.00425
+</td>
+<td style="text-align:right;">
+0.31621
+</td>
+<td style="text-align:right;">
+0.00674
 </td>
 <td style="text-align:right;">
 0.09997
@@ -824,6 +921,12 @@ rmse_mcse
 0.00473
 </td>
 <td style="text-align:right;">
+0.32707
+</td>
+<td style="text-align:right;">
+0.00726
+</td>
+<td style="text-align:right;">
 0.10690
 </td>
 <td style="text-align:right;">
@@ -860,6 +963,12 @@ rmse_mcse
 </td>
 <td style="text-align:right;">
 0.00423
+</td>
+<td style="text-align:right;">
+0.31250
+</td>
+<td style="text-align:right;">
+0.00680
 </td>
 <td style="text-align:right;">
 0.09761
@@ -900,6 +1009,12 @@ rmse_mcse
 0.00440
 </td>
 <td style="text-align:right;">
+0.31035
+</td>
+<td style="text-align:right;">
+0.00712
+</td>
+<td style="text-align:right;">
 0.09627
 </td>
 <td style="text-align:right;">
@@ -936,6 +1051,12 @@ rmse_mcse
 </td>
 <td style="text-align:right;">
 0.00330
+</td>
+<td style="text-align:right;">
+0.27424
+</td>
+<td style="text-align:right;">
+0.00605
 </td>
 <td style="text-align:right;">
 0.07514
@@ -976,6 +1097,12 @@ rmse_mcse
 0.00391
 </td>
 <td style="text-align:right;">
+0.28288
+</td>
+<td style="text-align:right;">
+0.00694
+</td>
+<td style="text-align:right;">
 0.07997
 </td>
 <td style="text-align:right;">
@@ -1014,6 +1141,12 @@ rmse_mcse
 0.00358
 </td>
 <td style="text-align:right;">
+0.28427
+</td>
+<td style="text-align:right;">
+0.00632
+</td>
+<td style="text-align:right;">
 0.08086
 </td>
 <td style="text-align:right;">
@@ -1050,6 +1183,12 @@ rmse_mcse
 </td>
 <td style="text-align:right;">
 0.00345
+</td>
+<td style="text-align:right;">
+0.27938
+</td>
+<td style="text-align:right;">
+0.00619
 </td>
 <td style="text-align:right;">
 0.07798
@@ -1277,16 +1416,16 @@ NA
 0.02069
 </td>
 <td style="text-align:right;">
-0.42803
+0.42760
 </td>
 <td style="text-align:right;">
-0.00947
+0.01894
 </td>
 <td style="text-align:right;">
-0.65424
+0.65391
 </td>
 <td style="text-align:right;">
-0.01451
+0.01782
 </td>
 </tr>
 <tr>
@@ -1309,16 +1448,16 @@ NA
 0.00988
 </td>
 <td style="text-align:right;">
-0.09771
+0.09761
 </td>
 <td style="text-align:right;">
 0.00423
 </td>
 <td style="text-align:right;">
-0.31259
+0.31243
 </td>
 <td style="text-align:right;">
-0.00679
+0.00840
 </td>
 </tr>
 <tr>
@@ -1341,16 +1480,16 @@ NA
 0.00491
 </td>
 <td style="text-align:right;">
-0.02409
+0.02407
 </td>
 <td style="text-align:right;">
-0.00219
+0.00110
 </td>
 <td style="text-align:right;">
-0.15522
+0.15514
 </td>
 <td style="text-align:right;">
-0.00355
+0.00431
 </td>
 </tr>
 <tr>
@@ -1405,16 +1544,16 @@ NA
 0.01789
 </td>
 <td style="text-align:right;">
-0.32018
+0.31986
 </td>
 <td style="text-align:right;">
-0.00783
+0.01566
 </td>
 <td style="text-align:right;">
-0.56585
+0.56557
 </td>
 <td style="text-align:right;">
-0.01388
+0.01652
 </td>
 </tr>
 <tr>
@@ -1437,16 +1576,16 @@ NA
 0.00899
 </td>
 <td style="text-align:right;">
-0.08094
+0.08086
 </td>
 <td style="text-align:right;">
 0.00358
 </td>
 <td style="text-align:right;">
-0.28449
+0.28435
 </td>
 <td style="text-align:right;">
-0.00631
+0.00775
 </td>
 </tr>
 <tr>
@@ -1469,16 +1608,16 @@ NA
 0.00442
 </td>
 <td style="text-align:right;">
-0.01951
+0.01949
 </td>
 <td style="text-align:right;">
-0.00172
+0.00086
 </td>
 <td style="text-align:right;">
-0.13969
+0.13962
 </td>
 <td style="text-align:right;">
-0.00309
+0.00380
 </td>
 </tr>
 </tbody>

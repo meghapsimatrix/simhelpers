@@ -14,7 +14,7 @@ and upper bounds."><meta name="robots" content="noindex"><!-- mathjax --><script
     
     <a class="navbar-brand me-2" href="../index.html">simhelpers</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.1</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.1.9999</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,7 +70,8 @@ and upper bounds.</p>
 <span>  <span class="va">lower_bound</span>,</span>
 <span>  <span class="va">upper_bound</span>,</span>
 <span>  <span class="va">true_param</span>,</span>
-<span>  criteria <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"coverage"</span>, <span class="st">"width"</span><span class="op">)</span></span>
+<span>  criteria <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"coverage"</span>, <span class="st">"width"</span><span class="op">)</span>,</span>
+<span>  winz <span class="op">=</span> <span class="cn">Inf</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -89,11 +90,21 @@ and upper bounds.</p>
 
 
 <dt>true_param</dt>
-<dd><p>Vector or name of column from <code>data</code> containing corresponding true parameters.</p></dd>
+<dd><p>Vector or name of column from <code>data</code> containing
+corresponding true parameters.</p></dd>
 
 
 <dt>criteria</dt>
-<dd><p>character or character vector indicating the performance criteria to be calculated.</p></dd>
+<dd><p>character or character vector indicating the performance
+criteria to be calculated, with possible options <code>"coverage"</code> and <code>"width"</code>.</p></dd>
+
+
+<dt>winz</dt>
+<dd><p>Numeric value for winsorization constant. If set to a finite
+value, estimates will be winsorized at the constant multiple of the
+inter-quartile range below the 25th percentile or above the 75th percentile
+of the distribution. For instance, setting <code>winz = 3</code> will
+truncate estimates that fall below P25 - 3 * IQR or above P75 + 3 * IQR.</p></dd>
 
 </dl></div>
     <div class="section level2">
