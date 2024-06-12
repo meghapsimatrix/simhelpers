@@ -5,14 +5,14 @@
 #'   Monte Carlo standard errors.
 #'
 #' @param data data frame or tibble containing the simulation results.
-#' @param estimates Vector or name of column from \code{data} containing point
+#' @param estimates vector or name of column from \code{data} containing point
 #'   estimates.
-#' @param true_param Vector or name of column from \code{data} containing
+#' @param true_param vector or name of column from \code{data} containing
 #'   corresponding true parameters.
 #' @param criteria character or character vector indicating the performance
 #'   criteria to be calculated, with possible options \code{"bias"},
 #'   \code{"variance"}, \code{"stddev"}, \code{"mse"}, and \code{"rmse"}.
-#' @param winz Numeric value for winsorization constant. If set to a finite
+#' @param winz numeric value for winsorization constant. If set to a finite
 #'   value, estimates will be winsorized at the constant multiple of the
 #'   inter-quartile range below the 25th percentile or above the 75th percentile
 #'   of the distribution. For instance, setting \code{winz = 3} will

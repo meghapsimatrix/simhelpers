@@ -3,11 +3,11 @@
 #' @description Calculates rejection rate. The function also calculates the
 #'   associated Monte Carlo standard error.
 #'
-#' @param p_values Vector or name of column from \code{data} containing
+#' @param p_values vector or name of column from \code{data} containing
 #'   p-values.
-#' @param alpha Scalar or vector indicating the nominal alpha level(s). Default
+#' @param alpha scalar or vector indicating the nominal alpha level(s). Default
 #'   value is set to the conventional .05.
-#' @param format Option \code{"wide"} (the default) will produce a tibble with
+#' @param format option \code{"wide"} (the default) will produce a tibble with
 #'   one row, with separate variables for each specified \code{alpha}. Option
 #'   \code{"long"} will produce a tibble with one row per specified
 #'   \code{alpha}.

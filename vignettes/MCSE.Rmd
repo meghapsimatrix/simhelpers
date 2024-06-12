@@ -37,7 +37,7 @@ The notation and explanations of the performance measures largely follow notes f
 ## Absolute Criteria
 
 Bias characterizes whether an estimator tends to lie above or below the true parameter, on average. 
-Variance characterizes the precision of an estimator, as the average squared deviation of the estimator from its average. Note that variance is the inverse of precision. Therefore, the higher the variance, the lower the precision. Mean squared error (MSE) and root mean squared error (RMSE) characterize the accuracy of the estimates. MSE and RMSE measure how far off, on average, an estimator is from the true parameter. Absolute criteria are in the same scale as the estimate. MSE is in squared deviation scale and RMSE is in the scale of the estimates.
+Variance characterizes the precision of an estimator, as the average squared deviation of the estimator from its average. Note that variance is the inverse of precision. Therefore, the higher the variance, the lower the precision. Standard error, also characterizing precision, is the square root of variance. Mean squared error (MSE) and root mean squared error (RMSE) characterize the accuracy of the estimates. MSE and RMSE measure how far off, on average, an estimator is from the true parameter. Absolute criteria are in the same scale as the estimate. MSE is in squared deviation scale and RMSE is in the scale of the estimates.
 
 Let $T$ denote an estimator for a parameter $\theta$. By running a simulation study, we obtain $K$ estimates $T_1,...,T_K$ (or realizations of the estimator) for each data generating condition. We can calculate the following sample statistics for the estimates: 
 
@@ -53,12 +53,19 @@ library(dplyr)
 library(tibble)
 library(kableExtra)
 
-abs_dat <- tibble(Criterion = c("Bias","Variance","MSE", "RMSE"),
-              Measure = c("Difference from true parameter", "Precision", "Accuracy", "Accuracy"),
-              Definition = c("$\\text{E}(T) - \\theta$", "$\\text{E}\\left[(T - \\text{E}(T))^2\\right]$",  "$\\text{E}\\left[(T - \\theta)^2\\right]$", "$\\sqrt{\\text{E}\\left[(T - \\theta)^2\\right]}$"),
-              Estimate = c("$\\bar{T} - \\theta$", "$S_T^2$", 
+abs_dat <- tibble(Criterion = c("Bias","Variance", "Standard Error", "MSE", "RMSE"),
+              Measure = c("Difference from true parameter", "Precision", "Precision", "Accuracy", "Accuracy"),
+              Definition = c("$\\text{E}(T) - \\theta$", 
+                             "$\\text{E}\\left[(T - \\text{E}(T))^2\\right]$",
+                             "$\\text{E}\\left[(T - \\text{E}(T))\\right]$",
+                             "$\\text{E}\\left[(T - \\theta)^2\\right]$",    "$\\sqrt{\\text{E}\\left[(T - \\theta)^2\\right]}$"),
+              Estimate = c("$\\bar{T} - \\theta$", 
+                           "$S_T^2$", 
+                           "$S_T$", 
                            "$\\frac{1}{K}\\sum_{k=1}^{K}\\left(T_k - \\theta\\right)^2$", "$\\sqrt{\\frac{1}{K}\\sum_{k=1}^{K}\\left(T_k - \\theta\\right)^2}$"),
-              MCSE = c("$\\sqrt{S_T^2/ K}$", "$S_T^2 \\sqrt{\\frac{k_T - 1}{K}}$",  
+              MCSE = c("$\\sqrt{S_T^2/ K}$",
+                       "$S_T^2 \\sqrt{\\frac{k_T - 1}{K}}$",  
+                       "$\\sqrt{\\frac{K - 1}{K} \\sum_{j=1}^K (\\sqrt{S_{T(j)}^2} - S_T)^2 }$",
                        "$\\sqrt{\\frac{1}{K}\\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\\bar{T} - \\theta) + 4 S_T^2 (\\bar{T} - \\theta)^2\\right]}$ ", "$\\sqrt{\\frac{K - 1}{K} \\sum_{j=1}^K \\left(RMSE_{(j)} - RMSE\\right)^2}$"))
 
 knitr::kable(abs_dat, escape = FALSE, caption = "Table 1. Absolute Performance Criteria") %>%
@@ -67,7 +74,14 @@ knitr::kable(abs_dat, escape = FALSE, caption = "Table 1. Absolute Performance C
 ```
 
 
-The equation for the MCSE of RMSE is derived using the jack-knife technique, which involves excluding a replicate $j$ and calculating RMSE [@efron1981jackknife]. The formula for RMSE is:
+The equation for the MCSE of the standard deviation is derived using the jack-knife technique [@efron1981jackknife]. First we calculate variance of the estimates leaving out replicate $j$. Instead of calculating each jack-knife estimate, we use algebraic tricks to calculate $S^2_{T(j)}$ as follows:
+
+$$S_{T(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]$$
+Then, the jack-knife MCSE of standard deviation will be calculated as:
+
+$$\sqrt{\frac{K - 1}{K} \sum_{j=1}^K (\sqrt{S_{T(j)}^2} - S_T)^2 }$$
+
+The equation for the MCSE of RMSE is also derived using the jack-knife technique, which involves excluding a replicate $j$ and calculating RMSE [@efron1981jackknife]. The formula for RMSE is:
 
 $$\sqrt{\frac{1}{K}\sum_{k=1}^{K}\left(T_k - \theta\right)^2}$$
 

@@ -4,8 +4,8 @@
 #' Monte Carlo standard errors. The confidence interval percentage is based on how you calculated the lower
 #' and upper bounds.
 #'
-#' @param lower_bound Vector or name of column from \code{data} containing lower bounds of confidence intervals.
-#' @param upper_bound Vector or name of column from \code{data} containing upper bounds of confidence intervals.
+#' @param lower_bound vector or name of column from \code{data} containing lower bounds of confidence intervals.
+#' @param upper_bound vector or name of column from \code{data} containing upper bounds of confidence intervals.
 #' @param criteria character or character vector indicating the performance
 #'   criteria to be calculated, with possible options \code{"coverage"} and \code{"width"}.
 #' @inheritParams calc_absolute

@@ -5,9 +5,9 @@
 #'   function also calculates the associated jack-knife Monte Carlo standard
 #'   errors.
 #'
-#' @param var_estimates Vector or name of column from \code{data} containing
+#' @param var_estimates vector or name of column from \code{data} containing
 #'   variance estimates for point estimator in \code{estimates}.
-#' @param var_winz Numeric value for winsorization constant for the
+#' @param var_winz numeric value for winsorization constant for the
 #'   variance estimates. If set to a finite value, variance estimates will be
 #'   winsorized at the constant multiple of the inter-quartile range below the
 #'   25th percentile or above the 75th percentile of the distribution. For
