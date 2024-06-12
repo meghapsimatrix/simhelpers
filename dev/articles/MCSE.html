@@ -76,7 +76,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Simulation Performance Criteria and MCSE</h1>
             
-            <h4 data-toc-skip class="date">2024-06-11</h4>
+            <h4 data-toc-skip class="date">2024-06-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/meghapsimatrix/simhelpers/blob/HEAD/vignettes/MCSE.Rmd" class="external-link"><code>vignettes/MCSE.Rmd</code></a></small>
       <div class="d-none name"><code>MCSE.Rmd</code></div>
@@ -129,12 +129,13 @@ Simulation and Programming in R course (Spring, 2019)</a>.</p>
 the true parameter, on average. Variance characterizes the precision of
 an estimator, as the average squared deviation of the estimator from its
 average. Note that variance is the inverse of precision. Therefore, the
-higher the variance, the lower the precision. Mean squared error (MSE)
-and root mean squared error (RMSE) characterize the accuracy of the
-estimates. MSE and RMSE measure how far off, on average, an estimator is
-from the true parameter. Absolute criteria are in the same scale as the
-estimate. MSE is in squared deviation scale and RMSE is in the scale of
-the estimates.</p>
+higher the variance, the lower the precision. Standard error, also
+characterizing precision, is the square root of variance. Mean squared
+error (MSE) and root mean squared error (RMSE) characterize the accuracy
+of the estimates. MSE and RMSE measure how far off, on average, an
+estimator is from the true parameter. Absolute criteria are in the same
+scale as the estimate. MSE is in squared deviation scale and RMSE is in
+the scale of the estimates.</p>
 <p>Let <span class="math inline">\(T\)</span> denote an estimator for a
 parameter <span class="math inline">\(\theta\)</span>. By running a
 simulation study, we obtain <span class="math inline">\(K\)</span>
@@ -219,6 +220,25 @@ Precision
 </tr>
 <tr>
 <td style="text-align:left;">
+Standard Error
+</td>
+<td style="text-align:left;">
+Precision
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\text{E}\left[(T -
+\text{E}(T))\right]\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(S_T\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\sqrt{\frac{K - 1}{K} \sum_{j=1}^K
+(\sqrt{S_{T(j)}^2} - S_T)^2 }\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 MSE
 </td>
 <td style="text-align:left;">
@@ -259,8 +279,19 @@ Accuracy
 </tr>
 </tbody>
 </table>
-<p>The equation for the MCSE of RMSE is derived using the jack-knife
-technique, which involves excluding a replicate <span class="math inline">\(j\)</span> and calculating RMSE <span class="citation">(Efron &amp; Stein, 1981)</span>. The formula for RMSE
+<p>The equation for the MCSE of the standard deviation is derived using
+the jack-knife technique <span class="citation">(Efron &amp; Stein,
+1981)</span>. First we calculate variance of the estimates leaving out
+replicate <span class="math inline">\(j\)</span>. Instead of calculating
+each jack-knife estimate, we use algebraic tricks to calculate <span class="math inline">\(S^2_{T(j)}\)</span> as follows:</p>
+<p><span class="math display">\[S_{T(j)}^2 = \frac{1}{K - 2} \left[(K -
+1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]\]</span>
+Then, the jack-knife MCSE of standard deviation will be calculated
+as:</p>
+<p><span class="math display">\[\sqrt{\frac{K - 1}{K} \sum_{j=1}^K
+(\sqrt{S_{T(j)}^2} - S_T)^2 }\]</span></p>
+<p>The equation for the MCSE of RMSE is also derived using the
+jack-knife technique, which involves excluding a replicate <span class="math inline">\(j\)</span> and calculating RMSE <span class="citation">(Efron &amp; Stein, 1981)</span>. The formula for RMSE
 is:</p>
 <p><span class="math display">\[\sqrt{\frac{1}{K}\sum_{k=1}^{K}\left(T_k
 - \theta\right)^2}\]</span></p>
