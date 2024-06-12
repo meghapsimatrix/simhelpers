@@ -369,10 +369,10 @@ vector. If the user only wants bias, they can specify
 <code>perfm_criteria = "bias"</code>. If the user wants bias and root
 mean squared error, they can specify
 <code>perfm_criteria = c("bias", "rmse")</code>. By default, the
-function returns bias, variance, mean squared error (mse), and root mean
-squared error (rmse),
-<code>perfm_criteria = c("bias", "variance", "mse", "rmse")</code>. In
-the example below, we ask for all the available criteria.</p>
+function returns bias, variance, standard error, mean squared error
+(mse), and root mean squared error (rmse),
+<code>perfm_criteria = c("bias", "variance", "stddev", "mse", "rmse")</code>.
+In the example below, we ask for all the available criteria.</p>
 <p>We calculate the absolute performance measures only for the
 conventional t-test results because the mean difference is identical for
 the Welch t-test. We use <a href="https://dplyr.tidyverse.org/index.html" class="external-link"><code>dplyr</code></a>
