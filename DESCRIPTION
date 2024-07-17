@@ -32,6 +32,7 @@ Imports:
     Rdpack
 Suggests:
     dplyr,
+    tibble,
     purrr,
     future,
     knitr,
@@ -41,6 +42,7 @@ Suggests:
     testthat,
     kableExtra,
     ggplot2,
-    broom
+    broom,
+    boot
 RdMacros: Rdpack
 VignetteBuilder: knitr

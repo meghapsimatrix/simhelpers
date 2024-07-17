@@ -16,17 +16,17 @@ calc_coverage(
 \arguments{
 \item{data}{data frame or tibble containing the simulation results.}
 
-\item{lower_bound}{Vector or name of column from \code{data} containing lower bounds of confidence intervals.}
+\item{lower_bound}{vector or name of column from \code{data} containing lower bounds of confidence intervals.}
 
-\item{upper_bound}{Vector or name of column from \code{data} containing upper bounds of confidence intervals.}
+\item{upper_bound}{vector or name of column from \code{data} containing upper bounds of confidence intervals.}
 
-\item{true_param}{Vector or name of column from \code{data} containing
+\item{true_param}{vector or name of column from \code{data} containing
 corresponding true parameters.}
 
 \item{criteria}{character or character vector indicating the performance
 criteria to be calculated, with possible options \code{"coverage"} and \code{"width"}.}
 
-\item{winz}{Numeric value for winsorization constant. If set to a finite
+\item{winz}{numeric value for winsorization constant. If set to a finite
 value, estimates will be winsorized at the constant multiple of the
 inter-quartile range below the 25th percentile or above the 75th percentile
 of the distribution. For instance, setting \code{winz = 3} will
