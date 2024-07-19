@@ -13,8 +13,7 @@ bootstrap_CIs(
   level = 0.95,
   B_vals = length(boot_est),
   reps = 1L,
-  format = "wide",
-  enlist = FALSE
+  format = "wide"
 )
 }
 \arguments{
@@ -24,7 +23,8 @@ bootstrap_CIs(
 replication.}
 
 \item{est}{numeric value of the estimate based on the original sample.
-Required for \code{CI_type = "normal"} and \code{CI_type = "student"}.}
+Required for \code{CI_type = "normal"}, \code{CI_type = "basic"}, and
+\code{CI_type = "student"}.}
 
 \item{se}{numeric value of the estimated standard error based on the original
 sample. Required for \code{CI_type = "student"}.}
@@ -51,34 +51,34 @@ to generate when \code{B_vals < length(boot_est)}, with a default of
 \code{format = "wide"} (the default), then different types of confidence
 intervals will be returned in separate columns. If \code{format = "long"},
 then confidence intervals of different types will appear on different rows
-of dataset.}
-
-\item{enlist}{logical indicating whether to wrap the returned values in an
-unnamed list, with a default of \code{FALSE}. Setting \code{enlist = TRUE}
-makes it easier to store the output as a single entry in a \code{tibble}.}
+of dataset. If \code{format = "wide-list"}, then different types of
+confidence intervals will be returned in separate columns and the result
+will be wrapped in an unnamed list.}
 }
 \value{
-The format of the output depends on several contingencies. If only a
-  single value of \code{B_vals} is specified and \code{reps = 1}, then the
-  function returns a \code{data.frame} containing bootstrap confidence
-  intervals. If only a single value of \code{B_vals} is specified but
-  \code{B_vals < length(boot_est)} and \code{reps > 1}, then the function
-  returns a list of \code{data.frame}s, with an entry for each sub-sample
-  replication. If \code{B_vals} is a vector of multiple values, then the
-  function returns a list with one entry per entry of \code{B_vals}, where
-  each entry is itself a list of length \code{reps} with entries for each
+If \code{format = "wide"}, the function returns a \code{data.frame}
+  with \code{reps} rows per entry of \code{B_vals}, where each row contains
+  confidence intervals for one sub-sample replication.
+
+  If \code{format = "long"}, the function returns a \code{data.frame} with
+  one row for each \code{CI_type}, each replication, and each entry of
+  \code{B_vals}, where each row contains a single confidence interval for one
   sub-sample replication.
 
-  If \code{enlist = TRUE}, then results will be wrapped in an unnamed list,
-  which makes it easier to sore the output in a tibble.
+  If \code{format = "wide-list"}, then the output will be structured as in
+  \code{format = "wide"} but will be wrapped in an unnamed list, which makes
+  it easier to sore the output in a tibble, and will be assigned the class
+  \code{"bootstrap_CIs"}.
 }
 \description{
 Calculate one or multiple bootstrap confidence intervals, given
   a sample of bootstrap replications.
 }
 \details{
-Confidence intervals are calculated following the same methods as in
-\code{\link[boot]{boot.ci}} from the \code{boot} package.
+Confidence intervals are calculated following the methods described
+  in Chapter 5 of Davison and Hinkley (1997). For basic non-parametric
+  bootstraps, the methods are nearly identical to the implementation in
+  \code{\link[boot]{boot.ci}} from the \code{boot} package.
 }
 \examples{
 # generate t-distributed data
@@ -137,4 +137,8 @@ bootstrap_CIs(
   format = "long"
 )
 
+}
+\references{
+Davison, A.C. and Hinkley, D.V. (1997). _Bootstrap Methods and
+  Their Application_, Chapter 5. Cambridge University Press.
 }

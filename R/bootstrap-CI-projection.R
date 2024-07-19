@@ -13,7 +13,7 @@ calc_boot_CIs <- function(
     pctls <- quantile(boot_est[i], probs = probs, type = 1)
   }
 
-  CI_dat <- data.frame(row.names = "")
+  CI_dat <- data.frame(bootstraps = length(i))
 
   if ("normal" %in% CI_type) {
     mid <- 2 * est - mean(boot_est[i])
@@ -41,9 +41,10 @@ calc_boot_CIs <- function(
 
   if (format == "long") {
     CI_names <- intersect(c("normal","basic","student","percentile"), CI_type)
-    lower_vals <- unlist(CI_dat[seq(1L, by = 2L, length.out = length(CI_type))])
-    upper_vals <- unlist(CI_dat[seq(2L, by = 2L, length.out = length(CI_type))])
+    lower_vals <- unlist(CI_dat[seq(2L, by = 2L, length.out = length(CI_type))])
+    upper_vals <- unlist(CI_dat[seq(3L, by = 2L, length.out = length(CI_type))])
     CI_dat <- data.frame(
+      bootstraps = CI_dat$bootstraps,
       type = CI_names,
       lower = lower_vals,
       upper = upper_vals
@@ -86,24 +87,23 @@ calc_boot_CIs <- function(
 #'   \code{format = "wide"} (the default), then different types of confidence
 #'   intervals will be returned in separate columns. If \code{format = "long"},
 #'   then confidence intervals of different types will appear on different rows
-#'   of dataset.
-#' @param enlist logical indicating whether to wrap the returned values in an
-#'   unnamed list, with a default of \code{FALSE}. Setting \code{enlist = TRUE}
-#'   makes it easier to store the output as a single entry in a \code{tibble}.
+#'   of dataset. If \code{format = "wide-list"}, then different types of
+#'   confidence intervals will be returned in separate columns and the result
+#'   will be wrapped in an unnamed list.
 #'
-#' @return The format of the output depends on several contingencies. If only a
-#'   single value of \code{B_vals} is specified and \code{reps = 1}, then the
-#'   function returns a \code{data.frame} containing bootstrap confidence
-#'   intervals. If only a single value of \code{B_vals} is specified but
-#'   \code{B_vals < length(boot_est)} and \code{reps > 1}, then the function
-#'   returns a list of \code{data.frame}s, with an entry for each sub-sample
-#'   replication. If \code{B_vals} is a vector of multiple values, then the
-#'   function returns a list with one entry per entry of \code{B_vals}, where
-#'   each entry is itself a list of length \code{reps} with entries for each
+#' @return If \code{format = "wide"}, the function returns a \code{data.frame}
+#'   with \code{reps} rows per entry of \code{B_vals}, where each row contains
+#'   confidence intervals for one sub-sample replication.
+#'
+#'   If \code{format = "long"}, the function returns a \code{data.frame} with
+#'   one row for each \code{CI_type}, each replication, and each entry of
+#'   \code{B_vals}, where each row contains a single confidence interval for one
 #'   sub-sample replication.
 #'
-#'   If \code{enlist = TRUE}, then results will be wrapped in an unnamed list,
-#'   which makes it easier to sore the output in a tibble.
+#'   If \code{format = "wide-list"}, then the output will be structured as in
+#'   \code{format = "wide"} but will be wrapped in an unnamed list, which makes
+#'   it easier to sore the output in a tibble, and will be assigned the class
+#'   \code{"bootstrap_CIs"}.
 #'
 #' @details Confidence intervals are calculated following the methods described
 #'   in Chapter 5 of Davison and Hinkley (1997). For basic non-parametric
@@ -182,14 +182,13 @@ bootstrap_CIs <- function(
   level = 0.95,
   B_vals = length(boot_est),
   reps = 1L,
-  format = "wide",
-  enlist = FALSE
+  format = "wide"
 ) {
 
   if (level <= 0 | level >= 1) stop("`level` must be between 0 and 1 (e.g., `level = 0.95`).")
 
   CI_type <- match.arg(CI_type, c("normal","basic","student","percentile"), several.ok = TRUE)
-  format <- match.arg(format, c("wide","long"))
+  format <- match.arg(format, c("wide","long","wide-list"))
 
   if (("normal" %in% CI_type) & is.null(est)) {
     stop("CI_type = 'normal' requires providing a value for `est`.")
@@ -218,15 +217,11 @@ bootstrap_CIs <- function(
     }, simplify = FALSE)
   })
 
-  if (length(B_vals) == 1) {
-    if (length(CI_list[[1]]) > 1) {
-      CI_list <- CI_list[[1]]
-    } else {
-      CI_list <- CI_list[[1]][[1]]
-    }
+  CI_df <- do.call(rbind, unlist(CI_list, recursive = FALSE))
+  if (format == "wide-list") {
+    CI_df <- list(CI_df)
+    class(CI_df) <- c("bootstrap_CIs", class(CI_df))
   }
 
-  if (enlist) CI_list <- list(CI_list)
-
-  return(CI_list)
+  return(CI_df)
 }

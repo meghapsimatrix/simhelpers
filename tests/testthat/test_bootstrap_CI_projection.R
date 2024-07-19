@@ -66,7 +66,7 @@ test_that("bootstrap_CIs() agrees with boot::boot.ci using fake data.", {
   )
 
   dplyr::bind_rows(norm_boot_CIs, more_boot_CIs) |>
-    expect_equal(my_CIs)
+    expect_equal(my_CIs[,-1])
 
   # now do same comparison, but with sub-sampling
   B_val <- 199L
@@ -98,7 +98,10 @@ test_that("bootstrap_CIs() agrees with boot::boot.ci using fake data.", {
     format = "long"
   )
 
-  expect_equal(boot_CI_reps, my_CI_reps)
+  expect_equal(
+    dplyr::bind_rows(boot_CI_reps),
+    my_CI_reps[,-1]
+  )
 })
 
 
@@ -126,7 +129,7 @@ test_that("bootstrap_CIs() agrees with boot::boot.ci using real data.", {
     format = "long"
   )
 
-  expect_equal(boot_CIs, my_CIs)
+  expect_equal(boot_CIs, my_CIs[,-1])
 
   # now do same comparison, but with sub-sampling
   B_val <- 199L
@@ -154,7 +157,10 @@ test_that("bootstrap_CIs() agrees with boot::boot.ci using real data.", {
     format = "long"
   )
 
-  expect_equal(boot_CI_reps, my_CI_reps)
+  expect_equal(
+    dplyr::bind_rows(boot_CI_reps),
+    my_CI_reps[,-1]
+  )
 })
 
 test_that("bootstrap_CIs returns results of expected length.", {
@@ -171,7 +177,7 @@ test_that("bootstrap_CIs returns results of expected length.", {
   )
 
   expect_s3_class(A_wide, "data.frame")
-  expect_identical(ncol(A_wide), 8L)
+  expect_identical(ncol(A_wide), 9L)
   expect_identical(nrow(A_wide), 1L)
 
   A_long <- bootstrap_CIs(
@@ -184,7 +190,7 @@ test_that("bootstrap_CIs returns results of expected length.", {
   )
 
   expect_s3_class(A_long, "data.frame")
-  expect_identical(ncol(A_long), 3L)
+  expect_identical(ncol(A_long), 4L)
   expect_identical(nrow(A_long), 4L)
 
 
@@ -198,7 +204,7 @@ test_that("bootstrap_CIs returns results of expected length.", {
   )
 
   expect_s3_class(B_wide, "data.frame")
-  expect_identical(ncol(B_wide), 4L)
+  expect_identical(ncol(B_wide), 5L)
   expect_identical(nrow(B_wide), 1L)
 
   B_long <- bootstrap_CIs(
@@ -212,7 +218,7 @@ test_that("bootstrap_CIs returns results of expected length.", {
   )
 
   expect_s3_class(B_long, "data.frame")
-  expect_identical(ncol(B_long), 3L)
+  expect_identical(ncol(B_long), 4L)
   expect_identical(nrow(B_long), 2L)
 
   C_wide <- bootstrap_CIs(
@@ -249,12 +255,10 @@ test_that("bootstrap_CIs returns results of expected length.", {
     reps = 11L,
     format = "wide"
   )
-  D_wide_dat <- dplyr::bind_rows(D_wide)
 
-  expect_true(is.list(D_wide))
-  expect_identical(length(D_wide), 11L)
-  expect_identical(ncol(D_wide_dat), 8L)
-  expect_identical(nrow(D_wide_dat), 11L)
+  expect_s3_class(D_wide, "data.frame")
+  expect_identical(nrow(D_wide), 11L)
+  expect_identical(ncol(D_wide), 9L)
 
   D_long <- bootstrap_CIs(
     boot_est = booties$t[,1],
@@ -266,12 +270,11 @@ test_that("bootstrap_CIs returns results of expected length.", {
     reps = 13L,
     format = "long"
   )
-  D_long_dat <- dplyr::bind_rows(D_long)
 
-  expect_true(is.list(D_long))
-  expect_identical(length(D_long), 13L)
-  expect_identical(ncol(D_long_dat), 3L)
-  expect_identical(nrow(D_long_dat), 13L * 4L)
+  expect_s3_class(D_long, "data.frame")
+  expect_identical(nrow(D_long), 13L * 4L)
+  expect_identical(ncol(D_long), 4L)
+
 
   E_wide <- bootstrap_CIs(
     boot_est = booties$t[,1],
@@ -283,12 +286,10 @@ test_that("bootstrap_CIs returns results of expected length.", {
     reps = 1L,
     format = "wide"
   )
-  E_wide_dat <- dplyr::bind_rows(E_wide)
 
-  expect_true(is.list(E_wide))
-  expect_identical(length(E_wide), 4L)
-  expect_identical(ncol(E_wide_dat), 6L)
-  expect_identical(nrow(E_wide_dat), 4L)
+  expect_s3_class(E_wide, "data.frame")
+  expect_identical(nrow(E_wide), 4L)
+  expect_identical(ncol(E_wide), 7L)
 
   E_long <- bootstrap_CIs(
     boot_est = booties$t[,1],
@@ -299,12 +300,10 @@ test_that("bootstrap_CIs returns results of expected length.", {
     B_vals = c(49,59,89),
     format = "long"
   )
-  E_long_dat <- dplyr::bind_rows(E_long)
 
-  expect_true(is.list(E_long))
-  expect_identical(length(E_long), 3L)
-  expect_identical(ncol(E_long_dat), 3L)
-  expect_identical(nrow(E_long_dat), 3L * 3L)
+  expect_s3_class(E_long, "data.frame")
+  expect_identical(nrow(E_long), 3L * 3L)
+  expect_identical(ncol(E_long), 4L)
 
   F_wide <- bootstrap_CIs(
     boot_est = booties$t[,1],
@@ -316,14 +315,10 @@ test_that("bootstrap_CIs returns results of expected length.", {
     reps = 5L,
     format = "wide"
   )
-  F_wide_dat <- dplyr::bind_rows(F_wide)
 
-  expect_true(is.list(F_wide))
-  expect_identical(length(F_wide), 4L)
-  expect_true(all(sapply(F_wide, is.list)))
-  expect_identical(lengths(F_wide), rep(5L, 4L))
-  expect_identical(ncol(F_wide_dat), 6L)
-  expect_identical(nrow(F_wide_dat), 4L * 5L)
+  expect_s3_class(F_wide, "data.frame")
+  expect_identical(nrow(F_wide), 4L * 5L)
+  expect_identical(ncol(F_wide), 7L)
 
   F_long <- bootstrap_CIs(
     boot_est = booties$t[,1],
@@ -335,14 +330,11 @@ test_that("bootstrap_CIs returns results of expected length.", {
     reps = 7L,
     format = "long"
   )
-  F_long_dat <- dplyr::bind_rows(F_long)
 
-  expect_true(is.list(F_long))
-  expect_identical(length(F_long), 3L)
-  expect_true(all(sapply(F_long, is.list)))
-  expect_identical(lengths(F_long), rep(7L, 3L))
-  expect_identical(ncol(F_long_dat), 3L)
-  expect_identical(nrow(F_long_dat), 3L * 7L * 3L)
+  expect_s3_class(F_long, "data.frame")
+  expect_identical(nrow(F_long), 3L * 3L * 7L)
+  expect_identical(ncol(F_long), 4L)
+
 
   G_wide <- bootstrap_CIs(
     boot_est = booties$t[,1],
@@ -352,37 +344,71 @@ test_that("bootstrap_CIs returns results of expected length.", {
     CI_type = c("normal","basic","student"),
     B_vals = c(49,59,89,99),
     reps = 5L,
-    format = "wide",
-    enlist = TRUE
+    format = "wide-list"
   )
-  G_wide_dat <- dplyr::bind_rows(G_wide[[1]])
-
   expect_true(is.list(G_wide))
   expect_identical(length(G_wide), 1L)
-  expect_true(all(sapply(G_wide, is.list)))
-  expect_identical(lengths(G_wide), 4L)
-  expect_identical(ncol(G_wide_dat), 6L)
-  expect_identical(nrow(G_wide_dat), 4L * 5L)
-
-  G_long <- bootstrap_CIs(
-    boot_est = booties$t[,1],
-    boot_se = booties$t[,2],
-    est = booties$t0[1],
-    se = booties$t0[2],
-    CI_type = c("basic","student","percentile"),
-    B_vals = c(49,59,89),
-    reps = 7L,
-    format = "long",
-    enlist = TRUE
-  )
-  G_long_dat <- dplyr::bind_rows(G_long[[1]])
-
-  expect_true(is.list(G_long))
-  expect_identical(length(G_long), 1L)
-  expect_true(all(sapply(G_long, is.list)))
-  expect_identical(lengths(G_long), 3L)
-  expect_identical(ncol(G_long_dat), 3L)
-  expect_identical(nrow(G_long_dat), 3L * 7L * 3L)
+  expect_s3_class(G_wide[[1]], "data.frame")
+  expect_identical(nrow(G_wide[[1]]), 4L * 5L)
+  expect_identical(ncol(G_wide[[1]]), 7L)
 
 })
+
+
+
+dgp <- function(N, mu, nu) {
+  mu + rt(N, df = nu)
+}
+
+estimator <- function(
+    dat, # data
+    B_vals = c(49,59,89,99), # number of booties to evaluate
+    m = 4, # CIs to replicate per sub-sample size
+    trim = 0.1 # trimming percentage
+) {
+
+
+  # compute estimate and standard error
+  N <- length(dat)
+  est <- mean(dat, trim = trim)
+  se <- sd(dat) / sqrt(N)
+
+  # compute booties
+  booties <- replicate(max(B_vals), {
+    x <- sample(dat, size = N, replace = TRUE)
+    data.frame(
+      M = mean(x, trim = trim),
+      SE = sd(x) / sqrt(N)
+    )
+  }, simplify = FALSE) |>
+    dplyr::bind_rows()
+
+  # confidence intervals for each B_vals
+  CIs <- bootstrap_CIs(
+    boot_est = booties$M,
+    boot_se = booties$SE,
+    est = est,
+    se = se,
+    CI_type = c("normal","basic","student","percentile"),
+    B_vals = B_vals,
+    reps = m,
+    format = "wide-list"
+  )
+
+  tibble::tibble(
+    est = est,
+    se = se,
+    CI = CIs
+  )
+}
+
+# build a simulation driver function
+simulate_bootCIs <- bundle_sim(
+  f_generate = dgp,
+  f_analyze = estimator
+)
+
+res <- simulate_bootCIs(reps = 100, N = 50, mu = 0, nu = 5, B_vals = seq(49, 99, 10))
+extrapolate_coverage(res, CI_subsamples = CI, true_param = 0)
+
 
