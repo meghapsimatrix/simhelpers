@@ -1,3 +1,6 @@
+#' @importFrom stats quantile
+#' @importFrom stats qnorm
+
 calc_boot_CIs <- function(
     i,
     boot_est,
@@ -10,14 +13,14 @@ calc_boot_CIs <- function(
 ) {
 
   if(any(c("basic","percentile") %in% CI_type)) {
-    pctls <- quantile(boot_est[i], probs = probs, type = 1)
+    pctls <- stats::quantile(boot_est[i], probs = probs, type = 1)
   }
 
   CI_dat <- data.frame(bootstraps = length(i))
 
   if ("normal" %in% CI_type) {
     mid <- 2 * est - mean(boot_est[i])
-    len <- qnorm(probs) * sd(boot_est[i])
+    len <- stats::qnorm(probs) * sd(boot_est[i])
     CI_dat$normal_lower <- mid + len[1]
     CI_dat$normal_upper <- mid + len[2]
   }
@@ -29,7 +32,7 @@ calc_boot_CIs <- function(
 
   if ("student" %in% CI_type) {
     boot_ts <- (boot_est[i] - est) / boot_se[i]
-    t_pctls <- quantile(boot_ts, probs = probs, type = 1)
+    t_pctls <- stats::quantile(boot_ts, probs = probs, type = 1)
     CI_dat$student_lower <- est - se * t_pctls[2]
     CI_dat$student_upper <- est - se * t_pctls[1]
   }

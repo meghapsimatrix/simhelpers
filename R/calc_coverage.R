@@ -92,6 +92,17 @@ calc_coverage <- function(
 #'   \code{"width"}.
 #' @param B_target number of bootstrap replications to which the criteria should
 #'   be extrapolated, with a default of \code{B = Inf}.
+#' @param nested logical value controlling the format of the output. If
+#'   \code{FALSE} (the default), then the results will be returned as a data
+#'   frame with rows for each distinct number of bootstraps. If \code{TRUE},
+#'   then the results will be returned as a data frame with a single row, with
+#'   each performance criterion containing a nested data frame.
+#' @param format character string controlling the format of the output when
+#'   \code{CI_subsamples} has results for more than one type of confidence
+#'   interval. If \code{"wide"} (the default), then each performance criterion
+#'   will have a separate column for each CI type. If \code{"long"}, then each
+#'   performance criterion will be a single variable, with separate rows for
+#'   each CI type.
 #' @inheritParams calc_absolute
 #'
 #' @return A tibble containing the number of simulation iterations, performance
@@ -99,14 +110,81 @@ calc_coverage <- function(
 #'
 #' @export
 #'
-#' @references
-#' \insertRef{boos2000MonteCarloEvaluation}{simhelpers}
+#' @references \insertRef{boos2000MonteCarloEvaluation}{simhelpers}
 #'
 #' @examples
+#'
+#' dgp <- function(N, mu, nu) {
+#'   mu + rt(N, df = nu)
+#' }
+#'
+#' estimator <- function(
+#'    dat,
+#'     B_vals = c(49,59,89,99),
+#'     m = 4,
+#'     trim = 0.1
+#' ) {
+#'
+#'
+#'   # compute estimate and standard error
+#'   N <- length(dat)
+#'   est <- mean(dat, trim = trim)
+#'   se <- sd(dat) / sqrt(N)
+#'
+#'   # compute booties
+#'   booties <- replicate(max(B_vals), {
+#'     x <- sample(dat, size = N, replace = TRUE)
+#'     data.frame(
+#'       M = mean(x, trim = trim),
+#'       SE = sd(x) / sqrt(N)
+#'     )
+#'   }, simplify = FALSE) |>
+#'     dplyr::bind_rows()
+#'
+#'   # confidence intervals for each B_vals
+#'   CIs <- bootstrap_CIs(
+#'     boot_est = booties$M,
+#'     boot_se = booties$SE,
+#'     est = est,
+#'     se = se,
+#'     CI_type = c("normal","basic","student","percentile"),
+#'     B_vals = B_vals,
+#'     reps = m,
+#'     format = "wide-list"
+#'   )
+#'
+#'   res <- data.frame(
+#'     est = est,
+#'     se = se
+#'   )
+#'   res$CIs <- CIs
+#'
+#'   res
+#' }
+#'
+#' #' build a simulation driver function
+#' simulate_bootCIs <- bundle_sim(
+#'   f_generate = dgp,
+#'   f_analyze = estimator
+#' )
+#'
+#' boot_results <- simulate_bootCIs(
+#'   reps = 80, N = 20, mu = 2, nu = 3,
+#'   B_vals = seq(49, 149, 20),
+#' )
+#'
 #' extrapolate_coverage(
-#'   data = t_boots,
+#'   data = boot_results,
 #'   CI_subsamples = CIs,
-#'   true_param = true_param
+#'   true_param = 2
+#' )
+#'
+#' extrapolate_coverage(
+#'   data = boot_results,
+#'   CI_subsamples = CIs,
+#'   true_param = 2,
+#'   B_target = 999,
+#'   format = "long"
 #' )
 #'
 
@@ -116,10 +194,13 @@ extrapolate_coverage <- function(
     true_param,
     B_target = Inf,
     criteria = c("coverage", "width"),
-    winz = Inf
+    winz = Inf,
+    nested = FALSE,
+    format = "wide"
 ) {
 
   criteria <- match.arg(criteria, choices = c("coverage", "width"), several.ok = TRUE)
+  format <- match.arg(format, choices = c("wide","long"))
 
   if (!missing(data)) {
     cl <- match.call()
@@ -160,40 +241,88 @@ extrapolate_coverage <- function(
   S_B <- as.numeric(crossprod(x))
   B_wts <- 1 / p - x * (Btilde - 1 / B_target) / S_B
 
-  # calculate extrapolated coverage and width per replication
-  coverage_proj <- lapply(CI_subsamples, project_coverage, true_param = true_param, B_wts = B_wts, B_target = B_target)
-  coverage_proj <- do.call(rbind, coverage_proj)
-  coverage_proj <- by(coverage_proj, coverage_proj$bootstraps)
-  width_proj <- lapply(CI_subsamples, project_width, B_wts = B_wts, B_target = B_target)
-  width_proj <- do.call(rbind, width_proj)
+  # initialize results table
+  dat <- data.frame(
+    K_coverage = K
+  )
 
-  # initialize tibble
-  dat <- tibble::tibble(K_coverage = K)
-
-  # handle winsorization
-  if (winz < Inf) {
-    width_proj <- lapply(width_proj, winsorize, winz = winz) |> as.data.frame()
-    width_winsor_pct <- lapply(width_proj, \(x) attr(x, "winsor_pct")) |> as.data.frame()
-    width_winsor_pct_mcse <- sqrt(width_winsor_pct * (1 - width_winsor_pct) / K)
-    names(width_winsor_pct) <- paste("width_winsor_pct", names(width_winsor_pct), sep = "_")
-    names(width_winsor_pct_mcse) <- paste("width_winsor_pct_mcse", names(width_winsor_pct_mcse), sep = "_")
-    dat <- cbind(dat, width_winsor_pct, width_winsor_pct_mcse)
+  if (format == "wide") {
+    dat$bootstraps <- list(c(B_vals, B_target))
+  } else {
+    CI_names <- names(CI_subsamples[[1]])[seq(2, ncol(CI_subsamples[[1]]), 2)]
+    CI_names <- substr(CI_names, 1, nchar(CI_names) - 6L)
+    dat$bootstraps <- list(data.frame(
+      bootstraps = rep(c(B_vals, B_target), length(CI_names)),
+      CI_type = rep(CI_names, each = length(B_vals) + 1L)
+    ))
   }
 
   if ("coverage" %in% criteria) {
-    coverage <- lapply(coverage_proj, \(x) mean(x)) |> as.data.frame()
-    names(coverage) <- paste("coverage", names(coverage), sep = "_")
-    coverage_mcse <- lapply(coverage_proj, \(x) sd(x) / sqrt(K)) |> as.data.frame()
-    names(coverage_mcse) <- paste("coverage_mcse", names(coverage_mcse), sep = "_")
-    dat <- cbind(dat, coverage, coverage_mcse)
+
+    # calculate extrapolated coverage per replication
+    coverage_proj <- lapply(
+      CI_subsamples,
+      project_coverage,
+      true_param = true_param, B_wts = B_wts, B_target = B_target
+    )
+    coverage_proj <- do.call(rbind, coverage_proj)
+
+    # summarize across replications
+    dat$coverage <- summarize_by_boot(coverage_proj, mean, format = format)
+    dat$coverage_mcse <- summarize_by_boot(coverage_proj, \(y) sd(y) / sqrt(K), format = format)
   }
 
   if ("width" %in% criteria) {
-    width <- lapply(width_proj, \(x) mean(x)) |> as.data.frame()
-    names(width) <- paste("width", names(width), sep = "_")
-    width_mcse <- lapply(width_proj, \(x) sd(x) / sqrt(K)) |> as.data.frame()
-    names(width_mcse) <- paste("width_mcse", names(width_mcse), sep = "_")
-    dat <- cbind(dat, width, width_mcse)
+
+    # calculate extrapolated width per replication
+
+    width_proj <- lapply(
+      CI_subsamples,
+      project_width,
+      B_wts = B_wts, B_target = B_target
+    )
+    width_proj <- do.call(rbind, width_proj)
+
+    # handle winsorization
+    if (winz < Inf) {
+
+      boot_name <- which(names(width_proj) == "bootstraps")
+
+      width_proj_winz <- lapply(
+        width_proj[-boot_name],
+        winsorize_by,
+        by = width_proj$bootstraps, winz = winz
+      ) |>
+        as.data.frame()
+      width_proj_winz$bootstraps <- width_proj$bootstraps
+      width_proj <- width_proj_winz
+
+      width_winsor_pct <- lapply(
+        width_proj[-boot_name],
+        \(x) attr(x, "winsor_pct")
+      ) |>
+        as.data.frame()
+
+      if (format == "long") {
+        width_winsor_pct <- as.numeric(unlist(width_winsor_pct))
+      }
+
+      width_winsor_pct_mcse <- sqrt(width_winsor_pct * (1 - width_winsor_pct) / K)
+      dat$width_winsor_pct <- list(width_winsor_pct)
+      dat$width_winsor_pct_mcse <- list(width_winsor_pct_mcse)
+    }
+
+    # summarize across replications
+    dat$width <- summarize_by_boot(width_proj, mean, format = format)
+    dat$width_mcse <- summarize_by_boot(width_proj, \(y) sd(y) / sqrt(K), format = format)
+  }
+
+  if (!nested) {
+    dat_list <- unlist(dat, recursive = FALSE)
+    dat_names <- lapply(names(dat), \(x) if (is.null(names(dat[[x]][[1]]))) x else paste(x, names(dat[[x]][[1]]), sep = "_"))
+    dat <- do.call(cbind, dat_list)
+    names(dat) <- unlist(dat_names)
+    if (format == "long") names(dat)[2:3] <- c("bootstraps","CI_type")
   }
 
   return(dat)
@@ -253,3 +382,14 @@ project_width <- function(CI_dat, B_wts, B_target) {
 
 }
 
+summarize_by_boot <- function(x, f, format = "wide") {
+
+  not_boots <- which(!(names(x) == "bootstraps"))
+  res <- lapply(x[not_boots], \(y) tapply(y, x$bootstraps, f)) |> as.data.frame()
+
+  if (format == "long") {
+    res <- as.numeric(unlist(res))
+  }
+
+  list(res)
+}

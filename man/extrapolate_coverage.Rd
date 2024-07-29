@@ -11,7 +11,9 @@ extrapolate_coverage(
   true_param,
   B_target = Inf,
   criteria = c("coverage", "width"),
-  winz = Inf
+  winz = Inf,
+  nested = FALSE,
+  format = "wide"
 )
 }
 \arguments{
@@ -36,6 +38,19 @@ value, estimates will be winsorized at the constant multiple of the
 inter-quartile range below the 25th percentile or above the 75th percentile
 of the distribution. For instance, setting \code{winz = 3} will
 truncate estimates that fall below P25 - 3 * IQR or above P75 + 3 * IQR.}
+
+\item{nested}{logical value controlling the format of the output. If
+\code{FALSE} (the default), then the results will be returned as a data
+frame with rows for each distinct number of bootstraps. If \code{TRUE},
+then the results will be returned as a data frame with a single row, with
+each performance criterion containing a nested data frame.}
+
+\item{format}{character string controlling the format of the output when
+\code{CI_subsamples} has results for more than one type of confidence
+interval. If \code{"wide"} (the default), then each performance criterion
+will have a separate column for each CI type. If \code{"long"}, then each
+performance criterion will be a single variable, with separate rows for
+each CI type.}
 }
 \value{
 A tibble containing the number of simulation iterations, performance
@@ -50,10 +65,78 @@ Given a set of bootstrap confidence intervals calculated across
   is based on how you calculated the lower and upper bounds.
 }
 \examples{
-project_coverage(
-  data = t_boots,
+
+dgp <- function(N, mu, nu) {
+  mu + rt(N, df = nu)
+}
+
+estimator <- function(
+   dat,
+    B_vals = c(49,59,89,99),
+    m = 4,
+    trim = 0.1
+) {
+
+
+  # compute estimate and standard error
+  N <- length(dat)
+  est <- mean(dat, trim = trim)
+  se <- sd(dat) / sqrt(N)
+
+  # compute booties
+  booties <- replicate(max(B_vals), {
+    x <- sample(dat, size = N, replace = TRUE)
+    data.frame(
+      M = mean(x, trim = trim),
+      SE = sd(x) / sqrt(N)
+    )
+  }, simplify = FALSE) |>
+    dplyr::bind_rows()
+
+  # confidence intervals for each B_vals
+  CIs <- bootstrap_CIs(
+    boot_est = booties$M,
+    boot_se = booties$SE,
+    est = est,
+    se = se,
+    CI_type = c("normal","basic","student","percentile"),
+    B_vals = B_vals,
+    reps = m,
+    format = "wide-list"
+  )
+
+  res <- data.frame(
+    est = est,
+    se = se
+  )
+  res$CIs <- CIs
+
+  res
+}
+
+#' build a simulation driver function
+simulate_bootCIs <- bundle_sim(
+  f_generate = dgp,
+  f_analyze = estimator
+)
+
+boot_results <- simulate_bootCIs(
+  reps = 80, N = 20, mu = 2, nu = 3,
+  B_vals = seq(49, 149, 20),
+)
+
+extrapolate_coverage(
+  data = boot_results,
   CI_subsamples = CIs,
-  true_param = true_param
+  true_param = 2
+)
+
+extrapolate_coverage(
+  data = boot_results,
+  CI_subsamples = CIs,
+  true_param = 2,
+  B_target = 999,
+  format = "long"
 )
 
 }
