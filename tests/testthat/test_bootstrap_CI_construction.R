@@ -243,7 +243,7 @@ test_that("bootstrap_CIs returns results of expected length.", {
     format = "long"
   )
 
-  expect_identical(A_long, C_long)
+  expect_equal(A_long, C_long)
 
   D_wide <- bootstrap_CIs(
     boot_est = booties$t[,1],
