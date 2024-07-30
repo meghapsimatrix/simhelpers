@@ -1,5 +1,6 @@
 simhelpers 0.2.1.9999
 =======================
+* Added functions for calculating bootstrap p-values and confidence intervals and for estimating rejection rates, coverage rates, and interval widths by extrapolating across bootstrap subsamples. 
 * Added `"stddev"` as a performance criterion in `calc_absolute()`.
 * Added `winsorize` options in `calc_absolute()`, `calc_relative()`, `calc_relative_var()`, and `calc_coverage()`.
 
