@@ -107,6 +107,77 @@ calc_rejection <- function(
 #'
 #' @examples
 #'
+#' # function to generate data from two distinct populations
+#' dgp <- function(N_A, N_B, shape_A, scale_A, shape_B, scale_B) {
+#'   data.frame(
+#'     group = rep(c("A","B"), c(N_A, N_B)),
+#'       y = c(
+#'         rgamma(N_A, shape = shape_A, scale = scale_A),
+#'         rgamma(N_B, shape = shape_B, scale = scale_B)
+#'       )
+#'   )
+#' }
+#'
+#' # function to do a bootstrap t-test
+#' estimator <- function(
+#'     dat,
+#'     B_vals = c(49,59,89,99), # number of booties to evaluate
+#'     pval_reps = 4L
+#' ) {
+#'   stat <- t.test(y ~ group, data = dat)$statistic
+#'
+#'   # create bootstrap replications under the null of no difference
+#'   boot_dat <- dat
+#'   booties <- replicate(max(B_vals), {
+#'     boot_dat$group <- sample(dat$group)
+#'     t.test(y ~ group, data = boot_dat)$statistic
+#'   })
+#'
+#'   # calculate multiple bootstrap p-values using sub-sampling of replicates
+#'   res <- data.frame(stat = stat)
+#'
+#'   res$pvalue_subsamples <- bootstrap_pvals(
+#'     boot_stat = booties,
+#'     stat = stat,
+#'     B_vals = B_vals,
+#'     reps = pval_reps,
+#'     enlist = TRUE
+#'   )
+#'
+#'   res
+#' }
+#'
+#' # create simulation driver
+#' simulate_boot_pvals <- bundle_sim(
+#'   f_generate = dgp,
+#'   f_analyze = estimator
+#' )
+#'
+#' # replicate the bootstrap process
+#' x <- simulate_boot_pvals(
+#'   reps = 120L,
+#'   N_A = 40, N_B = 50,
+#'   shape_A = 7, scale_A = 2,
+#'   shape_B = 4, scale_B = 3,
+#'   B_vals = c(49, 99, 149, 199),
+#'   pval_reps = 3L
+#' )
+#'
+#' extrapolate_rejection(
+#'   data = x,
+#'   pvalue_subsamples = pvalue_subsamples,
+#'   B_target = 1999,
+#'   alpha = c(.01, .05, .10)
+#' )
+#'
+#' extrapolate_rejection(
+#'   data = x,
+#'   pvalue_subsamples = pvalue_subsamples,
+#'   B_target = Inf,
+#'   alpha = c(.01, .05, .10),
+#'   nested = TRUE
+#' )
+#'
 
 extrapolate_rejection <- function(
     data,
@@ -151,15 +222,11 @@ extrapolate_rejection <- function(
 
   # calculate wts for each replication
   B_vals <- unique(pvalue_subsamples[[1]]$bootstraps)
-  p <- length(B_vals)
-  Btilde <- mean(1 / B_vals)
-  x <- 1 / B_vals - Btilde
-  S_B <- as.numeric(crossprod(x))
-  B_wts <- 1 / p - x * (Btilde - 1 / B_target) / S_B
+  B_wts <- get_B_wts(B_vals, B_target = B_target)
 
   # initialize results table
   dat <- data.frame(
-    K_coverage = K
+    K_rejection = K
   )
 
   if (format == "wide") {
@@ -173,38 +240,24 @@ extrapolate_rejection <- function(
 
   alpha_digits <- max(nchar(as.character(alpha))) - 2L
   alpha_lab <- substr(formatC(alpha, format = "f", digits = alpha_digits), 3, 2 + alpha_digits)
-  names(alpha) <- paste("reject", alpha_lab, sep = "_")
+  names(alpha) <- paste("alpha", alpha_lab, sep = "_")
 
-  pvalue_dat <- do.call(rbind, pvalue_subsamples)
-  rejection_reps <- tapply(
-    pvalue_dat$pval,
-    pvalue_dat$bootstraps,
-    summarize_rejections,
-    alpha = alpha,
-    simplify = FALSE
-  )
-  rejection_reps <- do.call(rbind, rejection_reps)
-  bootstraps <- rep(B_vals, each = length(pvalue_subsamples))
-
-  rej_rate_summary <- project_rejection_rate(rejection_reps)
-
-  rej_rate_mcse <- sqrt(rej_rate * (1 - rej_rate) / K)
+  rej_rate_summary <-
+    lapply(
+      alpha, project_rejection_rate,
+      pvalues = pvalue_subsamples,
+      B_wts = B_wts,
+      B_target = B_target
+    )
 
   if (format == "wide") {
-    if (length(alpha) > 1L) {
-      var_names <- c("K_rejection", paste("rej_rate", alpha_lab, sep = "_"), paste("rej_rate_mcse", alpha_lab, sep = "_"))
-    } else {
-      var_names <- c("K_rejection","rej_rate","rej_rate_mcse")
-    }
-    dat <- as.data.frame(c(list(K = K), rej_rate = rej_rate, rej_rate_mcse = rej_rate_mcse))
-    names(dat) <- var_names
+    dat$rej_rate <- lapply(rej_rate_summary, \(x) x$rej_rate) |> as.data.frame() |> list()
+    dat$rej_rate_mcse <- lapply(rej_rate_summary, \(x) x$rej_rate_mcse) |> as.data.frame() |> list()
+
   } else if (format == "long") {
-    dat <- tibble::tibble(
-      K_rejection = K,
-      alpha = alpha,
-      rej_rate = rej_rate,
-      rej_rate_mcse = rej_rate_mcse
-    )
+    rej_rate_dat <- do.call(rbind, rej_rate_summary)
+    dat$rej_rate <- list(rej_rate_dat$rej_rate)
+    dat$rej_rate_mcse <- list(rej_rate_dat$rej_rate_mcse)
   }
 
   if (!nested) {
@@ -212,16 +265,47 @@ extrapolate_rejection <- function(
     dat_names <- lapply(names(dat), \(x) if (is.null(names(dat[[x]][[1]]))) x else paste(x, names(dat[[x]][[1]]), sep = "_"))
     dat <- do.call(cbind, dat_list)
     names(dat) <- unlist(dat_names)
-    if (format == "long") names(dat)[2:3] <- c("bootstraps","CI_type")
+    if (format == "long") names(dat)[2:3] <- c("bootstraps","alpha")
   }
 
   return(dat)
 
 }
 
-summarize_rejections <- function(pvalues, alpha) {
-  res <- lapply(alpha, \(a) sapply(pvalues, \(x) mean(x < a)))
-  as.data.frame(res)
-}
 
-project_rejection(pvalues, B_wts) {}
+project_rejection_rate <- function(alpha, pvalues, B_wts, B_target) {
+
+  reject_subsamples <- lapply(
+    pvalues,
+    \(x) {
+      x$reject <- sapply(
+        x$pval,
+        \(y) mean(y < alpha)
+      )
+      x$pval <- NULL
+      x
+    })
+
+  dat_subsamples <- do.call(rbind, reject_subsamples)
+
+  reject_projection <- sapply(
+    reject_subsamples,
+    \(x) sum(x$reject * B_wts)
+  )
+
+  dat_project <- data.frame(
+    bootstraps = B_target,
+    reject = reject_projection
+  )
+
+  dat <- rbind(dat_subsamples, dat_project)
+
+  reject_rates <- tapply(dat$reject, dat$bootstraps, mean)
+  reject_mcses <- tapply(dat$reject, dat$bootstraps, sd) / sqrt(length(pvalues))
+
+  data.frame(
+    rej_rate = reject_rates,
+    rej_rate_mcse = reject_mcses
+  )
+
+}

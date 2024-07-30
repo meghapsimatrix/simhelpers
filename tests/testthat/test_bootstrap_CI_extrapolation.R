@@ -268,17 +268,6 @@ test_that("extrapolate_coverage options work with multiple CI types and winsoriz
   unnested_long %>%
     filter(bootstraps < Inf) %>%
     arrange(bootstraps, CI_type) %>%
-    select(bootstraps, CI_type, width_winsor_pct, width, width_mcse) %>%
-    left_join(by_hand, by = c("bootstraps", "CI_type")) %>%
-    select(bootstraps, CI_type, starts_with("width")) %>%
-    mutate(
-      width_diff = width.y - width.x,
-      se_diff = width_mcse.y - width_mcse.x
-    )
-
-  unnested_long %>%
-    filter(bootstraps < Inf) %>%
-    arrange(bootstraps, CI_type) %>%
     select(bootstraps, CI_type, K_coverage, coverage, coverage_mcse, width_winsor_pct, width, width_mcse) %>%
     expect_equal(by_hand)
 })

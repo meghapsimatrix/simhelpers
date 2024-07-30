@@ -51,7 +51,7 @@ simulate_boot_pvals <- bundle_sim(
 
 
 x <- simulate_boot_pvals(
-  reps = 10L,
+  reps = 120L,
   N_A = 40, N_B = 50,
   shape_A = 7, scale_A = 2,
   shape_B = 4, scale_B = 3,
@@ -59,10 +59,187 @@ x <- simulate_boot_pvals(
   pval_reps = 3L
 )
 
-debug(extrapolate_rejection)
-extrapolate_rejection(
-  data = x,
-  pvalue_subsamples = pvalue_subsamples,
-  B_target = 999,
-  alpha = c(.01, .05, .10)
-)
+test_that("extrapolate_rejection options work with a single alpha.", {
+
+  alpha_vals <- .07
+  B_target <- 1999
+
+  unnested_wide <- extrapolate_rejection(
+    data = x,
+    pvalue_subsamples = pvalue_subsamples,
+    B_target = B_target,
+    alpha = alpha_vals
+  ) %>%
+    as_tibble()
+
+  nested_wide <- extrapolate_rejection(
+    data = x,
+    pvalue_subsamples = pvalue_subsamples,
+    B_target = B_target,
+    alpha = alpha_vals,
+    nested = TRUE
+  )
+
+  nested_wide %>%
+    unnest(c(bootstraps, rej_rate, rej_rate_mcse), names_sep = "_") %>%
+    expect_identical(unnested_wide)
+
+  unnested_long <- extrapolate_rejection(
+    data = x,
+    pvalue_subsamples = pvalue_subsamples,
+    B_target = B_target,
+    alpha = alpha_vals,
+    format = "long"
+  ) %>%
+    as_tibble()
+
+  nested_long <- extrapolate_rejection(
+    data = x,
+    pvalue_subsamples = pvalue_subsamples,
+    B_target = B_target,
+    alpha = alpha_vals,
+    format = "long",
+    nested = TRUE
+  )
+
+  nested_long %>%
+    unnest(c(bootstraps, rej_rate, rej_rate_mcse)) %>%
+    expect_identical(unnested_long)
+
+
+  by_hand <-
+    x %>%
+    select(pvalue_subsamples) %>%
+    mutate(row = row_number()) %>%
+    unnest(pvalue_subsamples) %>%
+    unnest(pval) %>%
+    rowwise() %>%
+    mutate(
+      alpha = list(alpha_vals),
+      rej = list(sapply(alpha_vals, \(x) pval < x))
+    ) %>%
+    unnest(c(alpha, rej)) %>%
+    group_by(alpha, row, bootstraps) %>%
+    summarize(
+      rej = mean(rej),
+      .groups = "drop_last"
+    )
+
+  by_hand <-
+    by_hand %>%
+    mutate(
+      B_wt = get_B_wts(bootstraps, B_target)
+    ) %>%
+    summarize(
+      rej = sum(rej * B_wt),
+      bootstraps = B_target,
+      .groups = "keep"
+    ) %>%
+    bind_rows(by_hand) %>%
+    group_by(bootstraps, alpha) %>%
+    summarize(
+      K_rejection = n(),
+      rej_rate = mean(rej),
+      rej_rate_mcse = sd(rej) / sqrt(n()),
+      .groups = "drop"
+    ) %>%
+    select(K_rejection, bootstraps, alpha, rej_rate, rej_rate_mcse) %>%
+    arrange(alpha, bootstraps)
+
+  unnested_long %>%
+    expect_identical(by_hand)
+
+})
+
+test_that("extrapolate_rejection options work with a multiple alphas.", {
+
+  alpha_vals <- c(.01, .05, .10)
+  B_target <- 999
+
+  unnested_wide <- extrapolate_rejection(
+    data = x,
+    pvalue_subsamples = pvalue_subsamples,
+    B_target = B_target,
+    alpha = alpha_vals
+  ) %>%
+    as_tibble()
+
+  nested_wide <- extrapolate_rejection(
+    data = x,
+    pvalue_subsamples = pvalue_subsamples,
+    B_target = B_target,
+    alpha = alpha_vals,
+    nested = TRUE
+  )
+
+  nested_wide %>%
+    unnest(c(bootstraps, rej_rate, rej_rate_mcse), names_sep = "_") %>%
+    expect_identical(unnested_wide)
+
+  unnested_long <- extrapolate_rejection(
+    data = x,
+    pvalue_subsamples = pvalue_subsamples,
+    B_target = B_target,
+    alpha = alpha_vals,
+    format = "long"
+  ) %>%
+    as_tibble()
+
+  nested_long <- extrapolate_rejection(
+    data = x,
+    pvalue_subsamples = pvalue_subsamples,
+    B_target = B_target,
+    alpha = alpha_vals,
+    format = "long",
+    nested = TRUE
+  )
+
+  nested_long %>%
+    unnest(c(bootstraps, rej_rate, rej_rate_mcse)) %>%
+    expect_identical(unnested_long)
+
+
+  by_hand <-
+    x %>%
+    select(pvalue_subsamples) %>%
+    mutate(row = row_number()) %>%
+    unnest(pvalue_subsamples) %>%
+    unnest(pval) %>%
+    rowwise() %>%
+    mutate(
+      alpha = list(alpha_vals),
+      rej = list(sapply(alpha_vals, \(x) pval < x))
+    ) %>%
+    unnest(c(alpha, rej)) %>%
+    group_by(alpha, row, bootstraps) %>%
+    summarize(
+      rej = mean(rej),
+      .groups = "drop_last"
+    )
+
+  by_hand <-
+    by_hand %>%
+    mutate(
+      B_wt = get_B_wts(bootstraps, B_target)
+    ) %>%
+    summarize(
+      rej = sum(rej * B_wt),
+      bootstraps = B_target,
+      .groups = "keep"
+    ) %>%
+    bind_rows(by_hand) %>%
+    group_by(bootstraps, alpha) %>%
+    summarize(
+      K_rejection = n(),
+      rej_rate = mean(rej),
+      rej_rate_mcse = sd(rej) / sqrt(n()),
+      .groups = "drop"
+    ) %>%
+    select(K_rejection, bootstraps, alpha, rej_rate, rej_rate_mcse) %>%
+    arrange(alpha, bootstraps)
+
+  unnested_long %>%
+    expect_identical(by_hand)
+
+})
+

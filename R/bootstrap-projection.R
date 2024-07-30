@@ -369,3 +369,14 @@ bootstrap_pvals <- function(
   }
 
 }
+
+
+
+get_B_wts <- function(B_vals, B_target) {
+  p <- length(B_vals)
+  Btilde <- mean(1 / B_vals)
+  x <- 1 / B_vals - Btilde
+  S_B <- as.numeric(crossprod(x))
+  B_wts <- 1 / p - x * (Btilde - 1 / B_target) / S_B
+  return(B_wts)
+}

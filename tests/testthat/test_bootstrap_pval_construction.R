@@ -18,15 +18,16 @@ booties <- replicate(1999, {
 })
 
 alts <- c("greater","less","two-sided")
+names(alts) <- alts
 
 test_that("bootstrap_pvals returns results of expected length.", {
 
   A_long <- c(
-    bootstrap_pvals(
+    list(bootstrap_pvals(
       boot_stat = booties,
       stat = stat
-    ),
-    sapply(alts, \(x) bootstrap_pvals(
+    )),
+    lapply(alts, \(x) bootstrap_pvals(
       boot_stat = booties,
       stat = stat,
       alternative = x
@@ -35,11 +36,11 @@ test_that("bootstrap_pvals returns results of expected length.", {
 
   expect_equal(A_long[[1]], A_long[["two-sided"]])
   expect_equal(
-    A_long[["greater"]],
-    1 - A_long[["less"]]
+    A_long[["greater"]]$pval[[1]],
+    1 - A_long[["less"]]$pval[[1]]
   )
 
-  B_long <- sapply(alts, \(x) bootstrap_pvals(
+  B_long <- lapply(alts, \(x) bootstrap_pvals(
     boot_stat = booties,
     stat = stat,
     alternative = x,
@@ -48,12 +49,12 @@ test_that("bootstrap_pvals returns results of expected length.", {
   ))
   set.seed(20240719)
   expect_equal(
-    B_long[["two-sided"]],
+    B_long[["two-sided"]]$pval[[1]],
     mean(abs(sample(booties, size = 499)) > abs(stat))
   )
   expect_equal(
-    B_long[["greater"]],
-    1 - B_long[["less"]]
+    B_long[["greater"]]$pval[[1]],
+    1 - B_long[["less"]]$pval[[1]]
   )
 
   E_long <- bootstrap_pvals(
@@ -63,9 +64,8 @@ test_that("bootstrap_pvals returns results of expected length.", {
     B_vals = c(49,59,89)
   )
 
-  expect_true(is.list(E_long))
-  expect_identical(length(E_long), 3L)
-  expect_identical(length(unlist(E_long)), 3L)
+  expect_true(is.data.frame(E_long))
+  expect_identical(nrow(E_long), 3L)
 
   F_long <- bootstrap_pvals(
     boot_stat = booties,
@@ -75,10 +75,10 @@ test_that("bootstrap_pvals returns results of expected length.", {
     reps = 7L
   )
 
-  expect_true(is.list(F_long))
-  expect_identical(length(F_long), 3L)
-  expect_true(all(sapply(F_long, is.vector)))
-  expect_identical(lengths(F_long), rep(7L, 3L))
+  expect_true(is.data.frame(F_long))
+  expect_identical(nrow(F_long), 3L)
+  expect_true(all(sapply(F_long$pval, is.vector)))
+  expect_identical(lengths(F_long$pval), rep(7L, 3L))
 
   G_long <- bootstrap_pvals(
     boot_stat = booties,
@@ -91,9 +91,9 @@ test_that("bootstrap_pvals returns results of expected length.", {
 
   expect_true(is.list(G_long))
   expect_identical(length(G_long), 1L)
-  expect_true(all(sapply(G_long, is.list)))
-  expect_identical(lengths(G_long), 3L)
-  expect_identical(lengths(G_long[[1]]), rep(7L, 3L))
+  expect_true(all(sapply(G_long, is.data.frame)))
+  expect_identical(lengths(G_long), 2L)
+  expect_identical(lengths(G_long[[1]]$pval), rep(7L, 3L))
 
 })
 

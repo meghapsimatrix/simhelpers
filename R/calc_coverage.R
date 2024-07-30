@@ -235,11 +235,7 @@ extrapolate_coverage <- function(
 
   # calculate wts for each replication
   B_vals <- unique(CI_subsamples[[1]]$bootstraps)
-  p <- length(B_vals)
-  Btilde <- mean(1 / B_vals)
-  x <- 1 / B_vals - Btilde
-  S_B <- as.numeric(crossprod(x))
-  B_wts <- 1 / p - x * (Btilde - 1 / B_target) / S_B
+  B_wts <- get_B_wts(B_vals, B_target = B_target)
 
   # initialize results table
   dat <- data.frame(
