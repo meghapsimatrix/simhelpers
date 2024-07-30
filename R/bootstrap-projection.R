@@ -357,11 +357,15 @@ bootstrap_pvals <- function(
     }, simplify = TRUE)
   })
 
-  if (length(B_vals) == 1) {
-    if (!enlist) pval_list <- pval_list[[1]]
+  pval_dat <- data.frame(
+    bootstraps = B_vals
+  )
+  pval_dat$pval <- pval_list
+
+  if (enlist) {
+    return(list(pval_dat))
   } else {
-    if (enlist) pval_list <- list(pval_list)
+    return(pval_dat)
   }
 
-  return(pval_list)
 }
