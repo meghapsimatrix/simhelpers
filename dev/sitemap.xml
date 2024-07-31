@@ -1,63 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/articles/MCSE.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/articles/simulation_workflow.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/articles/visualization.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/index.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/Tipton_Pusto.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/alpha_res.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/bundle_sim.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/calc_absolute.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/calc_coverage.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/calc_rejection.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/calc_relative.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/calc_relative_var.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/create_skeleton.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/evaluate_by_row.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/t_res.html</loc>
-  </url>
-  <url>
-    <loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/welch_res.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/articles/MCSE.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/articles/index.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/articles/simulation_workflow.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/articles/visualization.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/authors.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/index.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/news/index.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/Tipton_Pusto.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/alpha_res.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/bundle_sim.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/calc_absolute.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/calc_coverage.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/calc_rejection.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/calc_relative.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/calc_relative_var.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/create_skeleton.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/evaluate_by_row.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/index.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/t_res.html</loc></url>
+<url><loc>https://meghapsimatrix.github.io/simhelpers/dev/reference/welch_res.html</loc></url>
 </urlset>
+
