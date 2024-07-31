@@ -8,6 +8,8 @@
 [![R-CMD-check](https://github.com/meghapsimatrix/simhelpers/workflows/R-CMD-check/badge.svg)](https://github.com/meghapsimatrix/simhelpers/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/meghapsimatrix/simhelpers/branch/master/graph/badge.svg)](https://codecov.io/gh/meghapsimatrix/simhelpers?branch=master)
+[![Coveralls test
+coverage](https://coveralls.io/repos/github/meghapsimatrix/simhelpers/badge.svg)](https://coveralls.io/r/meghapsimatrix/simhelpers?branch=master)
 [![CRAN
 Status](https://www.r-pkg.org/badges/version/simhelpers)](https://cran.r-project.org/package=simhelpers)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/simhelpers)](https://CRAN.R-project.org/package=simhelpers)
