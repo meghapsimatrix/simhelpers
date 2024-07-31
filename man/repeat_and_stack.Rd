@@ -27,8 +27,8 @@ Repeat an expression (usually involving random number
   expression.
 }
 \examples{
-repeat_and_stack(N = 3, data.frame(x = rexp(2)))
+repeat_and_stack(n = 3, data.frame(x = rexp(2)))
 
-repeat_and_stack(N = 3, data.frame(x = rexp(2)), stack = FALSE)
+repeat_and_stack(n = 3, data.frame(x = rexp(2)), stack = FALSE)
 
 }
