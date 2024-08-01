@@ -73,12 +73,12 @@
 
 
 <dt id="arg-estimates">estimates<a class="anchor" aria-label="anchor" href="#arg-estimates"></a></dt>
-<dd><p>Vector or name of column from <code>data</code> containing point
+<dd><p>vector or name of column from <code>data</code> containing point
 estimates.</p></dd>
 
 
 <dt id="arg-var-estimates">var_estimates<a class="anchor" aria-label="anchor" href="#arg-var-estimates"></a></dt>
-<dd><p>Vector or name of column from <code>data</code> containing
+<dd><p>vector or name of column from <code>data</code> containing
 variance estimates for point estimator in <code>estimates</code>.</p></dd>
 
 
@@ -89,7 +89,7 @@ criteria to be calculated, with possible options <code>"relative bias"</code>,
 
 
 <dt id="arg-winz">winz<a class="anchor" aria-label="anchor" href="#arg-winz"></a></dt>
-<dd><p>Numeric value for winsorization constant. If set to a finite
+<dd><p>numeric value for winsorization constant. If set to a finite
 value, estimates will be winsorized at the constant multiple of the
 inter-quartile range below the 25th percentile or above the 75th percentile
 of the distribution. For instance, setting <code>winz = 3</code> will
@@ -97,7 +97,7 @@ truncate estimates that fall below P25 - 3 * IQR or above P75 + 3 * IQR.</p></dd
 
 
 <dt id="arg-var-winz">var_winz<a class="anchor" aria-label="anchor" href="#arg-var-winz"></a></dt>
-<dd><p>Numeric value for winsorization constant for the
+<dd><p>numeric value for winsorization constant for the
 variance estimates. If set to a finite value, variance estimates will be
 winsorized at the constant multiple of the inter-quartile range below the
 25th percentile or above the 75th percentile of the distribution. For
