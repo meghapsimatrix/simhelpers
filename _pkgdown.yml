@@ -34,9 +34,10 @@ reference:
       - extrapolate_coverage
     desc: "Functions for calculating performance critieria and MCSE"
   - title: "Simulation Workflow"
-    desc: "Functions for setting up simulation workflow"
+    desc: "Functions for facilitating simulation workflows"
     contents:
       - create_skeleton
+      - repeat_and_stack
       - bundle_sim
       - evaluate_by_row
   - title: "Example Datasets"
