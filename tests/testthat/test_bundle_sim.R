@@ -238,6 +238,7 @@ test_that("bundle_sim throws errors as expected.", {
     "Default arguments of `f_summarize` do not match default arguments of `f_generate`."
   )
 
+  skip_on_covr()
   f_sim <- bundle_sim(f_generate = f_G2, f_analyze = identity, f_summarize = f_S3)
   expect_is(f_sim, "function")
 

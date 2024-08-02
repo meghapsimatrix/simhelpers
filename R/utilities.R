@@ -8,3 +8,11 @@ winsorize <- function(x, winz) {
   attr(res, "winsor_pct") <- winsorization_pct
   return(res)
 }
+
+winsorize_by <- function(x, by, winz) {
+  res_list <- tapply(x, by, winsorize, winz = winz, simplify = FALSE)
+  res <- unsplit(res_list, by)
+  winsor_pct <- sapply(res_list, \(x) attr(x, "winsor_pct"))
+  attr(res, "winsor_pct") <- winsor_pct
+  res
+}
