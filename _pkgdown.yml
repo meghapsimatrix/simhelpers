@@ -33,7 +33,6 @@ reference:
       - bootstrap_CIs
       - extrapolate_rejection
       - extrapolate_coverage
-    desc: "Functions for calculating performance critieria and MCSE"
   - title: "Simulation Workflow"
     desc: "Functions for facilitating simulation workflows"
     contents:
