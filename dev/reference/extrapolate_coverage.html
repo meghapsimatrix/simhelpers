@@ -208,46 +208,54 @@ each CI type.</p></dd>
 <span class="r-in"><span>  CI_subsamples <span class="op">=</span> <span class="va">CIs</span>,</span></span>
 <span class="r-in"><span>  true_param <span class="op">=</span> <span class="fl">2</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     K_coverage bootstraps coverage_normal coverage_basic coverage_student</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49          80         49        1.000000       0.975000         0.993750</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69          80         69        0.996875       0.984375         0.996875</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 89          80         89        1.000000       0.984375         1.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 109         80        109        1.000000       0.996875         1.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 129         80        129        1.000000       1.000000         1.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 149         80        149        1.000000       1.000000         1.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Inf         80        Inf        1.000276       1.012390         1.004117</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     coverage_percentile coverage_mcse_normal coverage_mcse_basic</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49             0.984375         0.0000000000         0.011425322</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69             1.000000         0.0031250000         0.010280625</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 89             0.996875         0.0000000000         0.011201328</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 109            1.000000         0.0000000000         0.003125000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 129            1.000000         0.0000000000         0.000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 149            1.000000         0.0000000000         0.000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Inf            1.008974         0.0002755921         0.006077006</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     coverage_mcse_student coverage_mcse_percentile width_normal width_basic</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49            0.004391357              0.009268915     1.245114    1.196489</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69            0.003125000              0.000000000     1.237440    1.278346</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 89            0.000000000              0.003125000     1.243898    1.216022</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 109           0.000000000              0.000000000     1.242731    1.276201</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 129           0.000000000              0.000000000     1.244961    1.227860</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 149           0.000000000              0.000000000     1.248090    1.284844</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Inf           0.002899379              0.005301301     1.246348    1.293357</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     width_student width_percentile width_mcse_normal width_mcse_basic</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49       1.294746         1.196489        0.03971512       0.03817230</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69       1.402500         1.278346        0.03876459       0.04046026</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 89       1.326687         1.216022        0.03993220       0.03827794</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 109      1.404885         1.276201        0.03815378       0.03899069</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 129      1.348227         1.227860        0.03936534       0.03895437</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 149      1.394158         1.284844        0.03917576       0.04185961</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Inf      1.421547         1.293357        0.03923332       0.04187225</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     width_mcse_student width_mcse_percentile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49          0.04376367            0.03817230</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69          0.04738402            0.04046026</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 89          0.04632374            0.03827794</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 109         0.04911762            0.03899069</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 129         0.04695755            0.03895437</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 149         0.04817379            0.04185961</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Inf         0.05108521            0.04187225</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     K_coverage bootstraps boot_coverage_normal boot_coverage_basic</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49          80         49             1.000000            0.975000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69          80         69             0.996875            0.984375</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89          80         89             1.000000            0.984375</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 109         80        109             1.000000            0.996875</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 129         80        129             1.000000            1.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 149         80        149             1.000000            1.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inf         80        Inf             1.000276            1.012390</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     boot_coverage_student boot_coverage_percentile boot_coverage_mcse_normal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49               0.993750                 0.984375              0.0000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69               0.996875                 1.000000              0.0031250000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89               1.000000                 0.996875              0.0000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 109              1.000000                 1.000000              0.0000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 129              1.000000                 1.000000              0.0000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 149              1.000000                 1.000000              0.0000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inf              1.004117                 1.008974              0.0002755921</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     boot_coverage_mcse_basic boot_coverage_mcse_student</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49               0.011425322                0.004391357</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69               0.010280625                0.003125000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89               0.011201328                0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 109              0.003125000                0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 129              0.000000000                0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 149              0.000000000                0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inf              0.006077006                0.002899379</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     boot_coverage_mcse_percentile boot_width_normal boot_width_basic</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49                    0.009268915          1.245114         1.196489</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69                    0.000000000          1.237440         1.278346</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89                    0.003125000          1.243898         1.216022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 109                   0.000000000          1.242731         1.276201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 129                   0.000000000          1.244961         1.227860</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 149                   0.000000000          1.248090         1.284844</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inf                   0.005301301          1.246348         1.293357</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     boot_width_student boot_width_percentile boot_width_mcse_normal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49            1.294746              1.196489             0.03971512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69            1.402500              1.278346             0.03876459</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89            1.326687              1.216022             0.03993220</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 109           1.404885              1.276201             0.03815378</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 129           1.348227              1.227860             0.03936534</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 149           1.394158              1.284844             0.03917576</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inf           1.421547              1.293357             0.03923332</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     boot_width_mcse_basic boot_width_mcse_student boot_width_mcse_percentile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49             0.03817230              0.04376367                 0.03817230</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69             0.04046026              0.04738402                 0.04046026</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89             0.03827794              0.04632374                 0.03827794</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 109            0.03899069              0.04911762                 0.03899069</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 129            0.03895437              0.04695755                 0.03895437</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 149            0.04185961              0.04817379                 0.04185961</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inf            0.04187225              0.05108521                 0.04187225</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">extrapolate_coverage</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  data <span class="op">=</span> <span class="va">boot_results</span>,</span></span>
@@ -256,35 +264,64 @@ each CI type.</p></dd>
 <span class="r-in"><span>  B_target <span class="op">=</span> <span class="fl">999</span>,</span></span>
 <span class="r-in"><span>  format <span class="op">=</span> <span class="st">"long"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    K_coverage bootstraps    CI_type coverage coverage_mcse    width width_mcse</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          80         49     normal 1.000000  0.0000000000 1.245114 0.03971512</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          80         69     normal 0.996875  0.0031250000 1.237440 0.03876459</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          80         89     normal 1.000000  0.0000000000 1.243898 0.03993220</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          80        109     normal 1.000000  0.0000000000 1.242731 0.03815378</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          80        129     normal 1.000000  0.0000000000 1.244961 0.03936534</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          80        149     normal 1.000000  0.0000000000 1.248090 0.03917576</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          80        999     normal 1.000207  0.0002070379 1.246120 0.03918583</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          80         49      basic 0.975000  0.0114253216 1.196489 0.03817230</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          80         69      basic 0.984375  0.0102806254 1.278346 0.04046026</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10         80         89      basic 0.984375  0.0112013276 1.216022 0.03827794</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11         80        109      basic 0.996875  0.0031250000 1.276201 0.03899069</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12         80        129      basic 1.000000  0.0000000000 1.227860 0.03895437</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13         80        149      basic 1.000000  0.0000000000 1.284844 0.04185961</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14         80        999      basic 1.010471  0.0053018657 1.289335 0.04156572</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15         80         49    student 0.993750  0.0043913573 1.294746 0.04376367</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16         80         69    student 0.996875  0.0031250000 1.402500 0.04738402</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17         80         89    student 1.000000  0.0000000000 1.326687 0.04632374</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18         80        109    student 1.000000  0.0000000000 1.404885 0.04911762</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19         80        129    student 1.000000  0.0000000000 1.348227 0.04695755</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20         80        149    student 1.000000  0.0000000000 1.394158 0.04817379</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21         80        999    student 1.003628  0.0025534950 1.416410 0.05065018</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22         80         49 percentile 0.984375  0.0092689145 1.196489 0.03817230</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23         80         69 percentile 1.000000  0.0000000000 1.278346 0.04046026</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24         80         89 percentile 0.996875  0.0031250000 1.216022 0.03827794</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25         80        109 percentile 1.000000  0.0000000000 1.276201 0.03899069</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26         80        129 percentile 1.000000  0.0000000000 1.227860 0.03895437</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27         80        149 percentile 1.000000  0.0000000000 1.284844 0.04185961</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28         80        999 percentile 1.007932  0.0046862397 1.289335 0.04156572</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    K_coverage bootstraps    CI_type boot_coverage boot_coverage_mcse boot_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          80         49     normal      1.000000       0.0000000000   1.245114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          80         69     normal      0.996875       0.0031250000   1.237440</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          80         89     normal      1.000000       0.0000000000   1.243898</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          80        109     normal      1.000000       0.0000000000   1.242731</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          80        129     normal      1.000000       0.0000000000   1.244961</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          80        149     normal      1.000000       0.0000000000   1.248090</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          80        999     normal      1.000207       0.0002070379   1.246120</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          80         49      basic      0.975000       0.0114253216   1.196489</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          80         69      basic      0.984375       0.0102806254   1.278346</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10         80         89      basic      0.984375       0.0112013276   1.216022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11         80        109      basic      0.996875       0.0031250000   1.276201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12         80        129      basic      1.000000       0.0000000000   1.227860</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13         80        149      basic      1.000000       0.0000000000   1.284844</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14         80        999      basic      1.010471       0.0053018657   1.289335</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15         80         49    student      0.993750       0.0043913573   1.294746</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16         80         69    student      0.996875       0.0031250000   1.402500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17         80         89    student      1.000000       0.0000000000   1.326687</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18         80        109    student      1.000000       0.0000000000   1.404885</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19         80        129    student      1.000000       0.0000000000   1.348227</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20         80        149    student      1.000000       0.0000000000   1.394158</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21         80        999    student      1.003628       0.0025534950   1.416410</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22         80         49 percentile      0.984375       0.0092689145   1.196489</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23         80         69 percentile      1.000000       0.0000000000   1.278346</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24         80         89 percentile      0.996875       0.0031250000   1.216022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25         80        109 percentile      1.000000       0.0000000000   1.276201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26         80        129 percentile      1.000000       0.0000000000   1.227860</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27         80        149 percentile      1.000000       0.0000000000   1.284844</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28         80        999 percentile      1.007932       0.0046862397   1.289335</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    boot_width_mcse</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       0.03971512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       0.03876459</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       0.03993220</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       0.03815378</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       0.03936534</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       0.03917576</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7       0.03918583</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8       0.03817230</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9       0.04046026</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10      0.03827794</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11      0.03899069</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12      0.03895437</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13      0.04185961</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14      0.04156572</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15      0.04376367</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16      0.04738402</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17      0.04632374</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18      0.04911762</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19      0.04695755</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20      0.04817379</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21      0.05065018</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22      0.03817230</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23      0.04046026</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24      0.03827794</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25      0.03899069</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26      0.03895437</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27      0.04185961</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28      0.04156572</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
