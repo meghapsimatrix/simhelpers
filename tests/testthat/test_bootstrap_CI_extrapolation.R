@@ -180,7 +180,7 @@ test_that("extrapolate_coverage options work with multiple CI types.", {
       .groups = "drop_last"
     ) %>%
     summarize(
-      K_coverage = n(),
+      K_boot_coverage = n(),
       boot_coverage = mean(cover),
       boot_coverage_mcse = sd(cover) / sqrt(n()),
       boot_width = mean(width),
@@ -191,7 +191,7 @@ test_that("extrapolate_coverage options work with multiple CI types.", {
   unnested_long %>%
     filter(bootstraps < 1000L) %>%
     arrange(bootstraps, CI_type) %>%
-    select(bootstraps, CI_type, K_coverage, boot_coverage, boot_coverage_mcse, boot_width, boot_width_mcse) %>%
+    select(bootstraps, CI_type, K_boot_coverage, boot_coverage, boot_coverage_mcse, boot_width, boot_width_mcse) %>%
     expect_equal(by_hand)
 
 
@@ -256,7 +256,7 @@ test_that("extrapolate_coverage options work with multiple CI types and winsoriz
       width_winsor_pct = attr(winsorize(width, winz = 1.5), "winsor_pct")
     ) %>%
     summarize(
-      K_coverage = n(),
+      K_boot_coverage = n(),
       boot_coverage = mean(cover),
       boot_coverage_mcse = sd(cover) / sqrt(n()),
       boot_width_winsor_pct = mean(width_winsor_pct),
@@ -268,7 +268,7 @@ test_that("extrapolate_coverage options work with multiple CI types and winsoriz
   unnested_long %>%
     filter(bootstraps < Inf) %>%
     arrange(bootstraps, CI_type) %>%
-    select(bootstraps, CI_type, K_coverage, boot_coverage, boot_coverage_mcse, boot_width_winsor_pct, boot_width, boot_width_mcse) %>%
+    select(bootstraps, CI_type, K_boot_coverage, boot_coverage, boot_coverage_mcse, boot_width_winsor_pct, boot_width, boot_width_mcse) %>%
     expect_equal(by_hand)
 })
 

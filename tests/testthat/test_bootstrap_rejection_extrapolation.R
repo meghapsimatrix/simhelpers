@@ -138,12 +138,12 @@ test_that("extrapolate_rejection options work with a single alpha.", {
     bind_rows(by_hand) %>%
     group_by(bootstraps, alpha) %>%
     summarize(
-      K_rejection = n(),
+      K_boot_rejection = n(),
       boot_rej_rate = mean(rej),
       boot_rej_rate_mcse = sd(rej) / sqrt(n()),
       .groups = "drop"
     ) %>%
-    select(K_rejection, bootstraps, alpha, boot_rej_rate, boot_rej_rate_mcse) %>%
+    select(K_boot_rejection, bootstraps, alpha, boot_rej_rate, boot_rej_rate_mcse) %>%
     arrange(alpha, bootstraps)
 
   unnested_long %>%
@@ -230,12 +230,12 @@ test_that("extrapolate_rejection options work with a multiple alphas.", {
     bind_rows(by_hand) %>%
     group_by(bootstraps, alpha) %>%
     summarize(
-      K_rejection = n(),
+      K_boot_rejection = n(),
       boot_rej_rate = mean(rej),
       boot_rej_rate_mcse = sd(rej) / sqrt(n()),
       .groups = "drop"
     ) %>%
-    select(K_rejection, bootstraps, alpha, boot_rej_rate, boot_rej_rate_mcse) %>%
+    select(K_boot_rejection, bootstraps, alpha, boot_rej_rate, boot_rej_rate_mcse) %>%
     arrange(alpha, bootstraps)
 
   unnested_long %>%

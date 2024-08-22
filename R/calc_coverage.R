@@ -239,7 +239,7 @@ extrapolate_coverage <- function(
 
   # initialize results table
   dat <- data.frame(
-    K_coverage = K
+    K_boot_coverage = K
   )
 
   if (format == "wide") {

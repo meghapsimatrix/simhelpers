@@ -226,7 +226,7 @@ extrapolate_rejection <- function(
 
   # initialize results table
   dat <- data.frame(
-    K_rejection = K
+    K_boot_rejection = K
   )
 
   if (format == "wide") {
