@@ -264,8 +264,8 @@ extrapolate_coverage <- function(
     coverage_proj <- do.call(rbind, coverage_proj)
 
     # summarize across replications
-    dat$coverage <- summarize_by_boot(coverage_proj, mean, format = format)
-    dat$coverage_mcse <- summarize_by_boot(coverage_proj, \(y) sd(y) / sqrt(K), format = format)
+    dat$boot_coverage <- summarize_by_boot(coverage_proj, mean, format = format)
+    dat$boot_coverage_mcse <- summarize_by_boot(coverage_proj, \(y) sd(y) / sqrt(K), format = format)
   }
 
   if ("width" %in% criteria) {
@@ -304,13 +304,13 @@ extrapolate_coverage <- function(
       }
 
       width_winsor_pct_mcse <- sqrt(width_winsor_pct * (1 - width_winsor_pct) / K)
-      dat$width_winsor_pct <- list(width_winsor_pct)
-      dat$width_winsor_pct_mcse <- list(width_winsor_pct_mcse)
+      dat$boot_width_winsor_pct <- list(width_winsor_pct)
+      dat$boot_width_winsor_pct_mcse <- list(width_winsor_pct_mcse)
     }
 
     # summarize across replications
-    dat$width <- summarize_by_boot(width_proj, mean, format = format)
-    dat$width_mcse <- summarize_by_boot(width_proj, \(y) sd(y) / sqrt(K), format = format)
+    dat$boot_width <- summarize_by_boot(width_proj, mean, format = format)
+    dat$boot_width_mcse <- summarize_by_boot(width_proj, \(y) sd(y) / sqrt(K), format = format)
   }
 
   if (!nested) {

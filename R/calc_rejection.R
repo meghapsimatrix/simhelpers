@@ -251,13 +251,13 @@ extrapolate_rejection <- function(
     )
 
   if (format == "wide") {
-    dat$rej_rate <- lapply(rej_rate_summary, \(x) x$rej_rate) |> as.data.frame() |> list()
-    dat$rej_rate_mcse <- lapply(rej_rate_summary, \(x) x$rej_rate_mcse) |> as.data.frame() |> list()
+    dat$boot_rej_rate <- lapply(rej_rate_summary, \(x) x$rej_rate) |> as.data.frame() |> list()
+    dat$boot_rej_rate_mcse <- lapply(rej_rate_summary, \(x) x$rej_rate_mcse) |> as.data.frame() |> list()
 
   } else if (format == "long") {
     rej_rate_dat <- do.call(rbind, rej_rate_summary)
-    dat$rej_rate <- list(rej_rate_dat$rej_rate)
-    dat$rej_rate_mcse <- list(rej_rate_dat$rej_rate_mcse)
+    dat$boot_rej_rate <- list(rej_rate_dat$rej_rate)
+    dat$boot_rej_rate_mcse <- list(rej_rate_dat$rej_rate_mcse)
   }
 
   if (!nested) {
