@@ -13,7 +13,8 @@ extrapolate_coverage(
   criteria = c("coverage", "width"),
   winz = Inf,
   nested = FALSE,
-  format = "wide"
+  format = "wide",
+  width_trim = 0.2
 )
 }
 \arguments{
@@ -51,6 +52,10 @@ interval. If \code{"wide"} (the default), then each performance criterion
 will have a separate column for each CI type. If \code{"long"}, then each
 performance criterion will be a single variable, with separate rows for
 each CI type.}
+
+\item{width_trim}{numeric value specifying the trimming percentage to use
+when summarizing CI widths across replications from a single set of
+bootstraps, with a default of 0.2 (i.e., 20\% trimming).}
 }
 \value{
 A tibble containing the number of simulation iterations, performance

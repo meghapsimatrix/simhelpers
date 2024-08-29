@@ -103,6 +103,9 @@ calc_coverage <- function(
 #'   will have a separate column for each CI type. If \code{"long"}, then each
 #'   performance criterion will be a single variable, with separate rows for
 #'   each CI type.
+#' @param width_trim numeric value specifying the trimming percentage to use
+#'   when summarizing CI widths across replications from a single set of
+#'   bootstraps, with a default of 0.2 (i.e., 20\% trimming).
 #' @inheritParams calc_absolute
 #'
 #' @return A tibble containing the number of simulation iterations, performance
@@ -196,7 +199,8 @@ extrapolate_coverage <- function(
     criteria = c("coverage", "width"),
     winz = Inf,
     nested = FALSE,
-    format = "wide"
+    format = "wide",
+    width_trim = 0.2
 ) {
 
   criteria <- match.arg(criteria, choices = c("coverage", "width"), several.ok = TRUE)
@@ -275,7 +279,8 @@ extrapolate_coverage <- function(
     width_proj <- lapply(
       CI_subsamples,
       project_width,
-      B_wts = B_wts, B_target = B_target
+      B_wts = B_wts, B_target = B_target,
+      width_trim = width_trim
     )
     width_proj <- do.call(rbind, width_proj)
 
@@ -351,7 +356,7 @@ project_coverage <- function(CI_dat, true_param, B_wts, B_target = B_target) {
   )
 }
 
-project_width <- function(CI_dat, B_wts, B_target) {
+project_width <- function(CI_dat, B_wts, B_target, width_trim = 0.2) {
 
   lower_names <- which(grepl("_lower$", names(CI_dat)))
   upper_names <- which(grepl("_upper$", names(CI_dat)))
@@ -359,7 +364,7 @@ project_width <- function(CI_dat, B_wts, B_target) {
   B_vals <- unique(CI_dat$bootstraps)
 
   width_by_Bval <- mapply(
-    \(lo,up) tapply(up - lo, CI_dat$bootstraps, mean),
+    \(lo,up) tapply(up - lo, CI_dat$bootstraps, mean, trim = width_trim),
     lo = CI_dat[lower_names],
     up = CI_dat[upper_names],
     SIMPLIFY = FALSE,
