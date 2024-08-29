@@ -1,4 +1,4 @@
-simhelpers 0.2.1.9999
+simhelpers 0.3.0
 =======================
 * Added functions for calculating bootstrap p-values and confidence intervals and for estimating rejection rates, coverage rates, and interval widths by extrapolating across bootstrap subsamples. 
 * Added `repeat_and_stack()` function, which is similar to the base R `replicate()` and to the now deprecated `purrr::rerun()`, with the option to stack the output into a single `data.frame`.

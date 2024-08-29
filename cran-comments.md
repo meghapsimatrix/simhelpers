@@ -1,6 +1,6 @@
 ## Resubmission
 
-This is a resubmission. This is a maintenance release which corrects issues in the unit tests on MacOS, M1Mac, and NoLD.
+This is a resubmission. This is a major release that adds several new features and functions, including new options for performance metrics, tools for calculating bootstrap confidence intervals, and tools for extrapolating coverage rates and rejection rates based on bootstrap resampling techniques with a limited number of bootstrap replications.
 
 ## Test environments
 
@@ -15,8 +15,4 @@ This is a resubmission. This is a maintenance release which corrects issues in t
 ## R CMD check results
 
 There were no ERRORs or WARNINGs. There was one NOTE:
-
-  Days since last update: 5
-
-We are resubmitting the package to correct errors in the CRAN checks of version 0.2.0.
 
