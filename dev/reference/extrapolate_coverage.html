@@ -69,7 +69,9 @@
 <span>  winz <span class="op">=</span> <span class="cn">Inf</span>,</span>
 <span>  nested <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  format <span class="op">=</span> <span class="st">"wide"</span>,</span>
-<span>  width_trim <span class="op">=</span> <span class="fl">0</span></span>
+<span>  width_trim <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  cover_na_val <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  width_na_val <span class="op">=</span> <span class="cn">NA</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -132,6 +134,14 @@ each CI type.</p></dd>
 <dd><p>numeric value specifying the trimming percentage to use
 when summarizing CI widths across replications from a single set of
 bootstraps, with a default of 0.0 (i.e., use the regular arithmetic mean).</p></dd>
+
+
+<dt id="arg-cover-na-val">cover_na_val<a class="anchor" aria-label="anchor" href="#arg-cover-na-val"></a></dt>
+<dd><p>numeric value to use for calculating coverage if bootstrap CI end-points are missing. Default is <code>NA</code>.</p></dd>
+
+
+<dt id="arg-width-na-val">width_na_val<a class="anchor" aria-label="anchor" href="#arg-width-na-val"></a></dt>
+<dd><p>numeric value to use for calculating width if bootstrap CI end-points are missing. Default is <code>NA</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
