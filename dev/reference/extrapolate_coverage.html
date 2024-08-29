@@ -68,7 +68,8 @@
 <span>  criteria <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"coverage"</span>, <span class="st">"width"</span><span class="op">)</span>,</span>
 <span>  winz <span class="op">=</span> <span class="cn">Inf</span>,</span>
 <span>  nested <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  format <span class="op">=</span> <span class="st">"wide"</span></span>
+<span>  format <span class="op">=</span> <span class="st">"wide"</span>,</span>
+<span>  width_trim <span class="op">=</span> <span class="fl">0.2</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -125,6 +126,12 @@ interval. If <code>"wide"</code> (the default), then each performance criterion
 will have a separate column for each CI type. If <code>"long"</code>, then each
 performance criterion will be a single variable, with separate rows for
 each CI type.</p></dd>
+
+
+<dt id="arg-width-trim">width_trim<a class="anchor" aria-label="anchor" href="#arg-width-trim"></a></dt>
+<dd><p>numeric value specifying the trimming percentage to use
+when summarizing CI widths across replications from a single set of
+bootstraps, with a default of 0.2 (i.e., 20% trimming).</p></dd>
 
 </dl></div>
     <div class="section level2">
