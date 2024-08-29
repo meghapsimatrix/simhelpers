@@ -304,4 +304,49 @@ test_that("extrapolate_coverage options work with infinite widths.", {
   expect_true(all(is.finite(res_winz$boot_width_student)))
   expect_true(all(is.finite(res_winz$boot_width_percentile)))
 
+  res$CI[[2]]$normal_upper[1] <- NaN
+  res$CI[[2]]$basic_upper[1:4] <- NaN
+  res$CI[[2]]$student_upper[1:8] <- NaN
+  res$CI[[2]]$percentile_upper <- NaN
+
+  res_raw <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 0, width_na_val = Inf)
+  expect_true(is.infinite(res_raw$boot_width_normal[1]))
+  expect_true(all(is.finite(res_raw$boot_width_normal[-1])))
+  expect_true(is.infinite(res_raw$boot_width_basic[1]))
+  expect_true(all(is.finite(res_raw$boot_width_basic[-1])))
+  expect_true(all(is.infinite(res_raw$boot_width_student[1:2])))
+  expect_true(all(is.finite(res_raw$boot_width_student[-(1:2)])))
+  expect_true(all(is.infinite(res_raw$boot_width_percentile)))
+
+  res_raw_trim <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 0, width_trim = 0.3, width_na_val = Inf)
+  expect_true(all(is.finite(res_raw_trim$boot_width_normal)))
+  expect_true(is.infinite(res_raw_trim$boot_width_basic[1]))
+  expect_true(all(is.finite(res_raw_trim$boot_width_basic[-1])))
+  expect_true(all(is.infinite(res_raw_trim$boot_width_student[1:2])))
+  expect_true(all(is.finite(res_raw_trim$boot_width_student[-(1:2)])))
+  expect_true(all(is.infinite(res_raw_trim$boot_width_percentile[1:6])))
+  expect_true(all(is.infinite(res_raw_trim$boot_width_percentile[7])))
+
+  res_winz <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 0, winz = 1.5)
+  expect_true(all(is.finite(res_winz$boot_width_normal)))
+  expect_true(all(is.finite(res_winz$boot_width_basic)))
+  expect_true(all(is.finite(res_winz$boot_width_student)))
+  expect_true(all(is.finite(res_winz$boot_width_percentile)))
+
+  res_winz_imp <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 0, winz = 1.5, cover_na_val = 0, width_na_val = Inf)
+  expect_true(all(is.finite(res_winz_imp$boot_width_normal)))
+  expect_true(all(is.finite(res_winz_imp$boot_width_basic)))
+  expect_true(all(is.finite(res_winz_imp$boot_width_student)))
+  expect_true(all(is.finite(res_winz_imp$boot_width_percentile)))
+
+  res_winz_diff <- abs(res_winz - res_winz_imp)
+  expect_gt(res_winz_diff$boot_width_normal[1], 0)
+  expect_equal(max(res_winz_diff$boot_width_normal[-1]), 0)
+  expect_gt(res_winz_diff$boot_width_basic[1], 0)
+  expect_equal(max(res_winz_diff$boot_width_basic[-1]), 0)
+  expect_gt(min(res_winz_diff$boot_width_student[1:2]), 0)
+  expect_equal(max(res_winz_diff$boot_width_normal[-(1:2)]), 0)
+  expect_gt(min(res_winz_diff$boot_width_percentile[-7]), 0)
+  expect_equal(res_winz_diff$boot_width_percentile[7], 0)
+
 })

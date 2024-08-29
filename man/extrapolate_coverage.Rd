@@ -14,7 +14,9 @@ extrapolate_coverage(
   winz = Inf,
   nested = FALSE,
   format = "wide",
-  width_trim = 0
+  width_trim = 0,
+  cover_na_val = NA,
+  width_na_val = NA
 )
 }
 \arguments{
@@ -56,6 +58,10 @@ each CI type.}
 \item{width_trim}{numeric value specifying the trimming percentage to use
 when summarizing CI widths across replications from a single set of
 bootstraps, with a default of 0.0 (i.e., use the regular arithmetic mean).}
+
+\item{cover_na_val}{numeric value to use for calculating coverage if bootstrap CI end-points are missing. Default is \code{NA}.}
+
+\item{width_na_val}{numeric value to use for calculating width if bootstrap CI end-points are missing. Default is \code{NA}.}
 }
 \value{
 A tibble containing the number of simulation iterations, performance
