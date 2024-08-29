@@ -105,7 +105,7 @@ calc_coverage <- function(
 #'   each CI type.
 #' @param width_trim numeric value specifying the trimming percentage to use
 #'   when summarizing CI widths across replications from a single set of
-#'   bootstraps, with a default of 0.2 (i.e., 20\% trimming).
+#'   bootstraps, with a default of 0.0 (i.e., use the regular arithmetic mean).
 #' @inheritParams calc_absolute
 #'
 #' @return A tibble containing the number of simulation iterations, performance
@@ -200,7 +200,7 @@ extrapolate_coverage <- function(
     winz = Inf,
     nested = FALSE,
     format = "wide",
-    width_trim = 0.2
+    width_trim = 0.0
 ) {
 
   criteria <- match.arg(criteria, choices = c("coverage", "width"), several.ok = TRUE)
@@ -356,7 +356,7 @@ project_coverage <- function(CI_dat, true_param, B_wts, B_target = B_target) {
   )
 }
 
-project_width <- function(CI_dat, B_wts, B_target, width_trim = 0.2) {
+project_width <- function(CI_dat, B_wts, B_target, width_trim = 0.0) {
 
   lower_names <- which(grepl("_lower$", names(CI_dat)))
   upper_names <- which(grepl("_upper$", names(CI_dat)))
@@ -372,7 +372,10 @@ project_width <- function(CI_dat, B_wts, B_target, width_trim = 0.2) {
   )
   names(width_by_Bval) <- CI_names
 
-  width_extrap <- lapply(width_by_Bval, \(x) sum(x * B_wts))
+  width_extrap <- lapply(width_by_Bval, \(x) {
+    fn <- is.finite(x)
+     sum(x[fn] * B_wts[fn]) / sum(B_wts[fn])
+  })
   width_extrap$bootstraps <- B_target
 
   width_by_Bval$bootstraps <- B_vals
