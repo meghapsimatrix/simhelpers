@@ -374,7 +374,7 @@ project_width <- function(CI_dat, B_wts, B_target, width_trim = 0.0) {
 
   width_extrap <- lapply(width_by_Bval, \(x) {
     fn <- is.finite(x)
-     sum(x[fn] * B_wts[fn]) / sum(B_wts[fn])
+    if (all(!fn)) return(Inf) else sum(x[fn] * B_wts[fn]) / sum(B_wts[fn])
   })
   width_extrap$bootstraps <- B_target
 

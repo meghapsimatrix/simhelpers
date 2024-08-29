@@ -273,4 +273,35 @@ test_that("extrapolate_coverage options work with multiple CI types and winsoriz
 })
 
 
+test_that("extrapolate_coverage options work with infinite widths.", {
 
+  res <- simulate_bootCIs(reps = 100, N = 50, mu = 0, nu = 5, B_vals = seq(49, 99, 10))
+  res$CI[[1]]$normal_upper[1] <- Inf
+  res$CI[[1]]$basic_upper[1:4] <- Inf
+  res$CI[[1]]$student_upper[1:8] <- Inf
+  res$CI[[1]]$percentile_upper <- Inf
+
+  res_raw <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 0)
+  expect_true(is.infinite(res_raw$boot_width_normal[1]))
+  expect_true(all(is.finite(res_raw$boot_width_normal[-1])))
+  expect_true(is.infinite(res_raw$boot_width_basic[1]))
+  expect_true(all(is.finite(res_raw$boot_width_basic[-1])))
+  expect_true(all(is.infinite(res_raw$boot_width_student[1:2])))
+  expect_true(all(is.finite(res_raw$boot_width_student[-(1:2)])))
+  expect_true(all(is.infinite(res_raw$boot_width_percentile)))
+
+  res_raw_trim <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 0, width_trim = 0.3)
+  expect_true(all(is.finite(res_raw_trim$boot_width_normal)))
+  expect_true(is.infinite(res_raw_trim$boot_width_basic[1]))
+  expect_true(all(is.finite(res_raw_trim$boot_width_basic[-1])))
+  expect_true(all(is.infinite(res_raw_trim$boot_width_student[1:2])))
+  expect_true(all(is.finite(res_raw_trim$boot_width_student[-(1:2)])))
+  expect_true(all(is.infinite(res_raw_trim$boot_width_percentile)))
+
+  res_winz <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 0, winz = 1.5)
+  expect_true(all(is.finite(res_winz$boot_width_normal)))
+  expect_true(all(is.finite(res_winz$boot_width_basic)))
+  expect_true(all(is.finite(res_winz$boot_width_student)))
+  expect_true(all(is.finite(res_winz$boot_width_percentile)))
+
+})
