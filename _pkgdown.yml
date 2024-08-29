@@ -28,11 +28,11 @@ reference:
       - calc_coverage
   - title: "Simulating bootstrap processes"
     desc: "Specialized functions for simulations involving bootstrap hypothesis tests or bootstrap confidence intervals"
+    contents:
       - bootstrap_pvals
       - bootstrap_CIs
       - extrapolate_rejection
       - extrapolate_coverage
-    desc: "Functions for calculating performance critieria and MCSE"
   - title: "Simulation Workflow"
     desc: "Functions for facilitating simulation workflows"
     contents:
