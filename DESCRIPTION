@@ -13,7 +13,6 @@ Authors@R: c(
            email = "jepusto@gmail.com", 
            role = c("aut"), 
            comment = c(ORCID = "0000-0003-0591-9465")))
-Maintainer: Megha Joshi <megha.j456@gmail.com>
 Description: Calculates performance criteria measures and associated Monte Carlo standard errors for simulation results. Includes functions to help run simulation studies. Our derivation and explanation of formulas and our general simulation workflow is closely aligned with the approach described by Morris, White, and Crowther (2019) <DOI:10.1002/sim.8086>. 
 URL: https://meghapsimatrix.github.io/simhelpers/
 BugReports: https://github.com/meghapsimatrix/simhelpers/issues
