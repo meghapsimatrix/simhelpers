@@ -14,5 +14,5 @@ This is a resubmission. This is a major release that adds several new features a
 
 ## R CMD check results
 
-There were no ERRORs or WARNINGs. There was one NOTE:
+There were no ERRORs or WARNINGs or NOTEs.
 
