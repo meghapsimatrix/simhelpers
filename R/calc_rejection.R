@@ -155,12 +155,12 @@ calc_rejection <- function(
 #'
 #' # replicate the bootstrap process
 #' x <- simulate_boot_pvals(
-#'   reps = 120L,
-#'   N_A = 40, N_B = 50,
+#'   reps = 50L,
+#'   N_A = 20, N_B = 25,
 #'   shape_A = 7, scale_A = 2,
 #'   shape_B = 4, scale_B = 3,
 #'   B_vals = c(49, 99, 149, 199),
-#'   pval_reps = 3L
+#'   pval_reps = 2L
 #' )
 #'
 #' extrapolate_rejection(

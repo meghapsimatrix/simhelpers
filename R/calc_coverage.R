@@ -174,8 +174,8 @@ calc_coverage <- function(
 #' )
 #'
 #' boot_results <- simulate_bootCIs(
-#'   reps = 80, N = 20, mu = 2, nu = 3,
-#'   B_vals = seq(49, 149, 20),
+#'   reps = 50, N = 20, mu = 2, nu = 3,
+#'   B_vals = seq(49, 199, 50),
 #' )
 #'
 #' extrapolate_coverage(
