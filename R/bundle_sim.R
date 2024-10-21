@@ -16,7 +16,7 @@
 #'   remove the argument from the simulation driver.
 #' @param summarize_opt_name character string to set the name of the argument
 #'   for where to apply \code{f_summarize} to the simulation results, with a
-#'   default value of \code{TRUE}. Ignored if no \code{f_summarize} function is
+#'   default value of \code{"summarize"}. Ignored if no \code{f_summarize} function is
 #'   specified. Set to \code{NULL} to remove the argument from the simulation
 #'   driver.
 #' @param row_bind_reps logical indicating whether to combine the simulation

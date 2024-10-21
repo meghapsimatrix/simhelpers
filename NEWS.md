@@ -1,3 +1,7 @@
+simhelpers 0.3.0.9999
+=======================
+* Corrected an error in the documentation of `bundle_sim()`.
+
 simhelpers 0.3.0
 =======================
 * Added functions for calculating bootstrap p-values and confidence intervals and for estimating rejection rates, coverage rates, and interval widths by extrapolating across bootstrap subsamples. 
