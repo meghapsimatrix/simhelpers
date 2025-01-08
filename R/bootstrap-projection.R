@@ -198,11 +198,24 @@ bootstrap_CIs <- function(
   CI_type <- match.arg(CI_type, c("normal","basic","student","percentile"), several.ok = TRUE)
   format <- match.arg(format, c("wide","long","wide-list"))
 
-  if (("normal" %in% CI_type) & is.null(est)) {
-    stop("CI_type = 'normal' requires providing a value for `est`.")
+  if (is.null(est)) {
+    if (("normal" %in% CI_type)) {
+      stop("CI_type = 'normal' requires providing a value for `est`.")
+    }
+    if (("basic" %in% CI_type)) {
+      stop("CI_type = 'basic' requires providing a value for `est`.")
+    }
+    if (("student" %in% CI_type)) {
+      stop("CI_type = 'student' requires providing a value for `est`.")
+    }
   }
-  if (("student" %in% CI_type) & (length(boot_se) != length(boot_est))) {
-    stop("CI_type = 'student' requires providing values for `boot_se`.")
+  if (("student" %in% CI_type)) {
+    if (is.null(se)) {
+      stop("CI_type = 'student' requires providing a value for `se`.")
+    }
+    if ((length(boot_se) != length(boot_est))) {
+      stop("CI_type = 'student' requires providing values for `boot_se`.")
+    }
   }
 
   probs <- (1 + c(-1, 1) * level) / 2

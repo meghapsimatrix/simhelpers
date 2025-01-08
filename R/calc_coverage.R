@@ -103,6 +103,11 @@ calc_coverage <- function(
 #'   will have a separate column for each CI type. If \code{"long"}, then each
 #'   performance criterion will be a single variable, with separate rows for
 #'   each CI type.
+#' @param width_trim numeric value specifying the trimming percentage to use
+#'   when summarizing CI widths across replications from a single set of
+#'   bootstraps, with a default of 0.0 (i.e., use the regular arithmetic mean).
+#' @param cover_na_val numeric value to use for calculating coverage if bootstrap CI end-points are missing. Default is \code{NA}.
+#' @param width_na_val numeric value to use for calculating width if bootstrap CI end-points are missing. Default is \code{NA}.
 #' @inheritParams calc_absolute
 #'
 #' @return A tibble containing the number of simulation iterations, performance
@@ -169,8 +174,8 @@ calc_coverage <- function(
 #' )
 #'
 #' boot_results <- simulate_bootCIs(
-#'   reps = 80, N = 20, mu = 2, nu = 3,
-#'   B_vals = seq(49, 149, 20),
+#'   reps = 50, N = 20, mu = 2, nu = 3,
+#'   B_vals = seq(49, 199, 50),
 #' )
 #'
 #' extrapolate_coverage(
@@ -196,7 +201,10 @@ extrapolate_coverage <- function(
     criteria = c("coverage", "width"),
     winz = Inf,
     nested = FALSE,
-    format = "wide"
+    format = "wide",
+    width_trim = 0.0,
+    cover_na_val = NA,
+    width_na_val = NA
 ) {
 
   criteria <- match.arg(criteria, choices = c("coverage", "width"), several.ok = TRUE)
@@ -239,7 +247,7 @@ extrapolate_coverage <- function(
 
   # initialize results table
   dat <- data.frame(
-    K_coverage = K
+    K_boot_coverage = K
   )
 
   if (format == "wide") {
@@ -259,13 +267,13 @@ extrapolate_coverage <- function(
     coverage_proj <- lapply(
       CI_subsamples,
       project_coverage,
-      true_param = true_param, B_wts = B_wts, B_target = B_target
+      true_param = true_param, B_wts = B_wts, B_target = B_target, cover_na_val = cover_na_val
     )
     coverage_proj <- do.call(rbind, coverage_proj)
 
     # summarize across replications
-    dat$coverage <- summarize_by_boot(coverage_proj, mean, format = format)
-    dat$coverage_mcse <- summarize_by_boot(coverage_proj, \(y) sd(y) / sqrt(K), format = format)
+    dat$boot_coverage <- summarize_by_boot(coverage_proj, mean, format = format)
+    dat$boot_coverage_mcse <- summarize_by_boot(coverage_proj, \(y) sd(y) / sqrt(K), format = format)
   }
 
   if ("width" %in% criteria) {
@@ -275,7 +283,8 @@ extrapolate_coverage <- function(
     width_proj <- lapply(
       CI_subsamples,
       project_width,
-      B_wts = B_wts, B_target = B_target
+      B_wts = B_wts, B_target = B_target,
+      width_trim = width_trim, width_na_val = width_na_val
     )
     width_proj <- do.call(rbind, width_proj)
 
@@ -287,7 +296,8 @@ extrapolate_coverage <- function(
       width_proj_winz <- lapply(
         width_proj[-boot_name],
         winsorize_by,
-        by = width_proj$bootstraps, winz = winz
+        by = width_proj$bootstraps, winz = winz,
+        na_val = width_na_val
       ) |>
         as.data.frame()
       width_proj_winz$bootstraps <- width_proj$bootstraps
@@ -304,13 +314,13 @@ extrapolate_coverage <- function(
       }
 
       width_winsor_pct_mcse <- sqrt(width_winsor_pct * (1 - width_winsor_pct) / K)
-      dat$width_winsor_pct <- list(width_winsor_pct)
-      dat$width_winsor_pct_mcse <- list(width_winsor_pct_mcse)
+      dat$boot_width_winsor_pct <- list(width_winsor_pct)
+      dat$boot_width_winsor_pct_mcse <- list(width_winsor_pct_mcse)
     }
 
     # summarize across replications
-    dat$width <- summarize_by_boot(width_proj, mean, format = format)
-    dat$width_mcse <- summarize_by_boot(width_proj, \(y) sd(y) / sqrt(K), format = format)
+    dat$boot_width <- summarize_by_boot(width_proj, mean, format = format, na.rm = TRUE)
+    dat$boot_width_mcse <- summarize_by_boot(width_proj, \(y) sd(y, na.rm = TRUE) / sqrt(K), format = format)
   }
 
   if (!nested) {
@@ -325,21 +335,23 @@ extrapolate_coverage <- function(
 
 }
 
-project_coverage <- function(CI_dat, true_param, B_wts, B_target = B_target) {
+project_coverage <- function(CI_dat, true_param, B_wts, B_target = B_target, cover_na_val = NA) {
 
   lower_names <- which(grepl("_lower$", names(CI_dat)))
   upper_names <- which(grepl("_upper$", names(CI_dat)))
   CI_names <- substr(names(CI_dat)[lower_names], 1, nchar(names(CI_dat)[lower_names]) - 6L)
   B_vals <- unique(CI_dat$bootstraps)
 
-  cover_by_Bval <- mapply(
-    \(lo,up) tapply(lo < true_param & true_param < up, CI_dat$bootstraps, mean),
+  cover_indicators <- mapply(
+    \(lo,up) ifelse(is.na(lo) | is.na(up), cover_na_val, lo < true_param & true_param < up),
     lo = CI_dat[lower_names],
     up = CI_dat[upper_names],
     SIMPLIFY = FALSE,
     USE.NAMES = FALSE
   )
-  names(cover_by_Bval) <- CI_names
+  names(cover_indicators) <- CI_names
+
+  cover_by_Bval <- lapply(cover_indicators, \(x) tapply(x, CI_dat$bootstraps, mean))
 
   cover_extrap <- lapply(cover_by_Bval, \(x) sum(x * B_wts))
   cover_extrap$bootstraps <- B_target
@@ -351,23 +363,30 @@ project_coverage <- function(CI_dat, true_param, B_wts, B_target = B_target) {
   )
 }
 
-project_width <- function(CI_dat, B_wts, B_target) {
+project_width <- function(CI_dat, B_wts, B_target, width_trim = 0.0, width_na_val = NA) {
 
   lower_names <- which(grepl("_lower$", names(CI_dat)))
   upper_names <- which(grepl("_upper$", names(CI_dat)))
   CI_names <- substr(names(CI_dat)[lower_names], 1, nchar(names(CI_dat)[lower_names]) - 6L)
   B_vals <- unique(CI_dat$bootstraps)
 
-  width_by_Bval <- mapply(
-    \(lo,up) tapply(up - lo, CI_dat$bootstraps, mean),
+  widths <- mapply(
+    \(lo,up) ifelse(is.na(lo) | is.na(up), width_na_val, up - lo),
     lo = CI_dat[lower_names],
     up = CI_dat[upper_names],
     SIMPLIFY = FALSE,
     USE.NAMES = FALSE
   )
-  names(width_by_Bval) <- CI_names
+  names(widths) <- CI_names
 
-  width_extrap <- lapply(width_by_Bval, \(x) sum(x * B_wts))
+  width_by_Bval <- lapply(widths,
+    \(x) tapply(x, CI_dat$bootstraps, mean, trim = width_trim)
+  )
+
+  width_extrap <- lapply(width_by_Bval, \(x) {
+    fn <- is.finite(x)
+    if (all(!fn)) return(Inf) else sum(x[fn] * B_wts[fn]) / sum(B_wts[fn])
+  })
   width_extrap$bootstraps <- B_target
 
   width_by_Bval$bootstraps <- B_vals
@@ -378,10 +397,10 @@ project_width <- function(CI_dat, B_wts, B_target) {
 
 }
 
-summarize_by_boot <- function(x, f, format = "wide") {
+summarize_by_boot <- function(x, f, format = "wide", ...) {
 
   not_boots <- which(!(names(x) == "bootstraps"))
-  res <- lapply(x[not_boots], \(y) tapply(y, x$bootstraps, f)) |> as.data.frame()
+  res <- lapply(x[not_boots], \(y) tapply(y, x$bootstraps, f, ...)) |> as.data.frame()
 
   if (format == "long") {
     res <- as.numeric(unlist(res))

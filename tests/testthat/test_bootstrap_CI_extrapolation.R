@@ -68,7 +68,7 @@ test_that("extrapolate_coverage options work with a single CI type.", {
     as_tibble()
 
   nested_wide %>%
-    unnest(cols = c("bootstraps","coverage", "coverage_mcse","width","width_mcse"), names_sep = "_") %>%
+    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = "_") %>%
     expect_equal(unnested_wide)
 
   nested_long <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 2, nest = TRUE, format = "long")
@@ -77,12 +77,12 @@ test_that("extrapolate_coverage options work with a single CI type.", {
     as_tibble()
 
   nested_long %>%
-    unnest(cols = c("bootstraps","coverage", "coverage_mcse","width","width_mcse"), names_sep = "_") %>%
+    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = "_") %>%
     rename(bootstraps = bootstraps_bootstraps, CI_type = bootstraps_CI_type) %>%
     expect_equal(unnested_long)
 
   nested_wide %>%
-    unnest(cols = c("bootstraps","coverage", "coverage_mcse","width","width_mcse"), names_sep = ".") %>%
+    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = ".") %>%
     pivot_longer(
       c(ends_with("normal"), ends_with("basic"), ends_with("student"), ends_with("percentile")),
       names_to = c(".value","CI_type"),
@@ -102,7 +102,7 @@ test_that("extrapolate_coverage options work with a single CI type and winsoriza
     as_tibble()
 
   nested_wide %>%
-    unnest(cols = c("bootstraps","coverage", "coverage_mcse","width_winsor_pct","width_winsor_pct_mcse", "width","width_mcse"), names_sep = "_") %>%
+    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width_winsor_pct","boot_width_winsor_pct_mcse", "boot_width","boot_width_mcse"), names_sep = "_") %>%
     expect_equal(unnested_wide)
 
   nested_long <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 2, winz = 1, nest = TRUE, format = "long")
@@ -111,16 +111,16 @@ test_that("extrapolate_coverage options work with a single CI type and winsoriza
     as_tibble()
 
   nested_long %>%
-    unnest(cols = c("bootstraps","coverage", "coverage_mcse","width_winsor_pct","width_winsor_pct_mcse","width","width_mcse"), names_sep = "_") %>%
+    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width_winsor_pct","boot_width_winsor_pct_mcse", "boot_width","boot_width_mcse"), names_sep = "_") %>%
     rename(bootstraps = bootstraps_bootstraps, CI_type = bootstraps_CI_type) %>%
     expect_equal(unnested_long)
 
   nested_wide %>%
-    unnest(cols = c("bootstraps","coverage", "coverage_mcse","width_winsor_pct","width_winsor_pct_mcse","width","width_mcse"), names_sep = ".") %>%
+    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width_winsor_pct","boot_width_winsor_pct_mcse", "boot_width","boot_width_mcse"), names_sep = "-") %>%
     pivot_longer(
       c(ends_with("normal"), ends_with("basic"), ends_with("student"), ends_with("percentile")),
       names_to = c(".value","CI_type"),
-      names_pattern = c("(.+)\\.(.+)")
+      names_pattern = c("(.+)-(.+)")
     ) %>%
     arrange(CI_type, bootstraps) %>%
     expect_equal(arrange(unnested_long, CI_type))
@@ -136,7 +136,7 @@ test_that("extrapolate_coverage options work with multiple CI types.", {
     as_tibble()
 
   nested_wide %>%
-    unnest(cols = c("bootstraps","coverage", "coverage_mcse","width","width_mcse"), names_sep = "_") %>%
+    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = "_") %>%
     expect_equal(unnested_wide)
 
   nested_long <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 3, nest = TRUE, format = "long", B_target = 1000L)
@@ -145,16 +145,16 @@ test_that("extrapolate_coverage options work with multiple CI types.", {
     as_tibble()
 
   nested_long %>%
-    unnest(cols = c("bootstraps","coverage", "coverage_mcse","width","width_mcse"), names_sep = "_") %>%
+    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = "_") %>%
     rename(bootstraps = bootstraps_bootstraps, CI_type = bootstraps_CI_type) %>%
     expect_equal(unnested_long)
 
   nested_wide %>%
-    unnest(cols = c("bootstraps","coverage", "coverage_mcse","width","width_mcse"), names_sep = ".") %>%
+    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = "-") %>%
     pivot_longer(
       c(ends_with("normal"), ends_with("basic"), ends_with("student"), ends_with("percentile")),
       names_to = c(".value","CI_type"),
-      names_pattern = c("(.+)\\.(.+)")
+      names_pattern = c("(.+)-(.+)")
     ) %>%
     arrange(CI_type, bootstraps) %>%
     expect_equal(arrange(unnested_long, CI_type))
@@ -180,18 +180,18 @@ test_that("extrapolate_coverage options work with multiple CI types.", {
       .groups = "drop_last"
     ) %>%
     summarize(
-      K_coverage = n(),
-      coverage = mean(cover),
-      coverage_mcse = sd(cover) / sqrt(n()),
-      avg_width = mean(width),
-      width_mcse = sd(width) / sqrt(n()),
+      K_boot_coverage = n(),
+      boot_coverage = mean(cover),
+      boot_coverage_mcse = sd(cover) / sqrt(n()),
+      boot_width = mean(width),
+      boot_width_mcse = sd(width) / sqrt(n()),
       .groups = "drop"
     )
 
   unnested_long %>%
     filter(bootstraps < 1000L) %>%
     arrange(bootstraps, CI_type) %>%
-    select(bootstraps, CI_type, K_coverage, coverage, coverage_mcse, avg_width = width, width_mcse) %>%
+    select(bootstraps, CI_type, K_boot_coverage, boot_coverage, boot_coverage_mcse, boot_width, boot_width_mcse) %>%
     expect_equal(by_hand)
 
 
@@ -208,7 +208,7 @@ test_that("extrapolate_coverage options work with multiple CI types and winsoriz
     as_tibble()
 
   nested_wide %>%
-    unnest(cols = c("bootstraps","coverage", "coverage_mcse","width_winsor_pct","width_winsor_pct_mcse","width","width_mcse"), names_sep = "_") %>%
+    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width_winsor_pct","boot_width_winsor_pct_mcse", "boot_width","boot_width_mcse"), names_sep = "_") %>%
     expect_equal(unnested_wide)
 
   nested_long <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 0, winz = 1.5, nest = TRUE, format = "long")
@@ -217,16 +217,16 @@ test_that("extrapolate_coverage options work with multiple CI types and winsoriz
     as_tibble()
 
   nested_long %>%
-    unnest(cols = c("bootstraps","coverage", "coverage_mcse","width_winsor_pct","width_winsor_pct_mcse","width","width_mcse"), names_sep = "_") %>%
+    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width_winsor_pct","boot_width_winsor_pct_mcse", "boot_width","boot_width_mcse"), names_sep = "_") %>%
     rename(bootstraps = bootstraps_bootstraps, CI_type = bootstraps_CI_type) %>%
     expect_equal(unnested_long)
 
   nested_wide %>%
-    unnest(cols = c("bootstraps","coverage", "coverage_mcse","width_winsor_pct","width_winsor_pct_mcse","width","width_mcse"), names_sep = ".") %>%
+    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width_winsor_pct","boot_width_winsor_pct_mcse", "boot_width","boot_width_mcse"), names_sep = "-") %>%
     pivot_longer(
       c(ends_with("normal"), ends_with("basic"), ends_with("student"), ends_with("percentile")),
       names_to = c(".value","CI_type"),
-      names_pattern = c("(.+)\\.(.+)")
+      names_pattern = c("(.+)-(.+)")
     ) %>%
     arrange(CI_type, bootstraps) %>%
     expect_equal(arrange(unnested_long, CI_type))
@@ -256,21 +256,97 @@ test_that("extrapolate_coverage options work with multiple CI types and winsoriz
       width_winsor_pct = attr(winsorize(width, winz = 1.5), "winsor_pct")
     ) %>%
     summarize(
-      K_coverage = n(),
-      coverage = mean(cover),
-      coverage_mcse = sd(cover) / sqrt(n()),
-      width_winsor_pct = mean(width_winsor_pct),
-      width = mean(width_winz),
-      width_mcse = sd(width_winz) / sqrt(n()),
+      K_boot_coverage = n(),
+      boot_coverage = mean(cover),
+      boot_coverage_mcse = sd(cover) / sqrt(n()),
+      boot_width_winsor_pct = mean(width_winsor_pct),
+      boot_width = mean(width_winz),
+      boot_width_mcse = sd(width_winz) / sqrt(n()),
       .groups = "drop"
     )
 
   unnested_long %>%
     filter(bootstraps < Inf) %>%
     arrange(bootstraps, CI_type) %>%
-    select(bootstraps, CI_type, K_coverage, coverage, coverage_mcse, width_winsor_pct, width, width_mcse) %>%
+    select(bootstraps, CI_type, K_boot_coverage, boot_coverage, boot_coverage_mcse, boot_width_winsor_pct, boot_width, boot_width_mcse) %>%
     expect_equal(by_hand)
 })
 
 
+test_that("extrapolate_coverage options work with infinite widths.", {
 
+  res <- simulate_bootCIs(reps = 100, N = 50, mu = 0, nu = 5, B_vals = seq(49, 99, 10))
+  res$CI[[1]]$normal_upper[1] <- Inf
+  res$CI[[1]]$basic_upper[1:4] <- Inf
+  res$CI[[1]]$student_upper[1:8] <- Inf
+  res$CI[[1]]$percentile_upper <- Inf
+
+  res_raw <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 0)
+  expect_true(is.infinite(res_raw$boot_width_normal[1]))
+  expect_true(all(is.finite(res_raw$boot_width_normal[-1])))
+  expect_true(is.infinite(res_raw$boot_width_basic[1]))
+  expect_true(all(is.finite(res_raw$boot_width_basic[-1])))
+  expect_true(all(is.infinite(res_raw$boot_width_student[1:2])))
+  expect_true(all(is.finite(res_raw$boot_width_student[-(1:2)])))
+  expect_true(all(is.infinite(res_raw$boot_width_percentile)))
+
+  res_raw_trim <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 0, width_trim = 0.3)
+  expect_true(all(is.finite(res_raw_trim$boot_width_normal)))
+  expect_true(is.infinite(res_raw_trim$boot_width_basic[1]))
+  expect_true(all(is.finite(res_raw_trim$boot_width_basic[-1])))
+  expect_true(all(is.infinite(res_raw_trim$boot_width_student[1:2])))
+  expect_true(all(is.finite(res_raw_trim$boot_width_student[-(1:2)])))
+  expect_true(all(is.infinite(res_raw_trim$boot_width_percentile)))
+
+  res_winz <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 0, winz = 1.5)
+  expect_true(all(is.finite(res_winz$boot_width_normal)))
+  expect_true(all(is.finite(res_winz$boot_width_basic)))
+  expect_true(all(is.finite(res_winz$boot_width_student)))
+  expect_true(all(is.finite(res_winz$boot_width_percentile)))
+
+  res$CI[[2]]$normal_upper[1] <- NaN
+  res$CI[[2]]$basic_upper[1:4] <- NaN
+  res$CI[[2]]$student_upper[1:8] <- NaN
+  res$CI[[2]]$percentile_upper <- NaN
+
+  res_raw <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 0, width_na_val = Inf)
+  expect_true(is.infinite(res_raw$boot_width_normal[1]))
+  expect_true(all(is.finite(res_raw$boot_width_normal[-1])))
+  expect_true(is.infinite(res_raw$boot_width_basic[1]))
+  expect_true(all(is.finite(res_raw$boot_width_basic[-1])))
+  expect_true(all(is.infinite(res_raw$boot_width_student[1:2])))
+  expect_true(all(is.finite(res_raw$boot_width_student[-(1:2)])))
+  expect_true(all(is.infinite(res_raw$boot_width_percentile)))
+
+  res_raw_trim <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 0, width_trim = 0.3, width_na_val = Inf)
+  expect_true(all(is.finite(res_raw_trim$boot_width_normal)))
+  expect_true(is.infinite(res_raw_trim$boot_width_basic[1]))
+  expect_true(all(is.finite(res_raw_trim$boot_width_basic[-1])))
+  expect_true(all(is.infinite(res_raw_trim$boot_width_student[1:2])))
+  expect_true(all(is.finite(res_raw_trim$boot_width_student[-(1:2)])))
+  expect_true(all(is.infinite(res_raw_trim$boot_width_percentile[1:6])))
+  expect_true(all(is.infinite(res_raw_trim$boot_width_percentile[7])))
+
+  res_winz <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 0, winz = 1.5)
+  expect_true(all(is.finite(res_winz$boot_width_normal)))
+  expect_true(all(is.finite(res_winz$boot_width_basic)))
+  expect_true(all(is.finite(res_winz$boot_width_student)))
+  expect_true(all(is.finite(res_winz$boot_width_percentile)))
+
+  res_winz_imp <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 0, winz = 1.5, cover_na_val = 0, width_na_val = Inf)
+  expect_true(all(is.finite(res_winz_imp$boot_width_normal)))
+  expect_true(all(is.finite(res_winz_imp$boot_width_basic)))
+  expect_true(all(is.finite(res_winz_imp$boot_width_student)))
+  expect_true(all(is.finite(res_winz_imp$boot_width_percentile)))
+
+  res_winz_diff <- abs(res_winz - res_winz_imp)
+  expect_gt(res_winz_diff$boot_width_normal[1], 0)
+  expect_equal(max(res_winz_diff$boot_width_normal[-1]), 0)
+  expect_gt(res_winz_diff$boot_width_basic[1], 0)
+  expect_equal(max(res_winz_diff$boot_width_basic[-1]), 0)
+  expect_gt(min(res_winz_diff$boot_width_student[1:2]), 0)
+  expect_equal(max(res_winz_diff$boot_width_normal[-(1:2)]), 0)
+  expect_gt(min(res_winz_diff$boot_width_percentile[-7]), 0)
+  expect_equal(res_winz_diff$boot_width_percentile[7], 0)
+
+})

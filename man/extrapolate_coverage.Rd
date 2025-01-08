@@ -13,7 +13,10 @@ extrapolate_coverage(
   criteria = c("coverage", "width"),
   winz = Inf,
   nested = FALSE,
-  format = "wide"
+  format = "wide",
+  width_trim = 0,
+  cover_na_val = NA,
+  width_na_val = NA
 )
 }
 \arguments{
@@ -51,6 +54,14 @@ interval. If \code{"wide"} (the default), then each performance criterion
 will have a separate column for each CI type. If \code{"long"}, then each
 performance criterion will be a single variable, with separate rows for
 each CI type.}
+
+\item{width_trim}{numeric value specifying the trimming percentage to use
+when summarizing CI widths across replications from a single set of
+bootstraps, with a default of 0.0 (i.e., use the regular arithmetic mean).}
+
+\item{cover_na_val}{numeric value to use for calculating coverage if bootstrap CI end-points are missing. Default is \code{NA}.}
+
+\item{width_na_val}{numeric value to use for calculating width if bootstrap CI end-points are missing. Default is \code{NA}.}
 }
 \value{
 A tibble containing the number of simulation iterations, performance
@@ -121,8 +132,8 @@ simulate_bootCIs <- bundle_sim(
 )
 
 boot_results <- simulate_bootCIs(
-  reps = 80, N = 20, mu = 2, nu = 3,
-  B_vals = seq(49, 149, 20),
+  reps = 50, N = 20, mu = 2, nu = 3,
+  B_vals = seq(49, 199, 50),
 )
 
 extrapolate_coverage(

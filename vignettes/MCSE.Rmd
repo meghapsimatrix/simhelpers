@@ -30,7 +30,7 @@ Performance measures from simulation studies are estimates, based on a finite nu
 
 The goal of `simhelpers` is to assist in running simulation studies. This package provides a set of functions that calculate various performance measures and associated MCSE. This vignette focuses on the set of functions for calculating performance measures. Below, we explain three major categories of performance criteria: (1) absolute criteria, (2) relative criteria, and (3) criteria to evaluate hypothesis testing. We provide formulas used to calculate the performance measures and MCSE and demonstrate how to use the functions in the `simhelpers` package. 
 
-The notation and explanations of the performance measures largely follow notes from Dr. James Pustejovsky's [Data Analysis, Simulation and Programming in R course (Spring, 2019)](https://www.jepusto.com/teaching/daspir/).
+The notation and explanations of the performance measures largely follow notes from Dr. James Pustejovsky's [Data Analysis, Simulation and Programming in R course (Spring, 2019)](https://jepusto.com/teaching/daspir/).
 
 # Performance Criteria and MCSE
 
