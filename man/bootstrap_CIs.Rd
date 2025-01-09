@@ -9,7 +9,7 @@ bootstrap_CIs(
   boot_se = NULL,
   est = NULL,
   se = NULL,
-  empinf = NULL,
+  influence = NULL,
   CI_type = "percentile",
   level = 0.95,
   B_vals = length(boot_est),
@@ -31,7 +31,7 @@ Required for \code{CI_type = "normal"}, \code{CI_type = "basic"},
 \item{se}{numeric value of the estimated standard error based on the original
 sample. Required for \code{CI_type = "student"}.}
 
-\item{empinf}{vector of empirical influence values for the estimator. Required for \code{CI_type = "BCa"}.}
+\item{influence}{vector of empirical influence values for the estimator. Required for \code{CI_type = "BCa"}.}
 
 \item{CI_type}{Character string or vector of character strings indicating
 types of confidence intervals to calculate. Options are \code{"normal"},
@@ -124,7 +124,7 @@ inf_vals <- res[1] - sapply(seq_along(dat), \(i) f(dat[-i])[1])
 bootstrap_CIs(
   boot_est = booties[1,],
   est = res[1],
-  empinf = inf_vals,
+  influence = inf_vals,
   CI_type = c("percentile","bias-corrected","BCa"),
   format = "long"
 )

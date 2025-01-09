@@ -96,7 +96,7 @@ test_that("bootstrap_CIs() agrees with boot::boot.ci using fake data.", {
     boot_se = booties$t[,2],
     est = booties$t0[1],
     se = booties$t0[2],
-    empinf = inf_vals,
+    influence = inf_vals,
     CI_type = c("normal","basic","student","percentile","bias-corrected","BCa"),
     format = "long"
   )
@@ -157,7 +157,7 @@ test_that("bootstrap_CIs() agrees with boot::boot.ci using real data.", {
   my_CIs <- bootstrap_CIs(
     boot_est = booties$t[,1],
     est = booties$t0[1],
-    empinf = inf_vals,
+    influence = inf_vals,
     CI_type = c("normal","basic","percentile","BCa"),
     format = "long"
   )
@@ -206,7 +206,7 @@ test_that("bootstrap_CIs returns results of expected length.", {
     boot_se = booties$t[,2],
     est = booties$t0[1],
     se = booties$t0[2],
-    empinf = inf_vals,
+    influence = inf_vals,
     CI_type = c("normal","basic","student","percentile","bias-corrected","BCa"),
     format = "wide"
   )
@@ -220,7 +220,7 @@ test_that("bootstrap_CIs returns results of expected length.", {
     boot_se = booties$t[,2],
     est = booties$t0[1],
     se = booties$t0[2],
-    empinf = inf_vals,
+    influence = inf_vals,
     CI_type = c("normal","basic","student","percentile","bias-corrected","BCa"),
     format = "long"
   )
@@ -262,7 +262,7 @@ test_that("bootstrap_CIs returns results of expected length.", {
     boot_se = booties$t[,2],
     est = booties$t0[1],
     se = booties$t0[2],
-    empinf = inf_vals,
+    influence = inf_vals,
     CI_type = c("normal","BCa","basic","student","bias-corrected","percentile"),
     reps = 11L,
     format = "wide"
@@ -275,7 +275,7 @@ test_that("bootstrap_CIs returns results of expected length.", {
     boot_se = booties$t[,2],
     est = booties$t0[1],
     se = booties$t0[2],
-    empinf = inf_vals,
+    influence = inf_vals,
     CI_type = c("bias-corrected","normal","basic","student","BCa","percentile"),
     reps = 13L,
     format = "long"
@@ -348,7 +348,7 @@ test_that("bootstrap_CIs returns results of expected length.", {
     boot_se = booties$t[,2],
     est = booties$t0[1],
     se = booties$t0[2],
-    empinf = inf_vals,
+    influence = inf_vals,
     CI_type = c("normal","BCa","student"),
     B_vals = c(49,59,89,99),
     reps = 5L,
@@ -364,7 +364,7 @@ test_that("bootstrap_CIs returns results of expected length.", {
     boot_se = booties$t[,2],
     est = booties$t0[1],
     se = booties$t0[2],
-    empinf = inf_vals,
+    influence = inf_vals,
     CI_type = c("basic","BCa","percentile"),
     B_vals = c(49,59,89),
     reps = 7L,

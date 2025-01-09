@@ -92,7 +92,7 @@ calc_boot_CIs <- function(
 #'   \code{CI_type = "student"}, and \code{CI_type = "bias-corrected"}.
 #' @param se numeric value of the estimated standard error based on the original
 #'   sample. Required for \code{CI_type = "student"}.
-#' @param empinf vector of empirical influence values for the estimator. Required for \code{CI_type = "BCa"}.
+#' @param influence vector of empirical influence values for the estimator. Required for \code{CI_type = "BCa"}.
 #' @param CI_type Character string or vector of character strings indicating
 #'   types of confidence intervals to calculate. Options are \code{"normal"},
 #'   \code{"basic"}, \code{"student"}, \code{"percentile"} (the default), \code{"bias-corrected"}, or \code{"BCa"}.
@@ -178,7 +178,7 @@ calc_boot_CIs <- function(
 #' bootstrap_CIs(
 #'   boot_est = booties[1,],
 #'   est = res[1],
-#'   empinf = inf_vals,
+#'   influence = inf_vals,
 #'   CI_type = c("percentile","bias-corrected","BCa"),
 #'   format = "long"
 #' )
@@ -214,7 +214,7 @@ bootstrap_CIs <- function(
   boot_se = NULL,
   est = NULL,
   se = NULL,
-  empinf = NULL,
+  influence = NULL,
   CI_type = "percentile",
   level = 0.95,
   B_vals = length(boot_est),
@@ -246,8 +246,8 @@ bootstrap_CIs <- function(
     }
   }
   if ("BCa" %in% CI_type) {
-    if (is.null(empinf)) stop("CI_type = 'BCa' requires providing a value for `empinf`.")
-    accel <- sum(empinf^3) / (6 * sum(empinf^2)^1.5)
+    if (is.null(influence)) stop("CI_type = 'BCa' requires providing a value for `influence`.")
+    accel <- sum(influence^3) / (6 * sum(influence^2)^1.5)
   } else {
     accel <- 0
   }
