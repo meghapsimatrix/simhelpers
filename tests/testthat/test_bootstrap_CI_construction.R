@@ -4,25 +4,59 @@ skip_if_not_installed("boot")
 
 library(boot)
 
-format_boot_CIs <- function(boot_CIs) {
+formatted_boot_CIs <- function(booties, types, L = NULL) {
+
+  boot_CIs <- list()
+  if ("stud" %in% types) {
+    stud_boot_CIs <- boot.ci(
+      booties,
+      type = "stud",
+      var.t0 = booties$t0[2]^2,
+      var.t = booties$t[,2]^2
+    )
+
+    boot_CIs$student <- stud_boot_CIs$student
+  }
+
+  more_types <- c("norm","basic","perc","BC")
+  if (any(more_types %in% types)) {
+    more_types <- intersect(more_types, types)
+    if ("BC" %in% more_types) more_types[which(more_types == "BC")] <- "bca"
+    more_boot_CIs <- boot.ci(
+      booties,
+      type = more_types,
+      L = (-3):3
+    )
+
+    if ("norm" %in% more_types) more_types[which(more_types == "norm")] <- "normal"
+    if ("perc" %in% more_types) more_types[which(more_types == "perc")] <- "percent"
+
+    boot_CIs <- c(boot_CIs, more_boot_CIs[more_types])
+    if ("bca" %in% more_types) names(boot_CIs)[which(names(boot_CIs) == "bca")] <- "BC"
+  }
+
+  if ("bca" %in% types) {
+    BCa_boot_CIs <- boot.ci(
+      booties,
+      type = "bca",
+      L = L
+    )
+
+    boot_CIs$bca <- BCa_boot_CIs$bca
+  }
   CI_dat <- rbind(
     normal = boot_CIs$normal[2:3],
     basic = boot_CIs$basic[4:5],
     student = boot_CIs$student[4:5],
-    percentile = boot_CIs$percent[4:5]
+    percentile = boot_CIs$percent[4:5],
+    `bias-corrected` = boot_CIs$BC[4:5],
+    BCa = boot_CIs$bca[4:5]
   ) |>
     as.data.frame()
   names(CI_dat) <- c("lower","upper")
 
   tibble::rownames_to_column(CI_dat, var = "type")
-}
 
-
-f <- \(x,i) {
-  c(
-    M = mean(x[i], trim = 0.1),
-    SE = sd(x[i]) / sqrt(length(x[i]))
-  )
 }
 
 # generate t-distributed data
@@ -33,27 +67,28 @@ mu <- 2
 nu <- 5
 dat <- mu + rt(N, df = nu)
 
+f <- \(x,i) {
+  c(
+    M = mean(x[i], trim = 0.1),
+    SE = sd(x[i]) / sqrt(length(x[i]))
+  )
+}
+
+
 
 test_that("bootstrap_CIs() agrees with boot::boot.ci using fake data.", {
 
   # basic pairs bootstrap
   B <- 399L
   booties <- boot(dat, f, R = B)
+  inf_vals <- booties$t0 - sapply(seq_along(dat), \(i) f(dat[-i])[1])
 
   # benchmark bootstrap CIs
-  norm_boot_CIs <- boot.ci(
+  boot_CIs <- formatted_boot_CIs(
     booties,
-    type = c("norm"),
-  ) |>
-    format_boot_CIs()
-
-  more_boot_CIs <- boot.ci(
-    booties,
-    type = c("basic", "stud", "perc"),
-    var.t0 = booties$t0[2]^2,
-    var.t = booties$t[,2]^2
-  ) |>
-    format_boot_CIs()
+    types = c("norm","basic","stud","perc","BC","bca"),
+    L = inf_vals
+  )
 
   # package bootstrap CIs
   my_CIs <- bootstrap_CIs(
@@ -61,12 +96,13 @@ test_that("bootstrap_CIs() agrees with boot::boot.ci using fake data.", {
     boot_se = booties$t[,2],
     est = booties$t0[1],
     se = booties$t0[2],
-    CI_type = c("normal","basic","student","percentile"),
+    empinf = inf_vals,
+    CI_type = c("normal","basic","student","percentile","bias-corrected","BCa"),
     format = "long"
   )
 
-  dplyr::bind_rows(norm_boot_CIs, more_boot_CIs) |>
-    expect_equal(my_CIs[,-1])
+  expect_equal(my_CIs[1:4,-1], boot_CIs[1:4,])
+  expect_equal(my_CIs[5:6,-1], boot_CIs[5:6,], tolerance = 1e-2)
 
   # now do same comparison, but with sub-sampling
   B_val <- 199L
@@ -77,13 +113,7 @@ test_that("bootstrap_CIs() agrees with boot::boot.ci using fake data.", {
     mini_booties <- booties
     mini_booties$t <- booties$t[i,]
     mini_booties$R <- B_val
-    boot.ci(
-      mini_booties,
-      type = c("basic", "stud", "perc"),
-      var.t0 = mini_booties$t0[2]^2,
-      var.t = mini_booties$t[,2]^2
-    ) |>
-      format_boot_CIs()
+    formatted_boot_CIs(mini_booties, type = c("basic","stud","perc"))
   }, simplify = FALSE)
 
   set.seed(20240717)
@@ -112,24 +142,28 @@ test_that("bootstrap_CIs() agrees with boot::boot.ci using real data.", {
 
   # basic pairs bootstrap
   B <- 999L
+  set.seed(20250108)
   booties <- boot(city, ratio, R = 999, stype = "w")
+  inf_vals <- empinf(booties, type = "jack")
 
   # benchmark bootstrap CIs
-  boot_CIs <- boot.ci(
+  boot_CIs <- formatted_boot_CIs(
     booties,
-    type = c("norm","basic", "perc"),
-  ) |>
-    format_boot_CIs()
+    type = c("norm","basic","perc","bca"),
+    L = inf_vals
+  )
 
   # package bootstrap CIs
   my_CIs <- bootstrap_CIs(
     boot_est = booties$t[,1],
     est = booties$t0[1],
-    CI_type = c("normal","basic","percentile"),
+    empinf = inf_vals,
+    CI_type = c("normal","basic","percentile","BCa"),
     format = "long"
   )
 
-  expect_equal(boot_CIs, my_CIs[,-1])
+  expect_equal(boot_CIs[-4,], my_CIs[-4,-1])
+  expect_equal(boot_CIs[4,], my_CIs[4,-1], tolerance = 5e-3)
 
   # now do same comparison, but with sub-sampling
   B_val <- 199L
@@ -140,11 +174,10 @@ test_that("bootstrap_CIs() agrees with boot::boot.ci using real data.", {
     mini_booties <- booties
     mini_booties$t <- booties$t[i,,drop=FALSE]
     mini_booties$R <- B_val
-    boot.ci(
+    formatted_boot_CIs(
       mini_booties,
-      type = c("norm", "basic", "perc"),
-    ) |>
-      format_boot_CIs()
+      type = c("norm", "basic", "perc")
+    )
   }, simplify = FALSE)
 
   set.seed(20240717)
@@ -166,18 +199,20 @@ test_that("bootstrap_CIs() agrees with boot::boot.ci using real data.", {
 test_that("bootstrap_CIs returns results of expected length.", {
 
   booties <- boot(dat, f, R = 199)
+  inf_vals <- empinf(booties)
 
   A_wide <- bootstrap_CIs(
     boot_est = booties$t[,1],
     boot_se = booties$t[,2],
     est = booties$t0[1],
     se = booties$t0[2],
-    CI_type = c("normal","basic","student","percentile"),
+    empinf = inf_vals,
+    CI_type = c("normal","basic","student","percentile","bias-corrected","BCa"),
     format = "wide"
   )
 
   expect_s3_class(A_wide, "data.frame")
-  expect_identical(ncol(A_wide), 9L)
+  expect_identical(ncol(A_wide), 13L)
   expect_identical(nrow(A_wide), 1L)
 
   A_long <- bootstrap_CIs(
@@ -185,13 +220,14 @@ test_that("bootstrap_CIs returns results of expected length.", {
     boot_se = booties$t[,2],
     est = booties$t0[1],
     se = booties$t0[2],
-    CI_type = c("normal","basic","student","percentile"),
+    empinf = inf_vals,
+    CI_type = c("normal","basic","student","percentile","bias-corrected","BCa"),
     format = "long"
   )
 
   expect_s3_class(A_long, "data.frame")
   expect_identical(ncol(A_long), 4L)
-  expect_identical(nrow(A_long), 4L)
+  expect_identical(nrow(A_long), 6L)
 
 
   B_wide <- bootstrap_CIs(
@@ -226,7 +262,8 @@ test_that("bootstrap_CIs returns results of expected length.", {
     boot_se = booties$t[,2],
     est = booties$t0[1],
     se = booties$t0[2],
-    CI_type = c("normal","basic","student","percentile"),
+    empinf = inf_vals,
+    CI_type = c("normal","BCa","basic","student","bias-corrected","percentile"),
     reps = 11L,
     format = "wide"
   )
@@ -238,7 +275,8 @@ test_that("bootstrap_CIs returns results of expected length.", {
     boot_se = booties$t[,2],
     est = booties$t0[1],
     se = booties$t0[2],
-    CI_type = c("normal","basic","student","percentile"),
+    empinf = inf_vals,
+    CI_type = c("bias-corrected","normal","basic","student","BCa","percentile"),
     reps = 13L,
     format = "long"
   )
@@ -250,7 +288,7 @@ test_that("bootstrap_CIs returns results of expected length.", {
     boot_se = booties$t[,2],
     est = booties$t0[1],
     se = booties$t0[2],
-    CI_type = c("normal","basic","student","percentile"),
+    CI_type = c("bias-corrected","basic","student","percentile"),
     B_vals = 59,
     reps = 11L,
     format = "wide"
@@ -265,7 +303,7 @@ test_that("bootstrap_CIs returns results of expected length.", {
     boot_se = booties$t[,2],
     est = booties$t0[1],
     se = booties$t0[2],
-    CI_type = c("normal","basic","student","percentile"),
+    CI_type = c("bias-corrected","basic","student","percentile"),
     B_vals = 59,
     reps = 13L,
     format = "long"
@@ -310,7 +348,8 @@ test_that("bootstrap_CIs returns results of expected length.", {
     boot_se = booties$t[,2],
     est = booties$t0[1],
     se = booties$t0[2],
-    CI_type = c("normal","basic","student"),
+    empinf = inf_vals,
+    CI_type = c("normal","BCa","student"),
     B_vals = c(49,59,89,99),
     reps = 5L,
     format = "wide"
@@ -325,7 +364,8 @@ test_that("bootstrap_CIs returns results of expected length.", {
     boot_se = booties$t[,2],
     est = booties$t0[1],
     se = booties$t0[2],
-    CI_type = c("basic","student","percentile"),
+    empinf = inf_vals,
+    CI_type = c("basic","BCa","percentile"),
     B_vals = c(49,59,89),
     reps = 7L,
     format = "long"
@@ -341,7 +381,7 @@ test_that("bootstrap_CIs returns results of expected length.", {
     boot_se = booties$t[,2],
     est = booties$t0[1],
     se = booties$t0[2],
-    CI_type = c("normal","basic","student"),
+    CI_type = c("normal","basic","bias-corrected","student"),
     B_vals = c(49,59,89,99),
     reps = 5L,
     format = "wide-list"
@@ -350,6 +390,6 @@ test_that("bootstrap_CIs returns results of expected length.", {
   expect_identical(length(G_wide), 1L)
   expect_s3_class(G_wide[[1]], "data.frame")
   expect_identical(nrow(G_wide[[1]]), 4L * 5L)
-  expect_identical(ncol(G_wide[[1]]), 7L)
+  expect_identical(ncol(G_wide[[1]]), 9L)
 
 })

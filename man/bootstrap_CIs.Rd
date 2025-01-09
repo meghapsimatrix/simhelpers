@@ -9,6 +9,7 @@ bootstrap_CIs(
   boot_se = NULL,
   est = NULL,
   se = NULL,
+  empinf = NULL,
   CI_type = "percentile",
   level = 0.95,
   B_vals = length(boot_est),
@@ -24,15 +25,17 @@ bootstrap_CIs(
 replication.}
 
 \item{est}{numeric value of the estimate based on the original sample.
-Required for \code{CI_type = "normal"}, \code{CI_type = "basic"}, and
-\code{CI_type = "student"}.}
+Required for \code{CI_type = "normal"}, \code{CI_type = "basic"},
+\code{CI_type = "student"}, and \code{CI_type = "bias-corrected"}.}
 
 \item{se}{numeric value of the estimated standard error based on the original
 sample. Required for \code{CI_type = "student"}.}
 
+\item{empinf}{vector of empirical influence values for the estimator. Required for \code{CI_type = "BCa"}.}
+
 \item{CI_type}{Character string or vector of character strings indicating
 types of confidence intervals to calculate. Options are \code{"normal"},
-\code{"basic"}, \code{"student"}, and \code{"percentile"} (the default).}
+\code{"basic"}, \code{"student"}, \code{"percentile"} (the default), \code{"bias-corrected"}, or \code{"BCa"}.}
 
 \item{level}{numeric value between 0 and 1 for the desired coverage level,
 with a default of \code{0.95}.}
@@ -112,7 +115,17 @@ bootstrap_CIs(
   boot_se = booties[2,],
   est = res[1],
   se = res[2],
-  CI_type = c("normal","basic","student","percentile"),
+  CI_type = c("normal","basic","student","percentile","bias-corrected"),
+  format = "long"
+)
+
+# Calculate bias-corrected-and-accelerated CIs
+inf_vals <- res[1] - sapply(seq_along(dat), \(i) f(dat[-i])[1])
+bootstrap_CIs(
+  boot_est = booties[1,],
+  est = res[1],
+  empinf = inf_vals,
+  CI_type = c("percentile","bias-corrected","BCa"),
   format = "long"
 )
 
@@ -122,7 +135,7 @@ bootstrap_CIs(
   boot_se = booties[2,],
   est = res[1],
   se = res[2],
-  CI_type = c("normal","basic","student","percentile"),
+  CI_type = c("normal","basic","student","percentile","bias-corrected"),
   B_vals = 199,
   reps = 4L,
   format = "long"

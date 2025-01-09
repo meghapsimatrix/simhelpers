@@ -128,7 +128,7 @@ test_that("extrapolate_coverage options work with a single CI type and winsoriza
 
 test_that("extrapolate_coverage options work with multiple CI types.", {
 
-  res <- simulate_bootCIs(reps = 50, N = 40, mu = 3, nu = 5, B_vals = seq(49, 149, 20), CI_type = c("normal","basic"))
+  res <- simulate_bootCIs(reps = 50, N = 40, mu = 3, nu = 5, B_vals = seq(49, 149, 20), CI_type = c("normal","basic","bias-corrected"))
 
   nested_wide <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 3, B_target = 1000L, nest = TRUE)
   unnested_wide <-
@@ -152,7 +152,7 @@ test_that("extrapolate_coverage options work with multiple CI types.", {
   nested_wide %>%
     unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = "-") %>%
     pivot_longer(
-      c(ends_with("normal"), ends_with("basic"), ends_with("student"), ends_with("percentile")),
+      c(ends_with("normal"), ends_with("basic"), ends_with("student"), ends_with("percentile"), ends_with("biascorrected"), ends_with("BCa")),
       names_to = c(".value","CI_type"),
       names_pattern = c("(.+)-(.+)")
     ) %>%
