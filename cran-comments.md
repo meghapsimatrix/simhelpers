@@ -1,10 +1,10 @@
 ## Resubmission
 
-This is a resubmission. This is a major release that adds several new features and functions, including new options for performance metrics, tools for calculating bootstrap confidence intervals, and tools for extrapolating coverage rates and rejection rates based on bootstrap resampling techniques with a limited number of bootstrap replications.
+This is a resubmission and a minor release. The main change is to provide additional options for calculating bootstrap confidence intervals, including options to calculate bias-corrected or bias-corrected-and-accelerated intervals.
 
 ## Test environments
 
-* local Windows 11 Pro, R 4.2.0
+* local Windows 11 Pro, R 4.4.1
 * local OS Big Sur, R 4.1.2
 * ubuntu 20.04.3 LTS (on Github), R devel, release, oldrelease
 * macOS-latest (on Github), R release
@@ -14,5 +14,10 @@ This is a resubmission. This is a major release that adds several new features a
 
 ## R CMD check results
 
-There were no ERRORs or WARNINGs or NOTEs.
+There were no ERRORs or WARNINGs. There was one NOTE:
 
+Possibly misspelled words in DESCRIPTION:
+  Zhang (11:658)
+  studentized (11:420)
+
+The flagged words are spelled correctly.

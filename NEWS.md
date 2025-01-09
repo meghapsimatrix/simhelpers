@@ -1,4 +1,4 @@
-simhelpers 0.3.0.9999
+simhelpers 0.3.1
 =======================
 * Added support for bias-corrected and bias-corrected-and-accelerated (BCa) bootstrap confidence intervals.
 * Corrected an error in the documentation of `bundle_sim()`.

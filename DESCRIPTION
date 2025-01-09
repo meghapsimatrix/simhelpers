@@ -1,7 +1,7 @@
 Package: simhelpers
 Type: Package
 Title: Helper Functions for Simulation Studies
-Version: 0.3.0.9999
+Version: 0.3.1
 Authors@R: c(
     person(given = "Megha", 
            family = "Joshi", 
@@ -13,7 +13,7 @@ Authors@R: c(
            email = "jepusto@gmail.com", 
            role = c("aut"), 
            comment = c(ORCID = "0000-0003-0591-9465")))
-Description: Calculates performance criteria measures and associated Monte Carlo standard errors for simulation results. Includes functions to help run simulation studies. Our derivation and explanation of formulas and our general simulation workflow is closely aligned with the approach described by Morris, White, and Crowther (2019) <DOI:10.1002/sim.8086>. 
+Description: Calculates performance criteria measures and associated Monte Carlo standard errors for simulation results. Includes functions to help run simulation studies, following a general simulation workflow that closely aligns with the approach described by Morris, White, and Crowther (2019) <DOI:10.1002/sim.8086>. Also includes functions for calculating bootstrap confidence intervals (including normal, basic, studentized, percentile, bias-corrected, and bias-corrected-and-accelerated) with tidy output, as well as for extrapolating confidence interval coverage rates and hypothesis test rejection rates following techniques suggested by Boos and Zhang (2000) <DOI:10.1080/01621459.2000.10474226>.
 URL: https://meghapsimatrix.github.io/simhelpers/
 BugReports: https://github.com/meghapsimatrix/simhelpers/issues
 Depends: R (>= 2.10)
