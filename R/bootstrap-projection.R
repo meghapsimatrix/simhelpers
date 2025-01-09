@@ -7,12 +7,13 @@ calc_boot_CIs <- function(
     boot_se = NULL,
     est = NULL,
     se = NULL,
+    accel = 0,
     CI_type = "percentile",
     probs = c(.025, .975),
     format = "wide"
 ) {
 
-  if(any(c("basic","percentile") %in% CI_type)) {
+  if (any(c("basic","percentile") %in% CI_type)) {
     pctls <- stats::quantile(boot_est[i], probs = probs, type = 1)
   }
 
@@ -42,8 +43,27 @@ calc_boot_CIs <- function(
     CI_dat$percentile_upper <- pctls[2]
   }
 
+  if (any(c("bias-corrected","BCa") %in% CI_type)) {
+    w <- stats::qnorm(mean(boot_est[i] < est))
+  }
+
+  if ("bias-corrected" %in% CI_type) {
+    bc_probs <- stats::pnorm(2 * w + stats::qnorm(probs))
+    bc_pctls <- stats::quantile(boot_est[i], probs = bc_probs, type = 1)
+    CI_dat$biascorrected_lower <- bc_pctls[1]
+    CI_dat$biascorrected_upper <- bc_pctls[2]
+  }
+
+  if ("BCa" %in% CI_type) {
+    wz <- w + stats::qnorm(probs)
+    bca_probs <- stats::pnorm(w + wz / (1 - accel * wz))
+    bca_pctls <- stats::quantile(boot_est[i], probs = bca_probs, type = 1)
+    CI_dat$BCa_lower <- bca_pctls[1]
+    CI_dat$BCa_upper <- bca_pctls[2]
+  }
+
   if (format == "long") {
-    CI_names <- intersect(c("normal","basic","student","percentile"), CI_type)
+    CI_names <- intersect(c("normal","basic","student","percentile","bias-corrected","BCa"), CI_type)
     lower_vals <- unlist(CI_dat[seq(2L, by = 2L, length.out = length(CI_type))])
     upper_vals <- unlist(CI_dat[seq(3L, by = 2L, length.out = length(CI_type))])
     CI_dat <- data.frame(
@@ -68,13 +88,14 @@ calc_boot_CIs <- function(
 #' @param boot_se vector of estimated standard errors from each bootstrap
 #'   replication.
 #' @param est numeric value of the estimate based on the original sample.
-#'   Required for \code{CI_type = "normal"}, \code{CI_type = "basic"}, and
-#'   \code{CI_type = "student"}.
+#'   Required for \code{CI_type = "normal"}, \code{CI_type = "basic"},
+#'   \code{CI_type = "student"}, and \code{CI_type = "bias-corrected"}.
 #' @param se numeric value of the estimated standard error based on the original
 #'   sample. Required for \code{CI_type = "student"}.
+#' @param empinf vector of empirical influence values for the estimator. Required for \code{CI_type = "BCa"}.
 #' @param CI_type Character string or vector of character strings indicating
 #'   types of confidence intervals to calculate. Options are \code{"normal"},
-#'   \code{"basic"}, \code{"student"}, and \code{"percentile"} (the default).
+#'   \code{"basic"}, \code{"student"}, \code{"percentile"} (the default), \code{"bias-corrected"}, or \code{"BCa"}.
 #' @param level numeric value between 0 and 1 for the desired coverage level,
 #'   with a default of \code{0.95}.
 #' @param B_vals vector of sub-sample sizes for which to calculate confidence
@@ -148,7 +169,17 @@ calc_boot_CIs <- function(
 #'   boot_se = booties[2,],
 #'   est = res[1],
 #'   se = res[2],
-#'   CI_type = c("normal","basic","student","percentile"),
+#'   CI_type = c("normal","basic","student","percentile","bias-corrected"),
+#'   format = "long"
+#' )
+#'
+#' # Calculate bias-corrected-and-accelerated CIs
+#' inf_vals <- res[1] - sapply(seq_along(dat), \(i) f(dat[-i])[1])
+#' bootstrap_CIs(
+#'   boot_est = booties[1,],
+#'   est = res[1],
+#'   empinf = inf_vals,
+#'   CI_type = c("percentile","bias-corrected","BCa"),
 #'   format = "long"
 #' )
 #'
@@ -158,7 +189,7 @@ calc_boot_CIs <- function(
 #'   boot_se = booties[2,],
 #'   est = res[1],
 #'   se = res[2],
-#'   CI_type = c("normal","basic","student","percentile"),
+#'   CI_type = c("normal","basic","student","percentile","bias-corrected"),
 #'   B_vals = 199,
 #'   reps = 4L,
 #'   format = "long"
@@ -183,6 +214,7 @@ bootstrap_CIs <- function(
   boot_se = NULL,
   est = NULL,
   se = NULL,
+  empinf = NULL,
   CI_type = "percentile",
   level = 0.95,
   B_vals = length(boot_est),
@@ -195,27 +227,29 @@ bootstrap_CIs <- function(
 
   if (level <= 0 | level >= 1) stop("`level` must be between 0 and 1 (e.g., `level = 0.95`).")
 
-  CI_type <- match.arg(CI_type, c("normal","basic","student","percentile"), several.ok = TRUE)
+  CI_type <- match.arg(CI_type, c("normal","basic","student","percentile","bias-corrected","BCa"), several.ok = TRUE)
   format <- match.arg(format, c("wide","long","wide-list"))
 
   if (is.null(est)) {
-    if (("normal" %in% CI_type)) {
-      stop("CI_type = 'normal' requires providing a value for `est`.")
-    }
-    if (("basic" %in% CI_type)) {
-      stop("CI_type = 'basic' requires providing a value for `est`.")
-    }
-    if (("student" %in% CI_type)) {
-      stop("CI_type = 'student' requires providing a value for `est`.")
+    CI_type_reqs <- c("normal","basic","student","bias-corrected","BCa")
+    if (any(CI_type_reqs %in% CI_type)) {
+      CI_type_paste <- paste("'", intersect(CI_type_reqs, CI_type), "'", collapse = ", ")
+      stop(paste0("CI_type %in% c(",CI_type_paste,"requires providing a value for `est`."))
     }
   }
-  if (("student" %in% CI_type)) {
+  if ("student" %in% CI_type) {
     if (is.null(se)) {
       stop("CI_type = 'student' requires providing a value for `se`.")
     }
     if ((length(boot_se) != length(boot_est))) {
       stop("CI_type = 'student' requires providing values for `boot_se`.")
     }
+  }
+  if ("BCa" %in% CI_type) {
+    if (is.null(empinf)) stop("CI_type = 'BCa' requires providing a value for `empinf`.")
+    accel <- sum(empinf^3) / (6 * sum(empinf^2)^1.5)
+  } else {
+    accel <- 0
   }
 
   probs <- (1 + c(-1, 1) * level) / 2
@@ -231,6 +265,7 @@ bootstrap_CIs <- function(
           boot_se = boot_se,
           est = est,
           se = se,
+          accel = accel,
           CI_type = CI_type,
           probs = probs,
           format = format
