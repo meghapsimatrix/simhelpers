@@ -5,66 +5,50 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="simhelpers">
 <title>Simulation Performance Criteria and MCSE • simhelpers</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Simulation Performance Criteria and MCSE">
-<meta property="og:description" content="simhelpers">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Simulation Performance Criteria and MCSE">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">simhelpers</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.1</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/MCSE.html">Simulation Performance Criteria and MCSE</a>
-    <a class="dropdown-item" href="../articles/simulation_workflow.html">Simulation Workflow</a>
-    <a class="dropdown-item" href="../articles/visualization.html">Presenting Results from Simulation Studies</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/MCSE.html">Simulation Performance Criteria and MCSE</a></li>
+    <li><a class="dropdown-item" href="../articles/simulation_workflow.html">Simulation Workflow</a></li>
+    <li><a class="dropdown-item" href="../articles/visualization.html">Presenting Results from Simulation Studies</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/meghapsimatrix/simhelpers/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/meghapsimatrix/simhelpers/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -73,9 +57,10 @@
 <script src="MCSE_files/kePrint-0.0.1/kePrint.js"></script><link href="MCSE_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="" class="logo" alt=""><h1>Simulation Performance Criteria and MCSE</h1>
+
+      <h1>Simulation Performance Criteria and MCSE</h1>
             
-            <h4 data-toc-skip class="date">2024-09-04</h4>
+            <h4 data-toc-skip class="date">2025-01-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/meghapsimatrix/simhelpers/blob/HEAD/vignettes/MCSE.Rmd" class="external-link"><code>vignettes/MCSE.Rmd</code></a></small>
       <div class="d-none name"><code>MCSE.Rmd</code></div>
@@ -135,25 +120,28 @@ of the estimates. MSE and RMSE measure how far off, on average, an
 estimator is from the true parameter. Absolute criteria are in the same
 scale as the estimate. MSE is in squared deviation scale and RMSE is in
 the scale of the estimates.</p>
-<p>Let <span class="math inline">\(T\)</span> denote an estimator for a
-parameter <span class="math inline">\(\theta\)</span>. By running a
-simulation study, we obtain <span class="math inline">\(K\)</span>
-estimates <span class="math inline">\(T_1,...,T_K\)</span> (or
-realizations of the estimator) for each data generating condition. We
-can calculate the following sample statistics for the estimates:</p>
+<p>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+denote an estimator for a parameter
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>.
+By running a simulation study, we obtain
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+estimates
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mn>1</mn></msub><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><msub><mi>T</mi><mi>K</mi></msub></mrow><annotation encoding="application/x-tex">T_1,...,T_K</annotation></semantics></math>
+(or realizations of the estimator) for each data generating condition.
+We can calculate the following sample statistics for the estimates:</p>
 <ul>
-<li>Sample mean: <span class="math inline">\(\bar{T} =
-\frac{1}{K}\sum_{k=1}^K T_k\)</span>
+<li>Sample mean:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>T</mi><mo accent="true">‾</mo></mover><mo>=</mo><mfrac><mn>1</mn><mi>K</mi></mfrac><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup><msub><mi>T</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">\bar{T} = \frac{1}{K}\sum_{k=1}^K T_k</annotation></semantics></math>
 </li>
-<li>Sample variance: <span class="math inline">\(S_T^2 = \frac{1}{K -
-1}\sum_{k=1}^K \left(T_k - \bar{T}\right)^2\)</span>
+<li>Sample variance:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup><mo>=</mo><mfrac><mn>1</mn><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></mfrac><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>T</mi><mi>k</mi></msub><mo>−</mo><mover><mi>T</mi><mo accent="true">‾</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">S_T^2 = \frac{1}{K - 1}\sum_{k=1}^K \left(T_k - \bar{T}\right)^2</annotation></semantics></math>
 </li>
-<li>Sample skewness (standardized): <span class="math inline">\(g_T =
-\frac{1}{K S_T^3}\sum_{k=1}^K \left(T_k - \bar{T}\right)^3\)</span>
+<li>Sample skewness (standardized):
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>T</mi></msub><mo>=</mo><mfrac><mn>1</mn><mrow><mi>K</mi><msubsup><mi>S</mi><mi>T</mi><mn>3</mn></msubsup></mrow></mfrac><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>T</mi><mi>k</mi></msub><mo>−</mo><mover><mi>T</mi><mo accent="true">‾</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">g_T = \frac{1}{K S_T^3}\sum_{k=1}^K \left(T_k - \bar{T}\right)^3</annotation></semantics></math>
 </li>
-<li>Sample kurtosis (standardized): <span class="math inline">\(k_T =
-\frac{1}{K S_T^4} \sum_{k=1}^K \left(T_k -
-\bar{T}\right)^4\)</span>
+<li>Sample kurtosis (standardized):
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mi>T</mi></msub><mo>=</mo><mfrac><mn>1</mn><mrow><mi>K</mi><msubsup><mi>S</mi><mi>T</mi><mn>4</mn></msubsup></mrow></mfrac><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>T</mi><mi>k</mi></msub><mo>−</mo><mover><mi>T</mi><mo accent="true">‾</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">k_T = \frac{1}{K S_T^4} \sum_{k=1}^K \left(T_k - \bar{T}\right)^4</annotation></semantics></math>
 </li>
 </ul>
 <p>Table 1 below shows each of the performance criteria, its
@@ -190,13 +178,13 @@ Bias
 Difference from true parameter
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\text{E}(T) - \theta\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">E</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">\text{E}(T) - \theta</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\bar{T} - \theta\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>T</mi><mo accent="true">‾</mo></mover><mo>−</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">\bar{T} - \theta</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{S_T^2/ K}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup><mi>/</mi><mi>K</mi></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{S_T^2/ K}</annotation></semantics></math>
 </td>
 </tr>
 <tr>
@@ -207,14 +195,13 @@ Variance
 Precision
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\text{E}\left[(T -
-\text{E}(T))^2\right]\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">E</mtext><mrow><mo stretchy="true" form="prefix">[</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo>−</mo><mtext mathvariant="normal">E</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\text{E}\left[(T - \text{E}(T))^2\right]</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(S_T^2\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">S_T^2</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(S_T^2 \sqrt{\frac{k_T - 1}{K}}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup><msqrt><mfrac><mrow><msub><mi>k</mi><mi>T</mi></msub><mo>−</mo><mn>1</mn></mrow><mi>K</mi></mfrac></msqrt></mrow><annotation encoding="application/x-tex">S_T^2 \sqrt{\frac{k_T - 1}{K}}</annotation></semantics></math>
 </td>
 </tr>
 <tr>
@@ -225,15 +212,13 @@ Standard Error
 Precision
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\text{E}\left[(T -
-\text{E}(T))^2\right]}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><mtext mathvariant="normal">E</mtext><mrow><mo stretchy="true" form="prefix">[</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo>−</mo><mtext mathvariant="normal">E</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">]</mo></mrow></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{\text{E}\left[(T - \text{E}(T))^2\right]}</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(S_T\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>S</mi><mi>T</mi></msub><annotation encoding="application/x-tex">S_T</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\frac{K - 1}{K} \sum_{j=1}^K
-(\sqrt{S_{T(j)}^2} - S_T)^2 }\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><mfrac><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow><mi>K</mi></mfrac><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup><msup><mrow><mo stretchy="true" form="prefix">(</mo><msqrt><msubsup><mi>S</mi><mrow><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></msubsup></msqrt><mo>−</mo><msub><mi>S</mi><mi>T</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{\frac{K - 1}{K} \sum_{j=1}^K (\sqrt{S_{T(j)}^2} - S_T)^2 }</annotation></semantics></math>
 </td>
 </tr>
 <tr>
@@ -244,16 +229,13 @@ MSE
 Accuracy
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\text{E}\left[(T - \theta)^2\right]\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">E</mtext><mrow><mo stretchy="true" form="prefix">[</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo>−</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\text{E}\left[(T - \theta)^2\right]</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\frac{1}{K}\sum_{k=1}^{K}\left(T_k -
-\theta\right)^2\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mi>K</mi></mfrac><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>T</mi><mi>k</mi></msub><mo>−</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\frac{1}{K}\sum_{k=1}^{K}\left(T_k - \theta\right)^2</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\frac{1}{K}\left[S_T^4 (k_T - 1) + 4
-S_T^3 g_T(\bar{T} - \theta) + 4 S_T^2 (\bar{T} -
-\theta)^2\right]}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><mfrac><mn>1</mn><mi>K</mi></mfrac><mrow><mo stretchy="true" form="prefix">[</mo><msubsup><mi>S</mi><mi>T</mi><mn>4</mn></msubsup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>k</mi><mi>T</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mn>4</mn><msubsup><mi>S</mi><mi>T</mi><mn>3</mn></msubsup><msub><mi>g</mi><mi>T</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>T</mi><mo accent="true">‾</mo></mover><mo>−</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mn>4</mn><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup><msup><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>T</mi><mo accent="true">‾</mo></mover><mo>−</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">]</mo></mrow></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{\frac{1}{K}\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\bar{T} - \theta) + 4 S_T^2 (\bar{T} - \theta)^2\right]}</annotation></semantics></math>
 </td>
 </tr>
 <tr>
@@ -264,16 +246,13 @@ RMSE
 Accuracy
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\text{E}\left[(T -
-\theta)^2\right]}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><mtext mathvariant="normal">E</mtext><mrow><mo stretchy="true" form="prefix">[</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo>−</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">]</mo></mrow></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{\text{E}\left[(T - \theta)^2\right]}</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\frac{1}{K}\sum_{k=1}^{K}\left(T_k -
-\theta\right)^2}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><mfrac><mn>1</mn><mi>K</mi></mfrac><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>T</mi><mi>k</mi></msub><mo>−</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{\frac{1}{K}\sum_{k=1}^{K}\left(T_k - \theta\right)^2}</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\frac{K - 1}{K} \sum_{j=1}^K
-\left(RMSE_{(j)} - RMSE\right)^2}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><mfrac><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow><mi>K</mi></mfrac><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>R</mi><mi>M</mi><mi>S</mi><msub><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msub><mo>−</mo><mi>R</mi><mi>M</mi><mi>S</mi><mi>E</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(RMSE_{(j)} - RMSE\right)^2}</annotation></semantics></math>
 </td>
 </tr>
 </tbody>
@@ -281,36 +260,42 @@ Accuracy
 <p>The equation for the MCSE of the standard deviation is derived using
 the jack-knife technique <span class="citation">(Efron &amp; Stein,
 1981)</span>. First we calculate variance of the estimates leaving out
-replicate <span class="math inline">\(j\)</span>. Instead of calculating
-each jack-knife estimate, we use algebraic tricks to calculate <span class="math inline">\(S^2_{T(j)}\)</span> as follows:</p>
-<p><span class="math display">\[S_{T(j)}^2 = \frac{1}{K - 2} \left[(K -
-1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]\]</span>
+replicate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>.
+Instead of calculating each jack-knife estimate, we use algebraic tricks
+to calculate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>S</mi><mrow><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></msubsup><annotation encoding="application/x-tex">S^2_{T(j)}</annotation></semantics></math>
+as follows:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>S</mi><mrow><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></msubsup><mo>=</mo><mfrac><mn>1</mn><mrow><mi>K</mi><mo>−</mo><mn>2</mn></mrow></mfrac><mrow><mo stretchy="true" form="prefix">[</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>K</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup><mo>−</mo><mfrac><mi>K</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></mfrac><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>T</mi><mi>j</mi></msub><mo>−</mo><mover><mi>T</mi><mo accent="true">‾</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">S_{T(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]</annotation></semantics></math>
 Then, the jack-knife MCSE of standard deviation will be calculated
 as:</p>
-<p><span class="math display">\[\sqrt{\frac{K - 1}{K} \sum_{j=1}^K
-(\sqrt{S_{T(j)}^2} - S_T)^2 }\]</span></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><mfrac><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow><mi>K</mi></mfrac><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></munderover><msup><mrow><mo stretchy="true" form="prefix">(</mo><msqrt><msubsup><mi>S</mi><mrow><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></msubsup></msqrt><mo>−</mo><msub><mi>S</mi><mi>T</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{\frac{K - 1}{K} \sum_{j=1}^K (\sqrt{S_{T(j)}^2} - S_T)^2 }</annotation></semantics></math></p>
 <p>The equation for the MCSE of RMSE is also derived using the
-jack-knife technique, which involves excluding a replicate <span class="math inline">\(j\)</span> and calculating RMSE <span class="citation">(Efron &amp; Stein, 1981)</span>. The formula for RMSE
-is:</p>
-<p><span class="math display">\[\sqrt{\frac{1}{K}\sum_{k=1}^{K}\left(T_k
-- \theta\right)^2}\]</span></p>
+jack-knife technique, which involves excluding a replicate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+and calculating RMSE <span class="citation">(Efron &amp; Stein,
+1981)</span>. The formula for RMSE is:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><mfrac><mn>1</mn><mi>K</mi></mfrac><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></munderover><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>T</mi><mi>k</mi></msub><mo>−</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{\frac{1}{K}\sum_{k=1}^{K}\left(T_k - \theta\right)^2}</annotation></semantics></math></p>
 <p>This is approximately equivalent to:</p>
-<p><span class="math display">\[RMSE = \sqrt{(\bar{T} - \theta)^2 +
-S^2_T}\]</span></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mi>M</mi><mi>S</mi><mi>E</mi><mo>=</mo><msqrt><mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>T</mi><mo accent="true">‾</mo></mover><mo>−</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>+</mo><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup></mrow></msqrt></mrow><annotation encoding="application/x-tex">RMSE = \sqrt{(\bar{T} - \theta)^2 + S^2_T}</annotation></semantics></math></p>
 <p>The jack-knife RMSE will be calculated as:</p>
-<p><span class="math display">\[RMSE_{(j)}  = \sqrt{(\bar{T}_{(j)} -
-\theta)^2 + S^2_{T(j)}}\]</span></p>
-<p>Here <span class="math inline">\(\bar{T}_{(j)}\)</span> and <span class="math inline">\(S^2_{T(j)}\)</span> indicate the mean and variance
-of the estimates leaving out replicate <span class="math inline">\(j\)</span>. Instead of calculating each jack-knife
-estimate, we use algebraic tricks to calculate <span class="math inline">\(\bar{T}_{(j)}\)</span> and <span class="math inline">\(S^2_{T(j)}\)</span> as follows:</p>
-<p><span class="math display">\[\bar{T}_{(j)} = \frac{1}{K-1} \left(K
-\bar{T} - T_j\right)\]</span></p>
-<p><span class="math display">\[S_{T(j)}^2 = \frac{1}{K - 2} \left[(K -
-1) S_T^2 - \frac{K}{K - 1}\left(T_j -
-\bar{T}\right)^2\right]\]</span></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mi>M</mi><mi>S</mi><msub><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msub><mo>=</mo><msqrt><mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mover><mi>T</mi><mo accent="true">‾</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msub><mo>−</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>+</mo><msubsup><mi>S</mi><mrow><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></msubsup></mrow></msqrt></mrow><annotation encoding="application/x-tex">RMSE_{(j)}  = \sqrt{(\bar{T}_{(j)} - \theta)^2 + S^2_{T(j)}}</annotation></semantics></math></p>
+<p>Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi>T</mi><mo accent="true">‾</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msub><annotation encoding="application/x-tex">\bar{T}_{(j)}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>S</mi><mrow><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></msubsup><annotation encoding="application/x-tex">S^2_{T(j)}</annotation></semantics></math>
+indicate the mean and variance of the estimates leaving out replicate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>.
+Instead of calculating each jack-knife estimate, we use algebraic tricks
+to calculate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi>T</mi><mo accent="true">‾</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msub><annotation encoding="application/x-tex">\bar{T}_{(j)}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>S</mi><mrow><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></msubsup><annotation encoding="application/x-tex">S^2_{T(j)}</annotation></semantics></math>
+as follows:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>T</mi><mo accent="true">‾</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msub><mo>=</mo><mfrac><mn>1</mn><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mi>K</mi><mover><mi>T</mi><mo accent="true">‾</mo></mover><mo>−</mo><msub><mi>T</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\bar{T}_{(j)} = \frac{1}{K-1} \left(K \bar{T} - T_j\right)</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>S</mi><mrow><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></msubsup><mo>=</mo><mfrac><mn>1</mn><mrow><mi>K</mi><mo>−</mo><mn>2</mn></mrow></mfrac><mrow><mo stretchy="true" form="prefix">[</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>K</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup><mo>−</mo><mfrac><mi>K</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></mfrac><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>T</mi><mi>j</mi></msub><mo>−</mo><mover><mi>T</mi><mo accent="true">‾</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">S_{T(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]</annotation></semantics></math></p>
 <p>Then, the jack-knife MCSE of RMSE will be calculated as:</p>
-<p><span class="math display">\[MCSE_{RMSE(JK)}  = \sqrt{\frac{K
--1}{K}\sum_{j=1}^K  \left(RMSE_{(j)} - RMSE\right)^2}\]</span></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>C</mi><mi>S</mi><msub><mi>E</mi><mrow><mi>R</mi><mi>M</mi><mi>S</mi><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>J</mi><mi>K</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub><mo>=</mo><msqrt><mrow><mfrac><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow><mi>K</mi></mfrac><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></munderover><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>R</mi><mi>M</mi><mi>S</mi><msub><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msub><mo>−</mo><mi>R</mi><mi>M</mi><mi>S</mi><mi>E</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">MCSE_{RMSE(JK)}  = \sqrt{\frac{K -1}{K}\sum_{j=1}^K  \left(RMSE_{(j)} - RMSE\right)^2}</annotation></semantics></math></p>
 <div class="section level4">
 <h4 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h4>
@@ -1211,20 +1196,22 @@ rmse_mcse
 </h3>
 <p>Relative criteria can be useful for describing an estimator’s
 performance, especially if the performance varies in proportion to the
-true value of the target parameter. It can be only used when <span class="math inline">\(|\theta| &gt; 0\)</span> as we cannot divide by
-<span class="math inline">\(0\)</span> <span class="citation">(Morris et
-al., 2019)</span>.</p>
+true value of the target parameter. It can be only used when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>θ</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">|\theta| &gt; 0</annotation></semantics></math>
+as we cannot divide by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math><span class="citation">(Morris et al., 2019)</span>.</p>
 <p>To derive the MCSE for relative RMSE, we again used the jack-knife
 technique. The formula to calculate relative RMSE is:</p>
-<p><span class="math display">\[rRMSE = \sqrt{\frac{(\bar{T} - \theta)^2
-+ S_T^2}{\theta^2}}\]</span></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>R</mi><mi>M</mi><mi>S</mi><mi>E</mi><mo>=</mo><msqrt><mfrac><mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>T</mi><mo accent="true">‾</mo></mover><mo>−</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>+</mo><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup></mrow><msup><mi>θ</mi><mn>2</mn></msup></mfrac></msqrt></mrow><annotation encoding="application/x-tex">rRMSE = \sqrt{\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}}</annotation></semantics></math></p>
 <p>The jack-knife RMSE will be calculated as:</p>
-<p><span class="math display">\[rRMSE_{(j)}  =
-\sqrt{\frac{(\bar{T}_{(j)} - \theta)^2 +
-S_{T(j)}^2}{\theta^2}}\]</span></p>
-<p>Here <span class="math inline">\(\bar{T}_{(j)}\)</span> and <span class="math inline">\(S^2_{T(j)}\)</span> are calculated as specified
-above when we described the algebra trick to estimate these values. The
-MCSE is then calculated as specified in the table below.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>R</mi><mi>M</mi><mi>S</mi><msub><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msub><mo>=</mo><msqrt><mfrac><mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mover><mi>T</mi><mo accent="true">‾</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msub><mo>−</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>+</mo><msubsup><mi>S</mi><mrow><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></msubsup></mrow><msup><mi>θ</mi><mn>2</mn></msup></mfrac></msqrt></mrow><annotation encoding="application/x-tex">rRMSE_{(j)}  = \sqrt{\frac{(\bar{T}_{(j)} - \theta)^2 + S_{T(j)}^2}{\theta^2}}</annotation></semantics></math></p>
+<p>Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi>T</mi><mo accent="true">‾</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msub><annotation encoding="application/x-tex">\bar{T}_{(j)}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>S</mi><mrow><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></msubsup><annotation encoding="application/x-tex">S^2_{T(j)}</annotation></semantics></math>
+are calculated as specified above when we described the algebra trick to
+estimate these values. The MCSE is then calculated as specified in the
+table below.</p>
 <p>Table 2 below shows each of the relative performance criteria, its
 interpretation, its formal definition, how the criterion is estimated in
 a simulation study, and its MCSE formula.</p>
@@ -1258,13 +1245,13 @@ Relative Bias
 Relative difference from true parameter
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\text{E}(T) / \theta\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">E</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mi>θ</mi></mrow><annotation encoding="application/x-tex">\text{E}(T) / \theta</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\bar{T} / \theta\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>T</mi><mo accent="true">‾</mo></mover><mi>/</mi><mi>θ</mi></mrow><annotation encoding="application/x-tex">\bar{T} / \theta</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{S_T^2 / (K\theta^2)}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>K</mi><msup><mi>θ</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{S_T^2 / (K\theta^2)}</annotation></semantics></math>
 </td>
 </tr>
 <tr>
@@ -1275,17 +1262,13 @@ Relative MSE
 Accuracy
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\text{E}\left[(T - \theta)^2\right]/
-\theta^2\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">E</mtext><mrow><mo stretchy="true" form="prefix">[</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo>−</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">]</mo></mrow><mi>/</mi><msup><mi>θ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\text{E}\left[(T - \theta)^2\right]/ \theta^2</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\frac{(\bar{T} - \theta)^2 +
-S_T^2}{\theta^2}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>T</mi><mo accent="true">‾</mo></mover><mo>−</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>+</mo><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup></mrow><msup><mi>θ</mi><mn>2</mn></msup></mfrac><annotation encoding="application/x-tex">\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\frac{1}{K\theta^2}\left[S_T^4 (k_T -
-1) + 4 S_T^3 g_T(\bar{T} - \theta) + 4 S_T^2 (\bar{T} -
-\theta)^2\right]}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><mfrac><mn>1</mn><mrow><mi>K</mi><msup><mi>θ</mi><mn>2</mn></msup></mrow></mfrac><mrow><mo stretchy="true" form="prefix">[</mo><msubsup><mi>S</mi><mi>T</mi><mn>4</mn></msubsup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>k</mi><mi>T</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mn>4</mn><msubsup><mi>S</mi><mi>T</mi><mn>3</mn></msubsup><msub><mi>g</mi><mi>T</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>T</mi><mo accent="true">‾</mo></mover><mo>−</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mn>4</mn><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup><msup><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>T</mi><mo accent="true">‾</mo></mover><mo>−</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">]</mo></mrow></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{\frac{1}{K\theta^2}\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\bar{T} - \theta) + 4 S_T^2 (\bar{T} - \theta)^2\right]}</annotation></semantics></math>
 </td>
 </tr>
 <tr>
@@ -1296,16 +1279,13 @@ Relative RMSE
 Accuracy
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\text{E}\left[(T - \theta)^2\right]/
-\theta^2}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><mtext mathvariant="normal">E</mtext><mrow><mo stretchy="true" form="prefix">[</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo>−</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">]</mo></mrow><mi>/</mi><msup><mi>θ</mi><mn>2</mn></msup></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{\text{E}\left[(T - \theta)^2\right]/ \theta^2}</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\frac{(\bar{T} - \theta)^2 +
-S_T^2}{\theta^2}}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mfrac><mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>T</mi><mo accent="true">‾</mo></mover><mo>−</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>+</mo><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup></mrow><msup><mi>θ</mi><mn>2</mn></msup></mfrac></msqrt><annotation encoding="application/x-tex">\sqrt{\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}}</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\frac{K - 1}{K} \sum_{j=1}^K
-\left(rRMSE_{(j)} - rRMSE)^2\right)}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><mfrac><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow><mi>K</mi></mfrac><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><mi>R</mi><mi>M</mi><mi>S</mi><msub><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msub><mo>−</mo><mi>r</mi><mi>R</mi><mi>M</mi><mi>S</mi><mi>E</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rRMSE_{(j)} - rRMSE)^2\right)}</annotation></semantics></math>
 </td>
 </tr>
 </tbody>
@@ -1628,45 +1608,57 @@ NA
 </h3>
 <p>Variance estimators are always positive, and so relative criteria are
 often used to characterize their performance. For variance estimators,
-we have <span class="math inline">\(V\)</span> denoting the sampling
-variance of a point estimator <span class="math inline">\(T\)</span>. To
-assess the relative criteria for <span class="math inline">\(V\)</span>,
-we need to divide it by the true value of the sampling variance of <span class="math inline">\(T\)</span>, <span class="math inline">\(\lambda =
-\text{Var}(T)\)</span>, which we may not be able to calculate directly.
-In such scenario, we can use the sample variance of <span class="math inline">\(T\)</span> across the replications, <span class="math inline">\(S_T^2\)</span>, to estimate the true sampling
-variance.</p>
-<p>The relative bias would then be estimated by <span class="math inline">\(rB = \bar{V} / S_T^2\)</span>, the average of the
-variance estimates divided by the sample variance of the point
-estimates. To estimate MCSE of the relative bias of the variance
-estimator, we need to account for the uncertainty in the estimation of
-the true sampling variance. One way to do so is to use the jack-knife
-technique that we described above, which entails excluding a replicate
-<span class="math inline">\(j\)</span> and calculating relative bias
-<span class="math inline">\(\bar{V}_{(j)}/ S_{T(j)}^2\)</span>. The
-Monte Carlo standard error can then be calculated as:</p>
-<p><span class="math display">\[
-MCSE\left(rB\right) = \sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rB_{(j)}
-- rB\right)^2}
-\]</span> which can be written as:</p>
-<p><span class="math display">\[
-MCSE\left(rB\right) = \sqrt{\frac{K - 1}{K} \sum_{j=1}^K
-\left(\frac{\bar{V}_{(j)}}{S_{T(j)}^2} - \frac{\bar{V}}{S_T^2}\right)^2}
-\]</span></p>
+we have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
+denoting the sampling variance of a point estimator
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>.
+To assess the relative criteria for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>,
+we need to divide it by the true value of the sampling variance of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>=</mo><mtext mathvariant="normal">Var</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\lambda = \text{Var}(T)</annotation></semantics></math>,
+which we may not be able to calculate directly. In such scenario, we can
+use the sample variance of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+across the replications,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">S_T^2</annotation></semantics></math>,
+to estimate the true sampling variance.</p>
+<p>The relative bias would then be estimated by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>B</mi><mo>=</mo><mover><mi>V</mi><mo accent="true">‾</mo></mover><mi>/</mi><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">rB = \bar{V} / S_T^2</annotation></semantics></math>,
+the average of the variance estimates divided by the sample variance of
+the point estimates. To estimate MCSE of the relative bias of the
+variance estimator, we need to account for the uncertainty in the
+estimation of the true sampling variance. One way to do so is to use the
+jack-knife technique that we described above, which entails excluding a
+replicate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+and calculating relative bias
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>V</mi><mo accent="true">‾</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msub><mi>/</mi><msubsup><mi>S</mi><mrow><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">\bar{V}_{(j)}/ S_{T(j)}^2</annotation></semantics></math>.
+The Monte Carlo standard error can then be calculated as:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>C</mi><mi>S</mi><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><mi>B</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msqrt><mrow><mfrac><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow><mi>K</mi></mfrac><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></munderover><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><msub><mi>B</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msub><mo>−</mo><mi>r</mi><mi>B</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">
+MCSE\left(rB\right) = \sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rB_{(j)} - rB\right)^2}
+</annotation></semantics></math> which can be written as:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>C</mi><mi>S</mi><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><mi>B</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msqrt><mrow><mfrac><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow><mi>K</mi></mfrac><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></munderover><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><msub><mover><mi>V</mi><mo accent="true">‾</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msub><msubsup><mi>S</mi><mrow><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></msubsup></mfrac><mo>−</mo><mfrac><mover><mi>V</mi><mo accent="true">‾</mo></mover><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">
+MCSE\left(rB\right) = \sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(\frac{\bar{V}_{(j)}}{S_{T(j)}^2} - \frac{\bar{V}}{S_T^2}\right)^2}
+</annotation></semantics></math></p>
 <p>We reformulate the MCSE using some algebra tricks similar to how we
 reformulated them for the RMSE MCSE formulas above.</p>
-<p><span class="math display">\[
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mover><mi>V</mi><mo accent="true">‾</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mfrac><mn>1</mn><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mi>K</mi><mover><mi>V</mi><mo accent="true">‾</mo></mover><mo>−</mo><msub><mi>V</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msubsup><mi>S</mi><mrow><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></msubsup></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mfrac><mn>1</mn><mrow><mi>K</mi><mo>−</mo><mn>2</mn></mrow></mfrac><mrow><mo stretchy="true" form="prefix">[</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>K</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup><mo>−</mo><mfrac><mi>K</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></mfrac><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>T</mi><mi>j</mi></msub><mo>−</mo><mover><mi>T</mi><mo accent="true">‾</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">]</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{aligned}
 \bar{V}_{(j)} &amp;= \frac{1}{K - 1}\left(K \bar{V} - V_j\right) \\
-S_{T(j)}^2 &amp;= \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K -
-1}\left(T_j - \bar{T}\right)^2\right]
+S_{T(j)}^2 &amp;= \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]
 \end{aligned}
-\]</span></p>
+</annotation></semantics></math></p>
 <p>Similarly, we can estimate the MCSE of relative MSE and RMSE using
-the jack-knife technique. To estimate the MSE we need to estimate <span class="math inline">\(S_{V(j)}^2\)</span>, which represents the sample
-variance of the variance estimates leaving replicate <span class="math inline">\(j\)</span> out. We calculate <span class="math inline">\(S_{V(j)}^2\)</span> as</p>
-<p><span class="math display">\[S_{V(j)}^2 = \frac{1}{K - 2} \left[(K -
-1) S_V^2 - \frac{K}{K - 1}\left(V_j -
-\bar{V}\right)^2\right].\]</span></p>
+the jack-knife technique. To estimate the MSE we need to estimate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>S</mi><mrow><mi>V</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></msubsup><annotation encoding="application/x-tex">S_{V(j)}^2</annotation></semantics></math>,
+which represents the sample variance of the variance estimates leaving
+replicate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+out. We calculate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>S</mi><mrow><mi>V</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></msubsup><annotation encoding="application/x-tex">S_{V(j)}^2</annotation></semantics></math>
+as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>S</mi><mrow><mi>V</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></msubsup><mo>=</mo><mfrac><mn>1</mn><mrow><mi>K</mi><mo>−</mo><mn>2</mn></mrow></mfrac><mrow><mo stretchy="true" form="prefix">[</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>K</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><msubsup><mi>S</mi><mi>V</mi><mn>2</mn></msubsup><mo>−</mo><mfrac><mi>K</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow></mfrac><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>V</mi><mi>j</mi></msub><mo>−</mo><mover><mi>V</mi><mo accent="true">‾</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">]</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">S_{V(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_V^2 - \frac{K}{K - 1}\left(V_j - \bar{V}\right)^2\right].</annotation></semantics></math></p>
 <p>We can then estimate the jack-knife relative MSE and RMSE following
 the same logic as we described above and then calculate the MCSE.</p>
 <p>Table 3 below lists relative performance measures for variance
@@ -1701,14 +1693,13 @@ Relative Bias
 Relative difference from true parameter
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\text{E}(V) / \lambda\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">E</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>V</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mi>λ</mi></mrow><annotation encoding="application/x-tex">\text{E}(V) / \lambda</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\bar{V} / S_T^2\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>V</mi><mo accent="true">‾</mo></mover><mi>/</mi><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">\bar{V} / S_T^2</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\frac{K - 1}{K} \sum_{j=1}^K
-\left(rB_{(j)} - rB\right)^2}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><mfrac><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow><mi>K</mi></mfrac><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><msub><mi>B</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msub><mo>−</mo><mi>r</mi><mi>B</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rB_{(j)} - rB\right)^2}</annotation></semantics></math>
 </td>
 </tr>
 <tr>
@@ -1719,16 +1710,13 @@ Relative MSE
 Accuracy
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\text{E}\left[(V - \lambda)^2\right]/
-\lambda^2\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">E</mtext><mrow><mo stretchy="true" form="prefix">[</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>V</mi><mo>−</mo><mi>λ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">]</mo></mrow><mi>/</mi><msup><mi>λ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\text{E}\left[(V - \lambda)^2\right]/ \lambda^2</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\frac{(\bar{V} - S_T^2)^2 +
-S_V^2}{S_T^4}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>V</mi><mo accent="true">‾</mo></mover><mo>−</mo><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>+</mo><msubsup><mi>S</mi><mi>V</mi><mn>2</mn></msubsup></mrow><msubsup><mi>S</mi><mi>T</mi><mn>4</mn></msubsup></mfrac><annotation encoding="application/x-tex">\frac{(\bar{V} - S_T^2)^2 + S_V^2}{S_T^4}</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\frac{K - 1}{K} \sum_{j=1}^K
-\left(rMSE_{(j)} - rMSE\right)^2}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><mfrac><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow><mi>K</mi></mfrac><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><mi>M</mi><mi>S</mi><msub><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msub><mo>−</mo><mi>r</mi><mi>M</mi><mi>S</mi><mi>E</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rMSE_{(j)} - rMSE\right)^2}</annotation></semantics></math>
 </td>
 </tr>
 <tr>
@@ -1739,16 +1727,13 @@ Relative RMSE
 Accuracy
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\text{E}\left[(V - \lambda)^2\right]/
-\lambda^2}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><mtext mathvariant="normal">E</mtext><mrow><mo stretchy="true" form="prefix">[</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>V</mi><mo>−</mo><mi>λ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">]</mo></mrow><mi>/</mi><msup><mi>λ</mi><mn>2</mn></msup></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{\text{E}\left[(V - \lambda)^2\right]/ \lambda^2}</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\frac{(\bar{V} - S_T^2)^2 +
-S_V^2}{S_T^4}}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mfrac><mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>V</mi><mo accent="true">‾</mo></mover><mo>−</mo><msubsup><mi>S</mi><mi>T</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>+</mo><msubsup><mi>S</mi><mi>V</mi><mn>2</mn></msubsup></mrow><msubsup><mi>S</mi><mi>T</mi><mn>4</mn></msubsup></mfrac></msqrt><annotation encoding="application/x-tex">\sqrt{\frac{(\bar{V} - S_T^2)^2 + S_V^2}{S_T^4}}</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{\frac{K - 1}{K} \sum_{j=1}^K
-\left(rRMSE_{(j)} - rRMSE\right)^2}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><mfrac><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow><mi>K</mi></mfrac><msubsup><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><mi>R</mi><mi>M</mi><mi>S</mi><msub><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msub><mo>−</mo><mi>r</mi><mi>R</mi><mi>M</mi><mi>S</mi><mi>E</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rRMSE_{(j)} - rRMSE\right)^2}</annotation></semantics></math>
 </td>
 </tr>
 </tbody>
@@ -2391,7 +2376,8 @@ t-test
 Type 1 error rate is adequately controlled and whether the test has
 enough power to detect an effect size of substantive interest. The
 rejection rate of a hypothesis test captures the proportion of times the
-p-value is below a specified <span class="math inline">\(\alpha\)</span>
+p-value is below a specified
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
 level—that is, the proportion of times we reject the null hypothesis.
 When the specified effect size is 0, we can examine Type 1 error rates
 and when the magnitude of the effect is greater than 0, we can examine
@@ -2400,10 +2386,27 @@ proportion of intervals that contain the true parameter, and the
 interval width, which is an indicator of the precision of the interval
 estimator.</p>
 <p>Table 4 below presents the performance criteria used to evaluate
-hypothesis tests. In the table, let <span class="math inline">\(P_k\)</span> denote the p-value from simulation
-replication <span class="math inline">\(k\)</span>, for <span class="math inline">\(k = 1,...,K\)</span>. Suppose that the confidence
-intervals are for the target parameter <span class="math inline">\(\theta\)</span> and have coverage level <span class="math inline">\(\beta\)</span>. Let <span class="math inline">\(A_k\)</span> and <span class="math inline">\(B_k\)</span> denote the lower and upper end-points
-of the confidence interval from simulation replication <span class="math inline">\(k\)</span>, and let <span class="math inline">\(W_k = B_k − A_k\)</span>, for <span class="math inline">\(k = 1,...,K\)</span>.</p>
+hypothesis tests. In the table, let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mi>k</mi></msub><annotation encoding="application/x-tex">P_k</annotation></semantics></math>
+denote the p-value from simulation replication
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">k = 1,...,K</annotation></semantics></math>.
+Suppose that the confidence intervals are for the target parameter
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+and have coverage level
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>.
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>k</mi></msub><annotation encoding="application/x-tex">A_k</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mi>k</mi></msub><annotation encoding="application/x-tex">B_k</annotation></semantics></math>
+denote the lower and upper end-points of the confidence interval from
+simulation replication
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
+and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mi>k</mi></msub><mo>=</mo><msub><mi>B</mi><mi>k</mi></msub><mo>−</mo><msub><mi>A</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">W_k = B_k − A_k</annotation></semantics></math>,
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">k = 1,...,K</annotation></semantics></math>.</p>
 <table class="table table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
 <caption>
 Table 4. Hypothesis Testing and Confidence Intervals Performance
@@ -2435,14 +2438,13 @@ Rejection Rate
 Type 1 error or power
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\rho_\alpha = Pr(P_k) &lt; \alpha\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mi>α</mi></msub><mo>=</mo><mi>P</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>P</mi><mi>k</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>&lt;</mo><mi>α</mi></mrow><annotation encoding="application/x-tex">\rho_\alpha = Pr(P_k) &lt; \alpha</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(r_\alpha = \frac{1}{K} \sum_{k=1}^K I(P_k
-&lt; \alpha)\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>α</mi></msub><mo>=</mo><mfrac><mn>1</mn><mi>K</mi></mfrac><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup><mi>I</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>P</mi><mi>k</mi></msub><mo>&lt;</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">r_\alpha = \frac{1}{K} \sum_{k=1}^K I(P_k &lt; \alpha)</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{r_\alpha(1 - r_\alpha) / K}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><msub><mi>r</mi><mi>α</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>r</mi><mi>α</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mi>K</mi></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{r_\alpha(1 - r_\alpha) / K}</annotation></semantics></math>
 </td>
 </tr>
 <tr>
@@ -2453,15 +2455,13 @@ Coverage
 Proportion of intervals containing true parameter
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\omega_\beta = Pr(A \leq \theta \leq
-B)\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ω</mi><mi>β</mi></msub><mo>=</mo><mi>P</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>A</mi><mo>≤</mo><mi>θ</mi><mo>≤</mo><mi>B</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\omega_\beta = Pr(A \leq \theta \leq B)</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(c_\beta = \frac{1}{K}\sum_{k=1}^K I(A_k \leq
-\theta \leq B_k)\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>β</mi></msub><mo>=</mo><mfrac><mn>1</mn><mi>K</mi></mfrac><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup><mi>I</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>A</mi><mi>k</mi></msub><mo>≤</mo><mi>θ</mi><mo>≤</mo><msub><mi>B</mi><mi>k</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">c_\beta = \frac{1}{K}\sum_{k=1}^K I(A_k \leq \theta \leq B_k)</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{c_\beta (1 - c_\beta) / K}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><msub><mi>c</mi><mi>β</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>c</mi><mi>β</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mi>K</mi></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{c_\beta (1 - c_\beta) / K}</annotation></semantics></math>
 </td>
 </tr>
 <tr>
@@ -2472,13 +2472,13 @@ Width
 Precision
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\text{E}(W) = \text{E}(B - A)\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">E</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>W</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mtext mathvariant="normal">E</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>B</mi><mo>−</mo><mi>A</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\text{E}(W) = \text{E}(B - A)</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\bar{W} = \bar{B} - \bar{A}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>W</mi><mo accent="true">‾</mo></mover><mo>=</mo><mover><mi>B</mi><mo accent="true">‾</mo></mover><mo>−</mo><mover><mi>A</mi><mo accent="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\bar{W} = \bar{B} - \bar{A}</annotation></semantics></math>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\sqrt{S_W^2 / K}\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mrow><msubsup><mi>S</mi><mi>W</mi><mn>2</mn></msubsup><mi>/</mi><mi>K</mi></mrow></msqrt><annotation encoding="application/x-tex">\sqrt{S_W^2 / K}</annotation></semantics></math>
 </td>
 </tr>
 </tbody>
@@ -2493,7 +2493,8 @@ The null hypothesis is that the two groups have the same means. The
 containing simulation results as the first argument. The second
 argument, <code>p_values</code>, requires the name of the column
 containing p-values. The third argument, <code>alpha</code>, lets the
-user specify a value for <span class="math inline">\(\alpha\)</span>.
+user specify a value for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>.
 The default value is set to the conventional 0.05.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># using group_modify()</span></span>
@@ -3432,13 +3433,15 @@ maximum PFER was 0.050 for Bonferroni, 0.051 for Sidák, 0.061 for Holm,
 estimates).</p>
 </blockquote>
 <p>The PFER refers to per family error rate, the expected number of Type
-1 errors out of <span class="math inline">\(m\)</span> comparisons. MP
-refers to multivariate analysis of variance (MANOVA) protected tests.
-The SE refers to the MCSE. The number of replications was 1,000,000 in
-<span class="citation">Frane (2015)</span>. We note that the number is
-quite high and generally 1,000 to 10,000 replications are enough. The
-resulting MCSEs in <span class="citation">Frane (2015)</span>,
-therefore, are exceedingly small compared to the values for PFER.</p>
+1 errors out of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+comparisons. MP refers to multivariate analysis of variance (MANOVA)
+protected tests. The SE refers to the MCSE. The number of replications
+was 1,000,000 in <span class="citation">Frane (2015)</span>. We note
+that the number is quite high and generally 1,000 to 10,000 replications
+are enough. The resulting MCSEs in <span class="citation">Frane
+(2015)</span>, therefore, are exceedingly small compared to the values
+for PFER.</p>
 <p>For more information for performance criteria and MCSE, we recommend
 <span class="citation">Morris et al. (2019)</span>.</p>
 </div>
@@ -3467,7 +3470,7 @@ Software</em>, <em>4</em>(43), 1686. <a href="https://doi.org/10.21105/joss.0168
 </div>
 </div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
@@ -3478,15 +3481,15 @@ Software</em>, <em>4</em>(43), 1686. <a href="https://doi.org/10.21105/joss.0168
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>
