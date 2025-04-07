@@ -2,12 +2,9 @@ url: https://meghapsimatrix.github.io/simhelpers/
 
 template:
   bootstrap: 5
-  bootswatch: lux
-  bslib:
-    pkgdown-nav-height: 100px
-
-development:
-  mode: release
+  light-switch: true
+  theme: arrow-light
+  theme-dark: arrow-dark
 
 
 authors:

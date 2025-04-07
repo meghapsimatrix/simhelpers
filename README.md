@@ -5,13 +5,15 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/meghapsimatrix/simhelpers/workflows/R-CMD-check/badge.svg)](https://github.com/meghapsimatrix/simhelpers/actions)
-[![Codecov test
-coverage](https://codecov.io/gh/meghapsimatrix/simhelpers/branch/master/graph/badge.svg)](https://codecov.io/gh/meghapsimatrix/simhelpers?branch=master)
+[![R-CMD-check](https://github.com/meghapsimatrix/simhelpers/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/meghapsimatrix/simhelpers/actions/workflows/R-CMD-check.yaml)
+[![codecov](https://codecov.io/gh/meghapsimatrix/simhelpers/branch/master/graph/badge.svg)](https://app.codecov.io/gh/meghapsimatrix/simhelpers?branch=master)
 [![CRAN
-Status](https://www.r-pkg.org/badges/version/simhelpers)](https://cran.r-project.org/package=simhelpers)
+status](https://www.r-pkg.org/badges/version/simhelpers)](https://CRAN.R-project.org/package=simhelpers)
+[![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/simhelpers)](https://CRAN.R-project.org/package=simhelpers)
 [![](http://cranlogs.r-pkg.org/badges/last-month/simhelpers)](https://CRAN.R-project.org/package=simhelpers)
+
 <!-- badges: end -->
 
 Monte Carlo simulations are computer experiments designed to study the
@@ -61,7 +63,7 @@ making it easy to run the simulation in parallel (Vaughan & Dancho,
 2018). The package also includes several datasets that contain results
 from example simulation studies.
 
-<img src="man/figures/workflow.png" />
+<img src="man/figures/workflow.png"/>
 
 ## Installation
 
