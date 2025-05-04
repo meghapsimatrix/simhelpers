@@ -2,12 +2,9 @@ url: https://meghapsimatrix.github.io/simhelpers/
 
 template:
   bootstrap: 5
-  bootswatch: lux
-  bslib:
-    pkgdown-nav-height: 100px
-
-development:
-  mode: devel
+  light-switch: true
+  theme: arrow-light
+  theme-dark: arrow-dark
 
 
 authors:
@@ -26,6 +23,13 @@ reference:
       - calc_relative_var
       - calc_rejection
       - calc_coverage
+  - title: "Simulating bootstrap processes"
+    desc: "Specialized functions for simulations involving bootstrap hypothesis tests or bootstrap confidence intervals"
+    contents:
+      - bootstrap_pvals
+      - bootstrap_CIs
+      - extrapolate_rejection
+      - extrapolate_coverage
   - title: "Simulation Workflow"
     desc: "Functions for facilitating simulation workflows"
     contents:

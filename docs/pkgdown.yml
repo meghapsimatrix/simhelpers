@@ -1,12 +1,11 @@
 pandoc: 3.1.1
-pkgdown: 2.0.7
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   MCSE: MCSE.html
   simulation_workflow: simulation_workflow.html
   visualization: visualization.html
-last_built: 2024-02-23T15:32Z
+last_built: 2025-04-07T15:46Z
 urls:
   reference: https://meghapsimatrix.github.io/simhelpers/reference
   article: https://meghapsimatrix.github.io/simhelpers/articles
-

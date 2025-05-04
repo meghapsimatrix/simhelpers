@@ -42,7 +42,7 @@ The flowchart below depicts the workflow. The chart is created using `grViz()` f
 <img src="../man/figures/workflow.png" />
 
 
-The explanation of the workflow in this vignette follow notes from Dr. James Pustejovsky's [Data Analysis, Simulation and Programming in R course (Spring, 2019)](https://www.jepusto.com/teaching/daspir/).
+The explanation of the workflow in this vignette follow notes from Dr. James Pustejovsky's [Data Analysis, Simulation and Programming in R course (Spring, 2019)](https://jepusto.com/teaching/daspir/).
 
 
 ```{r, warning = FALSE, message = FALSE}
