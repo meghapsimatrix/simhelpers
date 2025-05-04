@@ -36,7 +36,7 @@ test_that("bundle_sim() works for a simple DGP.", {
   ybar4 <- with(dat4, tapply(y, rep, mean, trim = 0.1)) |> as.double()
   expect_equal(res4$y_bar, ybar4)
 
-  sim1a <- bundle_sim(f_generate = f_G1, f_analyze = f_A1, row_bind_reps = FALSE)
+  sim1a <- bundle_sim(f_generate = f_G1, f_analyze = f_A1, stack_reps = FALSE)
   expect_equal(formals(sim1), formals(sim1a))
   res1a <-  sim1a(24, n = 7, seed = 20240107)
   expect_is(res1a, "list")
@@ -69,7 +69,7 @@ test_that("bundle_sim() works for a simple DGP.", {
   expect_equal(f_S1(res7, calc_sd = TRUE), res8)
 
   sim2a <- bundle_sim(f_generate = f_G1, f_analyze = f_A1, f_summarize = f_S1,
-                      reps_name = "R", seed_name = ".seed", summarize_opt_name = "Agg", row_bind_reps = FALSE)
+                      reps_name = "R", seed_name = ".seed", summarize_opt_name = "Agg", stack_reps = FALSE)
   expect_equal(formals(sim2), formals(sim2a))
   res5a <- sim2a(93, n = 350, mean = -3, calc_sd = TRUE, .seed = 20240107, Agg = FALSE)
   expect_is(res5a, "list")
@@ -85,9 +85,98 @@ test_that("bundle_sim() works for a simple DGP.", {
   expect_equal(res8, res8b)
 
   sim2c <- bundle_sim(f_generate = f_G1, f_analyze = f_A1, f_summarize = f_S1,
-                      reps_name = "R", seed_name = ".seed", summarize_opt_name = NULL, row_bind_reps = FALSE)
+                      reps_name = "R", seed_name = ".seed", summarize_opt_name = NULL, stack_reps = FALSE)
   expect_error(
     sim2c(93, n = 350, mean = -4/3, trim = 0.3, calc_sd = TRUE, .seed = 20240107)
+  )
+
+})
+
+test_that("bundle_sim() works with id set.", {
+
+  sim1 <- bundle_sim(f_generate = f_G1, f_analyze = f_A1, id = "ID")
+  expect_equal(formalArgs(sim1), c("reps","n","mean","sd","trim","seed"))
+
+  res1 <- sim1(24, n = 7, seed = 20250504)
+  set.seed(20250504)
+  dat1 <- data.frame(rep = rep(1:24, each = 7), y = rnorm(24 * 7))
+  ybar1 <- with(dat1, tapply(y, rep, mean)) |> as.double()
+  expect_equal(res1$y_bar, ybar1)
+  expect_equal(res1$ID, 1:24)
+
+  res2 <- sim1(24, n = 7, mean = 0, sd = 1, seed = 20250504)
+  expect_equal(res1, res2)
+
+  set.seed(20250504)
+  res3 <- sim1(24, n = 7)
+  expect_equal(res1, res3)
+
+  res4 <- sim1(14, n = 78, sd = 25, trim = 0.1, seed = 20250504)
+  set.seed(20250504)
+  dat4 <- data.frame(rep = rep(1:14, each = 78), y = rnorm(14 * 78, sd = 25))
+  ybar4 <- with(dat4, tapply(y, rep, mean, trim = 0.1)) |> as.double()
+  expect_equal(res4$y_bar, ybar4)
+  expect_identical(res4$ID, 1:14)
+
+  sim1a <- bundle_sim(f_generate = f_G1, f_analyze = f_A1, stack_reps = FALSE, id = "ID_var")
+  expect_equal(formals(sim1), formals(sim1a))
+  res1a <-  sim1a(24, n = 7, seed = 20250504)
+  expect_is(res1a, "list")
+  expect_length(res1a, 24)
+  expect_identical(names(res1a), as.character(1:24))
+  expect_equal(res1$y_bar, do.call(rbind, res1a)$y_bar)
+  expect_identical(res1$ID, as.integer(names(res1a)))
+
+  sim2 <- bundle_sim(f_generate = f_G1, f_analyze = f_A1, f_summarize = f_S1,
+                     reps_name = "R", seed_name = ".seed", summarize_opt_name = "Agg", id = "ID_var")
+  expect_equal(formalArgs(sim2), c("R","n","mean","sd","trim","calc_sd",".seed", "Agg"))
+
+  res5 <- sim2(93, n = 350, mean = -3, calc_sd = TRUE, .seed = 20250504, Agg = FALSE)
+  res6 <- sim2(93, n = 350, mean = -3, calc_sd = TRUE, .seed = 20250504)
+  set.seed(20250504)
+  dat5 <- data.frame(rep = rep(1:93, each = 350), y = rnorm(93 * 350, mean = -3, sd = 1))
+  ybar5 <- with(dat5, tapply(y, rep, mean)) |> as.double()
+  expect_equal(res5$y_bar, ybar5)
+  expect_identical(res5$ID_var, 1:93)
+  expect_equal(res6["y_bar","M"], mean(dat5$y))
+  expect_equal(res6["y_bar","SD"], sd(ybar5))
+  expect_equal(f_S1(res5, calc_sd = TRUE), res6)
+
+  res7 <- sim2(93, n = 350, mean = -4/3, trim = 0.3, calc_sd = TRUE, .seed = 20250504, Agg = FALSE)
+  res8 <- sim2(93, n = 350, mean = -4/3, trim = 0.3, calc_sd = TRUE, .seed = 20250504)
+  set.seed(20250504)
+  dat7 <- data.frame(rep = rep(1:93, each = 350), y = rnorm(93 * 350, mean = -4/3, sd = 1))
+  ybar7 <- with(dat7, tapply(y, rep, mean, trim = 0.3)) |> as.double()
+  expect_equal(res7$y_bar, ybar7)
+  expect_identical(res7$ID_var, 1:93)
+  expect_gt(abs(res8["y_bar","M"] - mean(dat7$y)), 0)
+  expect_equal(res8["y_bar","M"], mean(ybar7))
+  expect_equal(res8["y_bar","SD"], sd(ybar7))
+  expect_equal(f_S1(res7, calc_sd = TRUE), res8)
+
+  sim2a <- bundle_sim(f_generate = f_G1, f_analyze = f_A1, f_summarize = f_S1,
+                      reps_name = "R", seed_name = ".seed", summarize_opt_name = "Agg", stack_reps = FALSE, id = "AggleFraggle")
+  expect_equal(formals(sim2), formals(sim2a))
+  res5a <- sim2a(93, n = 350, mean = -3, calc_sd = TRUE, .seed = 20250504, Agg = FALSE)
+  expect_is(res5a, "list")
+  expect_length(res5a, 93)
+  res5a_df <- do.call(rbind, res5a)
+  res5a_df$AggleFraggle <- 1:93
+  expect_equivalent(res5, res5a_df)
+  expect_error(
+    sim2a(93, n = 350, mean = -3, calc_sd = TRUE, .seed = 20250504)
+  )
+
+  sim2b <- bundle_sim(f_generate = f_G1, f_analyze = f_A1, f_summarize = f_S1,
+                      reps_name = "R", seed_name = ".seed", summarize_opt_name = NULL, id = "ID_var")
+  res8b <- sim2b(93, n = 350, mean = -4/3, trim = 0.3, calc_sd = TRUE, .seed = 20250504)
+  expect_equal(res8, res8b)
+
+  sim2c <- bundle_sim(f_generate = f_G1, f_analyze = f_A1, f_summarize = f_S1,
+                      reps_name = "R", seed_name = ".seed", summarize_opt_name = NULL,
+                      stack_reps = FALSE, id = "ID_var")
+  expect_error(
+    sim2c(93, n = 350, mean = -4/3, trim = 0.3, calc_sd = TRUE, .seed = 20250504)
   )
 
 })
@@ -117,7 +206,7 @@ test_that("bundle_sim() works with identity functions.", {
   expect_identical(dat3, dat3m)
 
   sim3a <- bundle_sim(f_generate = f_G2, f_analyze = identity,
-                      reps_name = "n_reps", seed_name = NULL, row_bind_reps = FALSE)
+                      reps_name = "n_reps", seed_name = NULL, stack_reps = FALSE)
   expect_identical(formals(sim3), formals(sim3a))
   set.seed(20240108)
   dat3a <- sim3a(n_reps = 40, N = 8, p = 4, df = 3, rho = 0.6, Rsq = 0.5)
@@ -155,7 +244,7 @@ test_that("bundle_sim() works with identity functions.", {
   expect_identical(dat4, dat6)
 
   sim4a <- bundle_sim(f_generate = f_G2, f_analyze = identity, f_summarize = identity,
-                      reps_name = "n_reps", seed_name = ".s", summarize_opt_name = "evaluate", row_bind_reps = FALSE)
+                      reps_name = "n_reps", seed_name = ".s", summarize_opt_name = "evaluate", stack_reps = FALSE)
   expect_identical(formals(sim4), formals(sim4a))
   set.seed(20240108)
   dat4a <- do.call(sim4a, arg_list)
@@ -169,12 +258,12 @@ test_that("bundle_sim() works with identity functions.", {
 
 
   sim4b <- bundle_sim(f_generate = f_G2, f_analyze = identity, f_summarize = identity,
-                      reps_name = "n_reps", seed_name = ".s", summarize_opt_name = "evaluate", row_bind_reps = TRUE)
+                      reps_name = "n_reps", seed_name = ".s", summarize_opt_name = "evaluate", stack_reps = TRUE)
   dat4b <- do.call(sim4b, c(arg_list, .s = 20240108))
   expect_identical(dat4, dat4b)
 
   sim4c <- bundle_sim(f_generate = f_G2, f_analyze = identity, f_summarize = identity,
-                      reps_name = "n_reps", seed_name = ".s", summarize_opt_name = "evaluate", row_bind_reps = FALSE)
+                      reps_name = "n_reps", seed_name = ".s", summarize_opt_name = "evaluate", stack_reps = FALSE)
   dat4c <- do.call(sim4c, c(arg_list, .s = 20240108))
   expect_identical(dat4a, dat4c)
 
