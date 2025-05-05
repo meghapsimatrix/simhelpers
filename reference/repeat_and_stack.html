@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">simhelpers</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.9999</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +60,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">repeat_and_stack</span><span class="op">(</span><span class="va">n</span>, <span class="va">expr</span>, stack <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">repeat_and_stack</span><span class="op">(</span><span class="va">n</span>, <span class="va">expr</span>, id <span class="op">=</span> <span class="cn">NULL</span>, stack <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -75,6 +75,12 @@
 <dd><p>An expression to be evaluated.</p></dd>
 
 
+<dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
+<dd><p>Character string to use for creating a variable with a unique
+identifier for each repetition. If set to <code>NULL</code> (the default), then
+no identifier is created.</p></dd>
+
+
 <dt id="arg-stack">stack<a class="anchor" aria-label="anchor" href="#arg-stack"></a></dt>
 <dd><p>Logical value indicating whether to organize the results into a
 <code>data.frame</code>.</p></dd>
@@ -83,9 +89,9 @@
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>If <code>stack = TRUE</code> (the default), the results of each evaluation
-  of <code>expr</code> will be stacked together using <code>rbind</code>. If <code>stack
+  of <code>expr</code> will be stacked together using <code>rbind</code> and a unique identifier will be stored in the variable <code>id</code> (if specified). If <code>stack
   = FALSE</code>, a list of length <code>n</code> with entries corresponding to the
-  output of each replication of <code>expr</code>.</p>
+  output of each replication of <code>expr</code>, with names corresponding to the unique identifier (if specified)</p>
     </div>
 
     <div class="section level2">
@@ -98,22 +104,46 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.7333867</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.4364060</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 2.9640214</span>
+<span class="r-in"><span><span class="fu">repeat_and_stack</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>, id <span class="op">=</span> <span class="st">"ID"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            x ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2.68590474  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.51607648  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.43494982  2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 1.25056845  2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.04620374  3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.34424903  3</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">repeat_and_stack</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>, stack <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2.6859047</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.5160765</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.237698</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1.406672</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.4349498</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1.2505684</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.829160</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1.101649</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.234430</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1.332338</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="fu">repeat_and_stack</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>, id <span class="op">=</span> <span class="st">"ID"</span>, stack <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           x</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.4213795</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1.2648624</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           x</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.2104247</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.4283194</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`3`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.04620374</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.34424903</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.39053525</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.08336016</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -127,7 +157,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer></div>
