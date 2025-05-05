@@ -4,21 +4,25 @@
 \alias{repeat_and_stack}
 \title{Repeat an expression multiple times and (optionally) stack the results.}
 \usage{
-repeat_and_stack(n, expr, stack = TRUE)
+repeat_and_stack(n, expr, id = NULL, stack = TRUE)
 }
 \arguments{
 \item{n}{Number of times to repeat the expression}
 
 \item{expr}{An expression to be evaluated.}
 
+\item{id}{Character string to use for creating a variable with a unique
+identifier for each repetition. If set to \code{NULL} (the default), then
+no identifier is created.}
+
 \item{stack}{Logical value indicating whether to organize the results into a
 \code{data.frame}.}
 }
 \value{
 If \code{stack = TRUE} (the default), the results of each evaluation
-  of \code{expr} will be stacked together using \code{rbind}. If \code{stack
+  of \code{expr} will be stacked together using \code{rbind} and a unique identifier will be stored in the variable \code{id} (if specified). If \code{stack
   = FALSE}, a list of length \code{n} with entries corresponding to the
-  output of each replication of \code{expr}.
+  output of each replication of \code{expr}, with names corresponding to the unique identifier (if specified)
 }
 \description{
 Repeat an expression (usually involving random number
@@ -28,7 +32,9 @@ Repeat an expression (usually involving random number
 }
 \examples{
 repeat_and_stack(n = 3, data.frame(x = rexp(2)))
+repeat_and_stack(n = 3, data.frame(x = rexp(2)), id = "ID")
 
 repeat_and_stack(n = 3, data.frame(x = rexp(2)), stack = FALSE)
+repeat_and_stack(n = 3, data.frame(x = rexp(2)), id = "ID", stack = FALSE)
 
 }
