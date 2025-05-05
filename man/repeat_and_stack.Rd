@@ -11,7 +11,7 @@ repeat_and_stack(n, expr, id = NULL, stack = TRUE)
 
 \item{expr}{An expression to be evaluated.}
 
-\item{id}{Character vector to use for creating a variable with a unique
+\item{id}{Character string to use for creating a variable with a unique
 identifier for each repetition. If set to \code{NULL} (the default), then
 no identifier is created.}
 
