@@ -1,3 +1,8 @@
+simhelpers 0.3.1.9999
+=======================
+* Added option to specify a unique ID variable for every repetition in `repeat_and_stack()` and `bundle_sim()`.
+* Refactored `bundle_sim()` so that it uses `repeat_and_stack()` internally.
+
 simhelpers 0.3.1
 =======================
 * Added support for bias-corrected and bias-corrected-and-accelerated (BCa) bootstrap confidence intervals.
