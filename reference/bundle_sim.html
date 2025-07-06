@@ -147,10 +147,10 @@ no identifier is created. Passed to <code><a href="repeat_and_stack.html">repeat
 <span class="r-in"><span><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu">sim1</span><span class="op">(</span><span class="fl">4</span>, n <span class="op">=</span> <span class="fl">70</span>, mean <span class="op">=</span> <span class="fl">0.5</span>, sd <span class="op">=</span> <span class="fl">1</span>, trim <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">res1</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       y_bar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.3954867</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.5896246</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.4981808</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.5561051</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.4078913</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.5657640</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.5072222</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.5389756</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># bundle data-generation, data-analysis, and performance summary functions</span></span></span>
 <span class="r-in"><span><span class="va">sim2</span> <span class="op">&lt;-</span> <span class="fu">bundle_sim</span><span class="op">(</span>f_generate <span class="op">=</span> <span class="va">f_G</span>, f_analyze <span class="op">=</span> <span class="va">f_A</span>, f_summarize <span class="op">=</span> <span class="va">f_S</span><span class="op">)</span></span></span>
@@ -161,7 +161,7 @@ no identifier is created. Passed to <code><a href="repeat_and_stack.html">repeat
 <span class="r-in"><span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu">sim2</span><span class="op">(</span><span class="fl">24</span>, n <span class="op">=</span> <span class="fl">7</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span>, trim <span class="op">=</span> <span class="fl">0.2</span>, calc_sd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">res2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                M        SD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y_bar 0.07785864 0.2920709</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y_bar 0.07659681 0.3404206</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># bundle data-generation and data-analysis functions, returning results as a list</span></span></span>
 <span class="r-in"><span><span class="va">sim3</span> <span class="op">&lt;-</span> <span class="fu">bundle_sim</span><span class="op">(</span>f_generate <span class="op">=</span> <span class="va">f_G</span>, f_analyze <span class="op">=</span> <span class="va">f_A</span>, stack_reps <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
@@ -172,19 +172,19 @@ no identifier is created. Passed to <code><a href="repeat_and_stack.html">repeat
 <span class="r-in"><span><span class="va">res3</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      y_bar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.414733</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.492354</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        y_bar</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.04252261</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      y_bar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.715582</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       y_bar</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.7034902</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[4]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       y_bar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.5963618</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.5501354</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -198,7 +198,7 @@ no identifier is created. Passed to <code><a href="repeat_and_stack.html">repeat
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer></div>
