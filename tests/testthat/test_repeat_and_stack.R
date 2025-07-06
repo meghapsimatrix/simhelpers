@@ -94,8 +94,10 @@ test_that("repeat_and_stack()'s ID argument works.", {
 
   expect_identical(do.call(rbind, list_anon), df_anon)
 
-  df_from_list <- do.call(rbind, c(list_ID, make.row.names = FALSE))
-  df_from_list$ID <- rep(1:N, each = p)
+  df_from_list <- data.frame(
+    ID = rep(1:N, each = p),
+    x = do.call(rbind, c(list_ID, make.row.names = FALSE))
+  )
   expect_identical(df_from_list, df_ID)
 
 })

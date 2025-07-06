@@ -160,8 +160,10 @@ test_that("bundle_sim() works with id set.", {
   res5a <- sim2a(93, n = 350, mean = -3, calc_sd = TRUE, .seed = 20250504, Agg = FALSE)
   expect_is(res5a, "list")
   expect_length(res5a, 93)
-  res5a_df <- do.call(rbind, res5a)
-  res5a_df$AggleFraggle <- 1:93
+  res5a_df <- data.frame(
+    AggleFraggle = 1:93,
+    y_bar = do.call(rbind, res5a)
+  )
   expect_equivalent(res5, res5a_df)
   expect_error(
     sim2a(93, n = 350, mean = -3, calc_sd = TRUE, .seed = 20250504)

@@ -44,7 +44,7 @@ repeat_and_stack <- function(
           r <- as.data.frame(r)
           id_dat <- data.frame(x = rep(i, nrow(r)))
           names(id_dat) <- id
-          cbind(r, id_dat)
+          cbind(id_dat, r)
         },
         i = 1:n, r = res,
         SIMPLIFY = FALSE
