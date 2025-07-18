@@ -127,13 +127,15 @@ test_that("bundle_sim functions work with evaluate_by_row().", {
   res_run_sim <-
     evaluate_by_row(
       params, run_sim,
-      .options = furrr::furrr_options(seed = NULL)
+      .options = furrr::furrr_options(seed = NULL),
+      system_time = FALSE
     )
 
   res_simmer_A <-
     evaluate_by_row(
       params, simmer_A,
-      .options = furrr::furrr_options(seed = NULL)
+      .options = furrr::furrr_options(seed = NULL),
+      system_time = FALSE
     ) %>%
     group_by(mu_A, nA, nB, mu_B, reps, seed) %>%
     group_modify(~ eval_t_tests(.)) %>%
@@ -143,7 +145,8 @@ test_that("bundle_sim functions work with evaluate_by_row().", {
   res_simmer_B <-
     evaluate_by_row(
       params, simmer_B,
-      .options = furrr::furrr_options(seed = NULL)
+      .options = furrr::furrr_options(seed = NULL),
+      system_time = FALSE
     )
   expect_identical(res_run_sim, res_simmer_B)
 
