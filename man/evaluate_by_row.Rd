@@ -10,7 +10,7 @@ evaluate_by_row(
   ...,
   results_name = ".results",
   .progress = FALSE,
-  .options = furrr::furrr_options(),
+  .options = furrr::furrr_options(seed = TRUE),
   system_time = TRUE,
   verbose = TRUE
 )

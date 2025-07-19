@@ -38,7 +38,7 @@ evaluate_by_row <- function(
   params, sim_function, ...,
   results_name = ".results",
   .progress = FALSE,
-  .options = furrr::furrr_options(),
+  .options = furrr::furrr_options(seed = TRUE),
   system_time = TRUE,
   verbose = TRUE
 ) {
