@@ -11,12 +11,15 @@ evaluate_by_row(
   results_name = ".results",
   .progress = FALSE,
   .options = furrr::furrr_options(),
-  system_time = TRUE
+  system_time = TRUE,
+  verbose = TRUE
 )
 }
 \arguments{
-\item{params}{data frame or tibble containing simulation parameter values. Each row should
-represent a separate set of parameter values.}
+\item{params}{data frame or tibble containing simulation parameter values.
+Each row should represent a separate set of parameter values. Column names
+must exactly match the argument names of \code{sim_function}. Non-matching
+columns are ignored.}
 
 \item{sim_function}{function to be evaluated, with argument names matching
 the variable names in \code{params}. The function must return a
@@ -24,7 +27,8 @@ the variable names in \code{params}. The function must return a
 
 \item{...}{additional arguments passed to \code{sim_function}.}
 
-\item{results_name}{character string to set the name of the column storing the results of the simulation. Default is \code{".results"}.}
+\item{results_name}{character string to set the name of the column storing
+the results of the simulation. Default is \code{".results"}.}
 
 \item{.progress}{A single logical. Should a progress bar be displayed?
 Only works with multisession, multicore, and multiprocess futures. Note
@@ -41,13 +45,16 @@ must be the result from a call to \code{\link[furrr:furrr_options]{furrr_options
 
 \item{system_time}{logical indicating whether to print computation time.
 \code{TRUE} by default.}
+
+\item{verbose}{logical indicating whether to display a message about
+variables used in function evaluation. \code{TRUE} by default.}
 }
 \value{
 A tibble containing parameter values and simulation results.
 }
 \description{
-Evaluates a simulation function on each row of a data frame or tibble
-  containing parameter values. Returns a single tibble with parameters
+Evaluates a simulation function on each row of a data frame or
+  tibble containing parameter values. Returns a single tibble with parameters
   and simulation results. The function uses \code{furrr::future_pmap}, which
   allows for easy parallelization.
 }
