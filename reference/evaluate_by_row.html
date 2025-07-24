@@ -64,6 +64,7 @@
 <span>  <span class="va">params</span>,</span>
 <span>  <span class="va">sim_function</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  nest_results <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  results_name <span class="op">=</span> <span class="st">".results"</span>,</span>
 <span>  .progress <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  .options <span class="op">=</span> <span class="fu">furrr</span><span class="fu">::</span><span class="fu"><a href="https://furrr.futureverse.org/reference/furrr_options.html" class="external-link">furrr_options</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
@@ -93,8 +94,13 @@ the variable names in <code>params</code>. The function must return a
 <dd><p>additional arguments passed to <code>sim_function</code>.</p></dd>
 
 
+<dt id="arg-nest-results">nest_results<a class="anchor" aria-label="anchor" href="#arg-nest-results"></a></dt>
+<dd><p>logical indicating whether to store the results of evaluating
+<code>sim_function</code> in a nested column. Default is <code>FALSE</code>.</p></dd>
+
+
 <dt id="arg-results-name">results_name<a class="anchor" aria-label="anchor" href="#arg-results-name"></a></dt>
-<dd><p>character string to set the name of the column storing
+<dd><p>character string to set the name of the nested column storing
 the results of the simulation. Default is <code>".results"</code>.</p></dd>
 
 
@@ -139,7 +145,7 @@ variables used in function evaluation. <code>TRUE</code> by default.</p></dd>
 <span class="r-in"><span><span class="fu">evaluate_by_row</span><span class="op">(</span><span class="va">df</span>, <span class="va">rpois</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Evaluating rpois() using the following variables: n, lambda</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.069   0.007   0.075 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0.066   0.005   0.071 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        n lambda .results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
