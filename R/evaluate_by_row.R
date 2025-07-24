@@ -13,7 +13,9 @@
 #'   the variable names in \code{params}. The function must return a
 #'   \code{data.frame}, \code{tibble}, or vector.
 #' @param ... additional arguments passed to \code{sim_function}.
-#' @param results_name character string to set the name of the column storing
+#' @param nest_results logical indicating whether to store the results of evaluating
+#'   \code{sim_function} in a nested column. Default is \code{FALSE}.
+#' @param results_name character string to set the name of the nested column storing
 #'   the results of the simulation. Default is \code{".results"}.
 #' @param system_time logical indicating whether to print computation time.
 #'   \code{TRUE} by default.
@@ -36,6 +38,7 @@
 
 evaluate_by_row <- function(
   params, sim_function, ...,
+  nest_results = FALSE,
   results_name = ".results",
   .progress = FALSE,
   .options = furrr::furrr_options(seed = TRUE),
@@ -71,7 +74,12 @@ evaluate_by_row <- function(
 
   if (system_time) print(sys_tm, "\n")
 
-  params[[results_name]] <- results_list
-  tidyr::unnest(params, cols = tidyr::all_of(results_name))
+  res <- params
+  res[[results_name]] <- results_list
 
+  if (!nest_results) {
+    res <- tidyr::unnest(res, cols = tidyr::all_of(results_name))
+  }
+
+  return(res)
 }

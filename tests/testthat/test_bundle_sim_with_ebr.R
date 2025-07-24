@@ -124,17 +124,19 @@ test_that("bundle_sim functions work with evaluate_by_row().", {
 
   params$seed <- 20240222 + 1:nrow(params)
 
+  # Without nesting
+
   res_run_sim <-
     evaluate_by_row(
       params, run_sim,
-      .options = furrr::furrr_options(seed = NULL),
+      verbose = FALSE,
       system_time = FALSE
     )
 
   res_simmer_A <-
     evaluate_by_row(
       params, simmer_A,
-      .options = furrr::furrr_options(seed = NULL),
+      verbose = FALSE,
       system_time = FALSE
     ) %>%
     group_by(mu_A, nA, nB, mu_B, reps, seed) %>%
@@ -145,10 +147,39 @@ test_that("bundle_sim functions work with evaluate_by_row().", {
   res_simmer_B <-
     evaluate_by_row(
       params, simmer_B,
-      .options = furrr::furrr_options(seed = NULL),
+      verbose = FALSE,
       system_time = FALSE
     )
   expect_identical(res_run_sim, res_simmer_B)
+
+  # Keeping results nested
+
+  nest_run_sim <-
+    evaluate_by_row(
+      params, run_sim,
+      nest_results = TRUE,
+      verbose = FALSE,
+      system_time = FALSE
+    )
+
+  nest_simmer_A <-
+    evaluate_by_row(
+      params, simmer_A,
+      nest_results = TRUE,
+      verbose = FALSE,
+      system_time = FALSE
+    ) %>%
+    mutate(.results = map(.results, eval_t_tests))
+  expect_identical(nest_run_sim, nest_simmer_A)
+
+  nest_simmer_B <-
+    evaluate_by_row(
+      params, simmer_B,
+      nest_results = TRUE,
+      verbose = FALSE,
+      system_time = FALSE
+    )
+  expect_identical(nest_run_sim, nest_simmer_B)
 
 })
 

@@ -2,7 +2,9 @@ simhelpers 0.3.1.9999
 =======================
 * Added option to specify a unique ID variable for every repetition in `repeat_and_stack()` and `bundle_sim()`.
 * Refactored `bundle_sim()` so that it uses `repeat_and_stack()` internally.
-* Refactored `evaluate_by_row()` so that it uses only variables that match argument names of the function to be evaluated.
+* Refined `evaluate_by_row()`:
+  - Refactored so that it uses only variables that match argument names of the function to be evaluated.
+  - Added an option `nest_results` to return a nested column of results (for more compact storage).
 
 simhelpers 0.3.1
 =======================
