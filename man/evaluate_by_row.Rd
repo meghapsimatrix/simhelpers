@@ -8,6 +8,7 @@ evaluate_by_row(
   params,
   sim_function,
   ...,
+  nest_results = FALSE,
   results_name = ".results",
   .progress = FALSE,
   .options = furrr::furrr_options(seed = TRUE),
@@ -27,7 +28,10 @@ the variable names in \code{params}. The function must return a
 
 \item{...}{additional arguments passed to \code{sim_function}.}
 
-\item{results_name}{character string to set the name of the column storing
+\item{nest_results}{logical indicating whether to store the results of evaluating
+\code{sim_function} in a nested column. Default is \code{FALSE}.}
+
+\item{results_name}{character string to set the name of the nested column storing
 the results of the simulation. Default is \code{".results"}.}
 
 \item{.progress}{A single logical. Should a progress bar be displayed?
