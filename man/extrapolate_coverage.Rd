@@ -10,6 +10,7 @@ extrapolate_coverage(
   CI_subsamples,
   true_param,
   B_target = Inf,
+  exclude_above = B_target - 1L,
   criteria = c("coverage", "width"),
   winz = Inf,
   nested = FALSE,
@@ -31,6 +32,11 @@ corresponding true parameters.}
 
 \item{B_target}{number of bootstrap replications to which the criteria should
 be extrapolated, with a default of \code{B = Inf}.}
+
+\item{exclude_above}{numeric threshold for bootstrap replication sizes that
+should be excluded before calculating extrapolations. By default, set to
+\code{B_target - 1L} so that CIs based on B_target or greater replications
+will be excluded from the extrapolation calculations.}
 
 \item{criteria}{character or character vector indicating the performance
 criteria to be calculated, with possible options \code{"coverage"} and
@@ -59,9 +65,11 @@ each CI type.}
 when summarizing CI widths across replications from a single set of
 bootstraps, with a default of 0.0 (i.e., use the regular arithmetic mean).}
 
-\item{cover_na_val}{numeric value to use for calculating coverage if bootstrap CI end-points are missing. Default is \code{NA}.}
+\item{cover_na_val}{numeric value to use for calculating coverage if
+bootstrap CI end-points are missing. Default is \code{NA}.}
 
-\item{width_na_val}{numeric value to use for calculating width if bootstrap CI end-points are missing. Default is \code{NA}.}
+\item{width_na_val}{numeric value to use for calculating width if bootstrap
+CI end-points are missing. Default is \code{NA}.}
 }
 \value{
 A tibble containing the number of simulation iterations, performance

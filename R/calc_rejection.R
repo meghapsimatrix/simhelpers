@@ -85,6 +85,10 @@ calc_rejection <- function(
 #'   numbers of replications.
 #' @param B_target number of bootstrap replications to which the criteria should
 #'   be extrapolated, with a default of \code{B = Inf}.
+#' @param exclude_above numeric threshold for bootstrap replication sizes that
+#'   should be excluded before calculating extrapolations. By default, set to
+#'   \code{B_target - 1L} so that p-values based on B_target or greater replications
+#'   will be excluded from the extrapolation calculations.
 #' @param nested logical value controlling the format of the output. If
 #'   \code{FALSE} (the default), then the results will be returned as a data
 #'   frame with rows for each distinct number of bootstraps. If \code{TRUE},
@@ -183,6 +187,7 @@ extrapolate_rejection <- function(
     data,
     pvalue_subsamples,
     B_target = Inf,
+    exclude_above = B_target - 1L,
     alpha = .05,
     nested = FALSE,
     format = "wide"
@@ -221,20 +226,30 @@ extrapolate_rejection <- function(
 
 
   # calculate wts for each replication
-  B_vals <- unique(pvalue_subsamples[[1]]$bootstraps)
-  B_wts <- get_B_wts(B_vals, B_target = B_target)
+  all_B_vals <- unique(pvalue_subsamples[[1]]$bootstraps)
+  B_vals <- all_B_vals[all_B_vals <= exclude_above]
+  B_wts <- c(
+    get_B_wts(B_vals, B_target = B_target),
+    rep(0, times = sum(all_B_vals > exclude_above))
+  )
+
 
   # initialize results table
   dat <- data.frame(
     K_boot_rejection = K
   )
 
+  bootstraps <- c(all_B_vals, B_target)
+  extrapolated <- c(rep(FALSE, times = length(all_B_vals)), TRUE)
+
   if (format == "wide") {
-    dat$bootstraps <- list(c(B_vals, B_target))
+    dat$bootstraps <- list(bootstraps)
+    dat$extrapolated <- list(extrapolated)
   } else {
     dat$bootstraps <- list(data.frame(
-      bootstraps = rep(c(B_vals, B_target), length(alpha)),
-      alpha = rep(alpha, each = length(B_vals) + 1L)
+      bootstraps = rep(bootstraps, length(alpha)),
+      extrapolated = rep(extrapolated, length(alpha)),
+      alpha = rep(alpha, each = length(bootstraps))
     ))
   }
 
@@ -265,7 +280,7 @@ extrapolate_rejection <- function(
     dat_names <- lapply(names(dat), \(x) if (is.null(names(dat[[x]][[1]]))) x else paste(x, names(dat[[x]][[1]]), sep = "_"))
     dat <- do.call(cbind, dat_list)
     names(dat) <- unlist(dat_names)
-    if (format == "long") names(dat)[2:3] <- c("bootstraps","alpha")
+    if (format == "long") names(dat)[2:4] <- c("bootstraps","extrapolated","alpha")
   }
 
   return(dat)
@@ -288,24 +303,21 @@ project_rejection_rate <- function(alpha, pvalues, B_wts, B_target) {
 
   dat_subsamples <- do.call(rbind, reject_subsamples)
 
+  dat <- data.frame(
+    rej_rate = tapply(dat_subsamples$reject, dat_subsamples$bootstraps, mean),
+    rej_rate_mcse = tapply(dat_subsamples$reject, dat_subsamples$bootstraps, sd) / sqrt(length(pvalues))
+  )
+
   reject_projection <- sapply(
     reject_subsamples,
     \(x) sum(x$reject * B_wts)
   )
 
   dat_project <- data.frame(
-    bootstraps = B_target,
-    reject = reject_projection
+    rej_rate = mean(reject_projection),
+    rej_rate_mcse = sd(reject_projection) / sqrt(length(reject_projection))
   )
 
-  dat <- rbind(dat_subsamples, dat_project)
-
-  reject_rates <- tapply(dat$reject, dat$bootstraps, mean)
-  reject_mcses <- tapply(dat$reject, dat$bootstraps, sd) / sqrt(length(pvalues))
-
-  data.frame(
-    rej_rate = reject_rates,
-    rej_rate_mcse = reject_mcses
-  )
+  rbind(dat, dat_project)
 
 }

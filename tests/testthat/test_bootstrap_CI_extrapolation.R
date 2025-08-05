@@ -68,7 +68,7 @@ test_that("extrapolate_coverage options work with a single CI type.", {
     as_tibble()
 
   nested_wide %>%
-    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = "_") %>%
+    unnest(cols = c("bootstraps","extrapolated","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = "_") %>%
     expect_equal(unnested_wide)
 
   nested_long <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 2, nest = TRUE, format = "long")
@@ -78,11 +78,15 @@ test_that("extrapolate_coverage options work with a single CI type.", {
 
   nested_long %>%
     unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = "_") %>%
-    rename(bootstraps = bootstraps_bootstraps, CI_type = bootstraps_CI_type) %>%
+    rename(
+      bootstraps = bootstraps_bootstraps,
+      extrapolated = bootstraps_extrapolated,
+      CI_type = bootstraps_CI_type
+    ) %>%
     expect_equal(unnested_long)
 
   nested_wide %>%
-    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = ".") %>%
+    unnest(cols = c("bootstraps","extrapolated","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = ".") %>%
     pivot_longer(
       c(ends_with("normal"), ends_with("basic"), ends_with("student"), ends_with("percentile")),
       names_to = c(".value","CI_type"),
@@ -102,7 +106,7 @@ test_that("extrapolate_coverage options work with a single CI type and winsoriza
     as_tibble()
 
   nested_wide %>%
-    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width_winsor_pct","boot_width_winsor_pct_mcse", "boot_width","boot_width_mcse"), names_sep = "_") %>%
+    unnest(cols = c("bootstraps","extrapolated","boot_coverage", "boot_coverage_mcse","boot_width_winsor_pct","boot_width_winsor_pct_mcse", "boot_width","boot_width_mcse"), names_sep = "_") %>%
     expect_equal(unnested_wide)
 
   nested_long <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 2, winz = 1, nest = TRUE, format = "long")
@@ -112,11 +116,15 @@ test_that("extrapolate_coverage options work with a single CI type and winsoriza
 
   nested_long %>%
     unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width_winsor_pct","boot_width_winsor_pct_mcse", "boot_width","boot_width_mcse"), names_sep = "_") %>%
-    rename(bootstraps = bootstraps_bootstraps, CI_type = bootstraps_CI_type) %>%
+    rename(
+      bootstraps = bootstraps_bootstraps,
+      extrapolated = bootstraps_extrapolated,
+      CI_type = bootstraps_CI_type
+    ) %>%
     expect_equal(unnested_long)
 
   nested_wide %>%
-    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width_winsor_pct","boot_width_winsor_pct_mcse", "boot_width","boot_width_mcse"), names_sep = "-") %>%
+    unnest(cols = c("bootstraps","extrapolated","boot_coverage", "boot_coverage_mcse","boot_width_winsor_pct","boot_width_winsor_pct_mcse", "boot_width","boot_width_mcse"), names_sep = "-") %>%
     pivot_longer(
       c(ends_with("normal"), ends_with("basic"), ends_with("student"), ends_with("percentile")),
       names_to = c(".value","CI_type"),
@@ -136,21 +144,26 @@ test_that("extrapolate_coverage options work with multiple CI types.", {
     as_tibble()
 
   nested_wide %>%
-    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = "_") %>%
+    unnest(cols = c("bootstraps","extrapolated","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = "_") %>%
     expect_equal(unnested_wide)
 
   nested_long <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 3, nest = TRUE, format = "long", B_target = 1000L)
+  # debug(extrapolate_coverage)
   unnested_long <-
     extrapolate_coverage(res, CI_subsamples = CI, true_param = 3, nest = FALSE, format = "long", B_target = 1000L) %>%
     as_tibble()
 
   nested_long %>%
     unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = "_") %>%
-    rename(bootstraps = bootstraps_bootstraps, CI_type = bootstraps_CI_type) %>%
+    rename(
+      bootstraps = bootstraps_bootstraps,
+      extrapolated = bootstraps_extrapolated,
+      CI_type = bootstraps_CI_type
+    ) %>%
     expect_equal(unnested_long)
 
   nested_wide %>%
-    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = "-") %>%
+    unnest(cols = c("bootstraps","extrapolated","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = "-") %>%
     pivot_longer(
       c(ends_with("normal"), ends_with("basic"), ends_with("student"), ends_with("percentile"), ends_with("biascorrected"), ends_with("BCa")),
       names_to = c(".value","CI_type"),
@@ -189,7 +202,7 @@ test_that("extrapolate_coverage options work with multiple CI types.", {
     )
 
   unnested_long %>%
-    filter(bootstraps < 1000L) %>%
+    filter(!extrapolated) %>%
     arrange(bootstraps, CI_type) %>%
     select(bootstraps, CI_type, K_boot_coverage, boot_coverage, boot_coverage_mcse, boot_width, boot_width_mcse) %>%
     expect_equal(by_hand)
@@ -208,7 +221,7 @@ test_that("extrapolate_coverage options work with multiple CI types and winsoriz
     as_tibble()
 
   nested_wide %>%
-    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width_winsor_pct","boot_width_winsor_pct_mcse", "boot_width","boot_width_mcse"), names_sep = "_") %>%
+    unnest(cols = c("bootstraps","extrapolated","boot_coverage", "boot_coverage_mcse","boot_width_winsor_pct","boot_width_winsor_pct_mcse", "boot_width","boot_width_mcse"), names_sep = "_") %>%
     expect_equal(unnested_wide)
 
   nested_long <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 0, winz = 1.5, nest = TRUE, format = "long")
@@ -218,11 +231,15 @@ test_that("extrapolate_coverage options work with multiple CI types and winsoriz
 
   nested_long %>%
     unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width_winsor_pct","boot_width_winsor_pct_mcse", "boot_width","boot_width_mcse"), names_sep = "_") %>%
-    rename(bootstraps = bootstraps_bootstraps, CI_type = bootstraps_CI_type) %>%
+    rename(
+      bootstraps = bootstraps_bootstraps,
+      extrapolated = bootstraps_extrapolated,
+      CI_type = bootstraps_CI_type
+    ) %>%
     expect_equal(unnested_long)
 
   nested_wide %>%
-    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse","boot_width_winsor_pct","boot_width_winsor_pct_mcse", "boot_width","boot_width_mcse"), names_sep = "-") %>%
+    unnest(cols = c("bootstraps","extrapolated","boot_coverage", "boot_coverage_mcse","boot_width_winsor_pct","boot_width_winsor_pct_mcse", "boot_width","boot_width_mcse"), names_sep = "-") %>%
     pivot_longer(
       c(ends_with("normal"), ends_with("basic"), ends_with("student"), ends_with("percentile")),
       names_to = c(".value","CI_type"),
@@ -269,6 +286,75 @@ test_that("extrapolate_coverage options work with multiple CI types and winsoriz
     filter(bootstraps < Inf) %>%
     arrange(bootstraps, CI_type) %>%
     select(bootstraps, CI_type, K_boot_coverage, boot_coverage, boot_coverage_mcse, boot_width_winsor_pct, boot_width, boot_width_mcse) %>%
+    expect_equal(by_hand)
+})
+
+
+test_that("extrapolate_coverage options work with multiple CI types when B_target is less than max(B_vals)", {
+
+  res <- simulate_bootCIs(reps = 100, N = 50, mu = 0, nu = 5, B_vals = seq(49, 99, 10), m = 1L)
+
+  nested_wide <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 0, B_target = 89L, nest = TRUE)
+  unnested_wide <-
+    extrapolate_coverage(res, CI_subsamples = CI, true_param = 0, B_target = 89L, nest = FALSE) %>%
+    as_tibble()
+
+  nested_wide %>%
+    unnest(cols = c("bootstraps","extrapolated","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = "_") %>%
+    expect_equal(unnested_wide)
+
+  nested_long <- extrapolate_coverage(res, CI_subsamples = CI, true_param = 0, B_target = 89L, nest = TRUE, format = "long")
+  unnested_long <-
+    extrapolate_coverage(res, CI_subsamples = CI, true_param = 0, B_target = 89L, nest = FALSE, format = "long") %>%
+    as_tibble()
+
+  nested_long %>%
+    unnest(cols = c("bootstraps","boot_coverage", "boot_coverage_mcse", "boot_width","boot_width_mcse"), names_sep = "_") %>%
+    rename(
+      bootstraps = bootstraps_bootstraps,
+      extrapolated = bootstraps_extrapolated,
+      CI_type = bootstraps_CI_type
+    ) %>%
+    expect_equal(unnested_long)
+
+  nested_wide %>%
+    unnest(cols = c("bootstraps","extrapolated","boot_coverage", "boot_coverage_mcse","boot_width","boot_width_mcse"), names_sep = "-") %>%
+    pivot_longer(
+      c(ends_with("normal"), ends_with("basic"), ends_with("student"), ends_with("percentile")),
+      names_to = c(".value","CI_type"),
+      names_pattern = c("(.+)-(.+)")
+    ) %>%
+    arrange(CI_type, bootstraps, extrapolated) %>%
+    expect_equal(arrange(unnested_long, CI_type, bootstraps, extrapolated))
+
+  by_hand <-
+    res %>%
+    select(CI) %>%
+    mutate(row = row_number()) %>%
+    unnest(CI) %>%
+    pivot_longer(
+      c(-bootstraps,-row),
+      names_to = c("CI_type",".value"),
+      names_pattern = c("(.+)_(.+)")
+    ) %>%
+    mutate(
+      cover = lower < 0 & 0 < upper,
+      width = upper - lower,
+    ) %>%
+    group_by(bootstraps, CI_type) %>%
+    summarize(
+      K_boot_coverage = n(),
+      boot_coverage = mean(cover),
+      boot_coverage_mcse = sd(cover) / sqrt(n()),
+      boot_width = mean(width),
+      boot_width_mcse = sd(width) / sqrt(n()),
+      .groups = "drop"
+    )
+
+  unnested_long %>%
+    filter(!extrapolated) %>%
+    arrange(bootstraps, CI_type) %>%
+    select(bootstraps, CI_type, K_boot_coverage, boot_coverage, boot_coverage_mcse, boot_width, boot_width_mcse) %>%
     expect_equal(by_hand)
 })
 

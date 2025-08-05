@@ -9,6 +9,7 @@ extrapolate_rejection(
   data,
   pvalue_subsamples,
   B_target = Inf,
+  exclude_above = B_target - 1L,
   alpha = 0.05,
   nested = FALSE,
   format = "wide"
@@ -23,6 +24,11 @@ numbers of replications.}
 
 \item{B_target}{number of bootstrap replications to which the criteria should
 be extrapolated, with a default of \code{B = Inf}.}
+
+\item{exclude_above}{numeric threshold for bootstrap replication sizes that
+should be excluded before calculating extrapolations. By default, set to
+\code{B_target - 1L} so that p-values based on B_target or greater replications
+will be excluded from the extrapolation calculations.}
 
 \item{alpha}{scalar or vector indicating the nominal alpha level(s). Default
 value is set to the conventional .05.}

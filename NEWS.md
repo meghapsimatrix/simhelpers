@@ -5,6 +5,7 @@ simhelpers 0.3.1.9999
 * Refined `evaluate_by_row()`:
   - Refactored so that it uses only variables that match argument names of the function to be evaluated.
   - Added an option `nest_results` to return a nested column of results (for more compact storage).
+* `extrapolate_coverage()` and `extrapolate_rejection()` gain an `exclude_above` argument to exclude results based on more than a certain number of bootstraps from being included in the extrapolation calculations.
 
 simhelpers 0.3.1
 =======================

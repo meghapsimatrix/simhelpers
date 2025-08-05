@@ -92,6 +92,10 @@ calc_coverage <- function(
 #'   \code{"width"}.
 #' @param B_target number of bootstrap replications to which the criteria should
 #'   be extrapolated, with a default of \code{B = Inf}.
+#' @param exclude_above numeric threshold for bootstrap replication sizes that
+#'   should be excluded before calculating extrapolations. By default, set to
+#'   \code{B_target - 1L} so that CIs based on B_target or greater replications
+#'   will be excluded from the extrapolation calculations.
 #' @param nested logical value controlling the format of the output. If
 #'   \code{FALSE} (the default), then the results will be returned as a data
 #'   frame with rows for each distinct number of bootstraps. If \code{TRUE},
@@ -106,8 +110,10 @@ calc_coverage <- function(
 #' @param width_trim numeric value specifying the trimming percentage to use
 #'   when summarizing CI widths across replications from a single set of
 #'   bootstraps, with a default of 0.0 (i.e., use the regular arithmetic mean).
-#' @param cover_na_val numeric value to use for calculating coverage if bootstrap CI end-points are missing. Default is \code{NA}.
-#' @param width_na_val numeric value to use for calculating width if bootstrap CI end-points are missing. Default is \code{NA}.
+#' @param cover_na_val numeric value to use for calculating coverage if
+#'   bootstrap CI end-points are missing. Default is \code{NA}.
+#' @param width_na_val numeric value to use for calculating width if bootstrap
+#'   CI end-points are missing. Default is \code{NA}.
 #' @inheritParams calc_absolute
 #'
 #' @return A tibble containing the number of simulation iterations, performance
@@ -198,6 +204,7 @@ extrapolate_coverage <- function(
     CI_subsamples,
     true_param,
     B_target = Inf,
+    exclude_above = B_target - 1L,
     criteria = c("coverage", "width"),
     winz = Inf,
     nested = FALSE,
@@ -242,22 +249,31 @@ extrapolate_coverage <- function(
 
 
   # calculate wts for each replication
-  B_vals <- unique(CI_subsamples[[1]]$bootstraps)
-  B_wts <- get_B_wts(B_vals, B_target = B_target)
+  all_B_vals <- unique(CI_subsamples[[1]]$bootstraps)
+  B_vals <- all_B_vals[all_B_vals <= exclude_above]
+  B_wts <- c(
+    get_B_wts(B_vals, B_target = B_target),
+    rep(0, times = sum(all_B_vals > exclude_above))
+  )
 
   # initialize results table
   dat <- data.frame(
     K_boot_coverage = K
   )
 
+  bootstraps <- c(all_B_vals, B_target)
+  extrapolated <- c(rep(FALSE, times = length(all_B_vals)), TRUE)
+
   if (format == "wide") {
-    dat$bootstraps <- list(c(B_vals, B_target))
+    dat$bootstraps <- list(bootstraps)
+    dat$extrapolated <- list(extrapolated)
   } else {
     CI_names <- names(CI_subsamples[[1]])[seq(2, ncol(CI_subsamples[[1]]), 2)]
     CI_names <- substr(CI_names, 1, nchar(CI_names) - 6L)
     dat$bootstraps <- list(data.frame(
-      bootstraps = rep(c(B_vals, B_target), length(CI_names)),
-      CI_type = rep(CI_names, each = length(B_vals) + 1L)
+      bootstraps = rep(bootstraps, length(CI_names)),
+      extrapolated = rep(extrapolated, length(CI_names)),
+      CI_type = rep(CI_names, each = length(bootstraps))
     ))
   }
 
@@ -328,7 +344,7 @@ extrapolate_coverage <- function(
     dat_names <- lapply(names(dat), \(x) if (is.null(names(dat[[x]][[1]]))) x else paste(x, names(dat[[x]][[1]]), sep = "_"))
     dat <- do.call(cbind, dat_list)
     names(dat) <- unlist(dat_names)
-    if (format == "long") names(dat)[2:3] <- c("bootstraps","CI_type")
+    if (format == "long") names(dat)[2:4] <- c("bootstraps","extrapolated","CI_type")
   }
 
   return(dat)
@@ -351,15 +367,24 @@ project_coverage <- function(CI_dat, true_param, B_wts, B_target = B_target, cov
   )
   names(cover_indicators) <- CI_names
 
-  cover_by_Bval <- lapply(cover_indicators, \(x) tapply(x, CI_dat$bootstraps, mean))
+  cover_by_Bval <- lapply(
+    cover_indicators,
+    \(x) tapply(x, CI_dat$bootstraps, mean)
+  )
 
-  cover_extrap <- lapply(cover_by_Bval, \(x) sum(x * B_wts))
-  cover_extrap$bootstraps <- B_target
+  cover_extrap <- lapply(
+    cover_by_Bval,
+    \(x) sum(x * B_wts)
+  ) |>
+    as.data.frame()
 
-  cover_by_Bval$bootstraps <- B_vals
+  cover_by_Bval <- as.data.frame(cover_by_Bval)
+  cover_by_Bval$bootstraps <- as.character(B_vals)
+  cover_extrap$bootstraps <- paste0(as.character(B_target), "*")
+
   rbind(
-    as.data.frame(cover_by_Bval),
-    as.data.frame(cover_extrap)
+    cover_by_Bval,
+    cover_extrap
   )
 }
 
@@ -379,28 +404,42 @@ project_width <- function(CI_dat, B_wts, B_target, width_trim = 0.0, width_na_va
   )
   names(widths) <- CI_names
 
-  width_by_Bval <- lapply(widths,
+  width_by_Bval <- lapply(
+    widths,
     \(x) tapply(x, CI_dat$bootstraps, mean, trim = width_trim)
   )
 
-  width_extrap <- lapply(width_by_Bval, \(x) {
-    fn <- is.finite(x)
-    if (all(!fn)) return(Inf) else sum(x[fn] * B_wts[fn]) / sum(B_wts[fn])
-  })
-  width_extrap$bootstraps <- B_target
+  width_extrap <- lapply(
+    width_by_Bval,
+    \(x) {
+      fn <- is.finite(x)
+      if (all(!fn)) return(Inf) else sum(x[fn] * B_wts[fn]) / sum(B_wts[fn])
+    }
+  ) |>
+    as.data.frame()
 
-  width_by_Bval$bootstraps <- B_vals
+  width_by_Bval <- as.data.frame(width_by_Bval)
+  width_by_Bval$bootstraps <- as.character(B_vals)
+  width_extrap$bootstraps <- paste0(as.character(B_target), "*")
+
   rbind(
-    as.data.frame(width_by_Bval),
-    as.data.frame(width_extrap)
+    width_by_Bval,
+    width_extrap
   )
 
 }
 
 summarize_by_boot <- function(x, f, format = "wide", ...) {
 
-  not_boots <- which(!(names(x) == "bootstraps"))
-  res <- lapply(x[not_boots], \(y) tapply(y, x$bootstraps, f, ...)) |> as.data.frame()
+  cover_indicators <- which(!(names(x) %in% c("bootstraps")))
+  res <- lapply(
+    x[cover_indicators],
+    \(y) tapply(y, x$bootstraps, f, ...)
+  ) |>
+    as.data.frame()
+
+  B_vals <- x$bootstraps[1:nrow(res)]
+  res <- res[B_vals,,drop=FALSE]
 
   if (format == "long") {
     res <- as.numeric(unlist(res))
