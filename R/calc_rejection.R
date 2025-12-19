@@ -47,6 +47,7 @@ calc_rejection <- function(
   rej_rate_mcse <- sqrt(rej_rate * (1 - rej_rate) / K)
 
   if (format == "wide") {
+    
     if (length(alpha) > 1L) {
       alpha_digits <- max(nchar(as.character(alpha))) - 2L
       alpha_lab <- substr(formatC(alpha, format = "f", digits = alpha_digits), 3, 2 + alpha_digits)
@@ -54,8 +55,11 @@ calc_rejection <- function(
     } else {
       var_names <- c("K_rejection","rej_rate","rej_rate_mcse")
     }
+
     dat <- as.data.frame(c(list(K = K), rej_rate = rej_rate, rej_rate_mcse = rej_rate_mcse))
     names(dat) <- var_names
+    dat <- tibble::as_tibble(dat)
+
   } else if (format == "long") {
     dat <- tibble::tibble(
       K_rejection = K,
