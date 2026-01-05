@@ -80,6 +80,98 @@ Install the development version from [GitHub](https://github.com/):
 devtools::install_github("meghapsimatrix/simhelpers")
 ```
 
+## Example
+
+Here, we present a brief example on using `calc_absolute()` function
+from this package to calculate bias. For demonstration, we use the
+`welch_res` dataset included in the package containing results from an
+example simulation study comparing the heteroskedasticity-robust Welch
+t-test to the usual two-sample t-test assuming equal variances.
+
+``` r
+library(simhelpers)
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+
+
+glimpse(welch_res)
+#> Rows: 16,000
+#> Columns: 11
+#> $ n1          <dbl> 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50…
+#> $ n2          <dbl> 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50…
+#> $ mean_diff   <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+#> $ iterations  <dbl> 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000…
+#> $ seed        <dbl> 204809087, 204809087, 204809087, 204809087, 204809087, 204…
+#> $ method      <chr> "t-test", "Welch t-test", "t-test", "Welch t-test", "t-tes…
+#> $ est         <dbl> 0.025836000, 0.025836000, 0.005158587, 0.005158587, -0.079…
+#> $ var         <dbl> 0.09543914, 0.09543914, 0.08481717, 0.08481717, 0.08179330…
+#> $ p_val       <dbl> 0.9335212, 0.9335804, 0.9859039, 0.9859109, 0.7807543, 0.7…
+#> $ lower_bound <dbl> -0.5872300, -0.5899041, -0.5727856, -0.5741984, -0.6473703…
+#> $ upper_bound <dbl> 0.6389020, 0.6415761, 0.5831027, 0.5845155, 0.4877263, 0.4…
+```
+
+The conditions tested in this simulation include `n1` and `n2`,
+indicating sample size of the two groups, as well as `mean_diff`,
+indicating the true mean difference. Below we take the results and group
+the data by method, sample size for group 1, sample size for group 2 and
+the true mean difference. We then run the `calc_absolute()` function to
+calculate. The function returns a `tibble` containing absolute
+performance criteria and their corresponding MCSE.
+
+``` r
+welch_res %>%
+  group_by(method, n1, n2, mean_diff) %>% # grouping 
+  do(calc_absolute(., estimates = est, true_param = mean_diff)) 
+#> # A tibble: 16 × 15
+#> # Groups:   method, n1, n2, mean_diff [16]
+#>    method       n1    n2 mean_diff K_absolute     bias bias_mcse    var var_mcse
+#>    <chr>     <dbl> <dbl>     <dbl>      <int>    <dbl>     <dbl>  <dbl>    <dbl>
+#>  1 Welch t-…    50    50       0         1000 -8.90e-3   0.01000 0.1000  0.00425
+#>  2 Welch t-…    50    50       0.5       1000 -5.55e-3   0.0103  0.107   0.00473
+#>  3 Welch t-…    50    50       1         1000 -7.26e-3   0.00988 0.0977  0.00423
+#>  4 Welch t-…    50    50       2         1000  7.25e-3   0.00981 0.0963  0.00440
+#>  5 Welch t-…    50    70       0         1000 -2.66e-3   0.00867 0.0752  0.00330
+#>  6 Welch t-…    50    70       0.5       1000 -5.14e-3   0.00895 0.0800  0.00391
+#>  7 Welch t-…    50    70       1         1000 -1.12e-2   0.00899 0.0808  0.00358
+#>  8 Welch t-…    50    70       2         1000 -7.85e-4   0.00883 0.0781  0.00345
+#>  9 t-test       50    50       0         1000 -8.90e-3   0.01000 0.1000  0.00425
+#> 10 t-test       50    50       0.5       1000 -5.55e-3   0.0103  0.107   0.00473
+#> 11 t-test       50    50       1         1000 -7.26e-3   0.00988 0.0977  0.00423
+#> 12 t-test       50    50       2         1000  7.25e-3   0.00981 0.0963  0.00440
+#> 13 t-test       50    70       0         1000 -2.66e-3   0.00867 0.0752  0.00330
+#> 14 t-test       50    70       0.5       1000 -5.14e-3   0.00895 0.0800  0.00391
+#> 15 t-test       50    70       1         1000 -1.12e-2   0.00899 0.0808  0.00358
+#> 16 t-test       50    70       2         1000 -7.85e-4   0.00883 0.0781  0.00345
+#> # ℹ 6 more variables: stddev <dbl>, stddev_mcse <dbl>, mse <dbl>,
+#> #   mse_mcse <dbl>, rmse <dbl>, rmse_mcse <dbl>
+```
+
+Please view our article, [Simulation Performance Criteria and
+MCSE](https://meghapsimatrix.github.io/simhelpers/articles/MCSE.html),
+for more details on simulation performance criteria and MCSE
+calculation. In addition to absolute criteria, we also provide functions
+to calculate relative criteria, relative criteria for variance
+estimators and criteria related to hypothesis testing and confidence
+intervals.
+
+Our article, [Simulation
+Workflow](https://meghapsimatrix.github.io/simhelpers/articles/simulation_workflow.html),
+details how to set up a simulation study with functions to generate
+data, estimate, calculate performance criteria, and run the simulation.
+The package contains a function, `create_skeleton()` that will output
+basic skeleton of functions needed to run a simulation study.
+Furthermore, our article, [Presenting Results from Simulation
+Studies](https://meghapsimatrix.github.io/simhelpers/articles/visualization.html),
+provides example of how to interpret and present results from a
+simulation study.
+
 ## Related Work
 
 Our explanation of MCSE formulas and our general simulation workflow is
