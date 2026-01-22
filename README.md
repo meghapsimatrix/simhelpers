@@ -120,10 +120,11 @@ glimpse(welch_res)
 The conditions tested in this simulation include `n1` and `n2`,
 indicating sample size of the two groups, as well as `mean_diff`,
 indicating the true mean difference. Below we take the results and group
-the data by method, sample size for group 1, sample size for group 2 and
-the true mean difference. We then run the `calc_absolute()` function to
-calculate. The function returns a `tibble` containing absolute
-performance criteria and their corresponding MCSE.
+the data by method, sample size for group 1, sample size for group 2,
+and the true mean difference. We then run the `calc_absolute()` function
+to calculate the performance criteria and MCSE. The function returns a
+`tibble` containing absolute performance criteria and their
+corresponding MCSE.
 
 ``` r
 welch_res %>%
@@ -158,7 +159,7 @@ MCSE](https://meghapsimatrix.github.io/simhelpers/articles/MCSE.html),
 for more details on simulation performance criteria and MCSE
 calculation. In addition to absolute criteria, we also provide functions
 to calculate relative criteria, relative criteria for variance
-estimators and criteria related to hypothesis testing and confidence
+estimators, and criteria related to hypothesis testing and confidence
 intervals.
 
 Our article, [Simulation
