@@ -16,28 +16,29 @@ stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://
 
 <!-- badges: end -->
 
-Monte Carlo simulations are computer experiments designed to study the
+Monte Carlo simulations are computer experiments used to study the
 performance of statistical methods under known data-generating
 conditions (Morris, White, & Crowther, 2019). Methodologists use
-simulations to examine questions such as: (1) how does ordinary least
-squares regression perform if errors are heteroskedastic? (2) how does
-the presence of missing data affect treatment effect estimates from a
-propensity score analysis? (3) how does cluster robust variance
-estimation perform when the number of clusters is small? To answer such
-questions, we conduct experiments by simulating thousands of datasets
-based on pseudo-random sampling, applying statistical methods, and
-evaluating how well those statistical methods recover the true
-data-generating conditions (Morris et al., 2019).
+simulations to examine questions such as: (1) how do confidence
+intervals from ordinary least squares regression perform if errors are
+heteroskedastic? (2) how does the presence of missing data affect impact
+estimates from a propensity score analysis? (3) how does cluster robust
+variance estimation perform when the number of clusters is small? To
+answer such questions, one can conduct experiments by simulating
+thousands of datasets based on pseudo-random sampling, applying
+statistical methods, and evaluating how well those statistical methods
+recover the true data-generating conditions (Morris et al., 2019).
 
-The goal of `simhelpers` is to assist in running simulation studies. The
-package includes two main tools. First, it includes a collection of
-functions to calculate measures of estimator performance such as bias,
-root mean squared error, rejection rates, and confidence interval
-coverage. The functions also calculate the associated Monte Carlo
-standard errors (MCSE) of the performance measures. These functions are
-divided into three major categories of performance criteria: absolute
-criteria, relative criteria, and criteria to evaluate hypothesis
-testing. The functions are designed to play well with
+The goal of `simhelpers` is to streamline the process of developing and
+running a simulation study. The package includes two main tools. First,
+it includes a collection of functions to calculate measures of estimator
+performance such as bias, root mean squared error, rejection rates, and
+confidence interval coverage. These functions also calculate the
+associated Monte Carlo standard errors (MCSE) for the performance
+measures. The performance calculation functions are divided into three
+major categories based on the type of measures they calculate: absolute
+criteria, relative criteria, and inference or classification criteria.
+The functions are designed to play well with
 [`dplyr`](https://dplyr.tidyverse.org/index.html) and fit easily into a
 `%>%`-centric workflow (Wickham et al., 2019).
 
@@ -50,18 +51,17 @@ function for analyzing the data, and (optionally) a function for
 summarizing the results, and constructs a single function for running a
 full simulation given a set of parameter values and optional arguments,
 or what we call a “simulation driver.” The simulation driver function
-can then be applied to a parameter set using `evaluate_by_row()` to
-execute simulations across multiple conditions.
-
-Finally, the package also includes a function, `create_skeleton()`, that
-generates a skeleton outline for a simulation study. Another function,
-`evaluate_by_row()`, runs the simulation for each combination of
-conditions row by row. This function uses
+can then be applied to a parameter set using `evaluate_by_row()`, which
+executes the simulation for each combination of conditions enumerated in
+the rows of a dataset. This function uses
 [`future_pmap()`](https://davisvaughan.github.io/furrr/reference/future_map2.html)
 from the [`furrr`](https://davisvaughan.github.io/furrr/) package,
 making it easy to run the simulation in parallel (Vaughan & Dancho,
-2018). The package also includes several datasets that contain results
-from example simulation studies.
+2018).
+
+Finally, the package also includes a function `create_skeleton()`, which
+generates a skeleton outline for a simulation study, and several
+datasets containing results from example simulation studies.
 
 <img src="man/figures/workflow.png"/>
 
@@ -82,24 +82,15 @@ devtools::install_github("meghapsimatrix/simhelpers")
 
 ## Example
 
-Here, we present a brief example on using `calc_absolute()` function
-from this package to calculate bias. For demonstration, we use the
-`welch_res` dataset included in the package containing results from an
-example simulation study comparing the heteroskedasticity-robust Welch
-t-test to the usual two-sample t-test assuming equal variances.
+Here, we present a brief example of using the `calc_absolute()` function
+to calculate the bias of an estimator. For demonstration, we use the
+`welch_res` dataset included in the package, which contains results from
+an example simulation study comparing the heteroskedasticity-robust
+Welch t-test to the usual two-sample t-test assuming equal variances.
 
 ``` r
 library(simhelpers)
 library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
-
 
 glimpse(welch_res)
 #> Rows: 16,000
@@ -118,20 +109,22 @@ glimpse(welch_res)
 ```
 
 The conditions tested in this simulation include `n1` and `n2`,
-indicating sample size of the two groups, as well as `mean_diff`,
-indicating the true mean difference. Below we take the results and group
-the data by method, sample size for group 1, sample size for group 2,
-and the true mean difference. We then run the `calc_absolute()` function
-to calculate the performance criteria and MCSE. The function returns a
-`tibble` containing absolute performance criteria and their
-corresponding MCSE.
+indicating the sample sizes of the two groups, as well as `mean_diff`,
+indicating the true mean difference between groups. Below we take the
+results and group the data by method, sample size for group 1, sample
+size for group 2, and the true mean difference. We then run the
+`calc_absolute()` function to calculate the performance criteria and
+MCSE. The function returns a `tibble` containing absolute performance
+criteria and their corresponding MCSE.
 
 ``` r
 welch_res %>%
   group_by(method, n1, n2, mean_diff) %>% # grouping 
-  do(calc_absolute(., estimates = est, true_param = mean_diff)) 
+  summarize(calc_absolute(estimates = est, true_param = mean_diff)) 
+#> `summarise()` has grouped output by 'method', 'n1', 'n2'. You can override
+#> using the `.groups` argument.
 #> # A tibble: 16 × 15
-#> # Groups:   method, n1, n2, mean_diff [16]
+#> # Groups:   method, n1, n2 [4]
 #>    method       n1    n2 mean_diff K_absolute     bias bias_mcse    var var_mcse
 #>    <chr>     <dbl> <dbl>     <dbl>      <int>    <dbl>     <dbl>  <dbl>    <dbl>
 #>  1 Welch t-…    50    50       0         1000 -8.90e-3   0.01000 0.1000  0.00425
@@ -154,34 +147,32 @@ welch_res %>%
 #> #   mse_mcse <dbl>, rmse <dbl>, rmse_mcse <dbl>
 ```
 
-Please view our article, [Simulation Performance Criteria and
-MCSE](https://meghapsimatrix.github.io/simhelpers/articles/MCSE.html),
+Please see our article [Simulation Performance Criteria and
+MCSE](https://meghapsimatrix.github.io/simhelpers/articles/MCSE.html)
 for more details on simulation performance criteria and MCSE
 calculation. In addition to absolute criteria, we also provide functions
 to calculate relative criteria, relative criteria for variance
 estimators, and criteria related to hypothesis testing and confidence
 intervals.
 
-Our article, [Simulation
-Workflow](https://meghapsimatrix.github.io/simhelpers/articles/simulation_workflow.html),
+Our article [Simulation
+Workflow](https://meghapsimatrix.github.io/simhelpers/articles/simulation_workflow.html)
 details how to set up a simulation study with functions to generate
-data, estimate, calculate performance criteria, and run the simulation.
-The package contains a function, `create_skeleton()` that will output
-basic skeleton of functions needed to run a simulation study.
-Furthermore, our article, [Presenting Results from Simulation
-Studies](https://meghapsimatrix.github.io/simhelpers/articles/visualization.html),
+data, analyze the generated data, calculate performance criteria, and
+execute the simulation. Our article [Presenting Results from Simulation
+Studies](https://meghapsimatrix.github.io/simhelpers/articles/visualization.html)
 provides example of how to interpret and present results from a
 simulation study.
 
 ## Related Work
 
-Our explanation of MCSE formulas and our general simulation workflow is
-closely aligned with the approach described by Morris et al. (2019). We
-want to recognize several other R packages that offer functionality for
-conducting Monte Carlo simulation studies. In particular, the
-[`rsimsum`](https://CRAN.R-project.org/package=rsimsum) package (which
-has a lovely name that makes me hungry) also calculates Monte Carlo
-standard errors (Gasparini, 2018). The
+Our explanation of MCSE formulas and the general simulation workflow
+facilitated by the package aligns closely with the approach described by
+Morris et al. (2019). We want to recognize several other R packages that
+offer functionality for conducting Monte Carlo simulation studies. In
+particular, the [`rsimsum`](https://CRAN.R-project.org/package=rsimsum)
+package (which has a lovely name that makes me hungry) also calculates
+Monte Carlo standard errors (Gasparini, 2018). The
 [`SimDesign`](https://CRAN.R-project.org/package=SimDesign) package
 implements a generate-analyze-summarize model for writing simulations,
 which provided inspiration for our `bundle_sim()` tools.
@@ -224,7 +215,8 @@ Other packages that have similar aims to `simhelpers` include:
 # Acknowledgments
 
 We are grateful for the feedback provided by Danny Gonzalez, [Sangdon
-Lim](https://sdlim.com/), Man Chen, and [Edouard
+Lim](https://sdlim.com/), [Man
+Chen](https://education.utexas.edu/faculty/man_chen/), and [Edouard
 Bonneville](https://github.com/edbonneville).
 
 # References
