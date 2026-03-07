@@ -4,3 +4,6 @@
 .RData
 .Ruserdata
 SimHelpers.Rproj
+
+/.quarto/
+**/*.quarto_ipynb

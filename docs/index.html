@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">simhelpers</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.9999</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,10 +68,10 @@
 <!-- badges: start -->
 
 <!-- badges: end -->
-<p>Monte Carlo simulations are computer experiments designed to study the performance of statistical methods under known data-generating conditions (Morris, White, &amp; Crowther, 2019). Methodologists use simulations to examine questions such as: (1) how does ordinary least squares regression perform if errors are heteroskedastic? (2) how does the presence of missing data affect treatment effect estimates from a propensity score analysis? (3) how does cluster robust variance estimation perform when the number of clusters is small? To answer such questions, we conduct experiments by simulating thousands of datasets based on pseudo-random sampling, applying statistical methods, and evaluating how well those statistical methods recover the true data-generating conditions (Morris et al., 2019).</p>
-<p>The goal of <code>simhelpers</code> is to assist in running simulation studies. The package includes two main tools. First, it includes a collection of functions to calculate measures of estimator performance such as bias, root mean squared error, rejection rates, and confidence interval coverage. The functions also calculate the associated Monte Carlo standard errors (MCSE) of the performance measures. These functions are divided into three major categories of performance criteria: absolute criteria, relative criteria, and criteria to evaluate hypothesis testing. The functions are designed to play well with <a href="https://dplyr.tidyverse.org/index.html" class="external-link"><code>dplyr</code></a> and fit easily into a <code>%&gt;%</code>-centric workflow (Wickham et al., 2019).</p>
-<p>In addition to the set of functions that calculates performance measures and MCSE, the package includes some further convenience functions to assist in programming simulations. These include <code><a href="reference/bundle_sim.html">bundle_sim()</a></code>, which can be used to create a single function for running a simulation from component pieces. The function takes a function for generating data, a function for analyzing the data, and (optionally) a function for summarizing the results, and constructs a single function for running a full simulation given a set of parameter values and optional arguments, or what we call a “simulation driver.” The simulation driver function can then be applied to a parameter set using <code><a href="reference/evaluate_by_row.html">evaluate_by_row()</a></code> to execute simulations across multiple conditions.</p>
-<p>Finally, the package also includes a function, <code><a href="reference/create_skeleton.html">create_skeleton()</a></code>, that generates a skeleton outline for a simulation study. Another function, <code><a href="reference/evaluate_by_row.html">evaluate_by_row()</a></code>, runs the simulation for each combination of conditions row by row. This function uses <a href="https://davisvaughan.github.io/furrr/reference/future_map2.html" class="external-link"><code>future_pmap()</code></a> from the <a href="https://davisvaughan.github.io/furrr/" class="external-link"><code>furrr</code></a> package, making it easy to run the simulation in parallel (Vaughan &amp; Dancho, 2018). The package also includes several datasets that contain results from example simulation studies.</p>
+<p>Monte Carlo simulations are computer experiments used to study the performance of statistical methods under known data-generating conditions (Morris, White, &amp; Crowther, 2019). Methodologists use simulations to examine questions such as: (1) how do confidence intervals from ordinary least squares regression perform if errors are heteroskedastic? (2) how does the presence of missing data affect impact estimates from a propensity score analysis? (3) how does cluster robust variance estimation perform when the number of clusters is small? To answer such questions, one can conduct experiments by simulating thousands of datasets based on pseudo-random sampling, applying statistical methods, and evaluating how well those statistical methods recover the true data-generating conditions (Morris et al., 2019).</p>
+<p>The goal of <code>simhelpers</code> is to streamline the process of developing and running a simulation study. The package includes two main tools. First, it includes a collection of functions to calculate measures of estimator performance such as bias, root mean squared error, rejection rates, and confidence interval coverage. These functions also calculate the associated Monte Carlo standard errors (MCSE) for the performance measures. The performance calculation functions are divided into three major categories based on the type of measures they calculate: absolute criteria, relative criteria, and inference or classification criteria. The functions are designed to play well with <a href="https://dplyr.tidyverse.org/index.html" class="external-link"><code>dplyr</code></a> and fit easily into a <code>%&gt;%</code>-centric workflow (Wickham et al., 2019).</p>
+<p>In addition to the set of functions that calculates performance measures and MCSE, the package includes some further convenience functions to assist in programming simulations. These include <code><a href="reference/bundle_sim.html">bundle_sim()</a></code>, which can be used to create a single function for running a simulation from component pieces. The function takes a function for generating data, a function for analyzing the data, and (optionally) a function for summarizing the results, and constructs a single function for running a full simulation given a set of parameter values and optional arguments, or what we call a “simulation driver.” The simulation driver function can then be applied to a parameter set using <code><a href="reference/evaluate_by_row.html">evaluate_by_row()</a></code>, which executes the simulation for each combination of conditions enumerated in the rows of a dataset. This function uses <a href="https://davisvaughan.github.io/furrr/reference/future_map2.html" class="external-link"><code>future_pmap()</code></a> from the <a href="https://davisvaughan.github.io/furrr/" class="external-link"><code>furrr</code></a> package, making it easy to run the simulation in parallel (Vaughan &amp; Dancho, 2018).</p>
+<p>Finally, the package also includes a function <code><a href="reference/create_skeleton.html">create_skeleton()</a></code>, which generates a skeleton outline for a simulation study, and several datasets containing results from example simulation studies.</p>
 <p><img src="reference/figures/workflow.png"></p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -85,9 +85,63 @@
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"meghapsimatrix/simhelpers"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
+<p>Here, we present a brief example of using the <code><a href="reference/calc_absolute.html">calc_absolute()</a></code> function to calculate the bias of an estimator. For demonstration, we use the <code>welch_res</code> dataset included in the package, which contains results from an example simulation study comparing the heteroskedasticity-robust Welch t-test to the usual two-sample t-test assuming equal variances.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://meghapsimatrix.github.io/simhelpers/">simhelpers</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">welch_res</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Rows: 16,000</span></span>
+<span><span class="co">#&gt; Columns: 11</span></span>
+<span><span class="co">#&gt; $ n1          &lt;dbl&gt; 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50…</span></span>
+<span><span class="co">#&gt; $ n2          &lt;dbl&gt; 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50…</span></span>
+<span><span class="co">#&gt; $ mean_diff   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…</span></span>
+<span><span class="co">#&gt; $ iterations  &lt;dbl&gt; 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000…</span></span>
+<span><span class="co">#&gt; $ seed        &lt;dbl&gt; 204809087, 204809087, 204809087, 204809087, 204809087, 204…</span></span>
+<span><span class="co">#&gt; $ method      &lt;chr&gt; "t-test", "Welch t-test", "t-test", "Welch t-test", "t-tes…</span></span>
+<span><span class="co">#&gt; $ est         &lt;dbl&gt; 0.025836000, 0.025836000, 0.005158587, 0.005158587, -0.079…</span></span>
+<span><span class="co">#&gt; $ var         &lt;dbl&gt; 0.09543914, 0.09543914, 0.08481717, 0.08481717, 0.08179330…</span></span>
+<span><span class="co">#&gt; $ p_val       &lt;dbl&gt; 0.9335212, 0.9335804, 0.9859039, 0.9859109, 0.7807543, 0.7…</span></span>
+<span><span class="co">#&gt; $ lower_bound &lt;dbl&gt; -0.5872300, -0.5899041, -0.5727856, -0.5741984, -0.6473703…</span></span>
+<span><span class="co">#&gt; $ upper_bound &lt;dbl&gt; 0.6389020, 0.6415761, 0.5831027, 0.5845155, 0.4877263, 0.4…</span></span></code></pre></div>
+<p>The conditions tested in this simulation include <code>n1</code> and <code>n2</code>, indicating the sample sizes of the two groups, as well as <code>mean_diff</code>, indicating the true mean difference between groups. Below we take the results and group the data by method, sample size for group 1, sample size for group 2, and the true mean difference. We then run the <code><a href="reference/calc_absolute.html">calc_absolute()</a></code> function to calculate the performance criteria and MCSE. The function returns a <code>tibble</code> containing absolute performance criteria and their corresponding MCSE.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">welch_res</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">method</span>, <span class="va">n1</span>, <span class="va">n2</span>, <span class="va">mean_diff</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># grouping </span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span><span class="fu"><a href="reference/calc_absolute.html">calc_absolute</a></span><span class="op">(</span>estimates <span class="op">=</span> <span class="va">est</span>, true_param <span class="op">=</span> <span class="va">mean_diff</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; `summarise()` has grouped output by 'method', 'n1', 'n2'. You can override</span></span>
+<span><span class="co">#&gt; using the `.groups` argument.</span></span>
+<span><span class="co">#&gt; # A tibble: 16 × 15</span></span>
+<span><span class="co">#&gt; # Groups:   method, n1, n2 [4]</span></span>
+<span><span class="co">#&gt;    method       n1    n2 mean_diff K_absolute     bias bias_mcse    var var_mcse</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;      &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 Welch t-…    50    50       0         1000 -8.90e-3   0.01000 0.1000  0.00425</span></span>
+<span><span class="co">#&gt;  2 Welch t-…    50    50       0.5       1000 -5.55e-3   0.0103  0.107   0.00473</span></span>
+<span><span class="co">#&gt;  3 Welch t-…    50    50       1         1000 -7.26e-3   0.00988 0.0977  0.00423</span></span>
+<span><span class="co">#&gt;  4 Welch t-…    50    50       2         1000  7.25e-3   0.00981 0.0963  0.00440</span></span>
+<span><span class="co">#&gt;  5 Welch t-…    50    70       0         1000 -2.66e-3   0.00867 0.0752  0.00330</span></span>
+<span><span class="co">#&gt;  6 Welch t-…    50    70       0.5       1000 -5.14e-3   0.00895 0.0800  0.00391</span></span>
+<span><span class="co">#&gt;  7 Welch t-…    50    70       1         1000 -1.12e-2   0.00899 0.0808  0.00358</span></span>
+<span><span class="co">#&gt;  8 Welch t-…    50    70       2         1000 -7.85e-4   0.00883 0.0781  0.00345</span></span>
+<span><span class="co">#&gt;  9 t-test       50    50       0         1000 -8.90e-3   0.01000 0.1000  0.00425</span></span>
+<span><span class="co">#&gt; 10 t-test       50    50       0.5       1000 -5.55e-3   0.0103  0.107   0.00473</span></span>
+<span><span class="co">#&gt; 11 t-test       50    50       1         1000 -7.26e-3   0.00988 0.0977  0.00423</span></span>
+<span><span class="co">#&gt; 12 t-test       50    50       2         1000  7.25e-3   0.00981 0.0963  0.00440</span></span>
+<span><span class="co">#&gt; 13 t-test       50    70       0         1000 -2.66e-3   0.00867 0.0752  0.00330</span></span>
+<span><span class="co">#&gt; 14 t-test       50    70       0.5       1000 -5.14e-3   0.00895 0.0800  0.00391</span></span>
+<span><span class="co">#&gt; 15 t-test       50    70       1         1000 -1.12e-2   0.00899 0.0808  0.00358</span></span>
+<span><span class="co">#&gt; 16 t-test       50    70       2         1000 -7.85e-4   0.00883 0.0781  0.00345</span></span>
+<span><span class="co">#&gt; # ℹ 6 more variables: stddev &lt;dbl&gt;, stddev_mcse &lt;dbl&gt;, mse &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   mse_mcse &lt;dbl&gt;, rmse &lt;dbl&gt;, rmse_mcse &lt;dbl&gt;</span></span></code></pre></div>
+<p>Please see our article <a href="https://meghapsimatrix.github.io/simhelpers/articles/MCSE.html">Simulation Performance Criteria and MCSE</a> for more details on simulation performance criteria and MCSE calculation. In addition to absolute criteria, we also provide functions to calculate relative criteria, relative criteria for variance estimators, and criteria related to hypothesis testing and confidence intervals.</p>
+<p>Our article <a href="https://meghapsimatrix.github.io/simhelpers/articles/simulation_workflow.html">Simulation Workflow</a> details how to set up a simulation study with functions to generate data, analyze the generated data, calculate performance criteria, and execute the simulation. Our article <a href="https://meghapsimatrix.github.io/simhelpers/articles/visualization.html">Presenting Results from Simulation Studies</a> provides example of how to interpret and present results from a simulation study.</p>
+</div>
+<div class="section level2">
 <h2 id="related-work">Related Work<a class="anchor" aria-label="anchor" href="#related-work"></a>
 </h2>
-<p>Our explanation of MCSE formulas and our general simulation workflow is closely aligned with the approach described by Morris et al. (2019). We want to recognize several other R packages that offer functionality for conducting Monte Carlo simulation studies. In particular, the <a href="https://CRAN.R-project.org/package=rsimsum" class="external-link"><code>rsimsum</code></a> package (which has a lovely name that makes me hungry) also calculates Monte Carlo standard errors (Gasparini, 2018). The <a href="https://CRAN.R-project.org/package=SimDesign" class="external-link"><code>SimDesign</code></a> package implements a generate-analyze-summarize model for writing simulations, which provided inspiration for our <code><a href="reference/bundle_sim.html">bundle_sim()</a></code> tools. <a href="https://CRAN.R-project.org/package=SimDesign" class="external-link"><code>SimDesign</code></a> also includes tools for error handling and parallel computing (Chalmers, 2019).</p>
+<p>Our explanation of MCSE formulas and the general simulation workflow facilitated by the package aligns closely with the approach described by Morris et al. (2019). We want to recognize several other R packages that offer functionality for conducting Monte Carlo simulation studies. In particular, the <a href="https://CRAN.R-project.org/package=rsimsum" class="external-link"><code>rsimsum</code></a> package (which has a lovely name that makes me hungry) also calculates Monte Carlo standard errors (Gasparini, 2018). The <a href="https://CRAN.R-project.org/package=SimDesign" class="external-link"><code>SimDesign</code></a> package implements a generate-analyze-summarize model for writing simulations, which provided inspiration for our <code><a href="reference/bundle_sim.html">bundle_sim()</a></code> tools. <a href="https://CRAN.R-project.org/package=SimDesign" class="external-link"><code>SimDesign</code></a> also includes tools for error handling and parallel computing (Chalmers, 2019).</p>
 <p>In contrast to the two packages mentioned above, our package is designed to be used with <a href="https://dplyr.tidyverse.org/index.html" class="external-link"><code>dplyr</code></a>, <a href="https://tidyr.tidyverse.org/" class="external-link"><code>tidyr</code></a> and <a href="https://purrr.tidyverse.org/" class="external-link"><code>purrr</code></a> syntax (Wickham et al., 2019). The functions that calculate MCSEs are easy to run on grouped data. For parallel computing, <code><a href="reference/evaluate_by_row.html">evaluate_by_row()</a></code> uses the <a href="https://davisvaughan.github.io/furrr/" class="external-link"><code>furrr</code></a> and <a href="https://rstudio.github.io/promises/articles/futures.html" class="external-link"><code>future</code></a> packages (Bengtsson, 2020; Vaughan &amp; Dancho, 2018). Moreover, in contrast to the <code>rsimsum</code> and <code>SimDesign</code> packages, <code>simhelpers</code> provides jack-knife MCSE for variance estimators. It also provides jack-knife MCSE estimates for root mean squared error.</p>
 <p>Another related project is <a href="https://declaredesign.org/" class="external-link"><code>DeclareDesign</code></a>, a suite of packages that allow users to declare and diagnose research designs, fabricate mock data, and explore tradeoffs between different designs (Blair et al., 2019). This project follows a similar model for how simulation studies are instantiated, but it uses a higher-level API, which is tailored for simulating certain specific types of research designs. In contrast, our package is a simpler set of general-purpose utility functions.</p>
 <p>Other packages that have similar aims to <code>simhelpers</code> include: <a href="https://CRAN.R-project.org/package=MonteCarlo" class="external-link">MonteCarlo</a>, <a href="https://CRAN.R-project.org/package=parSim" class="external-link">parSim</a>, <a href="https://CRAN.R-project.org/package=simsalapar" class="external-link">simsalapar</a>, <a href="https://CRAN.R-project.org/package=simulator" class="external-link">simulator</a>, <a href="https://CRAN.R-project.org/package=simstudy" class="external-link">simstudy</a>, <a href="https://CRAN.R-project.org/package=simTool" class="external-link">simTool</a>, <a href="https://CRAN.R-project.org/package=simSummary" class="external-link">simSummary</a>, and <a href="https://CRAN.R-project.org/package=ezsim" class="external-link">ezsim</a>.</p>
@@ -96,7 +150,7 @@
 <div class="section level1">
 <h1 id="acknowledgments">Acknowledgments<a class="anchor" aria-label="anchor" href="#acknowledgments"></a>
 </h1>
-<p>We are grateful for the feedback provided by Danny Gonzalez, <a href="https://sdlim.com/" class="external-link">Sangdon Lim</a>, Man Chen, and <a href="https://github.com/edbonneville" class="external-link">Edouard Bonneville</a>.</p>
+<p>We are grateful for the feedback provided by Danny Gonzalez, <a href="https://sdlim.com/" class="external-link">Sangdon Lim</a>, <a href="https://education.utexas.edu/faculty/man_chen/" class="external-link">Man Chen</a>, and <a href="https://github.com/edbonneville" class="external-link">Edouard Bonneville</a>.</p>
 </div>
 <div class="section level1">
 <h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
@@ -138,9 +192,9 @@
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="https://meghapsimatrix.com/" class="external-link">Megha Joshi</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-7936-076X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<a href="https://meghapsimatrix.com/" class="external-link">Megha Joshi</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-7936-076X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 <li>
-<a href="https://www.jepusto.com/" class="external-link">James Pustejovsky</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-0591-9465" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<a href="https://www.jepusto.com/" class="external-link">James Pustejovsky</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-0591-9465" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 </ul>
 </div>
 
@@ -165,7 +219,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
