@@ -17,7 +17,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">simhelpers</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.9999</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,6 +70,7 @@
 <span>  <span class="va">data</span>,</span>
 <span>  <span class="va">pvalue_subsamples</span>,</span>
 <span>  B_target <span class="op">=</span> <span class="cn">Inf</span>,</span>
+<span>  exclude_above <span class="op">=</span> <span class="va">B_target</span> <span class="op">-</span> <span class="fl">1L</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  nested <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  format <span class="op">=</span> <span class="st">"wide"</span></span>
@@ -93,6 +94,13 @@ numbers of replications.</p></dd>
 <dt id="arg-b-target">B_target<a class="anchor" aria-label="anchor" href="#arg-b-target"></a></dt>
 <dd><p>number of bootstrap replications to which the criteria should
 be extrapolated, with a default of <code>B = Inf</code>.</p></dd>
+
+
+<dt id="arg-exclude-above">exclude_above<a class="anchor" aria-label="anchor" href="#arg-exclude-above"></a></dt>
+<dd><p>numeric threshold for bootstrap replication sizes that
+should be excluded before calculating extrapolations. By default, set to
+<code>B_target - 1L</code> so that p-values based on B_target or greater replications
+will be excluded from the extrapolation calculations.</p></dd>
 
 
 <dt id="arg-alpha">alpha<a class="anchor" aria-label="anchor" href="#arg-alpha"></a></dt>
@@ -124,7 +132,11 @@ each CI type.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
-    <p>boos2000MonteCarloEvaluationsimhelpers</p>
+    <p>Boos DD, Zhang J (2000).
+“Monte Carlo evaluation of resampling-based hypothesis tests.”
+<em>Journal of the American Statistical Association</em>, <b>95</b>(450), 486–492.
+<a href="https://doi.org/10.1080/01621459.2000.10474226" class="external-link">doi:10.1080/01621459.2000.10474226</a>
+.</p>
     </div>
 
     <div class="section level2">
@@ -192,18 +204,18 @@ each CI type.</p></dd>
 <span class="r-in"><span>  B_target <span class="op">=</span> <span class="fl">1999</span>,</span></span>
 <span class="r-in"><span>  alpha <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.01</span>, <span class="fl">.05</span>, <span class="fl">.10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   K_boot_rejection bootstraps boot_rej_rate_alpha_01 boot_rej_rate_alpha_05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1               50         49             0.11000000              0.2800000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2               50         99             0.03000000              0.2500000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3               50        149             0.07000000              0.2900000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4               50        199             0.04000000              0.3000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5               50       1999             0.02170504              0.2895512</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   boot_rej_rate_alpha_10 boot_rej_rate_mcse_alpha_01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1              0.3900000                  0.04113194</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2              0.4300000                  0.02217739</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3              0.4200000                  0.03502186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4              0.4000000                  0.02799417</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5              0.4233506                  0.02951073</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   K_boot_rejection bootstraps extrapolated boot_rej_rate_alpha_01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1               50         49        FALSE             0.11000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2               50         99        FALSE             0.03000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3               50        149        FALSE             0.07000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4               50        199        FALSE             0.04000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5               50       1999         TRUE             0.02170504</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   boot_rej_rate_alpha_05 boot_rej_rate_alpha_10 boot_rej_rate_mcse_alpha_01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1              0.2800000              0.3900000                  0.04113194</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2              0.2500000              0.4300000                  0.02217739</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3              0.2900000              0.4200000                  0.03502186</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4              0.3000000              0.4000000                  0.02799417</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5              0.2895512              0.4233506                  0.02951073</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   boot_rej_rate_mcse_alpha_05 boot_rej_rate_mcse_alpha_10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                  0.05917804                  0.06591584</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                  0.05758756                  0.07000000</span>
@@ -218,8 +230,8 @@ each CI type.</p></dd>
 <span class="r-in"><span>  alpha <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.01</span>, <span class="fl">.05</span>, <span class="fl">.10</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  nested <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   K_boot_rejection            bootstraps</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1               50 49, 99, 149, 199, Inf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   K_boot_rejection            bootstraps                     extrapolated</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1               50 49, 99, 149, 199, Inf FALSE, FALSE, FALSE, FALSE, TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                        boot_rej_rate</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.11000000, 0.03000000, 0.07000000, 0.04000000, 0.01967668, 0.28000000, 0.25000000, 0.29000000, 0.30000000, 0.29002613, 0.39000000, 0.43000000, 0.42000000, 0.40000000, 0.42401445</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                   boot_rej_rate_mcse</span>
@@ -236,7 +248,7 @@ each CI type.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>
