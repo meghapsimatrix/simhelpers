@@ -64,28 +64,28 @@ will be set. Default is \code{NULL}, which does not set a seed.}
 }
 \value{
 If \code{format = "wide"}, the function returns a \code{data.frame}
-  with \code{reps} rows per entry of \code{B_vals}, where each row contains
-  confidence intervals for one sub-sample replication.
+with \code{reps} rows per entry of \code{B_vals}, where each row contains
+confidence intervals for one sub-sample replication.
 
-  If \code{format = "long"}, the function returns a \code{data.frame} with
-  one row for each \code{CI_type}, each replication, and each entry of
-  \code{B_vals}, where each row contains a single confidence interval for one
-  sub-sample replication.
+If \code{format = "long"}, the function returns a \code{data.frame} with
+one row for each \code{CI_type}, each replication, and each entry of
+\code{B_vals}, where each row contains a single confidence interval for one
+sub-sample replication.
 
-  If \code{format = "wide-list"}, then the output will be structured as in
-  \code{format = "wide"} but will be wrapped in an unnamed list, which makes
-  it easier to sore the output in a tibble, and will be assigned the class
-  \code{"bootstrap_CIs"}.
+If \code{format = "wide-list"}, then the output will be structured as in
+\code{format = "wide"} but will be wrapped in an unnamed list, which makes
+it easier to sore the output in a tibble, and will be assigned the class
+\code{"bootstrap_CIs"}.
 }
 \description{
 Calculate one or multiple bootstrap confidence intervals, given
-  a sample of bootstrap replications.
+a sample of bootstrap replications.
 }
 \details{
 Confidence intervals are calculated following the methods described
-  in Chapter 5 of Davison and Hinkley (1997). For basic non-parametric
-  bootstraps, the methods are nearly identical to the implementation in
-  \code{\link[boot]{boot.ci}} from the \code{boot} package.
+in Chapter 5 of Davison and Hinkley (1997). For basic non-parametric
+bootstraps, the methods are nearly identical to the implementation in
+\code{\link[boot]{boot.ci}} from the \code{boot} package.
 }
 \examples{
 # generate t-distributed data
@@ -156,6 +156,6 @@ bootstrap_CIs(
 
 }
 \references{
-Davison, A.C. and Hinkley, D.V. (1997). _Bootstrap Methods and
-  Their Application_, Chapter 5. Cambridge University Press.
+Davison, A.C. and Hinkley, D.V. (1997). \emph{Bootstrap Methods and
+Their Application}, Chapter 5. Cambridge University Press.
 }

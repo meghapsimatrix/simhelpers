@@ -33,12 +33,12 @@ truncate estimates that fall below P25 - 3 * IQR or above P75 + 3 * IQR.}
 }
 \value{
 A tibble containing the number of simulation iterations, performance
-  criteria estimate(s) and the associated MCSE.
+criteria estimate(s) and the associated MCSE.
 }
 \description{
 Calculates absolute bias, variance, mean squared error (mse) and
-  root mean squared error (rmse). The function also calculates the associated
-  Monte Carlo standard errors.
+root mean squared error (rmse). The function also calculates the associated
+Monte Carlo standard errors.
 }
 \examples{
 calc_absolute(data = t_res, estimates = est, true_param = true_param)

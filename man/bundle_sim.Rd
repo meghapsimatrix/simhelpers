@@ -45,17 +45,17 @@ a list and so \code{f_summarize} must be able to take a list as its first
 argument. Passed to \code{repeat_and_stack()}.}
 
 \item{id}{Character string to use for creating a variable with a unique
-identifier for each repetition of `f_generate` and `f_analyze`. If set to \code{NULL} (the default), then
+identifier for each repetition of \code{f_generate} and \code{f_analyze}. If set to \code{NULL} (the default), then
 no identifier is created. Passed to \code{repeat_and_stack()}.}
 }
 \value{
-A function to repeatedly run the `f_generate` and `f_analyze`
-  functions and (optionally) apply `f_summarize` to the resulting
-  replications.
+A function to repeatedly run the \code{f_generate} and \code{f_analyze}
+functions and (optionally) apply \code{f_summarize} to the resulting
+replications.
 }
 \description{
 Bundle a data-generation function, a data-analysis function, and
-  (optionally) a performance summary function into a simulation driver.
+(optionally) a performance summary function into a simulation driver.
 }
 \examples{
 f_G <- rnorm

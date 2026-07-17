@@ -22,11 +22,11 @@ one row, with separate variables for each specified \code{alpha}. Option
 }
 \value{
 A tibble containing the number of simulation iterations, performance
-  criteria estimate and the associated MCSE.
+criteria estimate and the associated MCSE.
 }
 \description{
 Calculates rejection rate. The function also calculates the
-  associated Monte Carlo standard error.
+associated Monte Carlo standard error.
 }
 \examples{
 calc_rejection(data = t_res, p_values = p_val)

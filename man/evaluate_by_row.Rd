@@ -58,9 +58,9 @@ A tibble containing parameter values and simulation results.
 }
 \description{
 Evaluates a simulation function on each row of a data frame or
-  tibble containing parameter values. Returns a single tibble with parameters
-  and simulation results. The function uses \code{furrr::future_pmap}, which
-  allows for easy parallelization.
+tibble containing parameter values. Returns a single tibble with parameters
+and simulation results. The function uses \code{furrr::future_pmap}, which
+allows for easy parallelization.
 }
 \examples{
 df <- data.frame(
