@@ -3,7 +3,7 @@
 \name{extrapolate_coverage}
 \alias{extrapolate_coverage}
 \title{Extrapolate coverage and width using sub-sampled bootstrap confidence
-  intervals.}
+intervals.}
 \usage{
 extrapolate_coverage(
   data,
@@ -73,15 +73,15 @@ CI end-points are missing. Default is \code{NA}.}
 }
 \value{
 A tibble containing the number of simulation iterations, performance
-  criteria estimate(s) and the associated MCSE.
+criteria estimate(s) and the associated MCSE.
 }
 \description{
 Given a set of bootstrap confidence intervals calculated across
-  sub-samples with different numbers of replications, extrapolates confidence
-  interval coverage and width of bootstrap confidence intervals to a
-  specified (larger) number of bootstraps. The function also calculates the
-  associated Monte Carlo standard errors. The confidence interval percentage
-  is based on how you calculated the lower and upper bounds.
+sub-samples with different numbers of replications, extrapolates confidence
+interval coverage and width of bootstrap confidence intervals to a
+specified (larger) number of bootstraps. The function also calculates the
+associated Monte Carlo standard errors. The confidence interval percentage
+is based on how you calculated the lower and upper bounds.
 }
 \examples{
 

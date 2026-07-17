@@ -42,13 +42,13 @@ that fall below P25 - 3 * IQR or above P75 + 3 * IQR. By default
 }
 \value{
 A tibble containing the number of simulation iterations, performance
-  criteria estimate(s) and the associated MCSE.
+criteria estimate(s) and the associated MCSE.
 }
 \description{
 Calculates relative bias, mean squared error (relative mse), and
-  root mean squared error (relative rmse)  of variance estimators. The
-  function also calculates the associated jack-knife Monte Carlo standard
-  errors.
+root mean squared error (relative rmse)  of variance estimators. The
+function also calculates the associated jack-knife Monte Carlo standard
+errors.
 }
 \examples{
 calc_relative_var(data = alpha_res, estimates = A, var_estimates = Var_A)

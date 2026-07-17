@@ -37,6 +37,7 @@ reference:
       - repeat_and_stack
       - bundle_sim
       - evaluate_by_row
+      - factorial_summary
   - title: "Example Datasets"
     desc: "Example datasets from simulation studies"
     contents:
@@ -44,3 +45,4 @@ reference:
       - alpha_res
       - t_res
       - welch_res
+      - Chen_Pusto

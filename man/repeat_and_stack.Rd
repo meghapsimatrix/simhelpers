@@ -20,15 +20,15 @@ no identifier is created.}
 }
 \value{
 If \code{stack = TRUE} (the default), the results of each evaluation
-  of \code{expr} will be stacked together using \code{rbind} and a unique identifier will be stored in the variable \code{id} (if specified). If \code{stack
+of \code{expr} will be stacked together using \code{rbind} and a unique identifier will be stored in the variable \code{id} (if specified). If \code{stack
   = FALSE}, a list of length \code{n} with entries corresponding to the
-  output of each replication of \code{expr}, with names corresponding to the unique identifier (if specified)
+output of each replication of \code{expr}, with names corresponding to the unique identifier (if specified)
 }
 \description{
 Repeat an expression (usually involving random number
-  generation) multiple times. Optionally, organize the results into a
-  \code{data.frame} that stacks the output from all replications of the
-  expression.
+generation) multiple times. Optionally, organize the results into a
+\code{data.frame} that stacks the output from all replications of the
+expression.
 }
 \examples{
 repeat_and_stack(n = 3, data.frame(x = rexp(2)))

@@ -7,3 +7,4 @@ SimHelpers.Rproj
 
 /.quarto/
 **/*.quarto_ipynb
+.positai
