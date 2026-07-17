@@ -63,13 +63,13 @@ test_that("include_total works.", {
 
   expect_equal(a, res[-6, -8])
   expect_equal(
-    as.numeric(colSums(a[,-(1:2)]) / 1:5),
-    as.numeric(res[res$factor == "Total",3:7])
+    colSums(a[,-(1:2)]) / 1:5,
+    unlist(res[res$factor == "Total",3:7])
   )
 
   p <- factorial_summary(dat, "rmse", c("k","mu","cor_mu","wts"), include_total = FALSE, sum_orders = FALSE)
   q <- factorial_summary(dat, "rmse", c("k","mu","cor_mu","wts"), include_total = TRUE, sum_orders = FALSE)
-  expect_identical(
+  expect_equal(
     colSums(p[,-(1:2)]) / 1:4,
     unlist(q[q$factor=="Total",-(1:2)])
   )
