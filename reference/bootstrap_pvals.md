@@ -87,8 +87,8 @@ than the original statistic.
 
 ## References
 
-Davison, A.C. and Hinkley, D.V. (1997). \_Bootstrap Methods and Their
-Application\_, Chapter 4. Cambridge University Press.
+Davison, A.C. and Hinkley, D.V. (1997). *Bootstrap Methods and Their
+Application*, Chapter 4. Cambridge University Press.
 
 ## Examples
 

@@ -64,15 +64,14 @@ bundle_sim(
 - id:
 
   Character string to use for creating a variable with a unique
-  identifier for each repetition of \`f_generate\` and \`f_analyze\`. If
-  set to `NULL` (the default), then no identifier is created. Passed to
+  identifier for each repetition of `f_generate` and `f_analyze`. If set
+  to `NULL` (the default), then no identifier is created. Passed to
   [`repeat_and_stack()`](https://meghapsimatrix.github.io/simhelpers/reference/repeat_and_stack.md).
 
 ## Value
 
-A function to repeatedly run the \`f_generate\` and \`f_analyze\`
-functions and (optionally) apply \`f_summarize\` to the resulting
-replications.
+A function to repeatedly run the `f_generate` and `f_analyze` functions
+and (optionally) apply `f_summarize` to the resulting replications.
 
 ## Examples
 

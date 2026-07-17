@@ -120,6 +120,7 @@ hypothesis tests.” *Journal of the American Statistical Association*,
 ## Examples
 
 ``` r
+
 dgp <- function(N, mu, nu) {
   mu + rt(N, df = nu)
 }

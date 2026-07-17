@@ -2,6 +2,10 @@
 
 ## simhelpers 0.3.1.9999
 
+- Added a new experimental function
+  [`factorial_summary()`](https://meghapsimatrix.github.io/simhelpers/reference/factorial_summary.md)
+  for analyzing simulation results following a full factorial
+  experimental design.
 - Added option to specify a unique ID variable for every repetition in
   [`repeat_and_stack()`](https://meghapsimatrix.github.io/simhelpers/reference/repeat_and_stack.md)
   and

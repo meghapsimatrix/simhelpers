@@ -44,6 +44,9 @@ Functions for facilitating simulation workflows
   : Bundle functions into a simulation driver function
 - [`evaluate_by_row()`](https://meghapsimatrix.github.io/simhelpers/reference/evaluate_by_row.md)
   : Evaluate a simulation function on each row of a data frame or tibble
+- [`factorial_summary()`](https://meghapsimatrix.github.io/simhelpers/reference/factorial_summary.md)
+  : Summarize the sums of squares attributable to each factor in a full
+  factorial experimental design
 
 ## Example Datasets
 
@@ -57,3 +60,5 @@ Example datasets from simulation studies
   : t-test simulation results
 - [`welch_res`](https://meghapsimatrix.github.io/simhelpers/reference/welch_res.md)
   : Welch t-test simulation results
+- [`Chen_Pusto`](https://meghapsimatrix.github.io/simhelpers/reference/Chen_Pusto.md)
+  : Simulation results from Chen & Pustejovsky (2025)

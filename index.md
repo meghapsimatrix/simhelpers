@@ -57,12 +57,14 @@ datasets containing results from example simulation studies.
 Install the latest release from CRAN:
 
 ``` r
+
 install.packages("simhelpers")
 ```
 
 Install the development version from [GitHub](https://github.com/):
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("meghapsimatrix/simhelpers")
 ```
@@ -78,6 +80,7 @@ heteroskedasticity-robust Welch t-test to the usual two-sample t-test
 assuming equal variances.
 
 ``` r
+
 library(simhelpers)
 library(dplyr)
 
@@ -108,6 +111,7 @@ returns a `tibble` containing absolute performance criteria and their
 corresponding MCSE.
 
 ``` r
+
 welch_res %>%
   group_by(method, n1, n2, mean_diff) %>% # grouping 
   summarize(calc_absolute(estimates = est, true_param = mean_diff)) 

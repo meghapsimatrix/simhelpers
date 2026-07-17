@@ -46,9 +46,9 @@ inflation of Type 1 error rates (Cameron et al., 2008; Hedges et al.,
 introduced small sample corrections for RVE for tests of single
 coefficients and for multiple contrast hypotheses, respectively. Tipton
 & Pustejovsky (2015) studied five methods, two based on eigen
-decomposition and three based on Hotelling’s $T^{2}$ distribution. The
+decomposition and three based on Hotelling’s $`T^2`$ distribution. The
 authors recommended a method (AHZ) which approximates the test statistic
-using Hotelling’s $T^{2}$ distribution with degrees of freedom proposed
+using Hotelling’s $`T^2`$ distribution with degrees of freedom proposed
 by Zhang (2012) and Zhang (2013). This method resulted in Type 1 error
 rates closest to the nominal rate of .05. However, AHZ was shown to
 still have below nominal Type 1 error rates for tests of multiple
@@ -62,6 +62,7 @@ Specifically, the dataset contains results to replicate Figure 2 from
 the article.
 
 ``` r
+
 library(simhelpers)
 library(ggplot2)
 library(dplyr)
@@ -78,15 +79,16 @@ The dataset contains:
 - `contrast`: type of contrast that was tested.
 - `test`: small sample method used. EDF and EDT are the two methods
   using eigen decomposition and AHA, AHB and AHZ are the three methods
-  based on Hotelling’s $T^{2}$ distribution.
+  based on Hotelling’s $`T^2`$ distribution.
 - `q`: the number of parameters in the hypothesis test.
-- `rej_rate`: Type 1 error rate with the value for nominal $\alpha$ set
-  to .05.
+- `rej_rate`: Type 1 error rate with the value for nominal $`\alpha`$
+  set to .05.
 - `mcse`: The Monte Carlo standard error for the Type 1 error rate.
 
 Here is a glimpse of the dataset:
 
 ``` r
+
 glimpse(Tipton_Pusto)
 #> Rows: 15,300
 #> Columns: 8
@@ -103,10 +105,11 @@ glimpse(Tipton_Pusto)
 ### Data Cleaning
 
 Below we clean the dataset for visualization. We add `q =` in front of
-the value for $q$ and we add `m =` in front of the value for the number
-of studies.
+the value for $`q`$ and we add `m =` in front of the value for the
+number of studies.
 
 ``` r
+
 Tipton_Pusto <- Tipton_Pusto %>%
   mutate(q_graph = paste("q = ", q),
          m = paste("m = ", num_studies))
@@ -117,13 +120,14 @@ Tipton_Pusto <- Tipton_Pusto %>%
 Below we graph the Type 1 error rates. The error rate is mapped onto the
 `y axis`, the small sample method is mapped onto the `x axis`, the
 method is also mapped as `color filling` so that different methods will
-have different colors. We add a dashed line on the nominal $\alpha$
+have different colors. We add a dashed line on the nominal $`\alpha`$
 level of .05. We create boxplots to capture the range of Type 1 error
 rates for each method across the conditions examined in the simulation.
 We facet by number of studies, `m`, and number of parameters used in the
 hypothesis test, `q`.
 
 ``` r
+
 Tipton_Pusto %>%
   ggplot(aes(x = test, y = rej_rate, fill = test)) + 
   geom_hline(yintercept = .05, linetype = "dashed") + 
@@ -144,11 +148,11 @@ Here is the write-up of the results from Tipton & Pustejovsky (2015):
 > Figure 2 reveals several trends. First, Type I error for the EDF and
 > EDT tests typically approach the nominal values from above, whereas
 > the AHA, AHB, and AHZ tests approach the nominal values from below.
-> This trend holds in relation to both $m$ and $q$. For example, when
-> there are 20 studies, as $q$ increases, the Type I error rates of the
-> EDF and EDT tests increase to values far above nominal (close to .10),
-> while the error rates decrease toward 0 for the AHA, AHB, and AHZ
-> tests. For each value of $q$, the error rates of all five tests
+> This trend holds in relation to both $`m`$ and $`q`$. For example,
+> when there are 20 studies, as $`q`$ increases, the Type I error rates
+> of the EDF and EDT tests increase to values far above nominal (close
+> to .10), while the error rates decrease toward 0 for the AHA, AHB, and
+> AHZ tests. For each value of $`q`$, the error rates of all five tests
 > converge toward the nominal values as the number of studies increases.
 
 > Second, the EDF and EDT tests have Type I error rates that cover a
@@ -161,9 +165,10 @@ Here is the write-up of the results from Tipton & Pustejovsky (2015):
 > average, they also exhibit error rates that are far above nominal
 > under a large number of design conditions that cannot be identified a
 > priori. In comparison, the AHA, AHB, and AHZ tests are typically more
-> conservative and are also nearly always level-$\alpha$, with a maximum
-> error rate of 0.059 across all conditions studied. In describing
-> further trends, we therefore focus only on the three AH tests.
+> conservative and are also nearly always level-$`\alpha`$, with a
+> maximum error rate of 0.059 across all conditions studied. In
+> describing further trends, we therefore focus only on the three AH
+> tests.
 
 ### Monte Carlo Standard Error
 
@@ -174,6 +179,7 @@ Overall, the maximum MCSEs are small compared to the range of reported
 rejection rates.
 
 ``` r
+
 Tipton_Pusto %>%
   group_by(test) %>%
   summarize(mcse = max(mcse)) %>%
