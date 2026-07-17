@@ -37,6 +37,7 @@ reference:
       - repeat_and_stack
       - bundle_sim
       - evaluate_by_row
+      - factorial_summary
   - title: "Example Datasets"
     desc: "Example datasets from simulation studies"
     contents:
