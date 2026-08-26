@@ -297,7 +297,7 @@ a simulation study, and its MCSE formula.
 | Criterion | Measure | Definition | Estimate | MCSE |
 |:---|:---|:---|:---|:---|
 | Relative Bias | Relative difference from true parameter | $`\text{E}(T) / \theta`$ | $`\bar{T} / \theta`$ | $`\sqrt{S_T^2 / (K\theta^2)}`$ |
-| Relative MSE | Accuracy | $`\text{E}\left[(T - \theta)^2\right]/ \theta^2`$ | $`\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}`$ | $`\sqrt{\frac{1}{K\theta^2}\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\bar{T} - \theta) + 4 S_T^2 (\bar{T} - \theta)^2\right]}`$ |
+| Relative MSE | Accuracy | $`\text{E}\left[(T - \theta)^2\right]/ \theta^2`$ | $`\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}`$ | $`\sqrt{\frac{1}{K\theta^4}\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\bar{T} - \theta) + 4 S_T^2 (\bar{T} - \theta)^2\right]}`$ |
 | Relative RMSE | Accuracy | $`\sqrt{\text{E}\left[(T - \theta)^2\right]/ \theta^2}`$ | $`\sqrt{\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}}`$ | $`\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rRMSE_{(j)} - rRMSE)^2\right)}`$ |
 
 Table 2. Relative Performance Criteria {.table .table .table-striped
