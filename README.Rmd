@@ -84,7 +84,7 @@ Other packages that have similar aims to `simhelpers` include: [MonteCarlo](http
 
 # Acknowledgments
 
-We are grateful for the feedback provided by Danny Gonzalez, [Sangdon Lim](https://sdlim.com/), [Man Chen](https://education.utexas.edu/faculty/man_chen/), and [Edouard Bonneville](https://github.com/edbonneville).
+We are grateful for the feedback provided by Danny Gonzalez, [Sangdon Lim](https://sdlim.com/), [Man Chen](https://education.utexas.edu/faculty/man_chen/), [Edouard Bonneville](https://github.com/edbonneville), and [Felipe Fontana Vieira](https://felipelfv.github.io/).
 
 # References
 
