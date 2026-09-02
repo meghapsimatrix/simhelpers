@@ -24,6 +24,7 @@ Dr. James Pustejovsky’s [Data Analysis, Simulation and Programming in R
 course (Spring, 2019)](https://jepusto.com/teaching/daspir/).
 
 ``` r
+
 library(simhelpers)
 library(dplyr)
 library(tibble)
@@ -50,6 +51,7 @@ the data-generating function. The arguments are any data-generating
 parameters that we would want to vary.
 
 ``` r
+
 generate_dat <- function(model_params) {
 
   return(dat)
@@ -63,6 +65,7 @@ indicating sample size for Group 1, `n2` indicating sample size for
 Group 2, and `mean_diff`, indicating the mean difference.
 
 ``` r
+
 generate_dat <- function(n1, n2, mean_diff){
 
   dat <- tibble(
@@ -81,6 +84,7 @@ works. Below, we generate an example dataset with 10,000 people in each
 group and the `mean_diff` set to 1.
 
 ``` r
+
 set.seed(2020143)
 example_dat <- generate_dat(n1 = 10000, n2= 10000, mean_diff = 1) 
 
@@ -104,6 +108,7 @@ deviation for Group 2 is close to 2. The table matches what we specified
 in the data-generating model.
 
 ``` r
+
 example_dat %>%
   group_by(group) %>%
   summarize(n = n(),
@@ -123,6 +128,7 @@ difference of 1. And, the variances of the outcome scores are different
 for each group as we specified.
 
 ``` r
+
 ggplot(example_dat, aes(x = y, fill = group)) + 
   geom_density(alpha = .5) + 
   labs(x = "Outcome Scores", y = "Density", fill = "Group") + 
@@ -141,6 +147,7 @@ options for how estimation should be carried out (e.g., use HC0 standard
 errors or HC2 standard errors).
 
 ``` r
+
 estimate <- function(dat, design_params) {
 
   return(results)
@@ -163,6 +170,7 @@ lot of extra stuff to handle contingencies that come up with real data
 calculations with simulated data.
 
 ``` r
+
 # t and p value
 calc_t <- function(est, vd, df, method){
 
@@ -211,6 +219,7 @@ Here again, it would be good to check if the function runs as it should.
 Below we run the `estimate()` function on the example dataset:
 
 ``` r
+
 est_res <- 
   estimate(example_dat, n1 = 10000, n2 = 10000) %>%
   mutate_if(is.numeric, round, 5)
@@ -227,6 +236,7 @@ We can compare the results to those from the built-in
 [`t.test()`](https://rdrr.io/r/stats/t.test.html) function:
 
 ``` r
+
 t_res <- 
   bind_rows(
     tidy(t.test(y ~ group, data = example_dat, var.equal = TRUE)), 
@@ -259,6 +269,7 @@ model converged and if it did not converge, the statement outputs `NA`
 values for estimates, p-values etc.
 
 ``` r
+
 estimate <- function(dat, design_parameters){
   
   # write estimation models here
@@ -288,6 +299,7 @@ summary function takes in the results, along with any model parameters,
 and returns a dataset of performance measures.
 
 ``` r
+
 calc_performance <- function(results, model_params) {
 
   return(performance_measures)
@@ -300,6 +312,7 @@ the
 function in the `simhelpers` package to calculate rejection rates.
 
 ``` r
+
 calc_performance <- function(results) {
   
   performance_measures <- results %>%
@@ -320,6 +333,7 @@ step and estimation step. Finally, the function calculates the
 performance measures and returns results for this set of parameters.
 
 ``` r
+
 run_sim <- function(iterations, model_params, design_params, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
 
@@ -336,6 +350,7 @@ run_sim <- function(iterations, model_params, design_params, seed = NULL) {
 Below is the driver for our example simulation study:
 
 ``` r
+
 run_sim <- function(iterations, n1, n2, mean_diff, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
 
@@ -362,6 +377,7 @@ iterations and the seed that will be used when generating data (Wickham
 et al., 2019).
 
 ``` r
+
 set.seed(20150316) # change this seed value!
 
 # now express the simulation parameters as vectors/lists
@@ -389,6 +405,7 @@ within-simulation factor is the t-test method with one assuming equal
 variance and one not assuming equal variance.
 
 ``` r
+
 set.seed(20200110)
 
 # now express the simulation parameters as vectors/lists
@@ -432,6 +449,7 @@ from `purrr` to run the `run_sim()` function on each condition specified
 in `params`.
 
 ``` r
+
 system.time(
   results <- 
     params %>%
@@ -441,7 +459,7 @@ system.time(
     unnest(cols = res)
 )
 #>    user  system elapsed 
-#>   6.184   0.069   6.314
+#>   5.745   0.012   5.760
 
 results %>%
   kable()
@@ -479,6 +497,7 @@ future
 package](https://rstudio.github.io/promises/articles/futures.html).
 
 ``` r
+
 plan(multisession)
 ```
 
@@ -489,6 +508,7 @@ with
 to run the simulation in parallel.
 
 ``` r
+
 library(future)
 library(furrr)
 
@@ -507,6 +527,7 @@ In the `simhelpers` package, we have a function,
 that implements this `furrr` workflow automatically:
 
 ``` r
+
 plan(multisession)
 results <- evaluate_by_row(params, run_sim)
 ```
@@ -520,6 +541,7 @@ with an outline or skeleton of functions needed to run a simulation
 study.
 
 ``` r
+
 create_skeleton()
 ```
 

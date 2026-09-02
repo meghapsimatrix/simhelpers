@@ -14,13 +14,13 @@ Source:
 [`DESCRIPTION`](https://github.com/meghapsimatrix/simhelpers/blob/HEAD/DESCRIPTION)
 
 Joshi M, Pustejovsky J (2026). *simhelpers: Helper Functions for
-Simulation Studies*. R package version 0.3.1.9999,
+Simulation Studies*. R package version 0.3.1.99991,
 <https://meghapsimatrix.github.io/simhelpers/>.
 
     @Manual{,
       title = {simhelpers: Helper Functions for Simulation Studies},
       author = {Megha Joshi and James Pustejovsky},
       year = {2026},
-      note = {R package version 0.3.1.9999},
+      note = {R package version 0.3.1.99991},
       url = {https://meghapsimatrix.github.io/simhelpers/},
     }

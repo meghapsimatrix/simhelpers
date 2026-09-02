@@ -87,8 +87,8 @@ than the original statistic.
 
 ## References
 
-Davison, A.C. and Hinkley, D.V. (1997). \_Bootstrap Methods and Their
-Application\_, Chapter 4. Cambridge University Press.
+Davison, A.C. and Hinkley, D.V. (1997). *Bootstrap Methods and Their
+Application*, Chapter 4. Cambridge University Press.
 
 ## Examples
 
@@ -113,7 +113,7 @@ booties <- replicate(399, {
 # calculate bootstrap p-values from full set of bootstrap replicates
 bootstrap_pvals(boot_stat = booties, stat = stat)
 #>   bootstraps      pval
-#> 1        399 0.6917293
+#> 1        399 0.5814536
 
 # calculate multiple bootstrap p-values using sub-sampling of replicates
 bootstrap_pvals(
@@ -122,7 +122,7 @@ bootstrap_pvals(
   reps = 4L
 )
 #>   bootstraps                                       pval
-#> 1        199 0.7085427, 0.7035176, 0.6633166, 0.6783920
+#> 1        199 0.5628141, 0.6030151, 0.5728643, 0.5929648
 
 # calculate multiple bootstrap p-values using sub-sampling of replicates,
 # for each of several sub-sample sizes.
@@ -132,7 +132,7 @@ bootstrap_pvals(
   reps = 4L
 )
 #>   bootstraps                                       pval
-#> 1         49 0.6530612, 0.7551020, 0.6938776, 0.6734694
-#> 2         99 0.6868687, 0.6363636, 0.6666667, 0.7070707
-#> 3        199 0.6884422, 0.6884422, 0.6633166, 0.7286432
+#> 1         49 0.5510204, 0.5306122, 0.5714286, 0.5918367
+#> 2         99 0.6161616, 0.6767677, 0.6161616, 0.6262626
+#> 3        199 0.5427136, 0.5477387, 0.5628141, 0.5728643
 ```

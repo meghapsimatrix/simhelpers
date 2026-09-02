@@ -62,6 +62,7 @@ Specifically, the dataset contains results to replicate Figure 2 from
 the article.
 
 ``` r
+
 library(simhelpers)
 library(ggplot2)
 library(dplyr)
@@ -87,6 +88,7 @@ The dataset contains:
 Here is a glimpse of the dataset:
 
 ``` r
+
 glimpse(Tipton_Pusto)
 #> Rows: 15,300
 #> Columns: 8
@@ -107,6 +109,7 @@ the value for $`q`$ and we add `m =` in front of the value for the
 number of studies.
 
 ``` r
+
 Tipton_Pusto <- Tipton_Pusto %>%
   mutate(q_graph = paste("q = ", q),
          m = paste("m = ", num_studies))
@@ -124,6 +127,7 @@ We facet by number of studies, `m`, and number of parameters used in the
 hypothesis test, `q`.
 
 ``` r
+
 Tipton_Pusto %>%
   ggplot(aes(x = test, y = rej_rate, fill = test)) + 
   geom_hline(yintercept = .05, linetype = "dashed") + 
@@ -175,6 +179,7 @@ Overall, the maximum MCSEs are small compared to the range of reported
 rejection rates.
 
 ``` r
+
 Tipton_Pusto %>%
   group_by(test) %>%
   summarize(mcse = max(mcse)) %>%

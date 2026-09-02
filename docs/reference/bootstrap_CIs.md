@@ -115,8 +115,8 @@ package.
 
 ## References
 
-Davison, A.C. and Hinkley, D.V. (1997). \_Bootstrap Methods and Their
-Application\_, Chapter 5. Cambridge University Press.
+Davison, A.C. and Hinkley, D.V. (1997). *Bootstrap Methods and Their
+Application*, Chapter 5. Cambridge University Press.
 
 ## Examples
 
@@ -152,11 +152,11 @@ bootstrap_CIs(
   format = "long"
 )
 #>   bootstraps           type    lower    upper
-#> 1        399         normal 2.028844 2.816268
-#> 2        399          basic 2.040644 2.818643
-#> 3        399        student 2.033162 2.870852
-#> 4        399     percentile 2.022576 2.800575
-#> 5        399 bias-corrected 2.022576 2.797262
+#> 1        399         normal 1.956827 2.713912
+#> 2        399          basic 1.932965 2.698004
+#> 3        399        student 1.916762 2.720168
+#> 4        399     percentile 1.969730 2.734769
+#> 5        399 bias-corrected 1.980209 2.737876
 
 # Calculate bias-corrected-and-accelerated CIs
 inf_vals <- res[1] - sapply(seq_along(dat), \(i) f(dat[-i])[1])
@@ -168,9 +168,9 @@ bootstrap_CIs(
   format = "long"
 )
 #>   bootstraps           type    lower    upper
-#> 1        399     percentile 2.022576 2.800575
-#> 2        399 bias-corrected 2.022576 2.797262
-#> 3        399            BCa 2.022576 2.797262
+#> 1        399     percentile 1.969730 2.734769
+#> 2        399 bias-corrected 1.980209 2.737876
+#> 3        399            BCa 1.980209 2.737876
 
 # calculate multiple bootstrap CIs using sub-sampling of replicates
 bootstrap_CIs(
@@ -184,26 +184,26 @@ bootstrap_CIs(
   format = "long"
 )
 #>    bootstraps           type    lower    upper
-#> 1         199         normal 2.031996 2.859805
-#> 2         199          basic 2.044270 2.875748
-#> 3         199        student 2.057285 2.957861
-#> 4         199     percentile 1.965472 2.796949
-#> 5         199 bias-corrected 2.001888 2.804617
-#> 6         199         normal 2.021828 2.873832
-#> 7         199          basic 1.999816 2.839331
-#> 8         199        student 1.976411 2.885610
-#> 9         199     percentile 2.001888 2.841403
-#> 10        199 bias-corrected 2.051460 2.930256
-#> 11        199         normal 2.001092 2.838692
-#> 12        199          basic 2.044270 2.874536
-#> 13        199        student 2.035858 2.948230
-#> 14        199     percentile 1.966683 2.796949
-#> 15        199 bias-corrected 1.966683 2.793398
-#> 16        199         normal 2.016251 2.780760
-#> 17        199          basic 2.043957 2.790233
-#> 18        199        student 2.028818 2.876856
-#> 19        199     percentile 2.050987 2.797262
-#> 20        199 bias-corrected 2.001888 2.774727
+#> 1         199         normal 1.980454 2.694244
+#> 2         199          basic 1.950599 2.698004
+#> 3         199        student 1.943938 2.704483
+#> 4         199     percentile 1.969730 2.717136
+#> 5         199 bias-corrected 1.980209 2.717136
+#> 6         199         normal 1.971123 2.694702
+#> 7         199          basic 1.962497 2.691840
+#> 8         199        student 1.948314 2.704483
+#> 9         199     percentile 1.975895 2.705237
+#> 10        199 bias-corrected 2.002991 2.760457
+#> 11        199         normal 1.947918 2.691788
+#> 12        199          basic 1.920147 2.691840
+#> 13        199        student 1.915225 2.720168
+#> 14        199     percentile 1.975895 2.747588
+#> 15        199 bias-corrected 1.961454 2.705237
+#> 16        199         normal 1.940259 2.719847
+#> 17        199          basic 1.920147 2.691840
+#> 18        199        student 1.916762 2.704623
+#> 19        199     percentile 1.975895 2.747588
+#> 20        199 bias-corrected 1.961454 2.661461
 
 # calculate multiple bootstrap CIs using sub-sampling of replicates,
 # for each of several sub-sample sizes.
@@ -218,52 +218,52 @@ bootstrap_CIs(
   format = "long"
 )
 #>    bootstraps       type    lower    upper
-#> 1          49     normal 2.000343 2.877043
-#> 2          49      basic 2.036602 2.874536
-#> 3          49    student 2.033162 2.948230
-#> 4          49 percentile 1.966683 2.804617
-#> 5          49     normal 2.031352 2.905860
-#> 6          49      basic 2.043957 2.791094
-#> 7          49    student 2.074542 2.823714
-#> 8          49 percentile 2.050126 2.797262
-#> 9          49     normal 2.020648 2.720565
-#> 10         49      basic 2.050924 2.729620
-#> 11         49    student 2.085570 2.699863
-#> 12         49 percentile 2.111599 2.790295
-#> 13         49     normal 2.043214 2.886938
-#> 14         49      basic 2.138788 2.874536
-#> 15         49    student 2.140775 2.885610
-#> 16         49 percentile 1.966683 2.702431
-#> 17         99     normal 2.067627 2.853661
-#> 18         99      basic 2.047821 2.791094
-#> 19         99    student 2.035858 2.846810
-#> 20         99 percentile 2.050126 2.793398
-#> 21         99     normal 2.002904 2.856506
-#> 22         99      basic 2.031207 2.839331
-#> 23         99    student 2.008973 2.957861
-#> 24         99 percentile 2.001888 2.810012
-#> 25         99     normal 2.032474 2.777077
-#> 26         99      basic 2.072614 2.791663
-#> 27         99    student 2.096600 2.948230
-#> 28         99 percentile 2.049556 2.768605
-#> 29         99     normal 2.008817 2.809936
-#> 30         99      basic 1.969681 2.789759
-#> 31         99    student 1.950793 2.876856
-#> 32         99 percentile 2.051460 2.871538
-#> 33        199     normal 2.018971 2.826070
-#> 34        199      basic 2.044270 2.875748
-#> 35        199    student 2.057285 2.885610
-#> 36        199 percentile 1.965472 2.796949
-#> 37        199     normal 2.026626 2.833965
-#> 38        199      basic 2.036602 2.874536
-#> 39        199    student 2.033162 2.915899
-#> 40        199 percentile 1.966683 2.804617
-#> 41        199     normal 2.021649 2.799257
-#> 42        199      basic 2.040644 2.791094
-#> 43        199    student 2.008973 2.866753
-#> 44        199 percentile 2.050126 2.800575
-#> 45        199     normal 2.023718 2.828731
-#> 46        199      basic 2.040644 2.839331
-#> 47        199    student 2.033162 2.885610
-#> 48        199 percentile 2.001888 2.800575
+#> 1          49     normal 1.954279 2.756996
+#> 2          49      basic 2.004221 2.686558
+#> 3          49    student 1.987738 2.701393
+#> 4          49 percentile 1.981176 2.663513
+#> 5          49     normal 1.940103 2.700159
+#> 6          49      basic 1.901757 2.641634
+#> 7          49    student 1.901939 2.672398
+#> 8          49 percentile 2.026100 2.765978
+#> 9          49     normal 2.009940 2.709993
+#> 10         49      basic 2.016382 2.664743
+#> 11         49    student 2.023731 2.704483
+#> 12         49 percentile 2.002991 2.651352
+#> 13         49     normal 2.005915 2.723204
+#> 14         49      basic 2.109050 2.691840
+#> 15         49    student 2.101210 2.720485
+#> 16         49 percentile 1.975895 2.558685
+#> 17         99     normal 1.943855 2.668960
+#> 18         99      basic 1.907278 2.654617
+#> 19         99    student 1.901939 2.650926
+#> 20         99 percentile 2.013117 2.760457
+#> 21         99     normal 1.959127 2.709051
+#> 22         99      basic 1.907278 2.686846
+#> 23         99    student 1.926578 2.720168
+#> 24         99 percentile 1.980888 2.760457
+#> 25         99     normal 1.995844 2.670863
+#> 26         99      basic 1.993127 2.655265
+#> 27         99    student 1.982072 2.704483
+#> 28         99 percentile 2.012469 2.674607
+#> 29         99     normal 1.965503 2.729939
+#> 30         99      basic 1.920147 2.746083
+#> 31         99    student 1.900402 2.756335
+#> 32         99 percentile 1.921651 2.747588
+#> 33        199     normal 1.954786 2.688914
+#> 34        199      basic 1.932965 2.686846
+#> 35        199    student 1.926578 2.720168
+#> 36        199 percentile 1.980888 2.734769
+#> 37        199     normal 1.956729 2.736172
+#> 38        199      basic 1.947668 2.746083
+#> 39        199    student 1.929162 2.757393
+#> 40        199 percentile 1.921651 2.720066
+#> 41        199     normal 1.953180 2.728824
+#> 42        199      basic 1.920147 2.720873
+#> 43        199    student 1.916762 2.749270
+#> 44        199 percentile 1.946861 2.747588
+#> 45        199     normal 1.963244 2.708885
+#> 46        199      basic 1.920147 2.691840
+#> 47        199    student 1.901939 2.694993
+#> 48        199 percentile 1.975895 2.747588
 ```

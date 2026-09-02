@@ -64,15 +64,14 @@ bundle_sim(
 - id:
 
   Character string to use for creating a variable with a unique
-  identifier for each repetition of \`f_generate\` and \`f_analyze\`. If
-  set to `NULL` (the default), then no identifier is created. Passed to
+  identifier for each repetition of `f_generate` and `f_analyze`. If set
+  to `NULL` (the default), then no identifier is created. Passed to
   [`repeat_and_stack()`](https://meghapsimatrix.github.io/simhelpers/reference/repeat_and_stack.md).
 
 ## Value
 
-A function to repeatedly run the \`f_generate\` and \`f_analyze\`
-functions and (optionally) apply \`f_summarize\` to the resulting
-replications.
+A function to repeatedly run the `f_generate` and `f_analyze` functions
+and (optionally) apply `f_summarize` to the resulting replications.
 
 ## Examples
 
@@ -97,10 +96,10 @@ args(sim1)
 res1 <- sim1(4, n = 70, mean = 0.5, sd = 1, trim = 0.2)
 res1
 #>       y_bar
-#> 1 0.4078913
-#> 2 0.5657640
-#> 3 0.5072222
-#> 4 0.5389756
+#> 1 0.3954867
+#> 2 0.5896246
+#> 3 0.4981808
+#> 4 0.5561051
 
 # bundle data-generation, data-analysis, and performance summary functions
 sim2 <- bundle_sim(f_generate = f_G, f_analyze = f_A, f_summarize = f_S)
@@ -111,7 +110,7 @@ args(sim2)
 res2 <- sim2(24, n = 7, mean = 0, sd = 1, trim = 0.2, calc_sd = TRUE)
 res2
 #>                M        SD
-#> y_bar 0.07659681 0.3404206
+#> y_bar 0.07785864 0.2920709
 
 # bundle data-generation and data-analysis functions, returning results as a list
 sim3 <- bundle_sim(f_generate = f_G, f_analyze = f_A, stack_reps = FALSE)
@@ -122,18 +121,18 @@ res3 <- sim3(4, n = 70, mean = 0.5, sd = 3, trim = 0.2)
 res3
 #> [[1]]
 #>      y_bar
-#> 1 1.492354
+#> 1 1.414733
 #> 
 #> [[2]]
 #>        y_bar
 #> 1 0.04252261
 #> 
 #> [[3]]
-#>       y_bar
-#> 1 0.7034902
+#>      y_bar
+#> 1 0.715582
 #> 
 #> [[4]]
 #>       y_bar
-#> 1 0.5501354
+#> 1 0.5963618
 #> 
 ```

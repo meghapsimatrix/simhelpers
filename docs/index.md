@@ -57,12 +57,14 @@ datasets containing results from example simulation studies.
 Install the latest release from CRAN:
 
 ``` r
+
 install.packages("simhelpers")
 ```
 
 Install the development version from [GitHub](https://github.com/):
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("meghapsimatrix/simhelpers")
 ```
@@ -78,6 +80,7 @@ heteroskedasticity-robust Welch t-test to the usual two-sample t-test
 assuming equal variances.
 
 ``` r
+
 library(simhelpers)
 library(dplyr)
 
@@ -108,11 +111,16 @@ returns a `tibble` containing absolute performance criteria and their
 corresponding MCSE.
 
 ``` r
+
 welch_res %>%
   group_by(method, n1, n2, mean_diff) %>% # grouping 
   summarize(calc_absolute(estimates = est, true_param = mean_diff)) 
-#> `summarise()` has grouped output by 'method', 'n1', 'n2'. You can override
-#> using the `.groups` argument.
+#> `summarise()` has regrouped the output.
+#> ℹ Summaries were computed grouped by method, n1, n2, and mean_diff.
+#> ℹ Output is grouped by method, n1, and n2.
+#> ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+#> ℹ Use `summarise(.by = c(method, n1, n2, mean_diff))` for per-operation
+#>   grouping (`?dplyr::dplyr_by`) instead.
 #> # A tibble: 16 × 15
 #> # Groups:   method, n1, n2 [4]
 #>    method       n1    n2 mean_diff K_absolute     bias bias_mcse    var var_mcse
@@ -208,8 +216,9 @@ Other packages that have similar aims to `simhelpers` include:
 
 We are grateful for the feedback provided by Danny Gonzalez, [Sangdon
 Lim](https://sdlim.com/), [Man
-Chen](https://education.utexas.edu/faculty/man_chen/), and [Edouard
-Bonneville](https://github.com/edbonneville).
+Chen](https://education.utexas.edu/faculty/man_chen/), [Edouard
+Bonneville](https://github.com/edbonneville), and [Felipe Fontana
+Vieira](https://felipelfv.github.io/).
 
 # References
 

@@ -80,7 +80,8 @@ performance measure.
 | MSE | Accuracy | $`\text{E}\left[(T - \theta)^2\right]`$ | $`\frac{1}{K}\sum_{k=1}^{K}\left(T_k - \theta\right)^2`$ | $`\sqrt{\frac{1}{K}\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\bar{T} - \theta) + 4 S_T^2 (\bar{T} - \theta)^2\right]}`$ |
 | RMSE | Accuracy | $`\sqrt{\text{E}\left[(T - \theta)^2\right]}`$ | $`\sqrt{\frac{1}{K}\sum_{k=1}^{K}\left(T_k - \theta\right)^2}`$ | $`\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(RMSE_{(j)} - RMSE\right)^2}`$ |
 
-Table 1. Absolute Performance Criteria
+Table 1. Absolute Performance Criteria {.table .table .table-striped
+.table-hover style="margin-left: auto; margin-right: auto;"}
 
 The equation for the MCSE of the standard deviation is derived using the
 jack-knife technique (Efron & Stein, 1981). First we calculate variance
@@ -155,6 +156,7 @@ estimates (mean differences), variances of the estimates, p-values, and
 the lower and upper bounds of the confidence intervals.
 
 ``` r
+
 library(simhelpers)
 library(dplyr)
 library(tibble)
@@ -222,6 +224,7 @@ the number of iterations, `K`, which will exclude iterations with `NA`
 values for estimates. Note that `K` may differ by condition.
 
 ``` r
+
 # using do()
 welch_res %>%
   filter(method == "t-test") %>% # filter just conventional t-test res
@@ -242,6 +245,7 @@ welch_res %>%
 | 50 | 70 | 2.0 | 1000 | -0.00079 | 0.00883 | 0.07805 | 0.00345 | 0.27938 | 0.00619 | 0.07798 | 0.00345 | 0.27924 | 0.00760 |
 
 ``` r
+
 # using group_modify()
 welch_res %>%
   filter(method == "t-test") %>% # filter just conventional t-test res
@@ -293,10 +297,11 @@ a simulation study, and its MCSE formula.
 | Criterion | Measure | Definition | Estimate | MCSE |
 |:---|:---|:---|:---|:---|
 | Relative Bias | Relative difference from true parameter | $`\text{E}(T) / \theta`$ | $`\bar{T} / \theta`$ | $`\sqrt{S_T^2 / (K\theta^2)}`$ |
-| Relative MSE | Accuracy | $`\text{E}\left[(T - \theta)^2\right]/ \theta^2`$ | $`\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}`$ | $`\sqrt{\frac{1}{K\theta^2}\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\bar{T} - \theta) + 4 S_T^2 (\bar{T} - \theta)^2\right]}`$ |
+| Relative MSE | Accuracy | $`\text{E}\left[(T - \theta)^2\right]/ \theta^2`$ | $`\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}`$ | $`\sqrt{\frac{1}{K\theta^4}\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\bar{T} - \theta) + 4 S_T^2 (\bar{T} - \theta)^2\right]}`$ |
 | Relative RMSE | Accuracy | $`\sqrt{\text{E}\left[(T - \theta)^2\right]/ \theta^2}`$ | $`\sqrt{\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}}`$ | $`\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rRMSE_{(j)} - rRMSE)^2\right)}`$ |
 
-Table 2. Relative Performance Criteria
+Table 2. Relative Performance Criteria {.table .table .table-striped
+.table-hover style="margin-left: auto; margin-right: auto;"}
 
 #### Example
 
@@ -312,6 +317,7 @@ to evaluate:
 `perfm_criteria = c("relative bias", "relative mse", "relative rmse")`.
 
 ``` r
+
 # using group_modify()
 welch_res %>%
   filter(method == "t-test") %>%
@@ -355,13 +361,11 @@ $`\bar{V}_{(j)}/ S_{T(j)}^2`$. The Monte Carlo standard error can then
 be calculated as:
 
 ``` math
-
 MCSE\left(rB\right) = \sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rB_{(j)} - rB\right)^2}
 ```
 which can be written as:
 
 ``` math
-
 MCSE\left(rB\right) = \sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(\frac{\bar{V}_{(j)}}{S_{T(j)}^2} - \frac{\bar{V}}{S_T^2}\right)^2}
 ```
 
@@ -369,7 +373,6 @@ We reformulate the MCSE using some algebra tricks similar to how we
 reformulated them for the RMSE MCSE formulas above.
 
 ``` math
-
 \begin{aligned}
 \bar{V}_{(j)} &= \frac{1}{K - 1}\left(K \bar{V} - V_j\right) \\
 S_{T(j)}^2 &= \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]
@@ -397,7 +400,9 @@ estimators.
 | Relative MSE | Accuracy | $`\text{E}\left[(V - \lambda)^2\right]/ \lambda^2`$ | $`\frac{(\bar{V} - S_T^2)^2 + S_V^2}{S_T^4}`$ | $`\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rMSE_{(j)} - rMSE\right)^2}`$ |
 | Relative RMSE | Accuracy | $`\sqrt{\text{E}\left[(V - \lambda)^2\right]/ \lambda^2}`$ | $`\sqrt{\frac{(\bar{V} - S_T^2)^2 + S_V^2}{S_T^4}}`$ | $`\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rRMSE_{(j)} - rRMSE\right)^2}`$ |
 
-Table 3. Relative Performance Criteria for Variance Estimators
+Table 3. Relative Performance Criteria for Variance Estimators {.table
+.table .table-striped .table-hover
+style="margin-left: auto; margin-right: auto;"}
 
 The function
 [`calc_relative_var()`](https://meghapsimatrix.github.io/simhelpers/reference/calc_relative_var.md)
@@ -429,6 +434,7 @@ MCSE.
 #### Example
 
 ``` r
+
 welch_res %>%
   group_by(n1, n2, mean_diff, method) %>%
   group_modify(~ calc_relative_var(.x, estimates = est, var_estimates = var)) %>%
@@ -483,7 +489,8 @@ $`k`$, and let $`W_k = B_k − A_k`$, for $`k = 1,...,K`$.
 | Width | Precision | $`\text{E}(W) = \text{E}(B - A)`$ | $`\bar{W} = \bar{B} - \bar{A}`$ | $`\sqrt{S_W^2 / K}`$ |
 
 Table 4. Hypothesis Testing and Confidence Intervals Performance
-Criteria
+Criteria {.table .table .table-striped .table-hover
+style="margin-left: auto; margin-right: auto;"}
 
 #### Example
 
@@ -498,6 +505,7 @@ lets the user specify a value for $`\alpha`$. The default value is set
 to the conventional 0.05.
 
 ``` r
+
 # using group_modify()
 welch_res %>%
   group_by(n1, n2, mean_diff, method) %>%
@@ -542,6 +550,7 @@ also has an argument, `perfm_criteria`, where the user can specify which
 criteria to evaluate: `perfm_criteria = c("coverage", "width")`.
 
 ``` r
+
 # using group_modify()
 welch_res %>%
   mutate(params = mean_diff) %>%

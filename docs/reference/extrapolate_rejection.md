@@ -84,6 +84,7 @@ hypothesis tests.” *Journal of the American Statistical Association*,
 ## Examples
 
 ``` r
+
 # function to generate data from two distinct populations
 dgp <- function(N_A, N_B, shape_A, scale_A, shape_B, scale_B) {
   data.frame(

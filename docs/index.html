@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Helper Functions for Simulation Studies • simhelpers</title>
 <script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Helper Functions for Simulation Studies">
 <meta name="description" content="Calculates performance criteria measures and associated Monte Carlo standard errors for simulation results. Includes functions to help run simulation studies, following a general simulation workflow that closely aligns with the approach described by Morris, White, and Crowther (2019) &lt;DOI:10.1002/sim.8086&gt;. Also includes functions for calculating bootstrap confidence intervals (including normal, basic, studentized, percentile, bias-corrected, and bias-corrected-and-accelerated) with tidy output, as well as for extrapolating confidence interval coverage rates and hypothesis test rejection rates following techniques suggested by Boos and Zhang (2000) &lt;DOI:10.1080/01621459.2000.10474226&gt;.">
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">simhelpers</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.9999</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.99991</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,7 +82,7 @@
 <p>Install the development version from <a href="https://github.com/" class="external-link">GitHub</a>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"meghapsimatrix/simhelpers"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/install-deprecated.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"meghapsimatrix/simhelpers"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
@@ -111,8 +111,12 @@
 <code class="sourceCode R"><span><span class="va">welch_res</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">method</span>, <span class="va">n1</span>, <span class="va">n2</span>, <span class="va">mean_diff</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># grouping </span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span><span class="fu"><a href="reference/calc_absolute.html">calc_absolute</a></span><span class="op">(</span>estimates <span class="op">=</span> <span class="va">est</span>, true_param <span class="op">=</span> <span class="va">mean_diff</span><span class="op">)</span><span class="op">)</span> </span>
-<span><span class="co">#&gt; `summarise()` has grouped output by 'method', 'n1', 'n2'. You can override</span></span>
-<span><span class="co">#&gt; using the `.groups` argument.</span></span>
+<span><span class="co">#&gt; `summarise()` has regrouped the output.</span></span>
+<span><span class="co">#&gt; ℹ Summaries were computed grouped by method, n1, n2, and mean_diff.</span></span>
+<span><span class="co">#&gt; ℹ Output is grouped by method, n1, and n2.</span></span>
+<span><span class="co">#&gt; ℹ Use `summarise(.groups = "drop_last")` to silence this message.</span></span>
+<span><span class="co">#&gt; ℹ Use `summarise(.by = c(method, n1, n2, mean_diff))` for per-operation</span></span>
+<span><span class="co">#&gt;   grouping (`?dplyr::dplyr_by`) instead.</span></span>
 <span><span class="co">#&gt; # A tibble: 16 × 15</span></span>
 <span><span class="co">#&gt; # Groups:   method, n1, n2 [4]</span></span>
 <span><span class="co">#&gt;    method       n1    n2 mean_diff K_absolute     bias bias_mcse    var var_mcse</span></span>
@@ -150,7 +154,7 @@
 <div class="section level1">
 <h1 id="acknowledgments">Acknowledgments<a class="anchor" aria-label="anchor" href="#acknowledgments"></a>
 </h1>
-<p>We are grateful for the feedback provided by Danny Gonzalez, <a href="https://sdlim.com/" class="external-link">Sangdon Lim</a>, <a href="https://education.utexas.edu/faculty/man_chen/" class="external-link">Man Chen</a>, and <a href="https://github.com/edbonneville" class="external-link">Edouard Bonneville</a>.</p>
+<p>We are grateful for the feedback provided by Danny Gonzalez, <a href="https://sdlim.com/" class="external-link">Sangdon Lim</a>, <a href="https://education.utexas.edu/faculty/man_chen/" class="external-link">Man Chen</a>, <a href="https://github.com/edbonneville" class="external-link">Edouard Bonneville</a>, and <a href="https://felipelfv.github.io/" class="external-link">Felipe Fontana Vieira</a>.</p>
 </div>
 <div class="section level1">
 <h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
@@ -219,7 +223,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>
