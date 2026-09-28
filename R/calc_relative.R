@@ -52,7 +52,7 @@ calc_relative <- function(
 
   if ("relative bias" %in% criteria) {
     dat$rel_bias <- ifelse(true_param == 0, NA_real_, 1 + abs_dat$bias / true_param)
-    dat$rel_bias_mcse <- ifelse(true_param == 0, NA_real_, abs_dat$bias_mcse / true_param)
+    dat$rel_bias_mcse <- ifelse(true_param == 0, NA_real_, abs_dat$bias_mcse / abs(true_param))
   }
 
   if ("relative mse" %in% criteria) {
@@ -61,8 +61,8 @@ calc_relative <- function(
   }
 
   if ("relative rmse" %in% criteria) {
-    dat$rel_rmse <- ifelse(true_param == 0, NA_real_, abs_dat$rmse / true_param)
-    dat$rel_rmse_mcse <- ifelse(true_param == 0, NA_real_, abs_dat$rmse_mcse / true_param)
+    dat$rel_rmse <- ifelse(true_param == 0, NA_real_, abs_dat$rmse / abs(true_param))
+    dat$rel_rmse_mcse <- ifelse(true_param == 0, NA_real_, abs_dat$rmse_mcse / abs(true_param))
   }
 
   return(dat)
