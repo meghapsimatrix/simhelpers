@@ -17,10 +17,10 @@ var_t <- var(dat$x)
 k_t <- (1/(K * s_t^4)) * sum((dat$x - mean(dat$x))^4)
 g_t <- (1/(K * s_t^3)) * sum((dat$x - mean(dat$x))^3)
 
-t_bar_j <- (1/(K - 1)) * (K * t_bar - dat$x)
-s_sq_t_j <- (1/(K - 2)) * ((K - 1) * var(dat$x) - (K/(K - 1)) * (dat$x - t_bar)^2)
+t_bar_j <- (K * t_bar - dat$x) / (K - 1)
+s_sq_t_j <- ((K - 1) * s_t^2 - (dat$x - t_bar)^2 * K / (K - 1)) / (K - 2)
 rmse <- sqrt(mean((dat$x - t_p)^2))
-rmse_j <- sqrt((t_bar_j - t_p)^2 + s_sq_t_j)
+rmse_j <- sqrt((t_bar_j - t_p)^2 + s_sq_t_j * (K - 2) / (K - 1))
 
 rel_rmse <- rmse / t_p
 rel_rmse_j <- rmse_j / t_p
