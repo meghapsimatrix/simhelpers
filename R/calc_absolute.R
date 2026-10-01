@@ -67,7 +67,7 @@ calc_absolute <- function(
   bias_j_sq <- (t_bar_j - true_param)^2 # jacknife bias
   s_sq_t_j <- ((K - 1) * s_t^2 - (estimates - t_bar)^2 * K / (K - 1)) / (K - 2) # jacknife var
 
-  rmse_j <- sqrt(bias_j_sq + s_sq_t_j) # jacknife rmse
+  rmse_j <- sqrt(bias_j_sq + s_sq_t_j * (K - 2) / (K - 1)) # jacknife rmse
 
   # initialize tibble
   dat <- tibble::tibble(K_absolute = K)
