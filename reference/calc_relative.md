@@ -58,6 +58,6 @@ calc_relative(data = t_res, estimates = est, true_param = true_param)
 #> # A tibble: 1 × 7
 #>   K_relative rel_bias rel_bias_mcse rel_mse rel_mse_mcse rel_rmse rel_rmse_mcse
 #>        <int>    <dbl>         <dbl>   <dbl>        <dbl>    <dbl>         <dbl>
-#> 1       1000     1.00        0.0128   0.163      0.00733    0.403        0.0111
+#> 1       1000     1.00        0.0128   0.163      0.00733    0.403       0.00910
 
 ```
