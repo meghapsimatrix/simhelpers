@@ -39,10 +39,10 @@ g_t <- (1/(K_abs * s_t^3)) * sum((dat_abs$x - mean(dat_abs$x))^3)
 
 g_t <- (1/(K_abs * s_t^3)) * sum((dat_abs$x - mean(dat_abs$x))^3)
 
-t_bar_j <- (1/(K_abs - 1)) * (K_abs * t_bar - dat_abs$x)
-s_sq_t_j <- (1/(K_abs - 2)) * ((K_abs - 1) * var(dat_abs$x, na.rm = TRUE) - (K_abs/(K_abs - 1)) * (dat_abs$x - t_bar)^2)
+t_bar_j <- (K_abs * t_bar - dat_abs$x) / (K_abs - 1)
+s_sq_t_j <- ((K_abs - 1) * s_t^2 - (dat_abs$x - t_bar)^2 * K_abs / (K_abs - 1)) / (K_abs - 2)
 rmse <- sqrt(mean((dat_abs$x - t_p)^2))
-rmse_j <- sqrt((t_bar_j - t_p)^2 + s_sq_t_j)
+rmse_j <- sqrt((t_bar_j - t_p)^2 + s_sq_t_j * (K_abs - 2) / (K_abs - 1))
 
 rel_rmse <- rmse / t_p
 rel_rmse_j <- rmse_j / t_p
