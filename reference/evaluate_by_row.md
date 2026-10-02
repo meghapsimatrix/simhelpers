@@ -93,7 +93,7 @@ df <- data.frame(
 evaluate_by_row(df, rpois)
 #> Evaluating rpois() using the following variables: n, lambda
 #>    user  system elapsed 
-#>    0.06    0.00    0.06 
+#>   0.062   0.001   0.063 
 #> # A tibble: 12 × 3
 #>        n lambda .results
 #>    <int>  <dbl>    <int>
