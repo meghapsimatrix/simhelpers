@@ -54,18 +54,18 @@ estimator is from the true parameter. Absolute criteria are in the same
 scale as the estimate. MSE is in squared deviation scale and RMSE is in
 the scale of the estimates.
 
-Let $`T`$ denote an estimator for a parameter $`\theta`$. By running a
-simulation study, we obtain $`K`$ estimates $`T_1,...,T_K`$ (or
-realizations of the estimator) for each data generating condition. We
-can calculate the following sample statistics for the estimates:
+Let T denote an estimator for a parameter \theta. By running a
+simulation study, we obtain K estimates T_1,...,T_K (or realizations of
+the estimator) for each data generating condition. We can calculate the
+following sample statistics for the estimates:
 
-- Sample mean: $`\bar{T} = \frac{1}{K}\sum_{k=1}^K T_k`$
-- Sample variance:
-  $`S_T^2 = \frac{1}{K - 1}\sum_{k=1}^K \left(T_k - \bar{T}\right)^2`$
-- Sample skewness (standardized):
-  $`g_T = \frac{1}{K S_T^3}\sum_{k=1}^K \left(T_k - \bar{T}\right)^3`$
-- Sample kurtosis (standardized):
-  $`k_T = \frac{1}{K S_T^4} \sum_{k=1}^K \left(T_k - \bar{T}\right)^4`$
+- Sample mean: \bar{T} = \frac{1}{K}\sum\_{k=1}^K T_k
+- Sample variance: S_T^2 = \frac{1}{K - 1}\sum\_{k=1}^K \left(T_k -
+  \bar{T}\right)^2
+- Sample skewness (standardized): g_T = \frac{1}{K S_T^3}\sum\_{k=1}^K
+  \left(T_k - \bar{T}\right)^3
+- Sample kurtosis (standardized): k_T = \frac{1}{K S_T^4} \sum\_{k=1}^K
+  \left(T_k - \bar{T}\right)^4
 
 Table 1 below shows each of the performance criteria, its
 interpretation, its formal definition, how the criterion is estimated in
@@ -74,68 +74,55 @@ performance measure.
 
 | Criterion | Measure | Definition | Estimate | MCSE |
 |:---|:---|:---|:---|:---|
-| Bias | Difference from true parameter | $`\text{E}(T) - \theta`$ | $`\bar{T} - \theta`$ | $`\sqrt{S_T^2/ K}`$ |
-| Variance | Precision | $`\text{E}\left[(T - \text{E}(T))^2\right]`$ | $`S_T^2`$ | $`S_T^2 \sqrt{\frac{k_T - 1}{K}}`$ |
-| Standard Error | Precision | $`\sqrt{\text{E}\left[(T - \text{E}(T))^2\right]}`$ | $`S_T`$ | $`\sqrt{\frac{K - 1}{K} \sum_{j=1}^K (\sqrt{S_{T(j)}^2} - S_T)^2 }`$ |
-| MSE | Accuracy | $`\text{E}\left[(T - \theta)^2\right]`$ | $`\frac{1}{K}\sum_{k=1}^{K}\left(T_k - \theta\right)^2`$ | $`\sqrt{\frac{1}{K}\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\bar{T} - \theta) + 4 S_T^2 (\bar{T} - \theta)^2\right]}`$ |
-| RMSE | Accuracy | $`\sqrt{\text{E}\left[(T - \theta)^2\right]}`$ | $`\sqrt{\frac{1}{K}\sum_{k=1}^{K}\left(T_k - \theta\right)^2}`$ | $`\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(RMSE_{(j)} - RMSE\right)^2}`$ |
+| Bias | Difference from true parameter | \text{E}(T) - \theta | \bar{T} - \theta | \sqrt{S_T^2/ K} |
+| Variance | Precision | \text{E}\left\[(T - \text{E}(T))^2\right\] | S_T^2 | S_T^2 \sqrt{\frac{k_T - 1}{K}} |
+| Standard Error | Precision | \sqrt{\text{E}\left\[(T - \text{E}(T))^2\right\]} | S_T | \sqrt{\frac{K - 1}{K} \sum\_{j=1}^K (\sqrt{S\_{T(j)}^2} - S_T)^2 } |
+| MSE | Accuracy | \text{E}\left\[(T - \theta)^2\right\] | \frac{1}{K}\sum\_{k=1}^{K}\left(T_k - \theta\right)^2 | \sqrt{\frac{1}{K}\left\[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\bar{T} - \theta) + 4 S_T^2 (\bar{T} - \theta)^2\right\]} |
+| RMSE | Accuracy | \sqrt{\text{E}\left\[(T - \theta)^2\right\]} | \sqrt{\frac{1}{K}\sum\_{k=1}^{K}\left(T_k - \theta\right)^2} | \sqrt{\frac{K - 1}{K} \sum\_{j=1}^K \left(RMSE\_{(j)} - RMSE\right)^2} |
 
 Table 1. Absolute Performance Criteria {.table .table .table-striped
 .table-hover style="margin-left: auto; margin-right: auto;"}
 
 The equation for the MCSE of the standard deviation is derived using the
 jack-knife technique (Efron & Stein, 1981). First we calculate variance
-of the estimates leaving out replicate $`j`$. Instead of calculating
-each jack-knife estimate, we use algebraic tricks to calculate
-$`S^2_{T(j)}`$ as follows:
+of the estimates leaving out replicate j. Instead of calculating each
+jack-knife estimate, we use algebraic tricks to calculate S^2\_{T(j)} as
+follows:
 
-``` math
-S_{T(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]
-```
-Then, the jack-knife MCSE of standard deviation will be calculated as:
+S\_{T(j)}^2 = \frac{1}{K - 2} \left\[(K - 1) S_T^2 - \frac{K}{K -
+1}\left(T_j - \bar{T}\right)^2\right\] Then, the jack-knife MCSE of
+standard deviation will be calculated as:
 
-``` math
-\sqrt{\frac{K - 1}{K} \sum_{j=1}^K (\sqrt{S_{T(j)}^2} - S_T)^2 }
-```
+\sqrt{\frac{K - 1}{K} \sum\_{j=1}^K (\sqrt{S\_{T(j)}^2} - S_T)^2 }
 
 The equation for the MCSE of RMSE is also derived using the jack-knife
-technique, which involves excluding a replicate $`j`$ and calculating
-RMSE (Efron & Stein, 1981). The formula for RMSE is:
+technique, which involves excluding a replicate j and calculating RMSE
+(Efron & Stein, 1981). The formula for RMSE is:
 
-``` math
-\sqrt{\frac{1}{K}\sum_{k=1}^{K}\left(T_k - \theta\right)^2}
-```
+\sqrt{\frac{1}{K}\sum\_{k=1}^{K}\left(T_k - \theta\right)^2}
 
 This is approximately equivalent to:
 
-``` math
 RMSE = \sqrt{(\bar{T} - \theta)^2 + S^2_T}
-```
 
 The jack-knife RMSE will be calculated as:
 
-``` math
-RMSE_{(j)}  = \sqrt{(\bar{T}_{(j)} - \theta)^2 + S^2_{T(j)}}
-```
+RMSE\_{(j)} = \sqrt{(\bar{T}\_{(j)} - \theta)^2 + S^2\_{T(j)}}
 
-Here $`\bar{T}_{(j)}`$ and $`S^2_{T(j)}`$ indicate the mean and variance
-of the estimates leaving out replicate $`j`$. Instead of calculating
-each jack-knife estimate, we use algebraic tricks to calculate
-$`\bar{T}_{(j)}`$ and $`S^2_{T(j)}`$ as follows:
+Here \bar{T}\_{(j)} and S^2\_{T(j)} indicate the mean and variance of
+the estimates leaving out replicate j. Instead of calculating each
+jack-knife estimate, we use algebraic tricks to calculate \bar{T}\_{(j)}
+and S^2\_{T(j)} as follows:
 
-``` math
-\bar{T}_{(j)} = \frac{1}{K-1} \left(K \bar{T} - T_j\right)
-```
+\bar{T}\_{(j)} = \frac{1}{K-1} \left(K \bar{T} - T_j\right)
 
-``` math
-S_{T(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]
-```
+S\_{T(j)}^2 = \frac{1}{K - 2} \left\[(K - 1) S_T^2 - \frac{K}{K -
+1}\left(T_j - \bar{T}\right)^2\right\]
 
 Then, the jack-knife MCSE of RMSE will be calculated as:
 
-``` math
-MCSE_{RMSE(JK)}  = \sqrt{\frac{K -1}{K}\sum_{j=1}^K  \left(RMSE_{(j)} - RMSE\right)^2}
-```
+MCSE\_{RMSE(JK)} = \sqrt{\frac{K -1}{K}\sum\_{j=1}^K \left(RMSE\_{(j)} -
+RMSE\right)^2}
 
 #### Example
 
@@ -235,14 +222,14 @@ welch_res %>%
 
 | n1 | n2 | mean_diff | K_absolute | bias | bias_mcse | var | var_mcse | stddev | stddev_mcse | mse | mse_mcse | rmse | rmse_mcse |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 50 | 50 | 0.0 | 1000 | -0.00890 | 0.01000 | 0.09999 | 0.00425 | 0.31621 | 0.00674 | 0.09997 | 0.00425 | 0.31618 | 0.00839 |
-| 50 | 50 | 0.5 | 1000 | -0.00555 | 0.01034 | 0.10698 | 0.00473 | 0.32707 | 0.00726 | 0.10690 | 0.00473 | 0.32696 | 0.00891 |
-| 50 | 50 | 1.0 | 1000 | -0.00726 | 0.00988 | 0.09766 | 0.00423 | 0.31250 | 0.00680 | 0.09761 | 0.00423 | 0.31243 | 0.00840 |
-| 50 | 50 | 2.0 | 1000 | 0.00725 | 0.00981 | 0.09631 | 0.00440 | 0.31035 | 0.00712 | 0.09627 | 0.00439 | 0.31028 | 0.00862 |
-| 50 | 70 | 0.0 | 1000 | -0.00266 | 0.00867 | 0.07521 | 0.00330 | 0.27424 | 0.00605 | 0.07514 | 0.00331 | 0.27411 | 0.00744 |
-| 50 | 70 | 0.5 | 1000 | -0.00514 | 0.00895 | 0.08002 | 0.00391 | 0.28288 | 0.00694 | 0.07997 | 0.00391 | 0.28278 | 0.00826 |
-| 50 | 70 | 1.0 | 1000 | -0.01124 | 0.00899 | 0.08081 | 0.00358 | 0.28427 | 0.00632 | 0.08086 | 0.00358 | 0.28435 | 0.00775 |
-| 50 | 70 | 2.0 | 1000 | -0.00079 | 0.00883 | 0.07805 | 0.00345 | 0.27938 | 0.00619 | 0.07798 | 0.00345 | 0.27924 | 0.00760 |
+| 50 | 50 | 0.0 | 1000 | -0.00890 | 0.01000 | 0.09999 | 0.00425 | 0.31621 | 0.00674 | 0.09997 | 0.00425 | 0.31618 | 0.00673 |
+| 50 | 50 | 0.5 | 1000 | -0.00555 | 0.01034 | 0.10698 | 0.00473 | 0.32707 | 0.00726 | 0.10690 | 0.00473 | 0.32696 | 0.00725 |
+| 50 | 50 | 1.0 | 1000 | -0.00726 | 0.00988 | 0.09766 | 0.00423 | 0.31250 | 0.00680 | 0.09761 | 0.00423 | 0.31243 | 0.00679 |
+| 50 | 50 | 2.0 | 1000 | 0.00725 | 0.00981 | 0.09631 | 0.00440 | 0.31035 | 0.00712 | 0.09627 | 0.00439 | 0.31028 | 0.00709 |
+| 50 | 70 | 0.0 | 1000 | -0.00266 | 0.00867 | 0.07521 | 0.00330 | 0.27424 | 0.00605 | 0.07514 | 0.00331 | 0.27411 | 0.00604 |
+| 50 | 70 | 0.5 | 1000 | -0.00514 | 0.00895 | 0.08002 | 0.00391 | 0.28288 | 0.00694 | 0.07997 | 0.00391 | 0.28278 | 0.00694 |
+| 50 | 70 | 1.0 | 1000 | -0.01124 | 0.00899 | 0.08081 | 0.00358 | 0.28427 | 0.00632 | 0.08086 | 0.00358 | 0.28435 | 0.00631 |
+| 50 | 70 | 2.0 | 1000 | -0.00079 | 0.00883 | 0.07805 | 0.00345 | 0.27938 | 0.00619 | 0.07798 | 0.00345 | 0.27924 | 0.00619 |
 
 ``` r
 
@@ -257,38 +244,35 @@ welch_res %>%
 
 | n1 | n2 | mean_diff | K_absolute | bias | bias_mcse | var | var_mcse | stddev | stddev_mcse | mse | mse_mcse | rmse | rmse_mcse |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 50 | 50 | 0.0 | 1000 | -0.00890 | 0.01000 | 0.09999 | 0.00425 | 0.31621 | 0.00674 | 0.09997 | 0.00425 | 0.31618 | 0.00839 |
-| 50 | 50 | 0.5 | 1000 | -0.00555 | 0.01034 | 0.10698 | 0.00473 | 0.32707 | 0.00726 | 0.10690 | 0.00473 | 0.32696 | 0.00891 |
-| 50 | 50 | 1.0 | 1000 | -0.00726 | 0.00988 | 0.09766 | 0.00423 | 0.31250 | 0.00680 | 0.09761 | 0.00423 | 0.31243 | 0.00840 |
-| 50 | 50 | 2.0 | 1000 | 0.00725 | 0.00981 | 0.09631 | 0.00440 | 0.31035 | 0.00712 | 0.09627 | 0.00439 | 0.31028 | 0.00862 |
-| 50 | 70 | 0.0 | 1000 | -0.00266 | 0.00867 | 0.07521 | 0.00330 | 0.27424 | 0.00605 | 0.07514 | 0.00331 | 0.27411 | 0.00744 |
-| 50 | 70 | 0.5 | 1000 | -0.00514 | 0.00895 | 0.08002 | 0.00391 | 0.28288 | 0.00694 | 0.07997 | 0.00391 | 0.28278 | 0.00826 |
-| 50 | 70 | 1.0 | 1000 | -0.01124 | 0.00899 | 0.08081 | 0.00358 | 0.28427 | 0.00632 | 0.08086 | 0.00358 | 0.28435 | 0.00775 |
-| 50 | 70 | 2.0 | 1000 | -0.00079 | 0.00883 | 0.07805 | 0.00345 | 0.27938 | 0.00619 | 0.07798 | 0.00345 | 0.27924 | 0.00760 |
+| 50 | 50 | 0.0 | 1000 | -0.00890 | 0.01000 | 0.09999 | 0.00425 | 0.31621 | 0.00674 | 0.09997 | 0.00425 | 0.31618 | 0.00673 |
+| 50 | 50 | 0.5 | 1000 | -0.00555 | 0.01034 | 0.10698 | 0.00473 | 0.32707 | 0.00726 | 0.10690 | 0.00473 | 0.32696 | 0.00725 |
+| 50 | 50 | 1.0 | 1000 | -0.00726 | 0.00988 | 0.09766 | 0.00423 | 0.31250 | 0.00680 | 0.09761 | 0.00423 | 0.31243 | 0.00679 |
+| 50 | 50 | 2.0 | 1000 | 0.00725 | 0.00981 | 0.09631 | 0.00440 | 0.31035 | 0.00712 | 0.09627 | 0.00439 | 0.31028 | 0.00709 |
+| 50 | 70 | 0.0 | 1000 | -0.00266 | 0.00867 | 0.07521 | 0.00330 | 0.27424 | 0.00605 | 0.07514 | 0.00331 | 0.27411 | 0.00604 |
+| 50 | 70 | 0.5 | 1000 | -0.00514 | 0.00895 | 0.08002 | 0.00391 | 0.28288 | 0.00694 | 0.07997 | 0.00391 | 0.28278 | 0.00694 |
+| 50 | 70 | 1.0 | 1000 | -0.01124 | 0.00899 | 0.08081 | 0.00358 | 0.28427 | 0.00632 | 0.08086 | 0.00358 | 0.28435 | 0.00631 |
+| 50 | 70 | 2.0 | 1000 | -0.00079 | 0.00883 | 0.07805 | 0.00345 | 0.27938 | 0.00619 | 0.07798 | 0.00345 | 0.27924 | 0.00619 |
 
 ### Relative Criteria
 
 Relative criteria can be useful for describing an estimator’s
 performance, especially if the performance varies in proportion to the
-true value of the target parameter. It can be only used when
-$`|\theta| > 0`$ as we cannot divide by $`0`$(Morris et al., 2019).
+true value of the target parameter. It can be only used when \|\theta\|
+\> 0 as we cannot divide by 0 (Morris et al., 2019).
 
 To derive the MCSE for relative RMSE, we again used the jack-knife
 technique. The formula to calculate relative RMSE is:
 
-``` math
 rRMSE = \sqrt{\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}}
-```
 
 The jack-knife RMSE will be calculated as:
 
-``` math
-rRMSE_{(j)}  = \sqrt{\frac{(\bar{T}_{(j)} - \theta)^2 + S_{T(j)}^2}{\theta^2}}
-```
+rRMSE\_{(j)} = \sqrt{\frac{(\bar{T}\_{(j)} - \theta)^2 +
+S\_{T(j)}^2}{\theta^2}}
 
-Here $`\bar{T}_{(j)}`$ and $`S^2_{T(j)}`$ are calculated as specified
-above when we described the algebra trick to estimate these values. The
-MCSE is then calculated as specified in the table below.
+Here \bar{T}\_{(j)} and S^2\_{T(j)} are calculated as specified above
+when we described the algebra trick to estimate these values. The MCSE
+is then calculated as specified in the table below.
 
 Table 2 below shows each of the relative performance criteria, its
 interpretation, its formal definition, how the criterion is estimated in
@@ -296,9 +280,9 @@ a simulation study, and its MCSE formula.
 
 | Criterion | Measure | Definition | Estimate | MCSE |
 |:---|:---|:---|:---|:---|
-| Relative Bias | Relative difference from true parameter | $`\text{E}(T) / \theta`$ | $`\bar{T} / \theta`$ | $`\sqrt{S_T^2 / (K\theta^2)}`$ |
-| Relative MSE | Accuracy | $`\text{E}\left[(T - \theta)^2\right]/ \theta^2`$ | $`\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}`$ | $`\sqrt{\frac{1}{K\theta^4}\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\bar{T} - \theta) + 4 S_T^2 (\bar{T} - \theta)^2\right]}`$ |
-| Relative RMSE | Accuracy | $`\sqrt{\text{E}\left[(T - \theta)^2\right]/ \theta^2}`$ | $`\sqrt{\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}}`$ | $`\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rRMSE_{(j)} - rRMSE)^2\right)}`$ |
+| Relative Bias | Relative difference from true parameter | \text{E}(T) / \theta | \bar{T} / \theta | \sqrt{S_T^2 / (K\theta^2)} |
+| Relative MSE | Accuracy | \text{E}\left\[(T - \theta)^2\right\]/ \theta^2 | \frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2} | \sqrt{\frac{1}{K\theta^4}\left\[S_T^4 (k_T - 1) + 4 S_T^3 g_T(\bar{T} - \theta) + 4 S_T^2 (\bar{T} - \theta)^2\right\]} |
+| Relative RMSE | Accuracy | \sqrt{\text{E}\left\[(T - \theta)^2\right\]/ \theta^2} | \sqrt{\frac{(\bar{T} - \theta)^2 + S_T^2}{\theta^2}} | \sqrt{\frac{K - 1}{K} \sum\_{j=1}^K \left(rRMSE\_{(j)} - rRMSE\right)^2} |
 
 Table 2. Relative Performance Criteria {.table .table .table-striped
 .table-hover style="margin-left: auto; margin-right: auto;"}
@@ -330,63 +314,55 @@ welch_res %>%
 | n1 | n2 | mean_diff | K_relative | rel_bias | rel_bias_mcse | rel_mse | rel_mse_mcse | rel_rmse | rel_rmse_mcse |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | 50 | 50 | 0.0 | 1000 | NA | NA | NA | NA | NA | NA |
-| 50 | 50 | 0.5 | 1000 | 0.98890 | 0.02069 | 0.42760 | 0.01894 | 0.65391 | 0.01782 |
-| 50 | 50 | 1.0 | 1000 | 0.99274 | 0.00988 | 0.09761 | 0.00423 | 0.31243 | 0.00840 |
-| 50 | 50 | 2.0 | 1000 | 1.00363 | 0.00491 | 0.02407 | 0.00110 | 0.15514 | 0.00431 |
+| 50 | 50 | 0.5 | 1000 | 0.98890 | 0.02069 | 0.42760 | 0.01894 | 0.65391 | 0.01451 |
+| 50 | 50 | 1.0 | 1000 | 0.99274 | 0.00988 | 0.09761 | 0.00423 | 0.31243 | 0.00679 |
+| 50 | 50 | 2.0 | 1000 | 1.00363 | 0.00491 | 0.02407 | 0.00110 | 0.15514 | 0.00354 |
 | 50 | 70 | 0.0 | 1000 | NA | NA | NA | NA | NA | NA |
-| 50 | 70 | 0.5 | 1000 | 0.98972 | 0.01789 | 0.31986 | 0.01566 | 0.56557 | 0.01652 |
-| 50 | 70 | 1.0 | 1000 | 0.98876 | 0.00899 | 0.08086 | 0.00358 | 0.28435 | 0.00775 |
-| 50 | 70 | 2.0 | 1000 | 0.99961 | 0.00442 | 0.01949 | 0.00086 | 0.13962 | 0.00380 |
+| 50 | 70 | 0.5 | 1000 | 0.98972 | 0.01789 | 0.31986 | 0.01566 | 0.56557 | 0.01388 |
+| 50 | 70 | 1.0 | 1000 | 0.98876 | 0.00899 | 0.08086 | 0.00358 | 0.28435 | 0.00631 |
+| 50 | 70 | 2.0 | 1000 | 0.99961 | 0.00442 | 0.01949 | 0.00086 | 0.13962 | 0.00309 |
 
 ### Relative Criteria for Variance Estimators
 
 Variance estimators are always positive, and so relative criteria are
 often used to characterize their performance. For variance estimators,
-we have $`V`$ denoting the sampling variance of a point estimator $`T`$.
-To assess the relative criteria for $`V`$, we need to divide it by the
-true value of the sampling variance of $`T`$,
-$`\lambda = \text{Var}(T)`$, which we may not be able to calculate
-directly. In such scenario, we can use the sample variance of $`T`$
-across the replications, $`S_T^2`$, to estimate the true sampling
-variance.
+we have V denoting the sampling variance of a point estimator T. To
+assess the relative criteria for V, we need to divide it by the true
+value of the sampling variance of T, \lambda = \text{Var}(T), which we
+may not be able to calculate directly. In such scenario, we can use the
+sample variance of T across the replications, S_T^2, to estimate the
+true sampling variance.
 
-The relative bias would then be estimated by $`rB = \bar{V} / S_T^2`$,
-the average of the variance estimates divided by the sample variance of
-the point estimates. To estimate MCSE of the relative bias of the
-variance estimator, we need to account for the uncertainty in the
-estimation of the true sampling variance. One way to do so is to use the
-jack-knife technique that we described above, which entails excluding a
-replicate $`j`$ and calculating relative bias
-$`\bar{V}_{(j)}/ S_{T(j)}^2`$. The Monte Carlo standard error can then
-be calculated as:
+The relative bias would then be estimated by rB = \bar{V} / S_T^2, the
+average of the variance estimates divided by the sample variance of the
+point estimates. To estimate MCSE of the relative bias of the variance
+estimator, we need to account for the uncertainty in the estimation of
+the true sampling variance. One way to do so is to use the jack-knife
+technique that we described above, which entails excluding a replicate j
+and calculating relative bias \bar{V}\_{(j)}/ S\_{T(j)}^2. The Monte
+Carlo standard error can then be calculated as:
 
-``` math
-MCSE\left(rB\right) = \sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rB_{(j)} - rB\right)^2}
-```
-which can be written as:
+MCSE\left(rB\right) = \sqrt{\frac{K - 1}{K} \sum\_{j=1}^K
+\left(rB\_{(j)} - rB\right)^2} which can be written as:
 
-``` math
-MCSE\left(rB\right) = \sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(\frac{\bar{V}_{(j)}}{S_{T(j)}^2} - \frac{\bar{V}}{S_T^2}\right)^2}
-```
+MCSE\left(rB\right) = \sqrt{\frac{K - 1}{K} \sum\_{j=1}^K
+\left(\frac{\bar{V}\_{(j)}}{S\_{T(j)}^2} -
+\frac{\bar{V}}{S_T^2}\right)^2}
 
 We reformulate the MCSE using some algebra tricks similar to how we
 reformulated them for the RMSE MCSE formulas above.
 
-``` math
-\begin{aligned}
-\bar{V}_{(j)} &= \frac{1}{K - 1}\left(K \bar{V} - V_j\right) \\
-S_{T(j)}^2 &= \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]
-\end{aligned}
-```
+\begin{aligned} \bar{V}\_{(j)} &= \frac{1}{K - 1}\left(K \bar{V} -
+V_j\right) \\ S\_{T(j)}^2 &= \frac{1}{K - 2} \left\[(K - 1) S_T^2 -
+\frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right\] \end{aligned}
 
 Similarly, we can estimate the MCSE of relative MSE and RMSE using the
 jack-knife technique. To estimate the MSE we need to estimate
-$`S_{V(j)}^2`$, which represents the sample variance of the variance
-estimates leaving replicate $`j`$ out. We calculate $`S_{V(j)}^2`$ as
+S\_{V(j)}^2, which represents the sample variance of the variance
+estimates leaving replicate j out. We calculate S\_{V(j)}^2 as
 
-``` math
-S_{V(j)}^2 = \frac{1}{K - 2} \left[(K - 1) S_V^2 - \frac{K}{K - 1}\left(V_j - \bar{V}\right)^2\right].
-```
+S\_{V(j)}^2 = \frac{1}{K - 2} \left\[(K - 1) S_V^2 - \frac{K}{K -
+1}\left(V_j - \bar{V}\right)^2\right\].
 
 We can then estimate the jack-knife relative MSE and RMSE following the
 same logic as we described above and then calculate the MCSE.
@@ -396,9 +372,9 @@ estimators.
 
 | Criterion | Measure | Definition | Estimate | MCSE |
 |:---|:---|:---|:---|:---|
-| Relative Bias | Relative difference from true parameter | $`\text{E}(V) / \lambda`$ | $`\bar{V} / S_T^2`$ | $`\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rB_{(j)} - rB\right)^2}`$ |
-| Relative MSE | Accuracy | $`\text{E}\left[(V - \lambda)^2\right]/ \lambda^2`$ | $`\frac{(\bar{V} - S_T^2)^2 + S_V^2}{S_T^4}`$ | $`\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rMSE_{(j)} - rMSE\right)^2}`$ |
-| Relative RMSE | Accuracy | $`\sqrt{\text{E}\left[(V - \lambda)^2\right]/ \lambda^2}`$ | $`\sqrt{\frac{(\bar{V} - S_T^2)^2 + S_V^2}{S_T^4}}`$ | $`\sqrt{\frac{K - 1}{K} \sum_{j=1}^K \left(rRMSE_{(j)} - rRMSE\right)^2}`$ |
+| Relative Bias | Relative difference from true parameter | \text{E}(V) / \lambda | \bar{V} / S_T^2 | \sqrt{\frac{K - 1}{K} \sum\_{j=1}^K \left(rB\_{(j)} - rB\right)^2} |
+| Relative MSE | Accuracy | \text{E}\left\[(V - \lambda)^2\right\]/ \lambda^2 | \frac{(\bar{V} - S_T^2)^2 + S_V^2}{S_T^4} | \sqrt{\frac{K - 1}{K} \sum\_{j=1}^K \left(rMSE\_{(j)} - rMSE\right)^2} |
+| Relative RMSE | Accuracy | \sqrt{\text{E}\left\[(V - \lambda)^2\right\]/ \lambda^2} | \sqrt{\frac{(\bar{V} - S_T^2)^2 + S_V^2}{S_T^4}} | \sqrt{\frac{K - 1}{K} \sum\_{j=1}^K \left(rRMSE\_{(j)} - rRMSE\right)^2} |
 
 Table 3. Relative Performance Criteria for Variance Estimators {.table
 .table .table-striped .table-hover
@@ -466,27 +442,27 @@ When doing hypothesis tests, we are often interested in whether the Type
 1 error rate is adequately controlled and whether the test has enough
 power to detect an effect size of substantive interest. The rejection
 rate of a hypothesis test captures the proportion of times the p-value
-is below a specified $`\alpha`$ level—that is, the proportion of times
-we reject the null hypothesis. When the specified effect size is 0, we
-can examine Type 1 error rates and when the magnitude of the effect is
+is below a specified \alpha level—that is, the proportion of times we
+reject the null hypothesis. When the specified effect size is 0, we can
+examine Type 1 error rates and when the magnitude of the effect is
 greater than 0, we can examine power. We are also interested in
 confidence interval coverage, the proportion of intervals that contain
 the true parameter, and the interval width, which is an indicator of the
 precision of the interval estimator.
 
 Table 4 below presents the performance criteria used to evaluate
-hypothesis tests. In the table, let $`P_k`$ denote the p-value from
-simulation replication $`k`$, for $`k = 1,...,K`$. Suppose that the
-confidence intervals are for the target parameter $`\theta`$ and have
-coverage level $`\beta`$. Let $`A_k`$ and $`B_k`$ denote the lower and
-upper end-points of the confidence interval from simulation replication
-$`k`$, and let $`W_k = B_k − A_k`$, for $`k = 1,...,K`$.
+hypothesis tests. In the table, let P_k denote the p-value from
+simulation replication k, for k = 1,...,K. Suppose that the confidence
+intervals are for the target parameter \theta and have coverage level
+\beta. Let A_k and B_k denote the lower and upper end-points of the
+confidence interval from simulation replication k, and let W_k = B_k −
+A_k, for k = 1,...,K.
 
 | Criterion | Measure | Definition | Estimate | MCSE |
 |:---|:---|:---|:---|:---|
-| Rejection Rate | Type 1 error or power | \$\rho\_\alpha = Pr(P_k) &lt; \alpha\$ | \$r\_\alpha = \frac{1}{K} \sum\_{k=1}^K I(P_k &lt; \alpha)\$ | $`\sqrt{r_\alpha(1 - r_\alpha) / K}`$ |
-| Coverage | Proportion of intervals containing true parameter | $`\omega_\beta = Pr(A \leq \theta \leq B)`$ | $`c_\beta = \frac{1}{K}\sum_{k=1}^K I(A_k \leq \theta \leq B_k)`$ | $`\sqrt{c_\beta (1 - c_\beta) / K}`$ |
-| Width | Precision | $`\text{E}(W) = \text{E}(B - A)`$ | $`\bar{W} = \bar{B} - \bar{A}`$ | $`\sqrt{S_W^2 / K}`$ |
+| Rejection Rate | Type 1 error or power | \rho\_\alpha = Pr(P_k) \&lt; \alpha | r\_\alpha = \frac{1}{K} \sum\_{k=1}^K I(P_k \&lt; \alpha) | \sqrt{r\_\alpha(1 - r\_\alpha) / K} |
+| Coverage | Proportion of intervals containing true parameter | \omega\_\beta = Pr(A \leq \theta \leq B) | c\_\beta = \frac{1}{K}\sum\_{k=1}^K I(A_k \leq \theta \leq B_k) | \sqrt{c\_\beta (1 - c\_\beta) / K} |
+| Width | Precision | \text{E}(W) = \text{E}(B - A) | \bar{W} = \bar{B} - \bar{A} | \sqrt{S_W^2 / K} |
 
 Table 4. Hypothesis Testing and Confidence Intervals Performance
 Criteria {.table .table .table-striped .table-hover
@@ -501,8 +477,8 @@ The null hypothesis is that the two groups have the same means. The
 function requires a data frame or tibble containing simulation results
 as the first argument. The second argument, `p_values`, requires the
 name of the column containing p-values. The third argument, `alpha`,
-lets the user specify a value for $`\alpha`$. The default value is set
-to the conventional 0.05.
+lets the user specify a value for \alpha. The default value is set to
+the conventional 0.05.
 
 ``` r
 
@@ -593,7 +569,7 @@ results, he wrote:
 > all estimates).
 
 The PFER refers to per family error rate, the expected number of Type 1
-errors out of $`m`$ comparisons. MP refers to multivariate analysis of
+errors out of m comparisons. MP refers to multivariate analysis of
 variance (MANOVA) protected tests. The SE refers to the MCSE. The number
 of replications was 1,000,000 in Frane (2015). We note that the number
 is quite high and generally 1,000 to 10,000 replications are enough. The

@@ -5,6 +5,7 @@ template:
   light-switch: true
   theme: arrow-light
   theme-dark: arrow-dark
+  math-rendering: katex
 
 
 authors:

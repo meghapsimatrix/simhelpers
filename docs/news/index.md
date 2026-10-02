@@ -27,6 +27,12 @@
   gain an `exclude_above` argument to exclude results based on more than
   a certain number of bootstraps from being included in the
   extrapolation calculations.
+- Corrected the jackknife Monte Carlo standard error calculation for
+  RMSE and relative RMSE so that the jackknife replicates are exact.
+  (Thanks to [@felipelfv](https://github.com/felipelfv)!)
+- Corrected the Monte Carlo standard error calculation for relative RMSE
+  to allow for negative parameters. (Thanks to
+  [@felipelfv](https://github.com/felipelfv)!)
 
 ## simhelpers 0.3.1
 

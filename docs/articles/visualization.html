@@ -6,7 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Presenting Results from Simulation Studies • simhelpers</title>
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
+<!-- katex math --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script><script src="../katex-auto.js"></script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -65,10 +71,9 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-
-      <h1>Presenting Results from Simulation Studies</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Presenting Results from Simulation Studies</h1>
             
-            <h4 data-toc-skip class="date">2026-09-02</h4>
+            <h4 data-toc-skip class="date">2026-10-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/meghapsimatrix/simhelpers/blob/HEAD/vignettes/visualization.Rmd" class="external-link"><code>vignettes/visualization.Rmd</code></a></small>
       <div class="d-none name"><code>visualization.Rmd</code></div>
@@ -122,15 +127,14 @@ Hedges et al., 2010; Tipton, 2015)</span>. <span class="citation">Tipton
 single coefficients and for multiple contrast hypotheses, respectively.
 <span class="citation">Tipton &amp; Pustejovsky (2015)</span> studied
 five methods, two based on eigen decomposition and three based on
-Hotelling’s
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>T</mi><mn>2</mn></msup><annotation encoding="application/x-tex">T^2</annotation></semantics></math>
-distribution. The authors recommended a method (AHZ) which approximates
-the test statistic using Hotelling’s
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>T</mi><mn>2</mn></msup><annotation encoding="application/x-tex">T^2</annotation></semantics></math>
-distribution with degrees of freedom proposed by <span class="citation">Zhang (2012)</span> and <span class="citation">Zhang
-(2013)</span>. This method resulted in Type 1 error rates closest to the
-nominal rate of .05. However, AHZ was shown to still have below nominal
-Type 1 error rates for tests of multiple contrast hypotheses.</p>
+Hotelling’s <span class="math inline">T^2</span> distribution. The
+authors recommended a method (AHZ) which approximates the test statistic
+using Hotelling’s <span class="math inline">T^2</span> distribution with
+degrees of freedom proposed by <span class="citation">Zhang
+(2012)</span> and <span class="citation">Zhang (2013)</span>. This
+method resulted in Type 1 error rates closest to the nominal rate of
+.05. However, AHZ was shown to still have below nominal Type 1 error
+rates for tests of multiple contrast hypotheses.</p>
 </div>
 <div class="section level3">
 <h3 id="the-tipton_pusto-dataset">The Tipton_Pusto Dataset<a class="anchor" aria-label="anchor" href="#the-tipton_pusto-dataset"></a>
@@ -161,16 +165,14 @@ dependence.</li>
 <li>
 <code>test</code>: small sample method used. EDF and EDT are the two
 methods using eigen decomposition and AHA, AHB and AHZ are the three
-methods based on Hotelling’s
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>T</mi><mn>2</mn></msup><annotation encoding="application/x-tex">T^2</annotation></semantics></math>
+methods based on Hotelling’s <span class="math inline">T^2</span>
 distribution.</li>
 <li>
 <code>q</code>: the number of parameters in the hypothesis
 test.</li>
 <li>
 <code>rej_rate</code>: Type 1 error rate with the value for nominal
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
-set to .05.</li>
+<span class="math inline">\alpha</span> set to .05.</li>
 <li>
 <code>mcse</code>: The Monte Carlo standard error for the Type 1
 error rate.</li>
@@ -193,10 +195,8 @@ error rate.</li>
 <h3 id="data-cleaning">Data Cleaning<a class="anchor" aria-label="anchor" href="#data-cleaning"></a>
 </h3>
 <p>Below we clean the dataset for visualization. We add <code>q =</code>
-in front of the value for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
-and we add <code>m =</code> in front of the value for the number of
-studies.</p>
+in front of the value for <span class="math inline">q</span> and we add
+<code>m =</code> in front of the value for the number of studies.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Tipton_Pusto</span> <span class="op">&lt;-</span> <span class="va">Tipton_Pusto</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>q_graph <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"q = "</span>, <span class="va">q</span><span class="op">)</span>,</span>
@@ -209,12 +209,11 @@ studies.</p>
 the <code>y axis</code>, the small sample method is mapped onto the
 <code>x axis</code>, the method is also mapped as
 <code>color filling</code> so that different methods will have different
-colors. We add a dashed line on the nominal
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
-level of .05. We create boxplots to capture the range of Type 1 error
-rates for each method across the conditions examined in the simulation.
-We facet by number of studies, <code>m</code>, and number of parameters
-used in the hypothesis test, <code>q</code>.</p>
+colors. We add a dashed line on the nominal <span class="math inline">\alpha</span> level of .05. We create boxplots to
+capture the range of Type 1 error rates for each method across the
+conditions examined in the simulation. We facet by number of studies,
+<code>m</code>, and number of parameters used in the hypothesis test,
+<code>q</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Tipton_Pusto</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">test</span>, y <span class="op">=</span> <span class="va">rej_rate</span>, fill <span class="op">=</span> <span class="va">test</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -235,18 +234,13 @@ used in the hypothesis test, <code>q</code>.</p>
 <p>Figure 2 reveals several trends. First, Type I error for the EDF and
 EDT tests typically approach the nominal values from above, whereas the
 AHA, AHB, and AHZ tests approach the nominal values from below. This
-trend holds in relation to both
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>.
-For example, when there are 20 studies, as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
-increases, the Type I error rates of the EDF and EDT tests increase to
-values far above nominal (close to .10), while the error rates decrease
-toward 0 for the AHA, AHB, and AHZ tests. For each value of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>,
-the error rates of all five tests converge toward the nominal values as
-the number of studies increases.</p>
+trend holds in relation to both <span class="math inline">m</span> and
+<span class="math inline">q</span>. For example, when there are 20
+studies, as <span class="math inline">q</span> increases, the Type I
+error rates of the EDF and EDT tests increase to values far above
+nominal (close to .10), while the error rates decrease toward 0 for the
+AHA, AHB, and AHZ tests. For each value of <span class="math inline">q</span>, the error rates of all five tests converge
+toward the nominal values as the number of studies increases.</p>
 </blockquote>
 <blockquote>
 <p>Second, the EDF and EDT tests have Type I error rates that cover a
@@ -259,11 +253,9 @@ error rates that are closest to nominal on average, they also exhibit
 error rates that are far above nominal under a large number of design
 conditions that cannot be identified a priori. In comparison, the AHA,
 AHB, and AHZ tests are typically more conservative and are also nearly
-always
-level-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>,
-with a maximum error rate of 0.059 across all conditions studied. In
-describing further trends, we therefore focus only on the three AH
-tests.</p>
+always level-<span class="math inline">\alpha</span>, with a maximum
+error rate of 0.059 across all conditions studied. In describing further
+trends, we therefore focus only on the three AH tests.</p>
 </blockquote>
 </div>
 <div class="section level3">
