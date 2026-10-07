@@ -460,7 +460,7 @@ A_k, for k = 1,...,K.
 
 | Criterion | Measure | Definition | Estimate | MCSE |
 |:---|:---|:---|:---|:---|
-| Rejection Rate | Type 1 error or power | \rho\_\alpha = Pr(P_k) \&lt; \alpha | r\_\alpha = \frac{1}{K} \sum\_{k=1}^K I(P_k \&lt; \alpha) | \sqrt{r\_\alpha(1 - r\_\alpha) / K} |
+| Rejection Rate | Type 1 error or power | \rho\_\alpha = Pr(P_k) \lt \alpha | r\_\alpha = \frac{1}{K} \sum\_{k=1}^K I(P_k \lt \alpha) | \sqrt{r\_\alpha(1 - r\_\alpha) / K} |
 | Coverage | Proportion of intervals containing true parameter | \omega\_\beta = Pr(A \leq \theta \leq B) | c\_\beta = \frac{1}{K}\sum\_{k=1}^K I(A_k \leq \theta \leq B_k) | \sqrt{c\_\beta (1 - c\_\beta) / K} |
 | Width | Precision | \text{E}(W) = \text{E}(B - A) | \bar{W} = \bar{B} - \bar{A} | \sqrt{S_W^2 / K} |
 
