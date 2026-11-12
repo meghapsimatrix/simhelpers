@@ -1,10 +1,10 @@
 ## Resubmission
 
-This is a resubmission and a minor release. The main change is to provide additional options for calculating bootstrap confidence intervals, including options to calculate bias-corrected or bias-corrected-and-accelerated intervals.
+This is resubmission and a minor release. This release adds new options for several of the package's core functions, including `repeat_and_stack()`, `evaluate_by_row()`, `extrapolate_coverage()` and `extrapolate_rejection()`, along with a few bug fixes for Monte Carlo standard error calculations.
 
 ## Test environments
 
-* local Windows 11 Pro, R 4.4.1
+* local Windows 11 Pro, R 4.5.3
 * local OS Big Sur, R 4.1.2
 * ubuntu 20.04.3 LTS (on Github), R devel, release, oldrelease
 * macOS-latest (on Github), R release

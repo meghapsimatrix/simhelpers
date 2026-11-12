@@ -1,4 +1,4 @@
-simhelpers 0.3.1.9999
+simhelpers 0.3.2
 =======================
 * Added a new experimental function `factorial_summary()` for analyzing simulation results following a full factorial experimental design. 
 * Added option to specify a unique ID variable for every repetition in `repeat_and_stack()` and `bundle_sim()`.

@@ -1,7 +1,7 @@
 Package: simhelpers
 Type: Package
 Title: Helper Functions for Simulation Studies
-Version: 0.3.1.99991
+Version: 0.3.2
 Authors@R: c(
     person(given = "Megha", 
            family = "Joshi", 
@@ -21,6 +21,7 @@ Depends:
 License: GPL-3 
 Encoding: UTF-8
 LazyData: true
+Language: en-US
 Config/roxygen2/markdown: TRUE
 SystemRequirements: RStudio
 Imports:
