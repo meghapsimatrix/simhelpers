@@ -40,7 +40,7 @@
 #'   estimation methods:
 #'   * `"3PSM"`: a three-parameter step function selection model, with a step at \eqn{\alpha = .025}, ignoring the presence of dependent effect sizes
 #'   * `"4PSM"`: a four-parameter step function selection model, with steps at \eqn{\alpha = .025, .500}, ignoring the presence of dependent effect sizes
-#'   * `"CHE-ISCW"`: a summary meta-analysis using the correlated-and-heirarchical effects working model with inverse sampling-covariance weighting
+#'   * `"CHE-ISCW"`: a summary meta-analysis using the correlated-and-hierarchical effects working model with inverse sampling-covariance weighting
 #'   * `"EK"`: a multivariate version of the endogenous kink meta-regression
 #'   * `"PET-PEESE"`: a multivariate version of PET-PEESE meta-regression (i.e., a limit meta-regression)
 #'   * `"TF"`: Trim-and-Fill, ignoring the presence of dependent effect sizes

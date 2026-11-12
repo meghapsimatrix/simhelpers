@@ -53,7 +53,7 @@ estimation methods:
 \itemize{
 \item \code{"3PSM"}: a three-parameter step function selection model, with a step at \eqn{\alpha = .025}, ignoring the presence of dependent effect sizes
 \item \code{"4PSM"}: a four-parameter step function selection model, with steps at \eqn{\alpha = .025, .500}, ignoring the presence of dependent effect sizes
-\item \code{"CHE-ISCW"}: a summary meta-analysis using the correlated-and-heirarchical effects working model with inverse sampling-covariance weighting
+\item \code{"CHE-ISCW"}: a summary meta-analysis using the correlated-and-hierarchical effects working model with inverse sampling-covariance weighting
 \item \code{"EK"}: a multivariate version of the endogenous kink meta-regression
 \item \code{"PET-PEESE"}: a multivariate version of PET-PEESE meta-regression (i.e., a limit meta-regression)
 \item \code{"TF"}: Trim-and-Fill, ignoring the presence of dependent effect sizes
