@@ -135,7 +135,7 @@ includes performance measures for each of 9 estimation methods:
   sizes
 
 - `"CHE-ISCW"`: a summary meta-analysis using the
-  correlated-and-heirarchical effects working model with inverse
+  correlated-and-hierarchical effects working model with inverse
   sampling-covariance weighting
 
 - `"EK"`: a multivariate version of the endogenous kink meta-regression
