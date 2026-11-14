@@ -459,7 +459,7 @@ system.time(
     unnest(cols = res)
 )
 #>    user  system elapsed 
-#>  23.802   0.000  23.805
+#>  11.296   0.001  11.298
 
 results %>%
   kable()

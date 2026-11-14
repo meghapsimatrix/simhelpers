@@ -1,7 +1,5 @@
 # simhelpers
 
-![](reference/figures/logo.png)
-
 Monte Carlo simulations are computer experiments used to study the
 performance of statistical methods under known data-generating
 conditions (Morris, White, & Crowther, 2019). Methodologists use
