@@ -234,7 +234,7 @@ Chalmers, P. (2019). SimDesign: Structure for organizing Monte Carlo
 simulation designs. Retrieved from
 <https://CRAN.R-project.org/package=SimDesign>
 
-Gasparini, A. (2018). rsimsum: Summarise results from Monte Carlo
+Gasparini, A. (2018). rsimsum: Summarize results from Monte Carlo
 simulation studies. Journal of Open Source Software, 3(26), 739.
 <https://doi.org/10.21105/joss.00739>
 

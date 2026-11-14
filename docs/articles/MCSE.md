@@ -173,8 +173,8 @@ of the mean differences. We present the results by sample sizes, mean
 difference, and the t-test method. The
 [`calc_absolute()`](https://meghapsimatrix.github.io/simhelpers/reference/calc_absolute.md)
 function is designed to work with the
-[`tidyeval`](https://www.tidyverse.org/) workflow (Wickham et al.,
-2019). The first argument, `res_dat`, requires a data frame or a tibble
+[`tidyeval`](https://tidyverse.org/) workflow (Wickham et al., 2019).
+The first argument, `res_dat`, requires a data frame or a tibble
 containing the results from a simulation study. The second argument,
 `estimates`, requires the name of the column containing the estimates
 like mean difference or regression coefficients. The third argument,

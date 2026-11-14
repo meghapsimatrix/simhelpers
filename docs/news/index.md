@@ -1,6 +1,8 @@
 # Changelog
 
-## simhelpers 0.3.1.9999
+## simhelpers 0.3.2
+
+CRAN release: 2026-11-12
 
 - Added a new experimental function
   [`factorial_summary()`](https://meghapsimatrix.github.io/simhelpers/reference/factorial_summary.md)
